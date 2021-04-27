@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // var global
+        // function a() {
+        //     function b() {
+        //         var bb = 123
+        //         aa = 0
+        //     }
+        //     var aa = 123
+        //     b() //执行完所有函数后，删除所有作用域链，下次调用函数再接上
+        // }
+        // a() 
+        // a()
+
+        function a() {
+            var aa = 123
+            function b() {
+                var bb = 234
+                console.log(aa)
+            } //可不可以输出123呢???
+            return b
+        }
+        var res = a() 
+        res()/**函数a执行时，定义了b函数，此时b函数可以访问a函数的AO
+              **函数a执行完成，断开函数a的作用域链，但是定义b函数的作用域链并没有断开
+              所以执行b函数时，还可以访问a的AO**/
+    </script>
+</body>
+
+</html>

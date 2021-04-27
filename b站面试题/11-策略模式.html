@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //-绩效为S的人年
+        //终奖有4倍工资，绩效为A的人年终奖有3倍工资，而绩效为B 的人年终奖是2倍工资。
+
+        // var calculate = function (level, salary) {
+        //     if (level == 'S')
+        //         return salary * 4
+        //     1
+        //     if (level == 'A') {
+        //         return salary * 3
+        //     }
+        //     if (level == 'B') {
+        //         return salary * 2
+        //     }
+        // }
+        // console.log(calculate('S', 20000))
+
+
+        //策略模式
+
+        // var pS = function () {}
+        // pS.prototype.calculate = function (salary) {
+        //     return salary * 4
+        // }
+        // var pA = function () {}
+        // pA.prototype.calculate = function (salary) {
+        //     return salary * 3
+        // }
+        // var pB = function () {}
+        // pB.prototype.calculate = function (salary) {
+        //     return salary * 2
+        // }
+
+        // var Bouns = function () {
+        //     this.salary = null //初始的薪水&
+        //     this.strategy = null //绩效等级的策略对象
+        // }
+        // Bouns.prototype.setSalary = function (salary) {
+        //     this.salary = salary
+        // }
+        // Bouns.prototype.setStrategy = function (strategy) {
+        //     this.strategy = strategy
+        // }
+        // Bouns.prototype.getBouns = function () {
+        //     return this.strategy.calculate(this.salary)
+        // }
+        // var bouns = new Bouns()
+        // bouns.setSalary(10000)
+        // bouns.setStrategy(new pS())
+        // console.log(bouns.getBouns())
+
+        //js函数也是对象 特性
+        var strategies = {
+            "s": function (salary) {
+                return salary * 4
+            },
+            "A": function (salary) {
+                return salary * 3
+            },
+            "B": function (salary) {
+                return salary * 2
+            },
+        }
+        var getBouns = function (level, salary) {
+            return strategies[level](salary)
+        }
+        console.log(getBouns('5', 10000))
+    </script>
+</body>
+
+</html>

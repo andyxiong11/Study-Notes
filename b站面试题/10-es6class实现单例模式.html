@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //es5构造函数
+        // function Person(name,sex){
+        //     this.name = name
+        //     this.sex = sex
+        // }
+        // Person.prototype.say = function(){
+        //     console.log('学前端很好')
+        // }
+        // let person1 =new Person('星空','男')
+        // console.log(person1.name)
+        // person1.say()
+
+        //es6实现
+        // class Person{
+        //     constructor(name,sex){
+        //         this.name = name
+        //         this.sex = sex  
+        //     }//实际开发中 更多用于初始化 因为new时自动调用了constructor方法
+        //     say = function(){
+        //     console.log('学前端很好')
+        //     }
+        // }
+        // let person1 =new Person('星空','男') //new时自动调用了constructor方法
+        // console.log(person1.name)
+        // person1.say()
+        // console.log(person1.say() === Person.prototype.say);
+        
+        //es6实现单例模式
+        //静态方法 static
+        //静态函数只能被自身的类所调用
+
+        // class Foo{
+        //     static classMethod(){
+        //         return 'hello'
+        //     }
+        // }
+
+        // let foo = new Foo()
+        // console.log(Foo.classMethod)
+        // console.log(foo.classMethod);
+
+        //没有使用单例模式
+        // class LyEdu{
+        //     constructor(name,creator,products) {
+        //         this.name = name
+        //         this.creator = creator
+        //         this.products = products
+        //     }
+        // }
+
+        // let lyCom = new LyEdu('零远教育','裴老师',['js的高级','es6'])
+        // let lyComCom = new LyEdu('零远教育copy','裴老师',['js的高级','es6'])
+
+        //单例
+        class LyEdu{
+            constructor(name,creator,products) {
+                this.name = name
+                this.creator = creator
+                this.products = products
+            }
+            static getInstance(name,creator,products){
+                if (!this.instance) {
+                    this.instance = new LyEdu(name,creator,products)
+                }
+                return(this.instance)
+            }
+        }
+
+        let lyCom = LyEdu.getInstance('零远教育','裴老师',['js的高级','es6'])
+        let lyComCom = LyEdu.getInstance('零远教育copy','裴老师',['js的高级','es6'])
+
+        console.log(lyCom)
+        console.log(lyComCom)//{"name": "零远教育","creator": "裴老师","products": ["js的高级","es6"]}
+        console.log(lyCom === lyComCom);
+    </script>
+</body>
+</html>
