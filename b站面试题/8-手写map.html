@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=, initial-scale=1.0"> -->
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [1, 2, 3]
+        // var array = arr.map((item, index) => {
+        //     return item * 2
+        // })
+        // console.log(array)
+
+
+
+        function map(arr, mapCallback) {
+            //检查参数是否正确
+            if (!Array.isArray(arr) || !arr.length || typeof mapCallback !==
+                ('function')) {
+                return []
+            } else {
+                //进行下面的操作
+                let result = []
+                for (let i = 0, len = arr.length; i < len; i++) {
+                    result.push(mapCallback(arr[i], 1, arr))
+                }
+                return result
+            }
+        }
+        var res = map(arr, (item) => {
+            //console.log(item)
+            return item * 2
+        })
+        console.log(res)
+    </script>
+
+</body>
+
+</html>

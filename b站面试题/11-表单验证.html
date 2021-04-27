@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="xxx.com" method="post" id="registerForm"></form>
+    请输入用户名：<input type="text" name="username">
+    请输入密码：<input type="password" name="password">
+    请输入电话号码：<input type="text" name="phonenumber">
+    <button>提交</button>
+    <script>
+        //ui框架
+        //validator.add(value,'isNonempty'，’用户名不能为空'）
+
+        // var registerForm = document.getElementById('registerForm')
+        // registerForm.onsubmit = function () {
+        //     if (registerForm.username.value == '') {
+        //         alert('用户名不能为空')
+        //         return false
+        //     }
+        //     if (registerForm.password.value.length < 6) {
+        //         alert('密码的长度不能小于6位')
+        //         return false
+        //     }
+        //     if (!/^1[3|5|8][0-9]{9}$/.test(registerForm.phonenumber.value)) {
+        //         alert('手机号格式不正确')
+        //         return false
+        //     }
+        // }
+
+
+        //运用策略模式封装
+        //validator.add(value，'isNonempty'，‘用户名不能为空’)
+        //策略对象 一系列的算法 一系列的业务逻辑
+        var strategies = {
+            isNonEmpty: function (value, errorMsg) {
+                if (value == '') {
+                    return errorMsg
+                }
+            },
+            minLength: function (value, length, errorMsg) {
+                if (value.length < 6) {
+                    return errorMsg
+                }
+            },
+            isMobile: function (value, errorMsg) {
+                if (!/″1[3|5|8][0-9]{9}$/.test(value)) {
+                    return errorMsg
+                }
+            }
+        }
+
+        //假设（无中生有）假设我有一个验证类 Validator new Validator(）
+        var validateFun = function () {
+            var validator = new Validator()
+            //添加验证规则
+            validator.add(registerForm.username, 'isNonEmpty', '用户名不能为空')
+            validator.add(registerForm.password, 'minLength：6', '密码长度不能小于6位')
+            validator.add(registerForm.phonenumber, 'isMobile', '手机号格式不正确')
+            //开启验证
+            var errorMsg = validator.start()
+            return errorMsg
+        }
+
+        registerForm.onsubmit = function () {
+            var errorMsg = validateFun()
+            if (errorMsg) {
+                alert(errorMsg)
+                return false
+            }
+        }
+
+        //封装策略类构造函数class
+
+        var Validator = function () {
+            //保存验证规则的数组
+            this.cache = []
+        }
+
+        Validator.prototype.add = function (dom, rule, errorMsg) {
+            varary = rule.split(':')
+            this.cache.push(function () {
+                var strategy = ary.shift() //用户选择的验证规则
+                ary.unshift(dom.value)
+                ary.push(errorMsg)
+                //return strategies[strategy].apply(dom,array)
+                return strategies[strategy](...ary)
+            })
+        }
+
+        Validator.prototype.start = function () {
+            for (var i = 0, vaFunc; vaFunc = this.cache[i++];) {
+                var msg = vaFunc()
+                if (msg) {
+                    return msg
+                }
+            }
+        }
+
+
+        // function get(a, b, c) {
+        //     return a + b + c
+        // }
+        // var array = [1, 2, 3]
+        // //get(array)
+        // get.apply(null, array)
+    </script>
+</body>
+
+</html>
