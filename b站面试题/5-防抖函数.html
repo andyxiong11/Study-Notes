@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="input">
+    <script>
+        var input = document.getElementById('input')
+        //防抖的函数
+
+        // function debounce(delay, value) {
+        //     let timer
+        //     clearTimeout(timer)
+        //     //我们想清除的是setTimeout 我们应该存储这个timer的变量
+        //     //timer变量需要一直保存在内存当中
+        //     //既然你不想打印之前已经输入的结果   清除以前触发的定时器
+        //     //我们应该存储这个timer的变量
+        //     //一直要在内存当中 内存的泄露 闭包
+        //     timer = setTimeout(function () {
+        //         console.log(value)
+        //     }, delay)
+        // }
+        // //我需要的是   首先输入框的结果只出现一次  是在我键盘抬起不再输入后的1秒之后
+        // input.addEventListener('keyup', function (e) {
+        //     debounce(1000, e.target.value)
+        // })
+
+        function debounce(delay, callback) {
+            let timer
+            return function (value) {
+                clearTimeout(timer)
+                // 我们想清除的是setTimeout我们应该存储这个timer的变量
+                // timer变量需要一直保存在内存当中
+                //既然你不想打印之前已经输入的结果   清除以前触发的定时器
+                //我们应该存储这个timer的变量
+                //一直要在内存当中 内存的泄露 闭包
+                timer = setTimeout(function () {
+                    //console.log(value) //输出了结果嘛 我想让这个结果不在这里输出  而是在外面输出
+                    callback(value)
+                }, delay)
+            }
+        }
+        //这个位置输出的话应该怎么办
+        //我需要的是  首先输入框的结果只出现一次  是在我键盘抬起不再输入后的1秒 之后
+        function fn(value) {
+            console.log(value)
+        }
+        var debounceFunc = debounce(1000, fn)
+        input.addEventListener('keyup', function (e) {
+            debounceFunc(e.target.value)
+        })
+        //函数里面return出函数 闭包
+    </script>
+</body>
+
+</html>

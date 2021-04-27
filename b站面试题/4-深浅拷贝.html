@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = 123
+        var obj = {}
+        var person = {
+            name: '爱就一个字',
+            hobby: ['学习', ['看电影', 'shopping '], '跑步'],
+            date: new RegExp('\\w+'),
+            function (){}
+
+        }
+
+        //赋值
+        // var person1 = person
+        // person1.name = '王小星'
+        // person1.hobby[0] = '玩耍 '
+        // console.log(person)
+        // console.log(person1)
+
+        //浅拷贝
+        // function shallowCopy(obj) {
+        //     var target = {}
+        //     for (var i in obj) {
+        //         if (obj.hasOwnProperty(i)) {
+        //             target[i] = obj[i]
+        //         }
+        //     }
+        //     return target
+        // }
+        // var person1 = shallowCopy(person)
+        // person1.name = '王小星'
+        // person1.hobby[0] = '玩耍'
+        // console.log(person)
+        // console.log(person1)
+
+        //深拷贝
+        function deepClone(obj) {
+            var cloneObj = new obj.constructor()
+            //var cloneObj={}
+            if (obj === null) return obj //null的typeof也是object
+            if (obj instanceof Date) return new Date(obj) //检测Date prototype是否在obj的原型链上
+            if (obj instanceof RegExp) return new RegExp(obj) //RegExp正则表达式
+            if (typeof obj !== 'object') return obj
+            for (var i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    cloneObj[i] = deepClone(obj[i])
+                }
+                return cloneObj
+            }
+        }
+        var person1 = deepClone(person)
+        //var person1 = JSON.parse(JSON.stringify(person))   JSON.parse也可以深拷贝，会丢失数据
+        person1.name = '王小星'
+        person1.hobby[0] = '玩耍'
+        console.log(person)
+        console.log(person1)
+    </script>
+</body>
+
+</html>

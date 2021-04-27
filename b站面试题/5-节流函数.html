@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="button">点击</button>
+    <script>
+        function thro(func, wait) {
+            //会执行你点击了多少次 就会执行多少次
+            //这不是我们想要的  我们想要的是  比喻说时间是一秒  然后哪怕你手速再快一秒内你点了100次  我也只执行一次
+            let timerOut
+            //相当于就是在办理业务
+            return function () {
+                if (!timerOut) {
+                    //set不执行 如果timerout有值的话就不执行
+                    timerOut = setTimeout(function () {
+                        func()
+                        //银行工作人员办理完了之后后面的不办理了
+                        timerOut = null
+                    }, wait)
+                }
+            }
+        }
+
+        function handle() {
+            console.log(Math.random())
+        }
+
+        document.getElementById('button').onclick = thro(handle, 2000)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="button">登录</button>
+    <script>
+        //加载完成的时候 已经创建好了一个弹窗 一开始是隐藏状态
+        
+        // var loginLayer = (function(){
+        //     var div = document.createElement('div')
+        //     div.innerHTML = '登陆的弹窗'
+        //     div.style.display = 'none'
+        //     document.body.appendChild(div)
+        //     return div
+        // })()
+
+        // document.getElementById('button').onclick = function(){
+        //     loginLayer.style.display = 'block'
+        // }
+
+
+        //点击的时候创建
+
+        // var createLoginLayer = function(){
+        //     var div = document.createElement('div')
+        //     div.innerHTML = '登陆的弹窗'
+        //     div.style.display = 'none'
+        //     document.body.appendChild(div)
+        //     return div
+        // }
+
+        // document.getElementById('button').onclick = function(){
+        //     var loginLayer = createLoginLayer()
+        //     loginLayer.style.display = 'block'
+        // }
+
+
+        //优化点击时重复创建
+
+        // var createLoginLayer = (function () {
+        //     var div
+        //     return function () { 
+        //         if (!div) { //div为undefined 取反有值
+        //             div = document.createElement('div')
+        //             div.innerHTML = '登陆的弹窗'
+        //             div.style.display = 'none'
+        //             document.body.appendChild(div)
+        //         }
+        //         return div
+        //     }
+        // })()
+
+        // document.getElementById('button').onclick = function () {
+        //     var loginLayer = createLoginLayer()
+        //     loginLayer.style.display = 'block'
+        // }
+
+        //形成单例 从代码中抽出核心代码 闭包
+
+        var getSinger = function(fn){
+            var result
+            return function(){
+                return result || (result = fn.apply(this,arguments))
+            }
+        }
+
+        var createLoginLayer = function () {
+            var div = document.createElement('div')
+            div.innerHTML = '登陆的弹窗'
+            div.style.display = 'none'
+            document.body.appendChild(div)
+            return div
+        }
+
+        var createSingerLogin = getSinger(createLoginLayer)
+        document.getElementById('button').onclick = function(){
+            var loginLayer = createSingerLogin()
+            loginLayer.style.display = 'block'
+        }
+    </script>
+</body>
+
+</html>
