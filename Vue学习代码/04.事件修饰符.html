@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script src="./lib/vue-2.4.0.js"></script>
+        <style>
+            .inner
+            {
+                height: 200px;
+                background-color: #cba7f9;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <!--.stop 阻止冒泡，点击按钮，不会触发divhandler-->
+            <div class="inner" @click="divhandler">
+                <input type="button" value="戳它" @click.stop="bthandler">
+            </div>
+
+            <!--.prevent 阻止默认行为 不跳转超链接-->
+            <a href="https://www.baidu.com" @click.prevent="linkClick">点击这里去百度</a>
+
+            <!--.capture 点击按钮 先执行div 后执行按钮 与.stop相反-->
+            <div class="inner" @click.capture="divhandler">
+                <input type="button" value="戳它" @click="bthandler">
+            </div>
+
+            <!--.self 只有点击div 才执行div 冒泡、捕获无效-->
+            <div class="inner" @click.self="divhandler">
+                <input type="button" value="戳它" @click="bthandler">
+            </div>
+
+            <!--.once 事件只触发一次-->
+            <a href="https://www.baidu.com" @click.prevent.once="linkClick">点击这里去百度</a>
+        </div>
+        <script>
+            var vm = new Vue({
+                el: '#app',  
+                data: { },
+                methods:{
+                    divhandler(){
+                        console.log("这是触发了divhandler事件")
+                    },
+                    bthandler(){
+                        console.log("这是触发了bthandler事件")
+                    },
+                    linkClick(){
+                        console.log("这是触发了linkClick事件")
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
