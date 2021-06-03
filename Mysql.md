@@ -3,6 +3,7 @@
 1. 进入到mysql数据库下
 
 ```sql
+>mysql -u 用户名 -p
 mysql> use mysql
 Database changed
 ```
