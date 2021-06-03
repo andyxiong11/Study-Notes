@@ -1,4 +1,22 @@
-系统环境：CentOS 7
+- [一、检查系统环境](#一检查系统环境)
+- [二、安装Java、Apache、TomCat、Mysql](#二安装javaapachetomcatmysql)
+  - [1. 安装Java](#1-安装java)
+  - [2. 安装Apache](#2-安装apache)
+    - [2.1 yum安装Apache](#21-yum安装apache)
+    - [2.2 源码包安装Apache](#22-源码包安装apache)
+    - [3. 安装TomCat源码包](#3-安装tomcat源码包)
+  - [4. Mysql安装](#4-mysql安装)
+    - [4.1 yum安装Mysql](#41-yum安装mysql)
+    - [4.2 yum安装 mysql-server](#42-yum安装-mysql-server)
+  - [6. RPM安装mysql](#6-rpm安装mysql)
+    - [6.1 启动停止](#61-启动停止)
+    - [6.2 查看初始密码](#62-查看初始密码)
+- [安装基本常用扩展包](#安装基本常用扩展包)
+- [配置Apache、mysql开机启动](#配置apachemysql开机启动)
+- [配置Mysql](#配置mysql)
+
+
+> 系统环境：CentOS 7
 
 # 一、检查系统环境
 
@@ -149,7 +167,7 @@ rpm -qa | grep -i mysql 若安装过，会输出相关包名
 
 ### 4.1 yum安装Mysql
 
-> [root@localhost ~]# yum -y install mysql
+> yum -y install mysql
 直到返回：
 
 Installed:
@@ -163,7 +181,7 @@ Complete!
 
 ### 4.2 yum安装 mysql-server
 
-> [root@localhost ~]# yum -y install mysql-server
+> yum -y install mysql-server
 Loaded plugins: fastestmirror, langpacks
 Loading mirror speeds from cached hostfile
 
@@ -224,7 +242,7 @@ rpm -ivh 包名
 >  cat /var/log/mysqld.log | grep password
 
 
-三、安装基本常用扩展包
+# 安装基本常用扩展包
 1、安装Apache扩展包
 
 yum -y install httpd-manual mod_ssl mod_perl mod_auth_mysql
@@ -250,7 +268,7 @@ unixODBC.x86_64 0:2.3.1-11.el7
 Complete!
 安装成功！！！
 
-四、配置Apache、mysql开机启动
+# 配置Apache、mysql开机启动
 重启Apache、mysql服务(注意这里和centos6有区别,Cenots7+不能使用6的方式)
 
 systemctl start httpd.service #启动apache
@@ -277,7 +295,7 @@ service mysqld restart
 service php-fpm start
 
 service httpd restart
-五、配置Mysql
+# 配置Mysql
 初次安装mysql是没有密码的,我们要设置密码，mysql的默认账户为root
 
 设置 MySQL 数据 root 账户的密码：
@@ -299,8 +317,3 @@ Disallow root login remotely? [Y/n]
 Remove test database and access to it? [Y/n]
 Reload privilege tables now? [Y/n]
 直接回车即可。
-
-六、测试环境
-1、我们在浏览器地址栏输入http://localhost/如下图，说明我们的apache测试成功
-
-511遇见
