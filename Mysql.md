@@ -61,6 +61,9 @@ revoke all on db1.* from 'alex'@"%";
 
 取消来自远程服务器的mjj用户所有数据库的所有的表的权限
 revoke all privileges on *.* from 'alex'@'%';
+
+# 刷新权限
+flush privileges;
 ```
 
 4. MySql备份命令行操作
