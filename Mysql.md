@@ -1,6 +1,6 @@
 # 创建新用户
 
-1. 进入到mysql数据库下
+## 1. 进入到mysql数据库下
 
 ```sql
 >mysql -u 用户名 -p
@@ -8,7 +8,7 @@ mysql> use mysql
 Database changed
 ```
 
-2. 对新用户增删改
+## 2. 对新用户增删改
 
 ```sql
 1. 创建用户:
@@ -32,7 +32,7 @@ rename user '用户名'@'IP地址' to '新用户名'@'IP地址';
 set password for '用户名'@'IP地址'=Password('新密码');
 ```
 
-3. 对当前的用户授权管理
+## 3. 对当前的用户授权管理
 
 ```sql
 # 查看权限
@@ -66,7 +66,7 @@ revoke all privileges on *.* from 'alex'@'%';
 flush privileges;
 ```
 
-4. MySql备份命令行操作
+## 4. MySql备份命令行操作
 
 ```sql
 # 备份：数据表结构+数据
@@ -82,6 +82,20 @@ create database db10;
 # 2.将已有的数据库文件导入到db10数据库中
 mysqdump -u root -d db10 < db1.sql -p
 ```
+
+# 常用命令
+
+1. 查看数据库表
+> show databases;
+
+2. 创建数据库
+> create database 数据库名;
+
+3. 使用数据库
+> use 数据库名；
+
+4. 删除数据库
+> drop databases 数据库名；
 
 # 报错
 
