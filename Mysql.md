@@ -1,135 +1,68 @@
-# 创建新用户
+SQL（Structured Query Language）:结构化查询语言
 
-## 1. 进入到mysql数据库下
+- DML(数据操作语言)用来操作数据库中所包含的数据:INSER、UPDATE、DELETE
+- DDL(数据定义语言)用于创建和删除数据库对象等操作：CREATE、DROP、ALTER
+- DQL（数据查询语言）用来对数据库中的数据进行查询：SELECT
+- DCL（数据控制语言）用来控制数据库组件的存取许可、存取权限等
+
+创建表
 
 ```sql
->mysql -u 用户名 -p
-mysql> use mysql
-Database changed
+create table [if not exists] 表名(
+    字段1 数据类型 [字段属性|约束][索引][注释],
+    ....
+    字段n 数据类型 [字段属性|约束][索引][注释];
+)
+
+#创建学生表
+CREATE TABLE `student`（
+    `studentNo` INT(4)  PRIMARY KEY,
+     ` name` CHAR(10),
+     ……）;
+
 ```
 
-## 2. 对新用户增删改
+查看数据库里的表
+> show tables;
+
+查看表信息
+> desc 表明
+
+字段的约束及其属性
+- 非空约束:not null
+- 默认约束，default
+- 唯一约束，unique key(uk)
+- 主键约束，primary key(pk)
+- 外键约束，foreign(fk)
+- 自动增长，auto_increment
+
+
+主键：唯一性标识，与业务无关，非空、唯一
 
 ```sql
-1. 创建用户:
-
-#指定ip：192.118.1.1的alex用户登录
-create user 'alex'@'192.118.1.1' identified by '123';
-
-#指定ip：192.118.1.开头的alex用户登录
-create user 'alex'@'192.118.1.%' identified by '123';
-
-#指定任何ip的alex用户登录
-create user 'alex'@'%' identified by '123';
-
-2. 删除用户
-drop user '用户名'@'IP地址';
-
-3. 修改用户
-rename user '用户名'@'IP地址' to '新用户名'@'IP地址';
-
-4. 修改密码
-set password for '用户名'@'IP地址'=Password('新密码');
+CREATE TABLE 'student(
+    'studentNo`INT(4) NOT NuLL COMMENT'学号'PRIMARY KEY ,
+    `loginPwd` VARCHAR(20)NOT NULL COMMENT'密码"，
+    'studentName`VARCHAR(50)NOT NULL COMMENT '学生姓名'，
+    'sexTCHAR(2)DEFAULT'男'NOT NULL COMMENT '性别"，
+    gradeld ` INT(4) UNSIGNED COMMENT '年级编号'，
+    'phone`VARCHAR(50) COMMENT '联系电话，
+    'address'VARCHAR(255)DEFAULT '地址不详'COMMENT'地址"，
+    'bornDate` DATETIME COMMENT '出生时间'，
+    'email`VARCHAR(50) COMMENT'邮件账号"，
+    identityCard `VARCHAR(18)UNIQUE KEY COMMENT'身份证号'
+)cOMMENT='学生表';
 ```
 
-## 3. 对当前的用户授权管理
 
-```sql
-# 查看权限
-show grants for '用户'@'IP地址'
+增加字段
+alter table student add identitycard varchar(18);
+增加字段其属性
+alter table student change identitycard identitycard 
 
-# 授权 alex用户仅对db1.t1文件有查询、插入和更新的操作
-grant select ,insert,update on db1.t1 to "alex"@'%';
 
-# 表示有所有的权限，除了grant这个命令，这个命令是root才有的。alex用户对db1下的t1文件有任意操作
-grant all privileges  on db1.t1 to "alex"@'%';
 
-#alex用户对db1数据库中的文件执行任何操作
-grant all privileges  on db1.* to "alex"@'%';
 
-#alex用户对所有数据库中文件有任何操作
-grant all privileges  on *.*  to "alex"@'%';
- 
-#取消权限
 
-# 取消alex用户对db1的t1文件的任意操作
-revoke all on db1.t1 from 'alex'@"%";  
 
-# 取消来自远程服务器的alex用户对数据库db1的所有表的所有权限
 
-revoke all on db1.* from 'alex'@"%";  
-
-取消来自远程服务器的alex用户所有数据库的所有的表的权限
-revoke all privileges on *.* from 'alex'@'%';
-
-# 刷新权限
-flush privileges;
-```
-
-## 4. MySql备份命令行操作
-
-```sql
-# 备份：数据表结构+数据
-mysqdump -u root db1 > db1.sql -p
-
-# 备份：数据表结构
-mysqdump -u root -d db1 > db1.sql -p
-
-#导入现有的数据到某个数据库
-# 1.先创建一个新的数据库
-create database db10;
-
-# 2.将已有的数据库文件导入到db10数据库中
-mysqdump -u root -d db10 < db1.sql -p
-```
-
-# 常用命令
-
-1. 查看数据库表
-> show databases;
-
-2. 创建数据库
-> create database 数据库名;
-
-3. 使用数据库
-> use 数据库名；
-
-4. 删除数据库
-> drop databases 数据库名；
-
-# 报错
-
-## 撤销新建用户权限失败
-
-**报错复现**
-赋予新用户所有权限（all privileges）
-
-```sql
-mysql> grant all privileges on *.* to 'xyx'@'%' with grant option;
-Query OK, 0 rows affected (0.09 sec)
-```
-
-然后撤销用户所有权限（all privileges）
-
-```sql
-mysql> REVOKE all privileges ON *.* FROM 'xyx'@'%';
-```
-
-报错：
-ERROR 1227 (42000): Access denied; you need (at least one of) the SYSTEM_USER privilege(s) for this operation
-查看完MySQL8.0.16官方文档后得知： SYSTEM_USER是mysql新权限，并且在root用户下创建新用户xyx时会授予SYSTEM_USER权限，而自己却没有SYSTEM_USER权限。
-
-**解决方法**
-现在新创建的用户下给root账户赋予SYSTEM_USER权限，然后在用root账户取消新用户xyx的所有权
-
-- xyx用户下操作
-
-```sql
-mysql> Query OK, 0 rows affected (0.06 sec)
-```
-
-- root用户下的操作
-
-```sql
-mysql> revoke all privileges on *.* from xyx;
-Query OK, 0 rowxyxxiaokang用户的所有权限撤销成功
