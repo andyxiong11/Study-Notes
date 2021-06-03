@@ -82,3 +82,40 @@ create database db10;
 # 2.将已有的数据库文件导入到db10数据库中
 mysqdump -u root -d db10 < db1.sql -p
 ```
+
+# 报错
+
+## 撤销新建用户权限失败
+
+**报错复现**
+赋予新用户所有权限（all privileges）
+
+```sql
+mysql> grant all privileges on *.* to 'xyx'@'%' with grant option;
+Query OK, 0 rows affected (0.09 sec)
+```
+
+然后撤销用户所有权限（all privileges）
+
+```sql
+mysql> REVOKE all privileges ON *.* FROM 'xyx'@'%';
+```
+
+报错：
+ERROR 1227 (42000): Access denied; you need (at least one of) the SYSTEM_USER privilege(s) for this operation
+查看完MySQL8.0.16官方文档后得知： SYSTEM_USER是mysql新权限，并且在root用户下创建新用户xyx时会授予SYSTEM_USER权限，而自己却没有SYSTEM_USER权限。
+
+**解决方法**
+现在新创建的用户下给root账户赋予SYSTEM_USER权限，然后在用root账户取消新用户xyx的所有权
+
+- xyx用户下操作
+
+```sql
+mysql> Query OK, 0 rows affected (0.06 sec)
+```
+
+- root用户下的操作
+
+```sql
+mysql> revoke all privileges on *.* from xyx;
+Query OK, 0 rowxyxxiaokang用户的所有权限撤销成功
