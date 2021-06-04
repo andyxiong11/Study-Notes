@@ -301,6 +301,10 @@ rand();
 
 
 
+**多表连接查询**
+> select * from student,grade;
+
+
 
 
 
