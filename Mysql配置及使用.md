@@ -182,6 +182,12 @@ SID列不明确
 27. ERROR:DELIMITER must be followed by a 'delimiter' character or string
 'delimiter' 后面必须有一个字符或者字符串
 
+28. ERROR 1075 (42000):Incorrect table definition; there can be only one auto column and it must be defined as a key
+在设置了自增长列以后需要定义主键列
+
+29. ERROR 1239:Incorrect foreign key definition for 'fk_studentNo': Key reference and table reference don't match
+外键定义不正确：引用和表不匹配
+
 ## 撤销新建用户权限失败
 
 **报错复现**
@@ -216,3 +222,6 @@ mysql> Query OK, 0 rows affected (0.06 sec)
 ```sql
 mysql> revoke all privileges on *.* from xyx;
 Query OK, 0 rowxyxxiaokang用户的所有权限撤销成功
+```
+
+
