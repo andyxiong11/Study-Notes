@@ -160,75 +160,80 @@ netstat -tlun |grep :80 检测80端口
 
 ## 4. Mysql安装
 
-检查是否已经安装过 mysql
+检查是否已经安装 mysql、mariadb
+
 rpm -qa | grep -i mysql 若安装过，会输出相关包名
-若有安装过 mysql，则删除相关文件
-rpm -e [–nodeps] 包名（此处包名是上面命令查出来的名字）
+rpm -qa | grep mariadb
+
+若有安装过 mysql、mariadb，则删除相关文件
+
+rpm -e [–-nodeps] 包名（此处包名是上面命令查出来的名字）
+rpm -e --nodeps mariadb-server
+rpm -e --nodeps mariadb
+rpm -e --nodeps mariadb-libs
 
 ### 4.1.1 yum安装Mysql
 
 > yum -y install mysql
-直到返回：
 
-Installed:
-mariadb.x86_64 1:5.5.50-1.el7_2
-
-Dependency Updated:
-mariadb-libs.x86_64 1:5.5.50-1.el7_2
-
-Complete!
 7.2版本的Centos已经把mysql更名为mariadb，表示安装成功！
 
 ### 4.1.2 yum安装 mysql-server
 
 > yum -y install mysql-server
-Loaded plugins: fastestmirror, langpacks
-Loading mirror speeds from cached hostfile
 
-base: mirror.lzu.edu.cn
-extras: mirrors.nwsuaf.edu.cn
-updates: mirrors.tuna.tsinghua.edu.cn
-No package mysql-server available.
-Error: Nothing to do
-返回错误！！！
-分析解决方案
-CentOS 7+ 版本将MySQL数据库软件从默认的程序列表中移除，用mariadb代替了，entos7配置教程上，大多都是安装mariadb，因为centos7默认将mariadb视作mysql。
-因为mysql被oracle收购后，原作者担心mysql闭源，所以又写了一个mariadb，这个数据库可以理解为mysql的分支。如果需要安装mariadb，只需通过yum就可。
-有两种解决方案：
+可能会报错：
+CentOS 7+ 版本将MySQL数据库软件从默认的程序列表中移除，用mariadb代替了，entos7配置教程上，大多都是安装mariadb，因为centos7默认将mariadb视作mysql。因为mysql被oracle收购后，原作者担心mysql闭源，所以又写了一个mariadb，这个数据库可以理解为mysql的分支。如果需要安装mariadb，只需通过yum就可。
 
 一是安装mariadb
 
-[root@localhost ~]# yum install -y mariadb
+yum install -y mariadb
+
 二是从官网下载mysql-server
 
-采用第二种方案：
-
+```
 wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
-
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
-
 yum install mysql-community-server
-
-然后需要确定，输入y回车即可
-
-Install 3 Packages (+8 Dependent packages)
-
-Total download size: 82 M
-Is this ok [y/d/N]:
-
-一直选择输入 y ，有两次选择，直到返回：
-
-Replaced:
-mariadb.x86_64 1:5.5.50-1.el7_2 mariadb-libs.x86_64 1:5.5.50-1.el7_2
-
-Complete!
-安装成功！！！
+```
 
 ### 4.2 RPM安装mysql
 
-rpm -ivh 包名
-先装 client
-后装 server
+**安装顺序**
+
+```
+rpm -ivh mysql-community-common-5.7.17-1.el7.x86_64.rpm   
+rpm -ivh mysql-community-libs-5.7.17-1.el7.x86_64.rpm   
+rpm -ivh mysql-community-client-5.7.17-1.el7.x86_64.rpm  
+rpm -ivh mysql-community-server-5.7.17-1.el7.x86_64.rpm  
+rpm -ivh mysql-community-devel-5.7.17-1.el7.x86_64.rpm  
+```
+
+```
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+
+/usr/bin/mysqladmin -u root password 'new-password'
+/usr/bin/mysqladmin -u root -h andyxiong password 'new-password'
+
+Alternatively you can run:
+/usr/bin/mysql_secure_installation
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the manual for more instructions.
+
+Please report any problems with the /usr/bin/mysqlbug script!
+```
+
+当安装第二个rpm时，会报出出现依赖冲突，因为CentOS的默认数据库已经不再是MySQL了，而是MariaDB。
+查看当前安装的mariadb包：
+rpm -qa | grep mariadb
+用命令删除
+rpm -e --nodeps mariadb-libs-5.5.44-2.el7.centos.x86_64
+然后重新按顺序安装：
 
 ### 6.1 启动停止
 
