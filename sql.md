@@ -1,3 +1,28 @@
+- [表操作](#表操作)
+	- [创建表](#创建表)
+	- [删除表](#删除表)
+	- [查看表](#查看表)
+	- [字段约束](#字段约束)
+	- [修改表](#修改表)
+		- [修改表结构](#修改表结构)
+		- [添加主键](#添加主键)
+		- [添加外键](#添加外键)
+		- [外键约束](#外键约束)
+		- [数据修改](#数据修改)
+			- [插入数据记录](#插入数据记录)
+			- [将查询结果插入新表](#将查询结果插入新表)
+			- [数据更新、删除数据](#数据更新删除数据)
+- [sql函数](#sql函数)
+	- [聚合函数](#聚合函数)
+	- [字符串函数](#字符串函数)
+	- [时间日期函数](#时间日期函数)
+	- [数学函数](#数学函数)
+- [表连接](#表连接)
+	- [内连接](#内连接)
+	- [左连接](#左连接)
+	- [右连接](#右连接)
+- [子查询](#子查询)
+
 SQL（Structured Query Language）:结构化查询语言
 
 - DML(数据操作语言)用来操作数据库中所包含的数据:INSER、UPDATE、DELETE
@@ -5,7 +30,9 @@ SQL（Structured Query Language）:结构化查询语言
 - DQL（数据查询语言）用来对数据库中的数据进行查询：SELECT
 - DCL（数据控制语言）用来控制数据库组件的存取许可、存取权限等
 
-**创建表**
+# 表操作
+
+## 创建表
 
 ```sql
 create table [if not exists] 表名(
@@ -13,9 +40,8 @@ create table [if not exists] 表名(
     ....
     字段n 数据类型 [字段属性|约束][索引][注释];
 )
-**重新*
 
-#创建学生表
+-- 创建学生表
 CREATE TABLE `student`（
     `studentNo` INT(4)  PRIMARY KEY,
      ` name` CHAR(10),
@@ -23,9 +49,11 @@ CREATE TABLE `student`（
 
 ```
 
-**删除表**
+## 删除表
 
 > DROP TABLE table_name ; 
+
+## 查看表
 
 **查看数据库里的表**
 > show tables;
@@ -33,7 +61,10 @@ CREATE TABLE `student`（
 **查看表信息**
 > desc 表名;
 
-字段的约束及其属性
+## 字段约束
+
+**字段的约束及其属性**
+
 - 非空约束:not null,字段不允许为空
 - 默认约束，default, 赋予某字段默认值
 - 唯一约束，unique key(uk),设置字段的值是唯一的允许为空，但只能有一个空值
@@ -76,7 +107,9 @@ FOREIGN KEY ( subjectNo ) REFERENCES SUBJECT ( subjectNo )
 ) COMMENT = '成绩表'
 ```
 
-**修改表结构**
+## 修改表
+
+### 修改表结构
 
 ```sql
 1. 修改表名
@@ -89,7 +122,7 @@ ALTER TABLE 表名 ADD 字段名 数据类型[属性];
 ALTER TABLE 表名 DROP 字段名;
 ```
 
-**添加主键**
+### 添加主键
 
 > 表中经常有一个列或多列的组合，其值能唯一地标识表中的每一行。这样的一列或多列称为表的主键，通过它可强制表的实体完整性
 
@@ -99,7 +132,7 @@ ALTER TABLE 表名 ADD CONSTRAINT 主键名 PRIMARY KEY 表名（主键字段);
 alter table test2 add constraint `pk_studentName` primary key test1(`studentName`);
 ```
 
-**添加外键**
+### 添加外键
 
 > 外键表示了两个表之间的相关联系。**以另一个关系的外键作主关键字**的表被称为**主表**，**具有此外键的表**被称为主表的**从表**。外键又称作外关键字
 
@@ -109,7 +142,8 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名 FOREIGN KEY（外键字段) REFERENC
 lter table test1 add constraint fk_studentName foreign key(`studentName`) references test2(`studentName`);
 ```
 
-**外键约束**
+### 外键约束
+
 添加修改从表，必须要主表有此数据
 
 删除修改主表，从表必须先删除修改
@@ -141,7 +175,9 @@ lter table test1 add constraint fk_studentName foreign key(`studentName`) refere
 update test2 set studentName='王五' where score=76;
 ```
 
-**插入数据记录**
+### 数据修改
+
+#### 插入数据记录
 
 - 插入单条记录:
 > INSERT INTO 表名 [ (字段名列表)] VALUES(值列表);
@@ -159,7 +195,7 @@ insert into student (`studentNo`,`loginPwd`,`studentName`,`sex`,`gradeId`,`phone
 
 注意:为避免表结构发生变化引发的错误，建议插入数据时写明具体字段名!
 
-**DML语句――将查询结果插入新表**
+#### 将查询结果插入新表
 
 > INSERT INTO新表（字段1,字段.……）SELECT字段1，字段...…FROM原表;
 > 如:
@@ -171,7 +207,7 @@ insert into student (`studentNo`,`loginPwd`,`studentName`,`sex`,`gradeId`,`phone
 > CREATE TABLE student (SELECT `studentNo`, `name` FROM newstudent);
 
 
-**DML语句――数据更新、删除更新**
+#### 数据更新、删除数据
 
 - 数据记录
 > UPDATE 表名 SET 字段1=值1,字段2=值2...字段n=值n [WHERE条件];
@@ -217,7 +253,9 @@ LIMIT 4;
 使用LIMIT子句时，注意第1条记录的位置是0 !
 ```
 
-**聚合函数**
+# sql函数
+
+## 聚合函数
 
 | 函数名  |        作用        |
 | :-----: | :----------------: |
@@ -237,7 +275,7 @@ select min(studentNo) from student;
 select count(studentNo) from student;
 ```
 
-**字符串函数**
+## 字符串函数
 
 |           函数名           |       作用       |
 | :------------------------: | :--------------: |
@@ -255,7 +293,7 @@ select upper('MySql');
 select substring('JavaMySQLOracle',5,5);
 ```
 
-**时间日期函数**
+## 时间日期函数
 
 |        函数名         |                  作用                  |
 | :-------------------: | :------------------------------------: |
@@ -285,7 +323,7 @@ SELECT DATEDIFF(NOW(),'2008-8-8');
 SELECT ADDDATE(NOW(),5);
 ```
 
-**数学函数**
+## 数学函数
 
 |  函数名  |             作用              |
 | :------: | :---------------------------: |
@@ -298,11 +336,117 @@ ceil(3.4);
 floor(2.3);
 rand();
 ```
+# 表连接
+
+```sql
+create table `boy`(`hid` int(5) primary key,`bname` varchar(10));
+create table `girl`(`hid` int(5) primary key,`gname` varchar(10));
+
+insert into boy (`hid`,`bname`) values (1,'张三'),(2,'郭靖'),(3,'杨过');
+insert into girl (`hid`,`gname`) values (2,'黄蓉'),(3,'小龙女'),(4,'李四');
+```
+
+## 内连接
+关键字:inner join on
+语句: select * from a_table a inner join b_table b on a.a_id = b.b_id;
+说明︰组合两个表中的记录，返回关联字段相符的记录，也就是返回两个表的交集（阴影)部分。
+
+> 两个表的交集数据
+
+```sql
+select bname,gname from boy inner join girl on boy.hid=girl.hid;
+```
+
+## 左连接
+关键字：left join on/left outer join on
+语句： SELECT * FROM a_table a left join b_table b ON a.a_id = b.b_id;
+说明：leftjoin是leftouterjoin的简写，它的全称是左外连接，是处连接中的一种。左（外）连接，左表（a_table）的记录将会全部表示出来，而右表（b_table)只会显示符合搜索条件的记录。右表记录不足的地方均为NULL。
+
+**以左表为基准，把右表匹配的相同字段的数据查出来，不匹配的为null**
+
+```sql
+select bname,gname from boy left join girl on boy.hid=girl.hid;
+-- 二者等同
+select bname,gname from girl right join boy on boy.hid=girl.hid;
+```
+
+## 右连接
+关键字：right join on/right outer join on
+语句:SELECT * FROM a_table a right outer join b_table b on a.a_id = b.b_id;
+说明：right join是right outer join的简写，它的全称是右外连接，是外连接中的一种。与左（外）连接相反右(外）连接，左表（(a_table)只会显示符合搜索条件的记录，而右表（b_table)的记录蒋会全部表示出来。左表记录不足的地方均为NULL。
+
+**以右表为基准，把左表匹配的相同字段的数据查出来，不匹配的为null**
+
+```sql
+select bname,gname from boy right join girl on boy.hid=girl.hid;
+```
+
+# 子查询
+
+编写SQL语句，查看年龄比“李四”大的学生，要求显示这些学生的信息
+分析：
+第一步：查询得到“李四”的出生日期
+第二步：利用WHERE语句，筛选出生日期比“李斯文”大的学生
+
+实现方法一：分两步实现
+
+```sql
+-- 1.查找出“李四”的出生日期
+SELECT `bornDate` FROM `student` WHERE `studentName`= 李四';
+
+-- 2.利用WHERE语句筛选出生日期比“李四”大的学生
+SELECT `studentNo`,`studentName`,`sex`,`bornDate`,`address` 
+FROM `student`
+WHERE `bornDate` > '1993-07-231;
+```
+
+实现方法二：采用子查询实现
+
+```sql
+SELECT `studentNo`,`studentName`,`sex`,`bornDate`,`address` 
+FROM `student` 
+WHERE `bornDate` > (select `bornDate` from student where studentName = '李四');
+```
+
+查询'Logic Java'课程至少一次刚好分数等于60的学生
+
+```sql
+SELECT
+	* 
+FROM
+	student 
+WHERE
+	studentNo IN ( 
+		SELECT 
+		studentNo 
+		FROM result 
+		WHERE 
+		subjectNo IN ( 
+			SELECT 
+			subjectNo 
+			FROM 
+			`subject` 
+			WHERE 
+			subjectName = 'Logic Java' ) 
+		AND studentResult = 60 );
+
+SELECT
+	student.* 
+FROM
+	student
+	INNER JOIN result ON result.studentNo = student.studentNo
+	INNER JOIN `subject` ON result.subjectNo = `subject`.subjectNo 
+WHERE
+	subjectName = 'Logic java' 
+	AND studentResult = 60;
+
+```
 
 
 
 **多表连接查询**
 > select * from student,grade;
+
 
 
 
