@@ -22,6 +22,8 @@
 	- [左连接](#左连接)
 	- [右连接](#右连接)
 - [子查询](#子查询)
+- [事务](#事务)
+- [索引](#索引)
 
 SQL（Structured Query Language）:结构化查询语言
 
@@ -429,7 +431,7 @@ WHERE
 			WHERE 
 			subjectName = 'Logic Java' ) 
 		AND studentResult = 60 );
-
+-- 连接查询
 SELECT
 	student.* 
 FROM
@@ -442,11 +444,79 @@ WHERE
 
 ```
 
+查询最后一次考试，考试科目'Logic Java'的学生信息
 
+```sql
+SELECT
+	* 
+FROM
+	`student` 
+WHERE
+	`studentNo` IN (
+	SELECT
+		`studentNo` 
+	FROM
+		`result` 
+	WHERE
+		`subjectNo` IN ( SELECT `subjectNo` FROM `subject` WHERE `subjectName` = 'Logic Java' ) 
+		AND `examDate` IN (
+		SELECT
+			max( `examDate` ) 
+		FROM
+			`result` 
+		WHERE
+		`subjectNo` IN ( SELECT `subjectNo` FROM `subject` WHERE `subjectName` = 'Logic Java' )) 
+	);
+```
 
-**多表连接查询**
-> select * from student,grade;
+# 事务
 
+事务的特性
+事务必须具备以下四个属性，简称ACID属性
+
+**原子性（Atomicity）**
+事务是一个完整的操作，事务的各步操作是不可分的（原子的)，要么都执行，要么都不执行
+**一致性(Consistency）** 
+当事务完成时，数据必须处于一致状态
+**隔离性(lsolation)**
+并发事务之间彼此隔离、独立，它不应以任何方式依赖于或影响其他事务
+**持久性（Durability）**
+事务完成后，它对数据库的修改被永久保持
+
+```sql
+开始事务
+BEGIN；或 START TRANSACTION;
+提交事务
+COMMIT
+回滚（撤销）事务
+ROLLBACK
+```
+
+测试事务示例
+
+```sql
+BEGIN
+declare i int default 1;
+while(i<300000)do
+insert into s1 values(i,'bob','male',concat('bob',1,'0163.com'));
+Beti=i+1;
+end while;
+END
+```
+
+# 索引
+
+索引的作用
+
+索引访问是通过遍历索引来直接访问表中记录行的方式。使用这种方式的前提是对表建立一个索引，在列上创建了索引之后，查找数据时可以直接根据该列上的索引找到对应记录行的位置，从而快捷地查找到数据。索引存储了指定列数据值的指针，根据指定的排序顺序对这些指针排序。
+
+索引的创建
+
+```sql
+CREATE INDEX indexName ON table_name (column_name)
+ALTER table tableName ADD INDEX indexName(columnName)
+DROP INDEX[indexName] ON mytable;
+```
 
 
 
