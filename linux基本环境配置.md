@@ -6,9 +6,9 @@
     - [2.2 源码包安装Apache](#22-源码包安装apache)
     - [3. 安装TomCat源码包](#3-安装tomcat源码包)
   - [4. Mysql安装](#4-mysql安装)
-    - [4.1 yum安装Mysql](#41-yum安装mysql)
-    - [4.2 yum安装 mysql-server](#42-yum安装-mysql-server)
-  - [6. RPM安装mysql](#6-rpm安装mysql)
+    - [4.1.1 yum安装Mysql](#411-yum安装mysql)
+    - [4.1.2 yum安装 mysql-server](#412-yum安装-mysql-server)
+    - [4.2 RPM安装mysql](#42-rpm安装mysql)
     - [6.1 启动停止](#61-启动停止)
     - [6.2 查看初始密码](#62-查看初始密码)
 - [安装基本常用扩展包](#安装基本常用扩展包)
@@ -163,9 +163,9 @@ netstat -tlun |grep :80 检测80端口
 检查是否已经安装过 mysql
 rpm -qa | grep -i mysql 若安装过，会输出相关包名
 若有安装过 mysql，则删除相关文件
- rpm -e [–nodeps] 包名（此处包名是上面命令查出来的名字）
+rpm -e [–nodeps] 包名（此处包名是上面命令查出来的名字）
 
-### 4.1 yum安装Mysql
+### 4.1.1 yum安装Mysql
 
 > yum -y install mysql
 直到返回：
@@ -179,7 +179,7 @@ mariadb-libs.x86_64 1:5.5.50-1.el7_2
 Complete!
 7.2版本的Centos已经把mysql更名为mariadb，表示安装成功！
 
-### 4.2 yum安装 mysql-server
+### 4.1.2 yum安装 mysql-server
 
 > yum -y install mysql-server
 Loaded plugins: fastestmirror, langpacks
@@ -224,7 +224,7 @@ mariadb.x86_64 1:5.5.50-1.el7_2 mariadb-libs.x86_64 1:5.5.50-1.el7_2
 Complete!
 安装成功！！！
 
-## 6. RPM安装mysql
+### 4.2 RPM安装mysql
 
 rpm -ivh 包名
 先装 client
