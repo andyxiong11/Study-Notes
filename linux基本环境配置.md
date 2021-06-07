@@ -1,5 +1,6 @@
 - [一、检查系统环境](#一检查系统环境)
-- [二、安装Java、Apache、TomCat、Mysql](#二安装javaapachetomcatmysql)
+  - [更换系统源](#更换系统源)
+- [二、安装Java、Apache、TomCat、Mysql、Nginx、Redis](#二安装javaapachetomcatmysqlnginxredis)
   - [1. 安装Java](#1-安装java)
   - [2. 安装Apache](#2-安装apache)
     - [2.1 yum安装Apache](#21-yum安装apache)
@@ -14,6 +15,8 @@
     - [4.5 外部IP连接数据库](#45-外部ip连接数据库)
   - [5. Nginx安装](#5-nginx安装)
   - [6. Redis安装](#6-redis安装)
+- [三、基础工具](#三基础工具)
+  - [1. 文件上传下载](#1-文件上传下载)
 
 
 > 系统环境：CentOS 7
@@ -43,32 +46,48 @@
 
 > rpm -qa|grep httpd
 
-# 二、安装Java、Apache、TomCat、Mysql
+## 更换系统源
+
+1. 备份原来的repo文件
+> mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+
+2. 下载新的CentOS-Base.repo到/etc/yum.repos.d/
+> wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+
+3. 运行
+> yum clean all
+> yum makecache
+
+4. 更新
+> yum -y update
+
+
+# 二、安装Java、Apache、TomCat、Mysql、Nginx、Redis
 
 ## 1. 安装Java
 
-    1. 首先需要将jdk安装包移动到linux中
-    > 建议放到/tmp临时文件目录
+ 1. 首先需要将jdk安装包移动到linux中
+ > 建议放到/tmp临时文件目录
 
-    2. 创建Java文件目录
-    > mkdir -p /usr/local/java
+ 2. 创建Java文件目录
+ > mkdir -p /usr/local/java
 
-    3. 解压缩
-    > tar -zxvf  [压缩包名称] -C /usr/local/java/
+ 3. 解压缩
+ > tar -zxvf  [压缩包名称] -C /usr/local/java/
 
-    3. 配置环境变量
-    > vim /etc/profile
+ 3. 配置环境变量
+ > vim /etc/profile
 
-    ```shell
-    export JAVA_HOME=/usr/local/java/jdk1.8.0_291
-    export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib/
-    export PATH=$PATH:$JAVA_HOME/bin
-    ```
-    4. 重新加载配置文件
-    > source /etc/profile
+ ```shell
+ export JAVA_HOME=/usr/local/java/jdk1.8.0_291
+ export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib/
+ export PATH=$PATH:$JAVA_HOME/bin
+ ```
+ 4. 重新加载配置文件
+ > source /etc/profile
 
-    5. 验证
-    > java -version
+ 5. 验证
+ > java -version
 
 ## 2. 安装Apache
 
@@ -162,6 +181,17 @@ netstat -tlun |grep :80 检测80端口
 > /usr/local/Tomcat/bin/startup.sh
 > /usr/local/Tomcat/bin/shutdown.sh
 > localhosts:8080
+
+5. 配置环境变量
+
+打开Tomcat目录下bin文件夹，catalina.sh文件
+
+```
+export TOMCAT_HOME=/usr/local/Tomcat
+export CATALINA_HOME=/usr/local/Tomcat
+export JRE_HOME=/usr/local/java/jdk1.8.0_291/jre
+export JAVA_HOME=/usr/local/java/jdk1.8.0_291
+```
 
 ## 4. Mysql安装
 
@@ -488,5 +518,12 @@ public class redis {
 > ./redis-cli
 > config set protected-mode "no"   
 
+# 三、基础工具
 
+## 1. 文件上传下载
+
+> yum install lrzsz
+
+上传 rz -y
+下载 sz 文件名
 

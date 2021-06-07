@@ -23,15 +23,17 @@
 
 ## 3. 查看主机命令
 
-> hostname 
+临时改名字
+> hostname [主机名]
 
-## 4. 设置主机命令
-
-临时设置
+永久改名字
 > vi /etc/hostname
 
-永久修改
-> vi /etc/sysconfig/network-scripts/ifcfg-ens33
+> hostnamectl set-hostname 修改名
+
+## 4. 修改网络配置
+
+> vi /etc/sysconfig/network-scripts/ifcfg-ens32
 
 重启network网络服务
 > service network restart
@@ -72,6 +74,7 @@
 > chmod 777 目录名
 
 创建新的目录
+-p 创建多级目录
 > mkdir [-p] [路径/]目录名
 
 删除目录
@@ -119,7 +122,102 @@ find查找的特点：
 -perm 根据文件权限查找文件
 -size 根据文件大小查找文件
 -type 根据文件类型查找（f-普通文件，c-字符设备文件，b-块设备文件，1-链接文件，d-目录）
--o 表达式或-and表达式与
+-o 表达式或
+-and表达式与
+
+### 管道
+
+返回前两条信息
+> find ./ -name "* test *" -type f | head -n 2
+将查询到的文件复制到当前目录work文件夹
+find ./ -name "* test *" -type f | head -n 2 | xargs -I FILE cp FILE work
+
+## 8. 文件内容操作命令
+
+显示出文件的全部内容
+> cat
+
+显示出文件带行号的全部内容
+> cat -n 文件名
+
+全屏方式分页显示文件内容
+> more
+
+查看文件开头的一部分内容（默认为10行）
+> head -n [行号] 文件名
+
+查看文件结尾的少部分内容(默认为10行）
+常用于查看日志文件
+> tail -n [行号] 文件名
+
+查找文件里符合条件的**字符串**
+> grep [选项] <关键字><文件...>
+
+### grep查找进程
+
+> ps -ef | grep nginx
+
+## 9. 用户管理
+
+- 添加用户
+> useradd
+
+-u指定组ID（uid）
+-g指定所属的组名（gid）
+-G指定多个组，用逗号“,”分开（Groups）
+-c用户描述（comment)
+-e失效时间（expire date）
+
+- 添加密码
+> passwd [选项] <用户名>
+
+-d：清空用户的密码，使之无需密码即可登录
+-l: 锁定用户帐号
+-s: 查看用户帐号的状态（是否被锁定）
+-u：解锁用户帐号
+-x：最大密码使用时间（天)
+-n：最小密码使用时间（天）
+
+- 删除用户
+> userde [选项] 用户名
+
+-r删除账号时同时删除目录（remove）
+
+- 给予用户root权限
+打开以下文件，添加用户名 ALL=(ALL) ALL
+> /etc/sudoers
+
+修改文件用户组
+> chown 用户组:用户名 文件名
+
+## 10.软件包管理
+RPM命令使用
+>Rpm
+-i：安装应用程序（install）
+-e：卸载应用程序(erase）
+-vh：显示安装进度；（verbose hash）
+-U：升级软件包；（update)
+-qa：显示所有已安装软件包（query all)
+YuM命令Yum(全称为Yellow dog Updater,Modified)
+是一个在Fedora和RedHat以及SUSE、CentOS中的Shell前端软件包管理器。
+基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，
+可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
