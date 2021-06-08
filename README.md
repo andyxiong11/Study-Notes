@@ -1,5 +1,7 @@
 # 学习笔记
 
+[C语言算法代码](https://github.com/andyxiong11/C)
+
 [编译原理](编译原理笔记.md)
 
 [计算机网络](计算机网络笔记.md)
@@ -27,6 +29,10 @@
 [Python笔记](Python.md)
 
 [前端纸质笔记](前端笔记（新）.md)
+
+[Nginx](Nginx.md)
+
+[Redis](Redis.md)
 
 ---
 
