@@ -366,11 +366,24 @@ systemctl start iptables
     > cd /usr/local/nginx/sbin
     > ./nginx -s quit
   4. 重启Nginx
-    > ./nginx -s quit./nginx
+    > cd /usr/local/nginx/sbin
+    > ./nginx -s quit
+    > ./nginx
 
-6. Nginx配置
-   
-可选创建用户www
+  5. nginx -s reload
+
+6. Nginx环境变量
+
+运行vim /etc/profile
+
+> export NGINX_HOME=/usr/local/nginx
+> export PATH=$PATH:$NGINX_HOME/sbin
+
+运行 source /etc/profile 
+
+7. 可选
+    
+创建用户www
 > /usr/sbin/groupadd www
 > /usr/sbin/useradd -g www www
 
