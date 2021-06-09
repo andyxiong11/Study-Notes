@@ -1,5 +1,7 @@
 - [一、检查系统环境](#一检查系统环境)
-  - [更换系统源](#更换系统源)
+  - [1. 检查Apache环境](#1-检查apache环境)
+  - [2. 检查Mysql环境](#2-检查mysql环境)
+  - [3. 更换系统源](#3-更换系统源)
 - [二、安装Java、Apache、TomCat、Mysql、Nginx、Redis](#二安装javaapachetomcatmysqlnginxredis)
   - [1. 安装Java](#1-安装java)
   - [2. 安装Apache](#2-安装apache)
@@ -7,12 +9,21 @@
     - [2.2 源码包安装Apache](#22-源码包安装apache)
   - [3. 安装TomCat源码包](#3-安装tomcat源码包)
   - [4. Mysql安装](#4-mysql安装)
-    - [4.1.1 yum安装Mysql](#411-yum安装mysql)
-    - [4.1.2 yum安装 mysql-server](#412-yum安装-mysql-server)
+    - [4.1 Yum安装](#41-yum安装)
+      - [4.1.1 yum安装Mysql](#411-yum安装mysql)
+      - [4.1.2 yum安装 mysql-server](#412-yum安装-mysql-server)
     - [4.2 RPM安装mysql](#42-rpm安装mysql)
-    - [4.3 启动停止](#43-启动停止)
+    - [4.3 启动停止MySql](#43-启动停止mysql)
     - [4.4 查看初始密码](#44-查看初始密码)
-    - [4.5 外部IP连接数据库](#45-外部ip连接数据库)
+    - [4.5 修改密码](#45-修改密码)
+    - [4.6 开放远程登陆权限](#46-开放远程登陆权限)
+    - [4.7 临时开放防火墙端口](#47-临时开放防火墙端口)
+    - [完全关闭防火墙](#完全关闭防火墙)
+    - [4.8 密码策略管理](#48-密码策略管理)
+      - [4.8.1 对密码相关参数的修改](#481-对密码相关参数的修改)
+      - [4.8.2 关于 mysql 密码策略相关参数](#482-关于-mysql-密码策略相关参数)
+      - [4.8.3 修改密码策略](#483-修改密码策略)
+    - [4.9 跳过密码验证](#49-跳过密码验证)
   - [5. Nginx安装](#5-nginx安装)
   - [6. Redis安装](#6-redis安装)
 - [三、基础工具](#三基础工具)
@@ -29,24 +40,38 @@
 
 > cat /etc/redhat-release
 
-2. 检查是否安装过apache
+## 1. 检查Apache环境
+
+1. 检查是否安装过apache
 
 > rpm -qa | grep httpd
 
-3. 检查是否安装过Mysql
-
-> service mysqld start
-
-4. 清理Mysql
-
->yum remove mysql
- rm -f /etc/my.cnf
-
-5. 卸载Apache包
+3. 卸载Apache包
 
 > rpm -qa|grep httpd
 
-## 更换系统源
+## 2. 检查Mysql环境
+
+1. 查看系统中是否以rpm包安装的mysql：
+检查是否已经安装 mysql、mariadb
+
+rpm -qa | grep -i mysql 若安装过，会输出相关包名
+rpm -qa | grep mariadb
+
+2. 卸载mysql
+若有安装过 mysql、mariadb，则删除相关文件
+
+rpm -e [–-nodeps] 包名（此处包名是上面命令查出来的名字）
+rpm -e --nodeps mariadb-server
+rpm -e --nodeps mariadb
+rpm -e --nodeps mariadb-libs
+
+3. 删除分散mysql文件夹
+删除已有配置文件
+find / -name mysql 将找到的相关东西delete掉(rm -rf /var/lib/mysql)；
+rm /etc/my.cnf
+
+## 3. 更换系统源
 
 1. 备份原来的repo文件
 > mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
@@ -61,13 +86,10 @@
 4. 更新
 > yum -y update
 
-
 # 二、安装Java、Apache、TomCat、Mysql、Nginx、Redis
-
 ## 1. 安装Java
 
  1. 首先需要将jdk安装包移动到linux中
- > 建议放到/tmp临时文件目录
 
  2. 创建Java文件目录
  > mkdir -p /usr/local/java
@@ -83,6 +105,7 @@
  export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib/
  export PATH=$PATH:$JAVA_HOME/bin
  ```
+
  4. 重新加载配置文件
  > source /etc/profile
 
@@ -90,22 +113,9 @@
  > java -version
 
 ## 2. 安装Apache
-
 ### 2.1 yum安装Apache
 
 > yum -y install httpd
-直到返回
-
-......
-Installed:
-httpd.x86_64 0:2.4.6-40.el7.centos.4
-
-Dependency Installed:
-apr.x86_64 0:1.4.8-3.el7 apr-util.x86_64 0:1.5.2-6.el7
-httpd-tools.x86_64 0:2.4.6-40.el7.centos.4 mailcap.noarch 0:2.1.41-2.el7
-
-Complete!
-表示安装成功！
 
 ### 2.2 源码包安装Apache
 
@@ -114,11 +124,9 @@ Complete!
 
 安装gcc和c++
 > yum install gcc -y
-  yum install gcc-c++ -y
+> yum install gcc-c++ -y
 
 1. 首先需要将apache源码包移动到linux中
-
-> 建议放到/tmp临时文件目录
 
 2. 解压缩
 
@@ -131,7 +139,7 @@ Complete!
 > ./configure --prefix=/usr/local/apache2/ --sysconfdir=/usr/local/apache2/etc/ --with-included-apr --enable-so --enable-deflate=shared --enable-expires=shared --enable-rewrite=shared
 
 分解上面命令作用：
-
+```
 ./configure       #检查编译环境 执行后将生成MakeFile文件
 
 --prefix=/usr/local/apache2/ #指定安装路径
@@ -143,30 +151,26 @@ Complete!
 -included-apr#指定C头文件的安装位置.其他语言如C++的头文件也可以使用此选项
 
 --enable#当你想开启某个文件的的时候可以使用它
+```
 
-5. 检测完成之后进行
+5. 检测完成之后进行make编译操作
 
-make 进行编译操作
+6. 编译完成之后进行安装操作make install
 
-6. 编译完成之后进行安装操作
-
-make install
-
-7. 安装完成测试 
+7. 测试 
 
 启动Apache测试：
-
+```
 /usr/local/apache2/bin/apachectl start
 
 ps aux | grep httpd  检测进行
 
 netstat -tlun |grep :80 检测80端口
+```
 
 ## 3. 安装TomCat源码包
 
 1. 首先需要将jdk安装包移动到linux中
-
-> 建议放到/tmp临时文件目录
 
 2. 解压缩
    
@@ -178,9 +182,11 @@ netstat -tlun |grep :80 检测80端口
 
 4. 测试
    
-> /usr/local/Tomcat/bin/startup.sh
-> /usr/local/Tomcat/bin/shutdown.sh
-> localhosts:8080
+```
+/usr/local/Tomcat/bin/startup.sh
+/usr/local/Tomcat/bin/shutdown.sh
+localhosts:8080
+```
 
 5. 配置环境变量
 
@@ -193,27 +199,24 @@ export JRE_HOME=/usr/local/java/jdk1.8.0_291/jre
 export JAVA_HOME=/usr/local/java/jdk1.8.0_291
 ```
 
+打开 /etx/profile
+```
+export CATALINA_HOME=/home/java/apache-tomcat-7.0.69 
+export CLASSPATH=.:$JAVA_HOME/lib:$CATALINA_HOME/lib
+export PATH=$PATH:$CATALINA_HOME/bin
+```
+刷新
+source /etc/profile 
+
 ## 4. Mysql安装
-
-检查是否已经安装 mysql、mariadb
-
-rpm -qa | grep -i mysql 若安装过，会输出相关包名
-rpm -qa | grep mariadb
-
-若有安装过 mysql、mariadb，则删除相关文件
-
-rpm -e [–-nodeps] 包名（此处包名是上面命令查出来的名字）
-rpm -e --nodeps mariadb-server
-rpm -e --nodeps mariadb
-rpm -e --nodeps mariadb-libs
-
-### 4.1.1 yum安装Mysql
+### 4.1 Yum安装
+#### 4.1.1 yum安装Mysql
 
 > yum -y install mysql
 
 7.2版本的Centos已经把mysql更名为mariadb，表示安装成功！
 
-### 4.1.2 yum安装 mysql-server
+#### 4.1.2 yum安装 mysql-server
 
 > yum -y install mysql-server
 
@@ -222,7 +225,7 @@ CentOS 7+ 版本将MySQL数据库软件从默认的程序列表中移除，用ma
 
 一是安装mariadb
 
-yum install -y mariadb
+> yum install -y mariadb
 
 二是从官网下载mysql-server
 
@@ -237,100 +240,209 @@ yum install mysql-community-server
 **安装顺序**
 
 ```
-rpm -ivh mysql-community-common-5.7.17-1.el7.x86_64.rpm   
-rpm -ivh mysql-community-libs-5.7.17-1.el7.x86_64.rpm   
-rpm -ivh mysql-community-client-5.7.17-1.el7.x86_64.rpm  
-rpm -ivh mysql-community-server-5.7.17-1.el7.x86_64.rpm  
-rpm -ivh mysql-community-devel-5.7.17-1.el7.x86_64.rpm  
+rpm -ivh mysql-community-common-8.0.25-1.el7.x86_64  
+rpm -ivh mysql-community-client-plugins-8.0.25-1.el7.x86_64
+rpm -ivh mysql-community-libs-8.0.25-1.el7.x86_64   
+rpm -ivh mysql-community-client-8.0.25-1.el7.x86_64.rpm  
+rpm -ivh mysql-community-server-8.0.25-1.el7.x86_64.rpm  
 ```
 
-```
-PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
-To do so, start the server, then issue the following commands:
+安装rpm时，可能会报出出现依赖冲突，因为CentOS的默认数据库已经不再是MySQL了，而是MariaDB。
 
-/usr/bin/mysqladmin -u root password 'new-password'
-/usr/bin/mysqladmin -u root -h andyxiong password 'new-password'
-
-Alternatively you can run:
-/usr/bin/mysql_secure_installation
-
-which will also give you the option of removing the test
-databases and anonymous user created by default.  This is
-strongly recommended for production servers.
-
-See the manual for more instructions.
-
-Please report any problems with the /usr/bin/mysqlbug script!
-```
-
-当安装第二个rpm时，会报出出现依赖冲突，因为CentOS的默认数据库已经不再是MySQL了，而是MariaDB。
 查看当前安装的mariadb包：
-rpm -qa | grep mariadb
+> rpm -qa | grep mariadb
+
 用命令删除
-rpm -e --nodeps mariadb-libs-5.5.44-2.el7.centos.x86_64
+> rpm -e --nodeps 包名
+> 
 然后重新按顺序安装.
 
-### 4.3 启动停止
+### 4.3 启动停止MySql
 
-> 启动 mysql 服务：
-  service mysql start
-  关闭 mysql 服务：
-  service mysql stop
+启动MySQL8.0、5.7
+> systemctl start mysqld
+
+查看MySQL状态
+> systemctl status mysqld
+
+----
+mysql老版本
+
+启动 mysql 服务：
+> service mysql start
+
+关闭 mysql 服务
+> service mysql stop
 
 ### 4.4 查看初始密码
 
 >  cat /var/log/mysqld.log | grep password
 
-### 4.5 外部IP连接数据库
+### 4.5 修改密码
+
+> ALTER user 'root'@'localhost' IDENTIFIED BY 'Root.xxxxxx';
+
+注：**如果开放了权限为%，'root'@'%'**
+
+### 4.6 开放远程登陆权限
 
 ```sql
 use mysql;
+
 -- 查询host
 select user, authentication_string, host from user;
 
 --输入授权远程访问命令
-grant all privileges on *.* to 'root'@'192.168.xxx.xxx' identified by '123456' with grant option;
+grant all privileges on *.* to 'root'@'192.168.xxx.xxx<%>' identified by 'xxxxxx' with grant option;
 
+--8.0用以下命令
+update user set host='%' where user ='root';
+
+--刷新
 flush privileges;
 ```
 
 如果还是连接不上，需要关闭服务器防火墙
 
+### 4.7 临时开放防火墙端口
+
+> firewall-cmd --query-port=3306/tcp
+开启3306
+
+> firewall-cmd --zone=public --add-port=3306/tcp --permanent
+重新加载防火墙
+
+firewall-cmd --reload
+
+### 完全关闭防火墙
+
 1. 首先查看防火墙状态
 > service iptables status
 > systemctl status firewalld
-提示：Unit iptables.service could not be found，
 
-2. 先执行如下两个命令：
-   
-```
-cd /etc/sysconfig
-ls -l
-```
-显示没有iptables文件，但存在ip6tables-config和iptables-config。因为CentOS 7默认没有了iptables文件。
-
-3. 安装iptables-services
-
-> yum install iptables-services
-
-4. 启动iptables
-
-```
-systemctl enable iptables
-systemctl start iptables
-```
-
-5. 关闭iptables防火墙，使用命令
+2. 关闭iptables防火墙，使用命令
 > service iptables stop
 
-6. 打开iptables防火墙，使用命令
+3. 打开iptables防火墙，使用命令
 > service iptables start（本次有效，下次开机后恢复原设置）
 
-7. 停止firewall防火墙
+4. 停止firewall防火墙
 > systemctl stop firewalld.service
 
-8. 禁止firewall开机自启
+5. 禁止firewall开机自启
 > systemctl disable firewalld.service 
+
+### 4.8 密码策略管理
+
+在 mysql 8.0 中新增了三个变量，用于对密码的管理：
+
+1. 新密码不能和前面三次的密码相同
+password_history = 3 ; 
+ 
+2. 新密码不能和前面九十天内使用的密码相同
+password_reuse_interval = 90 ; 
+ 
+3. 默认为off；为on 时 修改密码需要用户提供当前密码 (开启后修改密码需要验证旧密码，root 用户不需要)
+password_require_current = on ;
+
+**查看密码管理策略**
+```sql
+mysql> show variables like 'password%';
++--------------------------+-------+
+| Variable_name            | Value |
++--------------------------+-------+
+| password_history         | 0     |
+| password_require_current | OFF   |
+| password_reuse_interval  | 0     |
++--------------------------+-------+
+```
+
+#### 4.8.1 对密码相关参数的修改
+
+1. 全局设置
+
+第一种方式：修改 mysql 的配置文件，全局生效
+
+> vi /etc/my.cnf
+ 
+添加password_history=6
+
+第二种方式：使用 命令 set persist password_history=6
+
+2. 对指定用户设置
+
+**查看权限**
+>  select host, user, Password_reuse_history from mysql.user;
+
+```sql
++-----------+------------------+------------------------+
+| host      | user             | Password_reuse_history |
++-----------+------------------+------------------------+
+| localhost | mysql.infoschema | NULL                   |
+| localhost | mysql.session    | NULL                   |
+| localhost | mysql.sys        | NULL                   |
+| localhost | root             | NULL                   |
++-----------+------------------+------------------------+
+```
+ 
+**修改root用户权限
+
+> ALTER USER 'root'@'localhost' password history 3;
+ 
+ 接下来，修改密码看下效果，会提示错误
+> alter user 'root'@'localhost' identified by 'root@123456';
+```sql
+1819 - Your password does not satisfy the current policy requirements
+```
+
+#### 4.8.2 关于 mysql 密码策略相关参数
+
+validate_password.length  固定密码的总长度；
+validate_password.dictionary_file 指定密码验证的文件路径；
+validate_password.mixed.case_count  整个密码中至少要包含大/小写字母的总个数；
+validate_password.number_count  整个密码中至少要包含阿拉伯数字的个数；
+validate_password_special_char_count 整个密码中至少要包含特殊字符的个数；
+validate_password.policy 指定密码的强度验证等级，默认为 MEDIUM；
+关于 validate_password.policy 的取值：
+0/LOW：只验证长度；
+1/MEDIUM：验证长度、数字、大小写、特殊字符；
+2/STRONG：验证长度、数字、大小写、特殊字符、字典文件；
+
+**查看当前的密码策略**
+
+> SHOW VARIABLES LIKE 'validate_password%';
+> 
+```sql
++--------------------------------------+--------+
+| Variable_name                        | Value  |
++--------------------------------------+--------+
+| validate_password.check_user_name    | ON     |
+| validate_password.dictionary_file    |        |
+| validate_password.length             | 8      |
+| validate_password.mixed_case_count   | 1      |
+| validate_password.number_count       | 1      |
+| validate_password.policy             | MEDIUM |
+| validate_password.special_char_count | 1      |
++--------------------------------------+--------+
+```
+
+#### 4.8.3 修改密码策略
+
+首先需要设置密码的**验证强度等级**，设置validate_password_policy 的全局参数为 LOW 即可
+
+> set global validate_password_policy=LOW; 
+ 
+**修改密码长度**
+> set global validate_password_length=6;
+
+**刷新权限表**
+> flush privileges; 
+
+### 4.9 跳过密码验证
+
+**修改mysql的配置文件**
+
+MySQL配置文件my.ini中，在[mysqld]下添加skip-grant-tables，关闭mysql服务并重新开启；
 
 ## 5. Nginx安装
 
