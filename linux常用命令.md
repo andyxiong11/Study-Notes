@@ -45,7 +45,7 @@
 ## 5. 防火墙设置
 
 查看防火墙状态
-> systemctl status firewalld.service
+> 
 
 关闭防火墙
 > systemctl stop firewalld.service
@@ -125,7 +125,7 @@ find查找的特点：
 -o 表达式或
 -and表达式与
 
-### 管道
+## 管道
 
 返回前两条信息
 > find ./ -name "* test *" -type f | head -n 2
@@ -153,7 +153,7 @@ find ./ -name "* test *" -type f | head -n 2 | xargs -I FILE cp FILE work
 查找文件里符合条件的**字符串**
 > grep [选项] <关键字><文件...>
 
-### grep查找进程
+## grep查找进程
 
 > ps -ef | grep nginx
 
@@ -203,6 +203,13 @@ YuM命令Yum(全称为Yellow dog Updater,Modified)
 基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，
 可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装
 
+## 11. 压缩文件
+
+tar -czvf <路径>压缩名.tar.gz <路径>目录
+
+解压
+
+tar -xzvf <路径>压缩名
 
 
 
