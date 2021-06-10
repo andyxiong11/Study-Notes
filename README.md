@@ -18,21 +18,21 @@
 
 [Sql语句](sql.md)
 
+[Nginx](Nginx.md)
+
+[Redis](Redis.md)
+
 ---
 
 # 更新中
 
 [软件测试](软件测试.md)
 
-[Nginx](Nginx.md)
+[linux性能监控](linux性能监控.md)
 
 [Python笔记](Python.md)
 
 [前端纸质笔记](前端笔记（新）.md)
-
-[Nginx](Nginx.md)
-
-[Redis](Redis.md)
 
 ---
 

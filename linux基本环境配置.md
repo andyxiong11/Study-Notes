@@ -28,6 +28,7 @@
   - [6. Redis安装](#6-redis安装)
 - [三、基础工具](#三基础工具)
   - [1. 文件上传下载](#1-文件上传下载)
+- [四、Gnome和KDE](#四gnome和kde)
 
 
 > 系统环境：CentOS 7
@@ -320,16 +321,26 @@ firewall-cmd --reload
 > service iptables status
 > systemctl status firewalld
 
-2. 关闭iptables防火墙，使用命令
-> service iptables stop
+2. 关闭iptables防火墙
+   1. 永久性生效，重启后不会复原
+    开启：
+    > chkconfig iptables on
 
-3. 打开iptables防火墙，使用命令
-> service iptables start（本次有效，下次开机后恢复原设置）
+    关闭：
+    > chkconfig iptables off
+   2. 即时生效，重启后复原
+    开启：
+    > service iptables start
+    
+    关闭：
+    > service iptables stop
+   3. 设置后重启：
+   reboot
 
-4. 停止firewall防火墙
+3. 停止firewall防火墙
 > systemctl stop firewalld.service
 
-5. 禁止firewall开机自启
+4. 禁止firewall开机自启
 > systemctl disable firewalld.service 
 
 ### 4.8 密码策略管理
@@ -651,4 +662,15 @@ public class redis {
 
 上传 rz -y
 下载 sz 文件名
+
+# 四、Gnome和KDE
+
+CentOS7
+1. 查看默认target开机模式
+systemctl get-default
+2. 开机以命令模式启动
+systemctl set-default multi-user.target
+3. 开机以图形化界面启动
+systemctl set-default graphical.target
+startx
 
