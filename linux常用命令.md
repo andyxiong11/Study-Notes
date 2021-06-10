@@ -205,12 +205,11 @@ YuM命令Yum(全称为Yellow dog Updater,Modified)
 
 ## 11. 压缩文件
 
-tar -czvf <路径>压缩名.tar.gz <路径>目录
+tar -czvf <路径>压缩名.tar.gz <路径./>目录
 
 解压
 
-tar -xzvf <路径>压缩名
-
+tar -xzvf <路径>压缩名.tar.gz <-C <绝对路径>文件夹名>
 
 
 
