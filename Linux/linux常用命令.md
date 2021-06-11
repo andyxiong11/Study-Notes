@@ -45,7 +45,7 @@
 ## 5. 防火墙设置
 
 查看防火墙状态
-> 
+> systemctl status firewalld.service
 
 关闭防火墙
 > systemctl stop firewalld.service
@@ -69,6 +69,7 @@
 -a：显示所有子自录和文件的信息，包括隐藏文件
 -A：类似于-a”，但不显示“”和“.”自录的信息
 -R：递归显示内容
+-t: 按时间倒序显示
 
 权限设置
 > chmod 777 目录名
