@@ -616,7 +616,7 @@ daemonize 改成 yes
 
 6. 启动Redis
 > cd /usr/local/redis-stable/
-> ./src/redis-server ./redis.conf ( ./src/redis-server 是底层的启动文件 ， ./redis.conf  是指定的配置文件)
+> redis-server redis.conf ( ./src/redis-server 是底层的启动文件 ， ./redis.conf  是指定的配置文件)
 
 7. 测试
 
