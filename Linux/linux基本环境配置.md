@@ -1,3 +1,5 @@
+# linux基本环境配置
+- [linux基本环境配置](#linux基本环境配置)
 - [一、检查系统环境](#一检查系统环境)
   - [1. 检查Apache环境](#1-检查apache环境)
   - [2. 检查Mysql环境](#2-检查mysql环境)
@@ -11,7 +13,6 @@
   - [4. Mysql安装](#4-mysql安装)
     - [4.1 Yum安装](#41-yum安装)
       - [4.1.1 yum安装Mysql](#411-yum安装mysql)
-      - [4.1.2 yum安装 mysql-server](#412-yum安装-mysql-server)
     - [4.2 RPM安装mysql](#42-rpm安装mysql)
     - [4.3 启动停止MySql](#43-启动停止mysql)
     - [4.4 查看初始密码](#44-查看初始密码)
@@ -73,6 +74,8 @@ find / -name mysql 将找到的相关东西delete掉(rm -rf /var/lib/mysql)；
 rm /etc/my.cnf
 
 ## 3. 更换系统源
+
+**现在已经无需配置yum软件源，yum有新模块会自动寻找最近的软件源**
 
 1. 备份原来的repo文件
 > mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
@@ -214,12 +217,9 @@ source /etc/profile
 #### 4.1.1 yum安装Mysql
 
 > yum -y install mysql
+> yum -y install mysql-server
 
 7.2版本的Centos已经把mysql更名为mariadb，表示安装成功！
-
-#### 4.1.2 yum安装 mysql-server
-
-> yum -y install mysql-server
 
 可能会报错：
 CentOS 7+ 版本将MySQL数据库软件从默认的程序列表中移除，用mariadb代替了，entos7配置教程上，大多都是安装mariadb，因为centos7默认将mariadb视作mysql。因为mysql被oracle收购后，原作者担心mysql闭源，所以又写了一个mariadb，这个数据库可以理解为mysql的分支。如果需要安装mariadb，只需通过yum就可。

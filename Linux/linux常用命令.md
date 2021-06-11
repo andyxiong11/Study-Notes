@@ -35,10 +35,14 @@
 
 > vi /etc/sysconfig/network-scripts/ifcfg-ens32
 
-重启network网络服务
+1. 启用网卡
+onboot改为yes
+
+2. 重启network网络服务
 > service network restart
 
-> ip a
+查找
+> ip a/addre ip
 > ifconfig
 > ping 主机地址
 
@@ -69,7 +73,7 @@
 -a：显示所有子自录和文件的信息，包括隐藏文件
 -A：类似于-a”，但不显示“”和“.”自录的信息
 -R：递归显示内容
--t: 按时间倒序显示
+**-t: 按时间倒序显示**
 
 权限设置
 > chmod 777 目录名
@@ -79,7 +83,7 @@
 > mkdir [-p] [路径/]目录名
 
 删除目录
-> rm -rf [/路径] 目录名
+> rm -rf </路径> 目录名
 
 ## 7. 文件操作命令
 
@@ -144,12 +148,17 @@ find ./ -name "* test *" -type f | head -n 2 | xargs -I FILE cp FILE work
 全屏方式分页显示文件内容
 > more
 
+
+> less
+
 查看文件开头的一部分内容（默认为10行）
 > head -n [行号] 文件名
 
 查看文件结尾的少部分内容(默认为10行）
-常用于查看日志文件
+**常用于查看日志文件**
 > tail -n [行号] 文件名
+
+tail -fn 300 catalina.out>/log.txt
 
 查找文件里符合条件的**字符串**
 > grep [选项] <关键字><文件...>
@@ -192,17 +201,20 @@ find ./ -name "* test *" -type f | head -n 2 | xargs -I FILE cp FILE work
 > chown 用户组:用户名 文件名
 
 ## 10.软件包管理
+
+yum命令(全称为Yellow dog Updater,Modified)是一个在Fedora和RedHat以及SUSE、CentOS中的Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装
+
+> yum -y
+> yum remove -y
+
 RPM命令使用
->Rpm
+> rpm
+
 -i：安装应用程序（install）
 -e：卸载应用程序(erase）
 -vh：显示安装进度；（verbose hash）
 -U：升级软件包；（update)
 -qa：显示所有已安装软件包（query all)
-YuM命令Yum(全称为Yellow dog Updater,Modified)
-是一个在Fedora和RedHat以及SUSE、CentOS中的Shell前端软件包管理器。
-基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，
-可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装
 
 ## 11. 压缩文件
 
