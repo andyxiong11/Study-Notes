@@ -195,23 +195,6 @@ HTML标签名、类名、标签属性和大部分属性值统一用小写
 
 
 
-## 1.4 课堂一练
-
-**请问下列哪组标签关系是错误的？ **
-
-- [ ] <head> </head><body> </body>
-
-
-- [ ] <div> <strong></strong> </div>
-
-
-- [x] <head> <title></head> </title>
-
-
-- [ ] <body> <div></div> </body>
-
-
-
 # 2. 代码开发工具（书写代码）
 
 - 为了提高我们的开发效率
