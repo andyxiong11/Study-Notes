@@ -45,25 +45,16 @@
 > 安装环境
 
 ```shell
-[root@andyxiong /]# uname -r
-3.10.0-1127.el7.x86_64
-
-[root@andyxiong /]# cat /etc/os-release 
+uname -r
+cat /etc/os-release 
 ```
 
-> 官方文档：https://docs.docker.com/engine/install/centos/
+[官方文档](https://docs.docker.com/engine/install/centos/)
 
 #### 2.2.1 卸载旧版本
 
 ```shell
-yum remove docker \
-    docker-client \
-    docker-client-latest \
-    docker-common \
-    docker-latest \
-    docker-latest-logrotate \
-    docker-logrotate \
-    docker-engine
+yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine
 ```
 
 #### 2.2.2 需要的安装包
@@ -76,14 +67,10 @@ yum install -y yum-utils
 
 ```shell
 # 官方文档默认国外仓库
-yum-config-manager \
---add-repo \
-https://download.docker.com/linux/centos/docker-ce.repo 
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 
 
 # 修改为阿里云镜像
-yum-config-manager \
---add-repo \
-http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 ```
 
 #### 2.2.4 安装Docker
@@ -164,9 +151,9 @@ systemctl restart docker
 ### 2.5 详解hello-world流程
 
 1. run
-1. Docker在本机寻找镜像
-1. 本机有则直接运行；否则去DockerHub上下载
-1. DockerHub上找到，下载到本地并运行；否则返回错误
+2.  Docker在本机寻找镜像
+3. 本机有则直接运行；否则去DockerHub上下载
+4. DockerHub上找到，下载到本地并运行；否则返回错误
 
 ### 2.6 底层原理
 
