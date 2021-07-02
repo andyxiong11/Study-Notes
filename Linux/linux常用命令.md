@@ -46,6 +46,13 @@ onboot改为yes
 > ifconfig
 > ping 主机地址
 
+**网卡ens32启用但不显示**
+禁用NetworkManager
+
+1、systemctl stop NetworkManager
+
+2、systemctl disable NetworkManager
+
 ## 5. 防火墙设置
 
 查看防火墙状态
