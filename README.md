@@ -6,13 +6,15 @@
 
 [计算机网络](计算机网络笔记.md)
 
-[Docker](Docker.md)
+[软件测试](/软件测试/软件测试.md)
 
 [Git](git.md)
 
 [linux常用命令](Linux/linux常用命令.md)
 
 [linux基本环境配置](Linux/linux基本环境配置.md)
+
+[linux性能监控](Linux/linux性能监控.md)
 
 [Mysql配置及使用](Mysql配置及使用.md)
 
@@ -26,9 +28,7 @@
 
 # 更新中
 
-[软件测试](软件测试.md)
-
-[linux性能监控](Linux/linux性能监控.md)
+[接口测试](软件测试/接口测试.md)
 
 [Python笔记](Python.md)
 
@@ -38,11 +38,13 @@
 
 # 未完成
 
-[前端笔记](前端笔记.md)
-
 [Java](Java.md)
 
 [前端面试题](前端面试题)
+
+[Docker](Docker.md)
+
+[前端笔记](前端笔记.md)
 
 
 
