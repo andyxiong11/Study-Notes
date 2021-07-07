@@ -11,6 +11,7 @@
   - [3.3 组织列表](#33-组织列表)
 - [4. 操作列表](#4-操作列表)
   - [4.1 遍历列表](#41-遍历列表)
+  - [4.3 创建数值列表](#43-创建数值列表)
 
 ## 2. 变量和数据类型
 ### 2.2 变量
@@ -313,3 +314,45 @@ for magician in magicians:
 print('Thank you, everyone. That was a great magic show!')
 ```
 
+### 4.3 创建数值列表
+
+**函数range,生成一系列数字，从左边的数开始，不包含右边的数**
+
+```python
+for value in range(1, 5):
+    print(value)
+```
+
+**使用range函数创建数字列表1-4**
+
+```python
+numbers = list(range(1, 5))
+print(numbers)
+
+**打印1-10的偶数**
+
+```python
+even_numbers = list(range(2, 11, 2))
+print(even_numbers)
+```
+
+**打印1-10的平方**
+
+```python
+squares = []
+for value in range(1,11):
+    square = value**2
+    squares.append(square)
+print(squares)
+```
+
+max(squares)
+min(squares)
+sum(squares)
+
+**列表解析**
+
+```python
+squares = [value**2 for value in range(1,11)]
+print(squares)
+```
