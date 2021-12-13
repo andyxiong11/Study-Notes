@@ -55,7 +55,7 @@
 
 **通过ssh推送**  
 - 生成秘钥 ssh-keygen -t rsa -C "[邮箱]" 
-> *.pub公钥
+> *.pub公钥，将公钥内容添加到github
   - **先pull再push**
 - 简写公钥    git remote add [变量名] [公钥] => git push [变量名] [分支名]
 - 简写推送    git push [变量名] -u [分支名] => git push->git pull

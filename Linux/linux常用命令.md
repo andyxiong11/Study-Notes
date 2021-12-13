@@ -231,6 +231,15 @@ tar -czvf <路径>压缩名.tar.gz <路径./>目录
 
 tar -xzvf <路径>压缩名.tar.gz <-C <绝对路径>文件夹名>
 
+## 12. 传输文件
+
+**安装**
+
+yum install lrzsz
+
+上传 rz
+下载 sz
+
 
 
 
