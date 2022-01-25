@@ -29,6 +29,7 @@
   - [6. Redis安装](#6-redis安装)
 - [三、基础工具](#三基础工具)
   - [1. 文件上传下载](#1-文件上传下载)
+  - [2. 安装ifconfig](#2-安装ifconfig)
 - [四、Gnome和KDE](#四gnome和kde)
 
 
@@ -608,6 +609,10 @@ public class redis {
 
 上传 rz -y
 下载 sz 文件名
+
+## 2. 安装ifconfig
+
+> yum install net-tools.x86_64
 
 # 四、Gnome和KDE
 
