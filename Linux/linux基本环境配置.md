@@ -30,6 +30,8 @@
 - [三、基础工具](#三基础工具)
   - [1. 文件上传下载](#1-文件上传下载)
   - [2. 安装ifconfig](#2-安装ifconfig)
+  - [3. 安装wget](#3-安装wget)
+  - [4. 更换阿里云镜像](#4-更换阿里云镜像)
 - [四、Gnome和KDE](#四gnome和kde)
 
 
@@ -613,6 +615,19 @@ public class redis {
 ## 2. 安装ifconfig
 
 > yum install net-tools.x86_64
+
+## 3. 安装wget
+
+> yum -y install wget
+
+## 4. 更换阿里云镜像
+
+1. 备份
+   > mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+2. 下载
+   > wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+3. 生成缓存
+   > yum makecache
 
 # 四、Gnome和KDE
 
