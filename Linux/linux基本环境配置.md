@@ -84,9 +84,9 @@ rm /etc/my.cnf
 > mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 
 2. 下载新的CentOS-Base.repo到/etc/yum.repos.d/
-> wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+> wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo
 
-3. 运行
+1. 运行
 > yum clean all
 > yum makecache
 
