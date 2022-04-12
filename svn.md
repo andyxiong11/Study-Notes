@@ -147,3 +147,13 @@ svn://IP/p1
 
 **访问项目p2 URL**
 svn://IP/p1
+
+# 6. 常见问题
+
+## 6.1 连接请求无响应
+
+**打开svn默认端口3690**
+firewall-cmd –permanent –zone=public –add-port=3690/tcp
+
+**重启防火墙**
+firewall-cmd –reload
