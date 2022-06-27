@@ -29,6 +29,17 @@
   - [5.1 if](#51-if)
   - [5.2 if-else](#52-if-else)
   - [5.3 if-elif-else](#53-if-elif-else)
+  - [5.4 if嵌套](#54-if嵌套)
+- [6.循环](#6循环)
+  - [6.1 while](#61-while)
+  - [6.2 无限循环](#62-无限循环)
+  - [6.3 for](#63-for)
+  - [6.4 break和continue](#64-break和continue)
+- [7. 容器](#7-容器)
+  - [7.1 字符串](#71-字符串)
+  - [7.2 列表](#72-列表)
+  - [7.3 元组](#73-元组)
+  - [7.4 字典](#74-字典)
 
 ## 2. 变量和数据类型
 ### 2.2 变量
@@ -494,17 +505,21 @@ print(f'我的名字是{}，年龄{},身高{:.2f}m,学号{:06d},及格率{}%'.fo
 ```
 ### 4.3 逻辑运算符
 - and、or、not
+
+**非空字符串为true，空字符串和0为flase**
 ### 4.4 赋值运算符
 - +=、-=、*=、/=、//=、%=  
 
 ## 5. 判断
 ### 5.1 if
+
 ```python
 if 判断条件：
   执行代码 #注意缩进
 非判断执行代码
 ```
 ### 5.2 if-else
+
 ```python
 if 判断条件:
   执行代码
@@ -519,6 +534,7 @@ else:
   print('登录信息错误,查无此人')
 ```
 ### 5.3 if-elif-else
+
 ```python
 if 判断条件1:
   执行代码
@@ -526,3 +542,147 @@ elif 判断条件2:
   执行代码
 else:
   执行代码
+```
+### 5.4 if嵌套
+
+```python
+user = input('请输入用户名：')
+passwd = input('请输入密码：')
+num = input('请输入验证码888：')
+if num == '888':
+  if user == 'admin' and passwd == '123456':
+    print('登录成功')
+  else:
+    print('用户信息不正确')
+else:
+  print('验证码不正确')
+```
+
+**剪刀石头布**
+```python
+import random
+
+player = input('请出拳剪刀（1）、石头（2）、布（3）：')
+computer = random.randint(1, 3)
+
+if (player == 'jd' and computer == 3) or (player == 'st' and computer == 1) or (player == 'b' and computer == 2):
+  print('赢局')
+elif (player == computer):
+  print('平局')
+else:
+  print('输局')
+```
+
+## 6.循环
+### 6.1 while
+
+```python
+循环初始条件
+while 循环判断条件:
+  执行代码
+  改变初始条件
+```
+
+python**不支持i++**
+
+### 6.2 无限循环
+
+```python
+while true:
+  执行代码
+  if 判断条件:
+    break
+  执行代码
+
+#剪刀石头布
+import random
+
+while true:
+  player = int(input('请出拳剪刀（1）、石头（2）、布（3）、退出（0）：'))
+  if player == 0:
+    break
+  computer = random.randint(1, 3)
+  if (player == 'jd' and computer == 3) or (player == 'st' and computer == 1) or (player == 'b' and computer == 2):
+    print('赢局')
+  elif (player == computer):
+    print('平局')
+  else:
+    print('输局')
+
+#猜随机数
+import random
+
+num = random.randint(1, 100)
+
+while true:
+  my_num = int(input('请输入一个整数：'))
+  if (my_num == num): #首先判断结束循环的条件
+    print('正确')
+    break
+  elif (my_num < numr):
+    print('输入的数小了')
+  else:
+    print('输入的数大了')
+```
+
+### 6.3 for
+
+```python
+for 变量名 in 容器:
+  执行代码
+
+my_str = 'hello'
+for i in my_str:
+  print('你好',i`)
+```
+
+1. 容器中有多少数据，循环会执行多少次
+2. 每次循环，会将容器中数据取一个保存到in关键字前面的变量中
+
+**指定循环次数**
+
+```python
+for 变量 in range(n):
+  执行代码
+
+# range（）函数可以生成[0,n)之间的整数
+for i in range(5):
+  print(i) #0 1 2 3 4
+
+for 变量 in range(a.b):
+  执行代码
+
+# range（）函数可以生成[a,b)之间的整数
+```
+
+### 6.4 break和continue
+
+continue：跳过本次循环
+break：结束循环
+
+```python
+result = input('请输入一个字符串：')
+for i in result:
+  if i == 'e':
+    continue
+  # 可替换成 if i != 'e':
+  print (i)
+```
+
+## 7. 容器
+
+> 也称为数据序列，或者高级数据类型，也是python中的数据类型
+
+### 7.1 字符串
+
+```python
+my_str = "I'm 小明"
+my_str = '"I'm 小明"'
+my_str = 'I\'m 小明'
+my_str = 'I\\\'m 小明'
+my_str = r'I\'m 小明'
+```
+- 字符串前面加上r""变成**原生字符串**，常用于文件路径
+### 7.2 列表
+### 7.3 元组
+### 7.4 字典
