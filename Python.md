@@ -1,19 +1,6 @@
 - [2. 变量和数据类型](#2-变量和数据类型)
   - [2.2 变量](#22-变量)
     - [变量命名](#变量命名)
-  - [2.3 字符串](#23-字符串)
-    - [大小写转换](#大小写转换)
-    - [拼接](#拼接)
-    - [删除空白](#删除空白)
-  - [2.4 数字](#24-数字)
-  - [2.5 列表](#25-列表)
-    - [2.5.1 修改、删除和添加元素](#251-修改删除和添加元素)
-    - [2.5.2 组织列表](#252-组织列表)
-    - [2.5.3 操作列表](#253-操作列表)
-      - [2.5.3.1 遍历列表](#2531-遍历列表)
-      - [2.5.3.2 创建数值列表](#2532-创建数值列表)
-  - [2.6 元组](#26-元组)
-  - [2.7 字典](#27-字典)
   - [2.8 数据类型转换](#28-数据类型转换)
 - [3. 输入和输出](#3-输入和输出)
   - [3.1 输入](#31-输入)
@@ -37,7 +24,14 @@
   - [6.4 break和continue](#64-break和continue)
 - [7. 容器](#7-容器)
   - [7.1 字符串](#71-字符串)
+    - [7.1.2 下标（索引）](#712-下标索引)
+    - [7.1.3 切片](#713-切片)
+    - [7.1.3 查找方法 find](#713-查找方法-find)
+    - [7.1.4 替换方法 replace](#714-替换方法-replace)
+    - [7.1.5 拆分 split](#715-拆分-split)
+    - [7.1.6 链接 join](#716-链接-join)
   - [7.2 列表](#72-列表)
+    - [7.2.1 初始化](#721-初始化)
   - [7.3 元组](#73-元组)
   - [7.4 字典](#74-字典)
 
@@ -66,7 +60,7 @@ print(message)
 
 - 使用type(变量)函数**获取变量类型**
 
-### 2.3 字符串
+<!-- ### 2.3 字符串
 
 ```python
 name = '小明'
@@ -403,7 +397,7 @@ print(squares)
 
 ### 2.7 字典
 
-{'name':'小明', 'age':'18'}
+{'name':'小明', 'age':'18'} -->旧笔记
 
 ### 2.8 数据类型转换
 
@@ -677,12 +671,144 @@ for i in result:
 
 ```python
 my_str = "I'm 小明"
-my_str = '"I'm 小明"'
+my_str = '"I'm 小明"' 
+#I'm 小明
 my_str = 'I\'m 小明'
+#I'm 小明
 my_str = 'I\\\'m 小明'
+#I\'m 小明
 my_str = r'I\'m 小明'
+#I\'m 小明
 ```
 - 字符串前面加上r""变成**原生字符串**，常用于文件路径
+
+#### 7.1.2 下标（索引）
+```python
+my_str = "I'm 小明"
+print(my_str[0]) # I
+print(my_str[-1]) # 明
+```
+
+- 获取字符串长度 len(字符串)
+```python
+print(len(my_str))
+print(my_str[len(my_str)-1])
+```
+
+#### 7.1.3 切片
+>获取字符串中多个字符
+
+语法：字符串[start:end:step]
+1. start，开始位置的下标
+2. end，结束位置的下标（该位置字符取不到）
+3. step，步长，等差数列的差值，取相邻字符下标之间的差值，默认1，可不写
+
+```python
+str = 'abcdefg'
+print(str[0:3:1]) # abd
+# 步长为1可以不写冒号
+print(str[0:3]) # abd
+# 开始位置为0可以不写
+print(str[:3]) # abd
+
+print(str[4:7]) # efg
+print(str[-3:7]) # efg
+# 如果最后一个字符也要取，可不写
+print(str[4:]) # efg
+
+# 如果获取全部字符
+print(str[:])
+
+# 获取有差值的部分字符
+print(str[::2]) # aceg
+
+# 步长为负数，反转数组
+print(str[::-1]) #gfedcba
+```
+
+#### 7.1.3 查找方法 find
+
+语法：字符串.find(sub_str,start,end)
+1. sub_str，要查找的字符串
+2. start,开始位置，一般不写，默认0
+3. end，结束位置，一般不写，默认len（）
+4. 如果找到了sub_str，返回sub_str第一次出现的下标（第一个字符出现的下标）；如果没有找到，返回-1
+
+```python
+str = 'hello world and itcast and itcast'
+num = str.find('and')
+print(num)
+# 查找字符串中第二个and出现的位置
+num1 = str.find('and',num+1)
+print(num1)
+# 查找字符串中第三个and出现的位置
+num2 = str.find('and',num1+1)
+print(num2) # -1
+```
+
+#### 7.1.4 替换方法 replace
+
+```yacas
+语法：字符串.replace(old_str,new_str,count)
+1. old_str，被替换的内容
+2. new_str，替换的内容
+3. count，替换的次数，默认不写，全部替换
+4. 原字符串的内容没有改
+```
+
+```python
+str = 'good good study'
+str.replace('g', 'G')
+# 将第一个good替换成GOOD
+str2 = str.replace('good', 'GOOD', 1)
+print(str2)
+# 将第二个good替换成GOOD
+str3 = str.replace('good', 'GOOD')
+str3 = str3.replace('GOOD', 'good', 1)
+print(str3)
+```
+
+#### 7.1.5 拆分 split
+
+语法：字符串.split(sep, maxsplit)
+1. sep，字符串按照什么进行拆分，默认是空白字符（空格、换行\n、tab键\t）
+2. max_split，分割次数，一般不写，默认全部分割
+3. 返回：将一个字符串分为多个，存在列表中
+4. 如果不写sep，字符串.split(maxsplit = n)
+
+```python
+str = 'hello world and itcast and itcast'
+result = str.split('and') #['hello world','itcast','itcast']
+result = str.split('and',1) #['hello world','itcast and itcast']
+result = str.split() # ['hello','world','and','itcast','and', 'itcast']
+result = str.split(maxsplit=1) # ['hello','world and itcast and itcast']
+```
+
+#### 7.1.6 链接 join
+
+语法：字符串.join(列表)
+1. 括号中主要是列表，也可以是其他容器
+2. 作用：将字符串插入到列表中每相邻的两个数据之间，组成一个新的字符串
+3. 列表中**必须都是字符串**
+
+```python
+list = ['hello','world','and','itcast','and', 'itcast']
+str = ' '.join(list)
+print(str)
+list1 = ['hello world','itcast','itcast']
+str1 = ' and '.join(list1)
+```
+
 ### 7.2 列表
+#### 7.2.1 初始化
+1. 类实例化的方法（不常用）
+   1. 定义空列表
+      变量 = list()
+   2. 类型转换
+      list(容器)
+      > list1 = list('hello')   ['h','e','l','l','o']
+2. 直接使用[]定义
+  my_list = []
+  my_list = [1, '小明', 3.14, false]
 ### 7.3 元组
 ### 7.4 字典
