@@ -43,6 +43,7 @@
     - [7.2.10  列表复制](#7210--列表复制)
     - [7.2.11 列表排序](#7211-列表排序)
     - [7.2.12 列表嵌套](#7212-列表嵌套)
+    - [7.2.13 列表去重](#7213-列表去重)
   - [7.3 元组](#73-元组)
     - [7.3.1 初始化](#731-初始化)
     - [7.3.2 常用方法](#732-常用方法)
@@ -54,6 +55,10 @@
     - [7.3.5 遍历](#735-遍历)
   - [7.5 容器总结](#75-容器总结)
 - [8. 函数](#8-函数)
+  - [2.9 变量的引用](#29-变量的引用)
+  - [2.10  可变类型和不可变类型](#210--可变类型和不可变类型)
+  - [2.11 引用实例](#211-引用实例)
+  - [组包和拆包（交换两个变量的值）](#组包和拆包交换两个变量的值)
 
 ## 2. 变量和数据类型
 ### 2.2 变量
@@ -924,6 +929,22 @@ lesn(list1)
 - person_info[0].append()
 - person_info[0]remove()
 
+#### 7.2.13 列表去重
+
+1. 遍历原列表；判断在新列表中是否存在；存入数据；
+```python
+def quchong(old_list):
+    new_list = []
+    for l in old_list:
+        if (l in new_list):
+            continue
+        else:
+            new_list.append(l)
+    print(new_list)
+```
+2. 集合（set），自动去重。将列表转换为集合类型，将集合类型转换为列表。list(set())
+  - 不保证数据的顺序
+
 ### 7.3 元组
 
 1. 可以存放任意类型的数据
@@ -1050,7 +1071,7 @@ for item in list1:
 print(list1)
 
 # 1.自定义以程序，实现如下要求
-# 2.能够获取测试人员输入的信息（登录/测试）
+# 2.能够获取测试人员输入的信息（登录/注册）
 # 3.获取每组测试数据的用户名，密码和预期结果组成一下的数据格式进行打印
 # [(),(),()]或者[[]，[]，[]]
 # 比如：
@@ -1071,6 +1092,21 @@ my_dict={'登录':[{'desc':'正确的用户名密码','username':
 '注册':[{'desc':'注册1','username':'abcd',
 'password':'123456'},{'desc':'注册1','username':'xyz',
 'password':'123456'}]}
+
+str1 = input('请输入登录/注册：')
+my_list = list()
+if str1 == '登录':
+    for dict1 in my_dict.get('登录'): #遍历key为登录的值（列表），dict1为列表中的字典
+        my_tuple = (dict1.get('username'),dict1.get('password'),dict1.get('expect'))
+        my_list.append(my_tuple)
+    print(my_list)
+elif str1 == '注册':
+    for dict1 in my_dict.get('注册'):
+        my_tuple = (dict1.get('username'),dict1.get('password'))
+        my_list.append(my_tuple)
+    print(my_list)
+else:
+    pass
 ```
 
 ### 7.5 容器总结
@@ -1097,3 +1133,69 @@ def 函数名():
   执行代码
 
 **文档注释**：在定义的函数名下方使用三对双引号进行注释（说明函数的作用）。选中调用的函数后面的括号，使用ctrl+q（windows）ctrl+j（mac）可查看注释
+
+### 2.9 变量的引用
+
+1. python中，变量和数据是存在不同的内存空间中
+2. 给变量赋值，本质是**将数据的地址保存到变量对应的内存中**
+3. 变量中存储数据地址的行为就是引用（变量引用了数据的地址），存储的地址称为引用地址
+4. 可以使用id()获取变量中的引用地址（即数据地址） ，如果两个变量的id()获取的引用地址一样，即代表是同一个数据
+5. 只有赋值可以改变引用地址（a=1,b=a,a=2。a的引用地址改变了，b没有变）
+6. python中数据的传递，都是传递引用
+
+### 2.10  可变类型和不可变类型
+
+>数据所在的类型是否允许修改（不使用“=”）
+
+可变类型：list、dict、set
+不可变类型：int、float、bool、str、tuple
+
+### 2.11 引用实例
+
+```python
+def func(list1):
+  list1.append(10)
+my_list = [1,2]
+func(my_list)
+print(my_list)# 1,2,10
+
+def func(list1):
+  list1[0] = 10 # 修改的是列表中下标为0位置的数据，没有修改列表的引用
+my_list = [1,2]
+func(my_list)
+print(my_list)# 10,2
+
+def func(list1):
+  list1 = [2,1] # list1变量的引用发生了改变
+my_list = [1,2]
+func(my_list)
+print(my_list)# 1,2
+
+#列表的+=操作本质是extend操作
+def func(list1):
+  list1 += [2,1] # list1.extend([1,2])
+my_list = [1,2]
+func(my_list)
+print(my_list)# 1,2,2,1
+```
+### 组包和拆包（交换两个变量的值）
+1. c = a,a = b,b = a
+2. 数学方法
+a = a + b
+b = b - a
+a = a - b
+3. python特有
+a,b = b,a
+- 组包(pack):将多个数据值使用逗号连接，组成元组
+- 拆包(unpack):将容器中的数据值使用多个变量分别保存的过程，注意：变量的个数和容器中数据的个数要保持一致
+
+```python
+# 组包
+c = b,a
+print(type(c),c) # <class'tuple'> (10,20)
+# 拆包
+a,b = c
+print(a,b)  # 20,10
+
+x,y,z = [1,2,3]
+```
