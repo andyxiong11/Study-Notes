@@ -75,6 +75,12 @@
   - [9.2 对象的属性操作](#92-对象的属性操作)
     - [9.2.1 添加属性](#921-添加属性)
     - [9.2.2 获取属性](#922-获取属性)
+  - [9.3 魔法方法](#93-魔法方法)
+    - [9.3.1 \_\_init__方法](#931-__init__方法)
+    - [9.3.2 \_\_str__方法](#932-__str__方法)
+    - [9.3.3 \_\_del__方法（了解）](#933-__del__方法了解)
+  - [9.4 实例](#94-实例)
+  - [9.5 私有和公有](#95-私有和公有)
 
 ## 2. 变量和数据类型
 ### 2.2 变量
@@ -1458,4 +1464,164 @@ class Cat:
 blue_cat = Cat()
 blue_cat.name = '蓝猫'
 blue_cat.drink()
+```
+
+### 9.3 魔法方法
+> 以两个下划线开头，两个下划线结尾，并且在满足某个条件的情况下，会自动调用的方法
+
+#### 9.3.1 \_\_init__方法
+
+1. 创建对象时自动调用
+2. 给对象添加属性（初始化方法、构造方法）
+3. 某些代码在每次创建对象之后都要执行，可将其写在\_\_init__方法中
+
+```python
+class Cat:
+    def __init__(self):
+        self.name = '蓝猫'
+        self.age = 12
+    def show_info(self):
+        print(f'name:{self.name},age:{self.age}')
+
+blue_cat = Cat()
+blue_cat.show_info()
+
+class Cat:
+    def __init__(self,name,age):
+        self.name = name #此处self.name的name是属性名，后面的name是形参，形参名可以任意修改
+        self.age = age
+    def show_info(self):
+        print(f'name:{self.name},age:{self.age}')
+
+blue_cat = Cat('蓝猫',12)
+blue_cat.show_info()
+```
+
+#### 9.3.2 \_\_str__方法
+
+1. 使用print（对象）打印对象的时候会自动调用
+2. 在这个方法一般书写对象的属性信息
+3. 如果类中没有定义\_\_str__方法，print对象默认输出对象的引用地址
+4. \_\_str__方法必须返回一个字符串
+
+```python
+class Cat:
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+    def __str__(self):
+        return f'name:{self.name},age:{self.age}'
+
+blue_cat = Cat('蓝猫',12)
+blue_cat.show_info()
+print(blue_cat)
+```
+
+#### 9.3.3 \_\_del__方法（了解）
+
+1. 对象被删除销毁时，自动调用。析构方法
+2. 调用场景：程序运行结束，所有对象被销毁；直接使用del删除对象（如果对象有多个引用，需要把所有的对象都删除）
+
+```python
+class Cat:
+    def __init__(self,name):
+        self.name = name
+    def __del__(self):
+        print(f'{self.name}对象删除了')
+
+blue_cat = Cat('blue_cat')
+black_cat = Cat('black_cat')
+# n = blue_cat 此时只删除了对象blue_cat
+del black_cat
+print('代码运行结束')
+```
+
+### 9.4 实例
+
+**实例：小明爱跑步**
+```python
+class Person:
+    def __init__(self,name,wegith):
+        self.name = name
+        self.wegith = wegith
+        print(f'{self.name}的体重：{self.wegith}公斤')
+    def __str__(self):
+        return f'{self.name}的体重：{self.wegith}公斤'
+    def run(self):
+        print('跑步,减0.5')
+        self.wegith -= 0.5
+    def eat(self):
+        print('吃东西,加1')
+        self.wegith += 1
+
+xm = Person('小明', 120)
+
+xm.eat()
+xm.run()
+print(xm)
+```
+
+1. 房子(House)有户型、总面积和家具名称列表
+   - 新房子没有任何的家具
+2. 家具(Houseltem)有名字和占地面积，其中
+   - 席梦思(bed)占地4平米
+   - 衣柜(chest)占地2平米
+   - 餐桌(table)占地1.5平米
+3. 将以上三件家具添加到房子中
+4. 打印房子时，要求输出：户型、总面积、剩余面积、家具名称列表
+剩余面积：
+1. 在创建房子对象时，定义一个剩余面积的属性，初始值和总面积相等
+2. 当调用add_item方法，向房间添加家具时，让剩余面积-=家具面积
+```python
+class HouseItem:
+    def __init__(self,name,area):
+        self.name = name
+        self.area = area
+
+class House:
+    def __init__(self,house_type,area):
+        self.house_type = house_type
+        self.area = area
+        self.free_area = self.area
+        self.item_list = []
+        print(f'户型：{self.house_type},面积：{self.area}')
+    def __str__(self):
+        return f'户型：{self.house_type},面积：{self.area},剩余面积：{self.free_area},家具列表:{self.item_list}'
+    def add_item(self, item):
+        self.item_name = item.name
+        self.item_area = item.area
+        # if free_area >= self.item_area
+        self.item_list.append(self.item_name)
+        self.free_area -= self.item_area
+        print(f'添加成功家具:{self.item_name}')
+        print(f'剩余面积：{self.free_area}')
+
+home = House('一居室', 50)
+bed = HouseItem('席梦思', 4)
+chest = HouseItem('衣柜', 2)
+table = HouseItem('餐桌', 1.5)
+home.add_item(bed)
+home.add_item(chest)
+home.add_item(table)
+```
+
+### 9.5 私有和公有
+
+1. 公有权限：直接书写的方法和属性，在任意地方访问和使用
+2. 私有权限：在类内部，属性名或方法名前面加上两个下划线，只能在当前类使用
+
+```python
+class Person:
+    def __init__(self,name,age):
+        self.name = name
+        # 私有的本质是python解释器执行代码，发现属性名或方法名前有两个下划线，会将名字重命名为“_类名__属性名”
+        # self._Person__age
+        self.__age = age
+    def __str__(self):
+        return f'名字：{self.name},年龄：{self.__age}'
+
+xm = Person('小明',18)
+print(xm)
+xm.__age = 20 #此时是重新定义了一个公有属性
+print(xm)
 ```
