@@ -58,7 +58,7 @@
   - [8.1 变量进阶](#81-变量进阶)
     - [8.1.1 变量引用](#811-变量引用)
     - [8.1.2 可变类型和不可变类型](#812-可变类型和不可变类型)
-    - [8.1.3 组包和拆包（交换两个变量的值）](#813-组包和拆包交换两个变量的值)
+- [组包和拆包](#组包和拆包)
   - [8.2 局部变量和全局变量](#82-局部变量和全局变量)
   - [8.3 函数返回多个值](#83-函数返回多个值)
   - [8.4 函数参数](#84-函数参数)
@@ -79,8 +79,13 @@
     - [9.3.1 \_\_init__方法](#931-__init__方法)
     - [9.3.2 \_\_str__方法](#932-__str__方法)
     - [9.3.3 \_\_del__方法（了解）](#933-__del__方法了解)
-  - [9.4 实例](#94-实例)
+  - [9.4 实例练习](#94-实例练习)
   - [9.5 私有和公有](#95-私有和公有)
+  - [9.6 继承](#96-继承)
+    - [9.6.1 重写](#961-重写)
+  - [9.7 多态](#97-多态)
+  - [9.8 属性和方法](#98-属性和方法)
+- [is和==的区别](#is和的区别)
 
 ## 2. 变量和数据类型
 ### 2.2 变量
@@ -1202,7 +1207,7 @@ func(my_list)
 print(my_list)# 1,2,2,1
 ```
 
-#### 8.1.3 组包和拆包（交换两个变量的值）
+## 组包和拆包
 1. c = a,a = b,b = a
 2. 数学方法
 a = a + b
@@ -1536,7 +1541,7 @@ del black_cat
 print('代码运行结束')
 ```
 
-### 9.4 实例
+### 9.4 实例练习
 
 **实例：小明爱跑步**
 ```python
@@ -1625,3 +1630,185 @@ print(xm)
 xm.__age = 20 #此时是重新定义了一个公有属性
 print(xm)
 ```
+
+### 9.6 继承
+
+```python
+class 子类(父类):
+    pass
+
+class A: #没有写父类，也有父类object,class A(object):
+  pass
+class B(A):
+  pass
+```
+
+- 继承后，可以直接使用父类中的**公有属性和方法**
+- python**只支持单继承**，一个类只能继承一个父类
+
+```python
+class DongWu:
+    def eat(self):
+        pass
+class Dog(DongWu):
+    def jiao(self):
+        pass
+class XiaoTianQuan(Dog):
+    pass
+
+xtq = XiaoTianQuan()
+xtq.eat()
+xtq.jiao()
+```
+
+#### 9.6.1 重写
+
+> 在子类中定义了和父类名字相同的方法
+
+- 父类的方法不能满足子类对象的需求
+- 重写后，不再调用父类中的方法
+- 重写方法：覆盖；扩展
+
+1. 覆盖
+
+> 直接在子类中定义和父类中名字相同的方法，直接在方法中书写新代码
+
+```python
+class Dog:
+    def jiao(self):
+        print(f'汪汪汪')
+class XiaoTianQuan(Dog):
+    def jiao(self):
+        print(f'嗷嗷嗷')
+xtq = XiaoTianQuan()
+xtq.jiao()
+```
+
+2. 扩展
+
+> 直接在子类中定义和父类中名字相同的方法，在合适的地方调用父类中的方法super().方法()书写新功能
+
+```python
+class Dog:
+    def jiao(self):
+        print(f'汪汪汪')
+class XiaoTianQuan(Dog):
+    def jiao(self):
+        super().jiao()
+        print(f'嗷嗷嗷')
+xtq = XiaoTianQuan()
+xtq.jiao()
+```
+
+### 9.7 多态
+
+> 同一个方法，传入不同的对象，执行得到不同的结果的现象
+
+```python
+# 人类 类
+class Person:
+    def work(self):
+        print('人需要工作')
+# 开发 类
+class Coder(Person):
+    def work(self):
+        print('开发人员-->工作是写代码')
+# 测试 类      
+class Tester(Person):
+    def work(self):
+        print('测试人员-->工作是测试')
+# 公司 类，查看不同岗位的工作
+class Company:
+    def show_work(self,worker):
+        worker.work()
+c = Company()
+xw = Coder()
+xh = Tester()
+c.show_work(xw)
+c.show_work(xh)
+```
+
+### 9.8 属性和方法
+
+> python中一切都是对象，class定义的类也是对象
+
+**对象的划分**：
+1. 实例对象：通过类名()创建的对象，**每个对象都有自己的内存空间**
+2. 类对象：python解释器在执行代码过程中创建的，**一个类只有一份内存空间**
+
+**属性的划分**：
+1. 实例属性：实例对象具有的属性。在init方法中使用“**self.属性名=属性值**”定义，在方法中使用“**sefl.属性名**”调用。实例属性**在每个实例中都存在一份**
+2. 类属性：类对象具有的属性。在类内部、方法外部定义的变量（“**属性名 = 属性值**），使用“**类对象（即类名）.属性名**”调用。类属性**只有在类对象中存在一份**
+
+```python
+class Dog:
+    count = 0
+    def __init__(self,name):
+        self.name = name
+        Dog.count += 1
+print(Dog.count)
+blue = Dog('blue')
+write = Dog('write')
+print(Dog.count)
+print(blue.count) #可以使用实例对象.类属性，优先查找实例属性
+```
+
+**方法的划分**：
+1. 实例方法：在类中直接定义的方法。在需要使用实例属性（self）时定义。使用**对象.方法名**调用
+2. 类方法：在**方法名上方写@classmethod装饰器**。参数一般写作**cls**，而不是self，表示类对象（即类名）。在不需要使用实例属性，又用到了类属性时定义（也可以定义为实例方法）。使用“**类对象（即类名）.方法名**”或“**实例对象.方法名**”调用
+   ```python
+   class Demo:
+        @classmethod
+        def func(cls):
+          pass
+    ```
+3. 静态方法（基本不用）：在**方法名上方写@staticmethod装饰器**。参数一般不写。在不需要使用实例属性，又不需要使用类属性时定义（也可以定义为实例方法）。如多态中的公司类的show_work方法。使用“**类对象（即类名）.方法名**”或“**实例对象.方法名
+
+```python
+# 定义一个游戏类Game,包含属性玩家名字(name)
+# 1.要求记录游戏的最高分(top_score类属性)，
+# 2.定义方法：show help显示游戏的帮助信息输出“这是游戏的帮助信息”
+# 3.定义方法：show top score,打印输出游戏的最高分
+# 4.定义方法：start_game,开始游戏，规则如下
+    # 1.使用随机数获取本次游戏得分范围(10-100)之间
+    # 2.判断本次得分和最高分之间的关系
+    # ■如果本次得分比最高分高，修改最高分
+    # ■如果分数小于等于最高分，则不操作
+    # 3.输出本次游戏得分
+# 5.主程序步骤
+#1)创建一个Game对象小王
+#2)小王玩一次游戏，
+#3)查看历史最高分
+#4)小王再玩一次游戏
+#5)查看历史最高分
+#6)查看游戏的帮助信息
+
+import random
+class Game:
+    top_score = 0
+    def __init__(self,name):
+        self.game_name = name
+    @classmethod
+    def show_help(self):
+        print('这是游戏的帮助信息')
+    @classmethod
+    def show_top_score(cls):
+        print(f'游戏的最高分：{Game.top_score}')
+    def start_gam(self):
+        num = random.randint(10,101)
+        if num > Game.top_score:
+            Game.top_score = num
+        print(f'本次游戏得分：{num}')
+xiaowang = Game('xiaowang')
+xiaowang.start_gam()
+Game.show_top_score()
+xiaowang.start_gam()
+Game.show_top_score()
+Game.show_help()
+```
+
+## is和==的区别
+
+==只判断数值是否相同，is判断引用是否相同
+
+a is b ==> id(a) == id(b)
