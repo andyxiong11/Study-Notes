@@ -86,6 +86,16 @@
   - [9.7 多态](#97-多态)
   - [9.8 属性和方法](#98-属性和方法)
 - [is和==的区别](#is和的区别)
+- [10. 文件操作](#10-文件操作)
+  - [10.1 文件操作的步骤](#101-文件操作的步骤)
+    - [10.1.1 打开文件](#1011-打开文件)
+    - [10.1.2 读或写文件](#1012-读或写文件)
+    - [10.1.3 关闭文件](#1013-关闭文件)
+  - [10.2 使用with open打开文件](#102-使用with-open打开文件)
+  - [10.3 按行读取文件内容](#103-按行读取文件内容)
+  - [10.4 json文件操作](#104-json文件操作)
+    - [10.4.1 读取文件](#1041-读取文件)
+    - [10.4.2 写入文件](#1042-写入文件)
 
 ## 2. 变量和数据类型
 ### 2.2 变量
@@ -634,7 +644,7 @@ python**不支持i++**
 ### 6.2 无限循环
 
 ```python
-while true:
+while True:
   执行代码
   if 判断条件:
     break
@@ -643,7 +653,7 @@ while true:
 #剪刀石头布
 import random
 
-while true:
+while True:
   player = int(input('请出拳剪刀（1）、石头（2）、布（3）、退出（0）：'))
   if player == 0:
     break
@@ -660,7 +670,7 @@ import random
 
 num = random.randint(1, 100)
 
-while true:
+while True:
   my_num = int(input('请输入一个整数：'))
   if (my_num == num): #首先判断结束循环的条件
     print('正确')
@@ -945,7 +955,7 @@ lesn(list1)
 语法：列表.sort()
 - 一般是对数字排序
 - 按照升序排序
-- 列表.sort(reverse=true)，降序
+- 列表.sort(reverse=True)，降序
 
 #### 7.2.12 列表嵌套
 
@@ -1812,3 +1822,236 @@ Game.show_help()
 ==只判断数值是否相同，is判断引用是否相同
 
 a is b ==> id(a) == id(b)
+
+## 10. 文件操作
+
+### 10.1 文件操作的步骤
+
+#### 10.1.1 打开文件
+
+open(file,mode = 'r',encoding = None)
+
+- file：要打开的文件，字符串类型，建议使用相对路径（./ ../
+- mode：缺省参数，文件的打开方式。'r'只读；'w'只写；'a'追加（append）
+- encoding：编码方式，gbk（将一个汉字转换为2个字节二进制）、utf-8（将一个汉字转换为3个字节二进制）
+- 返回值：文件对象
+
+#### 10.1.2 读或写文件
+
+1. 写文件
+
+前提是**文件的打开方式是w或a**
+
+文件对象.write('写入文件的内容')
+- 返回值：写入文件的字符数，一般不用
+- w方式打开文件，文件不存在会直接创建文件
+- w方式打开文件，文件存在，会覆盖原文件（将原文件内容清空）
+
+2. 读文件
+
+前提是**文件的打开方式是r**
+
+文件对象.read(n)
+- n：表示读取多少字符，一般不写，默认读取全部内容
+- 返回值：读取到的文件内容，字符串类型
+
+#### 10.1.3 关闭文件
+
+文件对象.close()
+
+```python
+w = open('a.txt','w',encoding='utf-8')
+w.write('好好学习')
+w.close()
+r = open('a.txt','r',encoding='utf-8')
+#r方式打开文件，文件不存在会报错
+buf = r.read()
+print(buf)
+r.close()
+```
+
+### 10.2 使用with open打开文件
+
+with open(file,mode,encoding = 'utf-8') as 变量
+- 不用书写关闭文件代码
+
+```python
+with open('a.txt','a',encoding='utf-8') as f:
+    f.write('good')
+#a方式打开文件，文件不存在会创建，存在会在末尾加上
+```
+
+### 10.3 按行读取文件内容
+
+文件对象.readline()
+- 一次读取一行内容
+
+```python
+with open('a.txt',encoding='utf-8') as f:
+    buf = f.readline()
+    print(buf) #读第一行
+    print(f.readline()) #读第一行
+#a方式打开文件，文件不存在会创建，存在会在末尾加上
+
+# 读取所有行
+with open('a.txt',encoding='utf-8') as f:
+    for i in f:
+      print(i,end = '')# end=''去掉读取的空行
+# 读取所有行,read()和readling()读到文件末尾返回一个空字符串
+with open('a.txt',encoding='utf-8') as f:
+    while True:
+      buf = f.readling()
+      if len(buf) == 0: # 容器为空，即数据个数为0，表示false      if buf:print(buf,end = '')
+        break
+      else:
+        print(buf,end = '')
+```
+
+### 10.4 json文件操作
+
+1. json主要数据类型是对象{}和数组[]
+2. 一个json文件要么是一个对象或数组（最外层要么是{}，要么是[]）
+3. json中的对象由键值对组成，每个数据由逗号隔开
+4. json中的字符串必须使用双引号
+5. json的其他数据类型：int、float、string、true（小写）、false（小写）、null
+
+```json
+{
+    "name":"小明",
+    "age":18,
+    "isMan": true,
+    "like":["听歌","游戏","购物"],
+    "address":{
+        "country":"中国",
+        "city":"上海"
+    }
+}
+```
+
+#### 10.4.1 读取文件
+1. 导包 import json
+2. 读打开文件
+3. 读文件：json.load(文件对象)
+   - 返回值：字典（文件中是对象）或列表（文件中是数组）
+
+```json
+{
+    "name":"小明",
+    "age":18,
+    "isMan": true,
+    "like":["听歌","游戏","购物"],
+    "address":{
+        "country":"中国",
+        "city":"上海"
+    }
+}
+```
+```python
+import json
+with open('info.json',encoding='utf-8') as f:
+    # buf = f.read()
+    # print(buf) #返回的是字符串，不便于操作
+    result = json.load(f)
+    print(result.get('name'))
+    print(result.get('address').get('city'))
+```
+
+```json
+[{
+    "name":"小明",
+    "age":18,
+    "isMan": true,
+    "like":["听歌","游戏","购物"],
+    "address":{
+        "country":"中国",
+        "city":"上海"
+    }
+},
+{
+    "name":"小红",
+    "age":18,
+    "isMan": false,
+    "like":["听歌","游戏","购物"],
+    "address":{
+        "country":"中国",
+        "city":"上海"
+    }
+}]
+```
+```python
+import json
+with open('info.json',encoding='utf-8') as f:
+    info_list = json.load(f)
+    for info in info_list
+    print(info.get('name'),info.get('address').get('city'))
+```
+
+```json
+[
+  {
+    "desc": "正确用户名密码",
+    "username": "admin",
+    "password": "123456",
+    "expect": "登录成功"
+  },
+  {
+    "desc": "错误的用户名",
+    "username": "root",
+    "password'": "123456",
+    "expect": "登录失败"
+  },
+  {
+    "desc": "错误的密码",
+    "username": "admin",
+    "password": "123123",
+    "expect": "登录失败"
+  }
+]
+```
+```python
+import json
+test_list = []
+with open('info.json',encoding='utf-8')as f:
+    info_list = json.load(f)
+    for info in info_list:
+        username = info.get('username')
+        password = info.get('password')
+        _except = info.get('except')
+        tuple_list = (username, password, _except)
+        test_list.append(tuple_list)
+        # new_list.append((i.get('username')),(i.get('password')),(i.get('except')))
+    print(test_list)
+```
+
+#### 10.4.2 写入文件
+
+1. 导包 import json
+2. 写（w）方式打开文件
+3. 写入，json.dump(python中的数据类型，文件对象)
+
+```python
+import json
+my_list = [
+  {
+    "desc": "正确用户名密码",
+    "username": "admin",
+    "password": "123456",
+    "expect": "登录成功"
+  },
+  {
+    "desc": "错误的用户名",
+    "username": "root",
+    "password'": "123456",
+    "expect": "登录失败"
+  },
+  {
+    "desc": "错误的密码",
+    "username": "admin",
+    "password": "123123",
+    "expect": "登录失败"
+  }
+]
+with open('info.json','w',encoding='utf-8') as f:
+    json.dump(my_list, f,ensure_ascii=False,indent=4)
+    # ensure_ascii=False显示中文，不以ascii显示。缩进4
+```
