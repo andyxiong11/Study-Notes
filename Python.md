@@ -28,7 +28,7 @@
     - [7.1.3 切片](#713-切片)
     - [7.1.3 查找方法 find](#713-查找方法-find)
     - [7.1.4 替换方法 replace](#714-替换方法-replace)
-    - [7.1.5 拆分 split](#715-拆分-split)
+    - [7.1.5 拆分 split(转换成列表)](#715-拆分-split转换成列表)
     - [7.1.6 链接 join](#716-链接-join)
   - [7.2 列表](#72-列表)
     - [7.2.1 初始化](#721-初始化)
@@ -96,6 +96,17 @@
   - [10.4 json文件操作](#104-json文件操作)
     - [10.4.1 读取文件](#1041-读取文件)
     - [10.4.2 写入文件](#1042-写入文件)
+  - [读写文件实例练习](#读写文件实例练习)
+- [11. 异常](#11-异常)
+  - [11.1 异常捕获](#111-异常捕获)
+  - [异常捕获练习](#异常捕获练习)
+  - [11.2 异常传递](#112-异常传递)
+  - [11.3 抛出raise异常](#113-抛出raise异常)
+- [12. 模块和包](#12-模块和包)
+  - [12.1 模块的导入](#121-模块的导入)
+  - [12.2 \_\_name__的作用](#122-__name__的作用)
+  - [练习](#练习)
+  - [12.3 包](#123-包)
 
 ## 2. 变量和数据类型
 ### 2.2 变量
@@ -830,7 +841,7 @@ str3 = str3.replace('GOOD', 'good', 1)
 print(str3)
 ```
 
-#### 7.1.5 拆分 split
+#### 7.1.5 拆分 split(转换成列表)
 
 语法：字符串.split(sep, maxsplit)
 1. sep，字符串按照什么进行拆分，默认是空白字符（空格、换行\n、tab键\t）
@@ -2055,3 +2066,254 @@ with open('info.json','w',encoding='utf-8') as f:
     json.dump(my_list, f,ensure_ascii=False,indent=4)
     # ensure_ascii=False显示中文，不以ascii显示。缩进4
 ```
+
+### 读写文件实例练习
+
+随机生成1-20之间的10个数字存入文件,进行降序排列，取最大的五个数字存入另一个文件
+1. 普通文件操作
+```python
+import random
+
+with open('date.txt', 'w') as f:
+    for i in range(0, 10):
+        num = random.randint(1, 20)
+        f.write(f'{str(num)} ')
+with open('date.txt', 'r') as f:
+    num_str = f.read()
+    print(num_str)
+    num_list = num_str.split()
+    new_num_list = []
+    for i in num_list:
+        new_num_list.append(int(i))
+    new_num_list.sort(reverse=True)
+    print(new_num_list)
+with open('date1.txt', 'w') as f:
+    for i in range(0,5):
+        f.write(f'{new_num_list[i]} ')
+with open('date1.txt', 'r') as f:
+    num_str = f.read()
+    print(num_str)
+```
+2. json操作
+```python
+import json
+import random
+
+with open('date.json', 'w') as f:
+    num_list = []
+    for i in range(0, 10):
+        num = random.randint(1, 20)
+        num_list.append(num)
+    json.dump(num_list,f)
+with open('date.json', 'r') as f:
+    print(json.load(f))
+with open('date1.json', 'w') as f:
+    num_list.sort(reverse=True)
+    for i in range(0,5):
+        f.write(f'{num_list[i]} ')
+with open('date1.json', 'r') as f:
+    num_str = f.read()
+    print(num_str)
+```
+
+
+## 11. 异常
+
+> 程序在运行时，python解释器遇到一个错误，会停止程序的执行，并提示错误信息
+ 
+### 11.1 异常捕获
+
+> 程序遇到异常，默认动作是终止程序的执行，可以使用异常捕获，让程序继续运行，不会继续执行
+
+语法：
+```python
+try:
+  书写可能发生异常的代码
+except:# 任何异常类型都能捕获
+  发生了异常执行的代码
+
+try:
+  书写可能发生异常的代码
+except 异常类型:# 只捕获指定的异常类型及其子类，否则依旧报错
+  发生了异常执行的代码
+```
+```python
+try:
+  num = input('请输入数字：')
+  num = int(num)
+  print(num)
+  num1 = 10/num
+  print(f'10/num:{num1}')
+except ValueError:
+  print('发生了异常，请输入数字!')
+except ZeroDivisionError:
+  print('请勿输入0!')
+```
+
+**异常捕获的完整版本**
+
+```python
+try:
+  可能发生异常的代码
+except 异常类型1:
+  发生异常类型1执行的代码
+# Exception是常见异常类型的父类，可以捕获常见类型，变量是一个异常类的对象，pritn(变量)可以打印异常信息
+except Exception as 变量:
+  发生其他类型异常，执行的代码
+else:
+  没有发生异常会执行的代码
+finally:
+  不管有没有发生异常都会执行的代码
+```
+```python
+try:
+  num = input('请输入数字：')
+  num = int(num)
+  print(num)
+  num1 = 10/num
+  print(f'10/num:{num1}')
+except Exception as e:
+  print(f'错误信息：{e}')
+else:
+  print('没有发生异常会执行')
+finally:
+  print('不管有没有发生异常都会执行')
+```
+
+**常用异常捕获**
+
+```python
+try:
+  可能发生异常的代码
+except Exception as 变量:
+  发生其他类型异常，执行的代码
+```
+
+### 异常捕获练习
+
+1. 判断用户输入的数字
+2. 判断数字是否为整数
+3. 不是整数，提示输入错误
+4. 是整数，判断是奇数还是偶数
+5. 最终提示：程序结束
+
+```python
+try:
+  num = input('请输入数字：')
+  num = int(num) #num.isdigit() 检查字符串是否由数字组成
+except Exception as e:
+  print(f'输入错误，错误信息：{e}')
+else:
+  if num%2 == 0:
+    print('偶数')
+  else:
+    print('奇数')
+finally:
+  print('程序结束')
+```
+
+### 11.2 异常传递
+
+> 当函数/方法执行出现异常时，会将异常传递给函数/方法调用的一方，如果传递到主函数仍然没有异常处理，程序才会终止
+
+```python
+def func1():
+  num = 10 /0
+  print(num)
+def func2():
+  print('1111')
+  func1()
+try:
+  func2()
+except Exception as e:
+  print(e)
+```
+
+### 11.3 抛出raise异常
+
+主动抛出异常
+
+## 12. 模块和包
+### 12.1 模块的导入
+
+```python
+#方法一
+import 模块名
+模块名.工具名
+
+import random
+import json
+random.randint(a,b)
+json.load()
+
+#方法二
+from random import randint
+from json import load
+randint(a,b)
+load()
+
+# 方法三
+from random import *
+from json import *
+```
+
+- 导入的模块额工具可以使用as关键字给其起别名，原名失效
+- **优先在当前目录**找模块，其次在系统目录中查找
+
+### 12.2 \_\_name__的作用
+
+- 直接执行当前代码时，\_\_name__的值是\_\_main__；导入当前文件时，\_\_name__的值是包名
+
+**tools.py**
+```python
+def add(a,b):
+  return a + b
+# if __name__ == __main__: 当直接调用时，才执行下方代码。快捷键 main
+  print(add(1,2))
+  print(add(10,20))
+  print('tools:',__name__)
+  # 3
+  # 30
+  # tools:__main__
+```
+**demo.py**
+```python
+import tools
+
+print(tools.add(100,200))
+# 3
+# 30
+# tools:tools
+# 300
+```
+
+### 练习
+**tools.py**
+```python
+def func():
+    print('我是tools模块中的func函数')
+
+
+class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def play(self):
+        print(f'{self.name}在快乐的玩耍')
+```
+```python
+import tools
+
+tools.func()
+
+blue_dog = tools.Dog('blue_dog', 12)
+
+blue_dog.play()
+```
+
+### 12.3 包
+
+> python中包是一个目录，只不过这个目录存在一个文件__init__.py（可以为空)，将功能相近或相似的代码放在一起
+
+- python中不需要区分包和模块，使用方法一样
