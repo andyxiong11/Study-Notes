@@ -7,3 +7,8 @@
 > 本地有代理导致
 
 git config --global http.proxy http://127.0.0.1:7890
+
+
+> 修改DNS映射
+
+140.82.112.3 github.com
