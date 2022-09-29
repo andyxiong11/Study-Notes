@@ -3,21 +3,46 @@ public class Solution {
         System.out.println(Solution.isPalindrome(100));;
     }
     public static boolean isPalindrome(int x) {
-        //第二种
+        //第三种
         boolean flag = false;
         String str =String.valueOf(x);
+        int l = str.length();
         int y = 0;
         int x1 = x;
-        if (x >= 0) {
-            while(x1!=0){
+        if(x == 0){
+            flag = true;
+        }
+        else if((x%10) != 0){
+            while(x1>y){
                 int g = x1 % 10;
                 x1 /= 10;
                 y = y*10 + g;
             }
-            if(y == x){
-                flag = true;
+            if(l%2 == 0){
+                if(x1 == y){
+                    flag = true;
+                }
             }
-        }
+            else{
+                if(x1 == (y/10)){
+                    flag = true;
+                }
+            }
+        //第二种
+        // boolean flag = false;
+        // String str =String.valueOf(x);
+        // int y = 0;
+        // int x1 = x;
+        // if (x >= 0) {
+        //     while(x1!=0){
+        //         int g = x1 % 10;
+        //         x1 /= 10;
+        //         y = y*10 + g;
+        //     }
+        //     if(y == x){
+        //         flag = true;
+        //     }
+        // }
         //第一种解法
         // boolean flag = false;
         // String str =String.valueOf(x);
