@@ -1,6 +1,6 @@
 public class Solution {
     public static void main(String[] args) {
-        String s1 = new String("MCMXCIV");
+        String s1 = new String("IV");
         System.out.println(Solution.romanToInt(s1));;
     }
     public static int romanToInt(String s) {
@@ -32,7 +32,7 @@ public class Solution {
                     break;
             }
             //System.out.println(allNum[i]);
-            if((i>=2) && (allNum[i]>allNum[i-1])){
+            if((i>=1) && (allNum[i]>allNum[i-1])){
                 num = num - allNum[i-1] - allNum[i-1] + allNum[i];
             }else{
                 num += allNum[i];
