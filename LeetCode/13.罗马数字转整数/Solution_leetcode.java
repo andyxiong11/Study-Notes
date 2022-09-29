@@ -8,8 +8,6 @@ public class Solution_leetcode {
     public static int romanToInt(String s) {
         int l = s.length();
         int num = 0;
-        int x = 0;
-        int y = 0;
         HashMap<Character, Integer> Sites = new HashMap<Character, Integer>();
         Sites.put('I', 1);
         Sites.put('V', 5);
