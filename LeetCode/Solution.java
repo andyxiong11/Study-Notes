@@ -21,7 +21,7 @@ public class Solution {
                 }
             }
         }
-        else{
+        else if(x<0){
             flag =false;
         }
         return flag;
