@@ -7,7 +7,7 @@ public class Solution {
         int l2 = s2.length();
         String newS2="";
         boolean flag = false;
-        if((s1 == "") && (s2 == "")){
+        if((s1.equals("")) && (s2.equals(""))){
             return flag=true;
         }
         if(l1 == l2){
