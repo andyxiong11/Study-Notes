@@ -32,6 +32,7 @@
   - [2. 安装ifconfig](#2-安装ifconfig)
   - [3. 安装wget](#3-安装wget)
 - [四、Gnome和KDE](#四gnome和kde)
+- [五、 远程连接开启SSH](#五-远程连接开启ssh)
 
 
 > 系统环境：CentOS 7
@@ -647,3 +648,30 @@ systemctl set-default multi-user.target
 systemctl set-default graphical.target
 startx
 
+# 五、 远程连接开启SSH
+
+1. 检查CentOS是否安装openssh-server命令：yum list installed | grep openssh-server
+   > 安装命令：yum install openssh-server
+
+2. 安装vim（yum install vim*），使用vim编辑/etc/ssh/ 目录下的sshd服务配置文件 sshd_config
+
+3. 将监听端口、地址前的#去掉,开启远程登录并开启连接验证
+   ```shell
+   Port 22
+   #AddressFamily any
+   ListenAddress 0.0.0.0
+   ListenAddress
+   
+   #LoginGraceTime 2m
+   PermitRootLogin yes
+
+   #PermitEmptyPasswords no
+   PasswordAuthentication yes
+   ```
+
+4. 开启sshd服务
+   > service sshd start
+   
+   检查服务是否开启
+   > ps -e | grep sshd
+   > service sshd status
