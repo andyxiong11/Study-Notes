@@ -13,18 +13,18 @@
   - [4. Mysql安装](#4-mysql安装)
     - [4.1 Yum安装](#41-yum安装)
       - [4.1.1 yum安装Mysql](#411-yum安装mysql)
-    - [4.2 RPM安装mysql](#42-rpm安装mysql)
-    - [4.3 启动停止MySql](#43-启动停止mysql)
-    - [4.4 查看初始密码](#44-查看初始密码)
-    - [4.5 修改密码](#45-修改密码)
-    - [4.6 开放远程登陆权限](#46-开放远程登陆权限)
-    - [4.7 临时开放防火墙端口](#47-临时开放防火墙端口)
-    - [完全关闭防火墙](#完全关闭防火墙)
-    - [4.8 密码策略管理](#48-密码策略管理)
-      - [4.8.1 对密码相关参数的修改](#481-对密码相关参数的修改)
-      - [4.8.2 关于 mysql 密码策略相关参数](#482-关于-mysql-密码策略相关参数)
-      - [4.8.3 修改密码策略](#483-修改密码策略)
-    - [4.9 跳过密码验证](#49-跳过密码验证)
+      - [4.2 RPM安装mysql](#42-rpm安装mysql)
+      - [4.3 启动停止MySql](#43-启动停止mysql)
+      - [4.4 查看初始密码](#44-查看初始密码)
+      - [4.5 修改密码](#45-修改密码)
+      - [4.6 开放远程登陆权限](#46-开放远程登陆权限)
+      - [4.7 临时开放防火墙端口](#47-临时开放防火墙端口)
+      - [完全关闭防火墙](#完全关闭防火墙)
+      - [4.8 密码策略管理](#48-密码策略管理)
+        - [4.8.1 对密码相关参数的修改](#481-对密码相关参数的修改)
+        - [4.8.2 关于 mysql 密码策略相关参数](#482-关于-mysql-密码策略相关参数)
+        - [4.8.3 修改密码策略](#483-修改密码策略)
+      - [4.9 跳过密码验证](#49-跳过密码验证)
   - [5. Nginx安装](#5-nginx安装)
   - [6. Redis安装](#6-redis安装)
 - [三、基础工具](#三基础工具)
@@ -238,7 +238,7 @@ rpm -ivh mysql-community-release-el7-5.noarch.rpm
 yum install mysql-community-server
 ```
 
-### 4.2 RPM安装mysql
+#### 4.2 RPM安装mysql
 
 **安装顺序**
 
@@ -260,7 +260,7 @@ rpm -ivh mysql-community-server-8.0.25-1.el7.x86_64.rpm
 > 
 然后重新按顺序安装.
 
-### 4.3 启动停止MySql
+#### 4.3 启动停止MySql
 
 启动MySQL8.0、5.7
 > systemctl start mysqld
@@ -277,17 +277,17 @@ mysql老版本
 关闭 mysql 服务
 > service mysql stop
 
-### 4.4 查看初始密码
+#### 4.4 查看初始密码
 
 >  cat /var/log/mysqld.log | grep password
 
-### 4.5 修改密码
+#### 4.5 修改密码
 
 > ALTER user 'root'@'localhost' IDENTIFIED BY 'Root.xxxxxx';
 
 注：**如果开放了权限为%，'root'@'%'**
 
-### 4.6 开放远程登陆权限
+#### 4.6 开放远程登陆权限
 
 ```sql
 use mysql;
@@ -307,7 +307,7 @@ flush privileges;
 
 如果还是连接不上，需要关闭服务器防火墙
 
-### 4.7 临时开放防火墙端口
+#### 4.7 临时开放防火墙端口
 
 > firewall-cmd --query-port=3306/tcp
 开启3306
@@ -317,7 +317,7 @@ flush privileges;
 
 firewall-cmd --reload
 
-### 完全关闭防火墙
+#### 完全关闭防火墙
 
 1. 首先查看防火墙状态
 > service iptables status
@@ -345,7 +345,7 @@ firewall-cmd --reload
 4. 禁止firewall开机自启
 > systemctl disable firewalld.service 
 
-### 4.8 密码策略管理
+#### 4.8 密码策略管理
 
 在 mysql 8.0 中新增了三个变量，用于对密码的管理：
 
@@ -370,7 +370,7 @@ mysql> show variables like 'password%';
 +--------------------------+-------+
 ```
 
-#### 4.8.1 对密码相关参数的修改
+##### 4.8.1 对密码相关参数的修改
 
 1. 全局设置
 
@@ -408,7 +408,7 @@ mysql> show variables like 'password%';
 1819 - Your password does not satisfy the current policy requirements
 ```
 
-#### 4.8.2 关于 mysql 密码策略相关参数
+##### 4.8.2 关于 mysql 密码策略相关参数
 
 validate_password.length  固定密码的总长度；
 validate_password.dictionary_file 指定密码验证的文件路径；
@@ -439,7 +439,7 @@ validate_password.policy 指定密码的强度验证等级，默认为 MEDIUM；
 +--------------------------------------+--------+
 ```
 
-#### 4.8.3 修改密码策略
+##### 4.8.3 修改密码策略
 
 首先需要设置密码的**验证强度等级**，设置validate_password_policy 的全局参数为 LOW 即可
 
@@ -451,7 +451,7 @@ validate_password.policy 指定密码的强度验证等级，默认为 MEDIUM；
 **刷新权限表**
 > flush privileges; 
 
-### 4.9 跳过密码验证
+#### 4.9 跳过密码验证
 
 **修改mysql的配置文件**
 
