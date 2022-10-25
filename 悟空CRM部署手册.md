@@ -78,7 +78,7 @@ DNS1  ：域名解析改成ip地址
  > vim /etc/profile
 
  ```shell
- export JAVA_HOME=/usr/local/java/jdk1.8.0_291
+ export JAVA_HOME=/usr/local/java/jdk1.8.0_311
  export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib/
  export PATH=$PATH:$JAVA_HOME/bin
  ```
