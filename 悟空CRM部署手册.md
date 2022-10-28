@@ -174,3 +174,31 @@ daemonize 改成 yes
   可以直接到redis 下的 src 目录 ，里面有个直接可以连接 redis的客户端脚本
   > cd /usr/local/redis-stable/src
   > ./redis-cli
+
+## 6. 项目配置
+
+1. 将目录doc下的crm9.sql导入到新建数据库crm9
+2. 修改/src/main/resources/config/crm9-config.txt下的数据库配置文件
+3. 修改/src/main/resources/config/redis.json下的redis连接文件
+
+## 7. 项目部署
+
+```java
+<dependency>
+    <groupId>com.jfinal</groupId>
+    <artifactId>jfinal-undertow</artifactId>
+    <version>1.9</version>
+</dependency>
+<!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>javax.servlet-api</artifactId>-->
+            <!--<version>4.0.1</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+```
+
+打包方式改为jar 运行maven package，打包
+
+### IDEA maven打包
+
+![](https://ailyun-gallery.oss-cn-hangzhou.aliyuncs.com/image/202210281548908.png)
