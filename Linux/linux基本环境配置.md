@@ -284,6 +284,8 @@ mysql老版本
 
 ### 4.5 修改密码
 
+**远程需改密码前，需开放MySQL远程连接权限**
+> mysql -u 用户名 -p
 > ALTER user 'root'@'localhost' IDENTIFIED BY 'Root.xxxxxx';
 
 注：**如果开放了权限为%，'root'@'%'**
