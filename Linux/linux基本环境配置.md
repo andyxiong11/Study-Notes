@@ -288,6 +288,8 @@ mysql老版本
 > mysql -u 用户名 -p
 > ALTER user 'root'@'localhost' IDENTIFIED BY 'Root.xxxxxx';
 
+**默认密码策略大小写字母、字符、数字
+
 注：**如果开放了权限为%，'root'@'%'**
 
 ### 4.6 开放远程登陆权限
