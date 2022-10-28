@@ -299,7 +299,7 @@ use mysql;
 select user, authentication_string, host from user;
 
 --输入授权远程访问命令
-grant all privileges on *.* to 'root'@'192.168.xxx.xxx<%>' identified by 'xxxxxx' with grant option;
+grant all privileges on *.* to 'root'@'192.168.xxx.xxx<%>' identified by 'xxxxxx' with grant option; --可用%替换具体IP，xxxxxx指密码
 
 --8.0用以下命令
 update user set host='%' where user ='root';
