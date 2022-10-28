@@ -93,15 +93,56 @@ DNS1  ：域名解析改成ip地址
 
 1. 首先需要将mysql压缩包（mysql-5.7.34-1.el7.x86_64.rpm-bundle.tar）移动到linux /tmp中
    
-2. 安装顺序
+2. tar -xvf mysql-5.7.34-1.el7.x86_64.rpm-bundle.tar
+   
+3. 安装顺序
 
     ```shell
-    rpm -ivh mysql-community-common-5.7.34-1.el7.x86_64  
-    rpm -ivh mysql-community-client-plugins-5.7.34-1.el7.x86_64
-    rpm -ivh mysql-community-libs-5.7.34-1.el7.x86_64   
+    rpm -ivh mysql-community-common-5.7.34-1.el7.x86_64.rpm  
+    # rpm -ivh mysql-community-client-plugins-5.7.34-1.el7.x86_64.rpm
+    rpm -ivh mysql-community-libs-5.7.34-1.el7.x86_64.rpm   
     rpm -ivh mysql-community-client-5.7.34-1.el7.x86_64.rpm  
     rpm -ivh mysql-community-server-5.7.34-1.el7.x86_64.rpm  
     ```
+
+4. 查看MySQL状态
+
+   启动MySQL8.0、5.7
+   > systemctl start mysqld
+
+   查看MySQL状态
+   > systemctl status mysqld
+
+5. 修改MySQL密码
+   1. 查看初始密码
+      > cat /var/log/mysqld.log | grep password
+   2. 修改
+      **远程改密码前，需开放MySQL远程连接权限**
+      > mysql -u 用户名 -p
+      > ALTER user 'root'@'localhost' IDENTIFIED BY 'Root.wukong132';
+
+6. 开放远程登陆权限
+
+   ```sql
+   use mysql;
+
+   -- 查询host
+   select user, authentication_string, host from user;
+
+   --输入授权远程访问命令
+   grant all privileges on *.* to 'root'@'192.168.xxx.xxx<%>' identified by 'xxxxxx' with grant option; --可用%替换具体IP，xxxxxx指密码
+
+   --刷新
+   flush privileges;
+   ```
+
+   **开放防火墙**
+   1. 查看3306端口状态
+      > firewall-cmd --query-port=3306/tcp
+   2. 开启3306
+      > firewall-cmd --zone=public --add-port=3306/tcp --permanent
+   3. 重新加载防火墙
+      > firewall-cmd --reload
 
 ### 5.3 Redis安装
 
