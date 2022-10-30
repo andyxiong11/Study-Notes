@@ -248,23 +248,6 @@ yum install lrzsz
 上传 rz
 下载 sz
 
+## 13. Ping
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+yum install inetutils-ping
