@@ -178,6 +178,10 @@ tail -fn 300 catalina.out>/log.txt
 
 > ps -ef | grep nginx
 
+## kil杀死进程
+杀死进程 kill 【pid】
+强制杀死进程 kill -KILL 【pid】
+
 ## 9. 用户管理
 
 - 添加用户
@@ -243,6 +247,7 @@ yum install lrzsz
 
 上传 rz
 下载 sz
+
 
 
 
