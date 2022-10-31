@@ -202,3 +202,8 @@ daemonize 改成 yes
 ### IDEA maven打包
 
 ![](https://ailyun-gallery.oss-cn-hangzhou.aliyuncs.com/image/202210281548908.png)
+
+## 8. 项目运行
+
+将打包生成的/72crm-9.0-JAVA-master/target/crm9-release.zip 文件上传到服务器并解压,运行对应的72crm.sh/72crm.bat即可
+chmod +x 
