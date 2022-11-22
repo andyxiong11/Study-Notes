@@ -263,30 +263,16 @@
      #-- rm -rf /opt/package/gateway/public
      #-- cp -R dist /opt/package/gateway/public
 
+启动脚本
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```shell
+cd /opt/package/admin/ && sh 72crm.sh start
+cd /opt/package/authorization/ && sh 72crm.sh start
+cd /opt/package/crm/ && sh 72crm.sh start
+cd /opt/package/gateway/ && sh 72crm.sh start
+cd /opt/package/bi/ && sh 72crm.sh start
+cd /opt/package/examine/ && sh 72crm.sh start
+cd /opt/package/oa/ && sh 72crm.sh start
+cd /opt/package/work/ && sh 72crm.sh start
+cd /opt/package/job/ && sh 72crm.sh start
+```
