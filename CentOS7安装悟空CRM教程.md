@@ -32,11 +32,11 @@
 ![查询mysql默认密码](https://images.gitee.com/uploads/images/2021/0207/143052_5000d9e4_8065912.jpeg "查询mysql默认密码")
 
       #--进入mysql 例：mysql -u root -p"GXOO%eiI/7o>"
-      mysql - u root -p"此处为上一步的默认密码"
+      mysql -u root -p"此处为上一步的默认密码"
 
       #--修改mysql密码，如下图所示
       set global validate_password_policy=LOW;
-      ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
+      ALTER USER 'root'@'localhost' IDENTIFIED BY 'Root.wukong132';
 ![修改mysql默认密码](https://images.gitee.com/uploads/images/2021/0207/143854_76cd7719_8065912.jpeg "修改mysql默认密码")
 
       #--退出
@@ -153,7 +153,7 @@
 
       #-- 导入数据库信息
       #-- 进入数据库
-      mysql -uroot -ppassword
+      mysql -uroot -pRoot.wukong132
      
   #### 修改配置信息 
 
@@ -245,6 +245,13 @@
     其中激活序列号：
     6EA74C261C4BA344BC716FCD68295694BABFE016F5B7FA4890E4E29B0F52A5D965EE4A1AF633633D4573A2559630986F976D8F2920D688686CB60967F6FFB9FDADE6AC6DFD39416DE175D0DE01699C816244C16EE4E533A959E3ED0653143A7363E5B98E62126A78CDC5578636F456D29FD2B063FCBED837D50B10450C6FFBF0290DB782C8D4525864A96A98C37C0106FB5D8392A7E828F0BEFA86B4CD28BEBE83628A59BB23F60B7799A22C8D7B2039ED30F05492E9D2A2E2A03D7AC0199EA2CE529D561AE622B3C0DECC50D8A223BC5DA03E3AFF1150F0F217B0BE0400835369329DB74454870D5314DBA7C24B98CCE5600CBDAF264A21974FA3C85E7EAF0A
 
+**开放防火墙**
+1. 查看3306端口状态
+> firewall-cmd --query-port=8443/tcp
+2. 开启3306
+> firewall-cmd --zone=public --add-port=8443/tcp --permanent
+3. 重新加载防火墙
+> firewall-cmd --reload
     
 #### 注意事项
      
