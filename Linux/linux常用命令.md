@@ -156,6 +156,12 @@ find ./ -name "* test *" -type f | head -n 2 | xargs -I FILE cp FILE work
 显示出文件带行号的全部内容
 > cat -n 文件名
 
+查找文件中指定内容
+> cat 文件名 | grep "文件内容"
+
+监控文件中的指定内容
+> tailf 文件名 | grep "文件内容"
+
 全屏方式分页显示文件内容
 > more
 
