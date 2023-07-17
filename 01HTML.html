@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- 指出网页的语言，方便搜索引擎爬虫 -->
+<head>
+    <meta charset="UTF-8"> <!-- 编码语言 UTF-8万国码；GB简体中文；GBK扩展中文，包括繁体中文 -->
+    <meta name="keywords" content="购物" /><!-- 网站的关键字，方便搜索引擎爬虫 -->
+    <meta name="description" content="一体式购物网站" /><!-- 网站的描述，方便搜索引擎索引爬虫 -->
+    <title>Document</title><!-- 页脚标 -->
+    <style type="css/text">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+         /*58行*/
+        ul{
+            /* 去掉序号 */
+            list-style: none;
+        }
+        li{
+            margin: 0 10px;
+            float: left;
+            color: #f40;
+            font-weight: bold;
+            font-size: 14px;
+            height: 25px;
+            line-height: 25px;
+            padding: 0 5px;
+        }
+        li:hover{
+            border-radius: 15px;
+            background-color: #f40;
+            color: #fff;
+        }
+
+        input{
+            border: 1px solid #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- 多层级嵌套 -->
+    <p><strong><em></em></strong></p>
+    <!-- 常用标签div、span -->
+    <!-- 代码div中的空格、回车不会直接作用在页面上，主要是用于文字分隔符 -->
+    <div style="width: 200px;height: 200px; background-color: pink;">
+        <div>啊          
+                 啊</div>
+        <div>dewdewdwedewdewasdadasdwedw</div>
+        <div>啊啊啊啊啊啊啊啊啊啊啊啊啊啊</div>
+        <div>qweqwe ded dqw qwe eqw</div>
+        <div>啊&nbsp;&nbsp;啊，标签&lt;div&gt;</div>
+        
+    </div>
+    <span></span>
+    <!-- ol有序列表用的不多 -->
+    <!-- type序号类型：1/a/A/i/I、reversed倒序、start起始序号 -->
+    <ol type="1" reversed="reversed" start="2"> 
+        <li>一</li>
+        <li>二</li>
+        <li>三</li>
+    </ol>
+    <!-- ul无序列表常用，场景：父子结构，一个大的功能由很多个功能子项组成，每一个功能子项的样式和功能基本一样，只是内容有差异 -->
+    <!-- 常用场景：导航栏 -->
+    <!-- 只有一个属性,默认disc实心圆、square方块圆、circle空心圆 -->
+    <ul type="disc">
+        <li>天猫</li>
+        <li>聚划算</li>
+        <li>天猫超市</li>
+    </ul>
+    <!-- img -->
+    <!-- src 网上url、本地绝对路径、本地相对路径；alt 图片占位符 图片加载失败展示；title 图片提示符 鼠标提示文字 -->
+    <img src="" style="width: 200px;" alt="图片加载中" title="请点击">
+    <!-- a 最开始是锚点功能（top回到顶部），而非超链接-->
+    <!-- target  _blank新标签页打开 -->
+    <a href="https://www.baidu.com" style="width: 50px; height: 50px; background-color:pink" target="_blank">www.taobao.com</a>
+    <a href="#id">www.taobao.com</a><!-- 锚点 -->
+    <a href="tel:17677676654">打电话</a>
+    <a href="mailto:12@qq.com">发邮件</a>
+    <a href="javascript:while(1){alert('+1')}">点击试试</a><!-- 协议限定符 -->
+    <!--form表单 method 发送数据的方式 action 发送的位置-->
+    <form method="get" action="">
+        <p>
+            <!--输入框 value默认暗文;onfocus 输入框聚焦；onblur 输入框失焦-->
+            name:<input type="text" name="username" value="请输入用户名" onfocus="this.value=''" onblur="if(this.value==''){this.value='请输入用户名'}"> 
+            name:<input type="text" name="username" value="请输入用户名" onfocus="if(this.value=='请输入用户名'){this.value=''}" onblur="if(this.value==''){this.value='请输入用户名'}"> 
+            name:<input type="text" name="username" style="color: #999;" value="请输入用户名" onfocus="if(this.value=='请输入用户名'){this.value='';this.value.color='#424242'}" onblur="if(this.value==''){this.value='请输入用户名';this.value.color='#999'}"> 
+        </p>
+        <p>
+            password:<input type="password" name="password"><!--密码框-->
+        </p>
+        <!-- 单选框name必须一致，value为传输的值 checked="checked"默认选择-->
+        1.男<input type="radio" name="str" value="男" checked="checked"> 
+        2.女<input type="radio" name="str" value="女">
+        <br>
+        <!-- 复选框 -->
+        1.apple<input type="checkbox" name="fruit" value="apple" checked="checked">
+        2.orange<input type="checkbox" name="fruit" value="orange">
+        3.banana<input type="checkbox" name="fruit" value="banana">
+        <br>
+        <!-- 下拉框 option没必要写name-->
+        <select name="">
+            <!-- 最终提交值以value为准 -->
+            <option value="武汉">上海</option>
+            <option value="武汉">北京</option>
+            <option value="武汉">武汉</option>
+        </select>
+        <br>
+        <input type="submit" value="login"><!--提交按钮,输入框必须要有name属性才能将数据传出去-->
+    </form>
+</body>
+</html>

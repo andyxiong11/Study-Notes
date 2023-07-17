@@ -1,0 +1,249 @@
+
+#only{
+    background-color: pink;
+}
+.demo{
+    background-color: red;
+}
+.demo1{
+    font-size: 20px;
+}
+span{
+    color: #f40;
+    font-weight: bold;
+}
+
+
+div{
+    background-color: yellow;
+}
+[id="only"]{
+    background-color:black;
+}
+
+/* 父子选择器 */
+div span{
+    background-color: red;
+}
+.wrapper .box span{
+    background-color: #f40;
+}
+div em{
+    background-color: black;
+}
+
+/* 直接子元素选择器 */
+div > em{
+    background-color: green;
+}
+
+/* 浏览器查找标签从右向左 */
+section div ul li a em{
+    background-color: green;
+}
+
+/* 并列选择器 */
+div .demo{
+    background-color: green;
+}
+/* 同一位置的不同选择器的样式，按权重相加 */
+#idDiv p{
+    background-color: red;
+}
+.classDiv .classP{
+    background-color: green;
+}
+
+/* 分组选择器 */
+em,strong,span{
+    background-color: red;
+}
+
+/* 文字样式 */
+div{
+    /* 文字大小调整的是高度 */
+    font-size: 14px;
+    /* 文字粗细，取决于浏览器中的字体包有没有加粗变细的字体 */
+    font-weight: bold;
+    /* 文字斜体 */
+    font-style: italic;
+    /* 字体 */
+    font-family: arial;
+    color: green;
+    color: rgb(0, 255, 255);
+    /* 边框 宽度 实虚线 颜色 */
+    /* border:border-width border-style border-color: */
+    border: 1px solid black;
+}
+/* borde三角形 */
+div{
+    width: 0;
+    height: 0;
+    border: 100px solid black;
+    /* 后面样式会覆盖前面 */
+    border-left-color: red;
+    border-top-color: green;
+    border-right-color: #00f;
+}
+/* 盒子样式 */
+div{
+    border: 1px solid black;
+    height: 200px;
+    line-height: 20px;/* 行高等于容器高度，单行垂直居中 */
+    /* 文字居中，height : line-height,text-align : center */
+    /* 元素居中，postiton :absolute,top : 50%,left : 50%,marging-left : -1/2宽高 */
+    line-height: 1.2em;/* 1.2倍行高*/
+    /* 首行缩进 */
+    /* em、px均为相对单位，1 em=1 font-size */
+    text-indent: 2em;
+}
+
+/* text-decoration */
+del{
+    text-decoration: none;
+}
+span{
+    /* 删除线 */
+    text-decoration: line-through;
+}
+span{
+    color: rgb(0, 0, 238);
+    /* 下划线 */
+    text-decoration: underline;
+    /* 鼠标样式 */
+    cursor: pointer;
+}
+
+/* 伪类选择器 */
+/* 鼠标移上去 */
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+    background-color: #f40;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: arial;
+    border-radius: 10px;
+}
+
+/* 先分析有几种css样式写出来，再写html加上对应的样式,封装公共样式 */
+.green{
+    background-color: green;
+}
+.red{
+    background-color: red;
+}
+.gray{
+    background-color: gray;
+}
+.size1{
+    width: 100px;
+    height: 100px;
+}
+.size2{
+    width: 200px;
+    height: 200px;
+}
+.size3{
+    width: 300px;
+    height: 300px;
+}
+
+/* 初始化标签 */
+em{
+    text-decoration: none;
+    color: #c00;
+}
+a{
+    font-style: normal;
+    color: #424242;
+}
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+*{ /*权重最小，适合清除所有标签样式*/
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-style: normal;
+}
+
+/* 盒子模型 */
+div{
+    /* 上 右 下 左 */
+    /* 上 左右 下 */
+    margin: 0;
+    border: 0;
+    padding: 0;
+    width: 0;
+    height: 0;
+}
+.content1{
+    height: 10px;
+    width: 10px;
+    background-color: #fff;
+}
+.content{
+    height: 10px;
+    width: 10px;
+    padding: 10px;
+    background-color: #0f0;
+}
+.box{
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    padding: 10px;
+}
+.wrapper{
+    width: 50px;
+    height: 50px;
+    background-color: #0f0;
+    padding: 10px;
+}
+
+/* 定位 */
+div{
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+/* 1.absolute 绝对定位，脱离原来的位置定位（原位置不存在了，无元素） */
+.demo{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    opacity: 0.5;
+}
+.box{
+    width: 150px;
+    height: 150px;
+    background-color: green;
+}
+/* 2.relative 保留原来的位置位置定位,相对原来的位置定位，一般用作绝对定位的参照物 */
+.demo{
+    position: relative;
+    left: 100px;
+    top: 100px;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    opacity: 0.5;
+}
+.box{
+    width: 150px;
+    height: 150px;
+    background-color: green;
+}
+div{
+    z-index: 0;/* 层级 */
+}
