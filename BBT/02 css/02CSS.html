@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- 2.页面级 -->
+    <!-- <style type="text/css">
+        div{
+            width: 100px; height:100px; background-color:pink;
+        }
+    </style> -->
+    <!-- 3.外部css样式 -->
+    <link rel="stylesheet" href="lesson.css">
+</head>
+<body>
+    <!-- 引入CSS -->
+    <!-- 1.行间样式 -->
+    <!-- <div style="width: 100px; height:100px; background-color:pink;">
+    </div> -->
+    <!-- 2.页面级 -->
+    <!-- 3.外部css样式 -->
+
+    <!-- 选择器 -->
+    <!-- 1.id选择器 一对一 -->
+    <div id="only">
+        123
+    </div>
+    <!-- 2.class选择器 多对多 -->
+    <div class="demo demo1">123</div>
+    <!-- 3.标签选择器 -->
+    <span>123</span>
+    <div>
+        <span>234</span>
+    </div>
+    <!-- 4.通配符选择器 -->
+    <!-- *{
+        background-color:pink;
+    } -->
+    <!-- 5.属性选择器 -->
+    [id="only"]{
+        background-color:pink;
+    }
+
+    <!-- ！important > 行间样式 > id > class | 属性 > 标签 > 通配符 -->
+    <div id="only" class="demo">123</div>
+    <!-- 
+        CSS权重
+        !important   Infinity
+        行间样式       1000
+        id             100
+        class|属性|伪类 10
+        标签|伪元素     1
+        通配符          0
+     -->
+
+     <!-- 父子选择器 -->
+     <div>
+        <span>123</span>
+     </div>
+     <span>234</span>
+     <div class="wrapper">
+        <strong class="box">
+            <span>123</span>
+        </strong>
+     </div>
+     <!-- div em{}样式针对两个均生效 -->
+     <div>
+        <em>1</em>
+        <strong>
+            <em>1</em>
+        </strong>
+    </div>
+
+    <!-- 直接子元素选择器 -->
+    <div>
+        <em>1</em>
+        <strong>
+            <em>1</em>
+        </strong>
+    </div>
+
+    <!-- 浏览器查找标签从右向左 -->
+    <section>
+        <div>
+            <p>
+                <a href="">
+                    <span></span>
+                </a>
+            </p>
+            <ul>
+                <li>
+                    <a href="">
+                        <span>
+                            <em>1</em>
+                        </span>
+                    </a>
+                    <p></p>
+                </li>
+                <li></li>
+            </ul>
+        </div>
+        <a href="">
+            <p>
+                <em>2</em>
+            </p>
+            <div></div>
+        </a>
+    </section>
+
+    <!-- 并列选择器 -->
+    <div>1</div>
+    <div class="demo">2</div>
+    <p class="demo">3</p>
+    <!-- 同一位置的不同选择器的样式，按权重相加 -->
+    <div class="classDiv" id="idDIV">
+        <p class="classP" id="idP">1</p>
+    </div>
+
+    <!-- 分组选择器 -->
+    <em>1</em>
+    <strong>2</strong>
+    <span>3</span>
+
+    <!-- 文字样式 -->
+    <div>
+        123
+    </div>
+    <!-- borde三角形 -->
+    <div></div>
+    <!-- 盒子样式 -->
+    <div>以学正风，弘扬清廉之风</div>
+
+    <!-- text-decoration -->
+    <del>原价123</del>
+    <span>原价123</span>
+    <a href="https://www.baidu.com">百度</a>
+    <span>百度</span>
+
+    <!-- 1.行级元素 inline。内容决定元素宽高,不可改变 -->
+    <span></span><strong></strong><em></em><a></a><del></del>
+    <!-- 2.块级元素 block。独占一行，可改变宽高 -->
+    <div></div><p></p><ul></ul><ol></ol><form></form><address></address>
+    <!-- 3.行级块元素 inline-block -->
+    <img>
+    <!-- 凡是带有inline的元素，都有文字特性 -->
+    <!-- img左右有2像素间距，但是不需要手动去除，因为浏览器会自动去除代码中的空格 -->
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+
+    <!-- 先分析有几种css样式写出来，再写html加上对应的样式,封装公共样式 -->
+    <div class="red size2"></div>
+
+    <!-- 初始化标签 -->
+    <em>123</em>
+    <a href=""></a>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+
+    <!-- 盒子模型 -->
+    <div></div>
+    <div class="wrapper">
+        <div class="box">
+            <div class="content">
+                <div class="content1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 定位 -->
+    <!-- 1.absolute 绝对定位，脱离原来的位置定位（原位置不存在了，无元素） -->
+    <!-- 2.relative 保留原来的位置位置定位,相对原来的位置定位，一般用作绝对定位的参照物 -->
+    <!-- 如果不设置relative，则absolute相对于文档body定位 -->
+    <!-- 3.fixed固定定位，相对于浏览器定位 -->
+    <div class="demo"></div>
+    <div class="box"></div>
+</body>
+</html>

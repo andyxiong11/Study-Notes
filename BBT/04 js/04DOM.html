@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        /*38行-61行*/
+        .content{
+            display: none;
+            width: 200px;
+            height: 200px;
+            border: 2px solid red;
+        }
+        .active{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script type = "text/javascript">
+        //DOM提供一些方法，操作html、xml。可以操作行间样式，但是不能操作样式表
+        //dom对象
+        var div = document.getElementsByTagName("div")[0]//页面中第一个div标签
+        div.style.width = "100px";//添加行间样式
+        div.style.height = "100px";//添加行间样式
+        div.style.backgroundColor = "red";//添加行间样式
+        var count = 0;
+        div.onclick = function(){//点击事件
+            count++;//每次点击都变
+            if(count % 2 == 1){
+                this.style.backgroundColor = "green";
+            }else{
+                this.style.backgroundColor = "red";
+            }
+        }
+    </script>
+    <div>
+        <button class="active">111</button>
+        <button>222</button>
+        <button>333</button>
+        <div class="content" style="display: block;">111</div>
+        <div class="content">222</div>
+        <div class="content">333</div>
+    </div>
+    <script type="text/javascript">
+        var btn = document.getElementsByTagName("button");
+        var div = document.getElementsByClassName("content");
+        for(var i = 0;i < btn.length;i++){
+            (function(n){
+                btn[n].onclick = function(){
+                    for(var j = 0;j < btn.length;j++){
+                        btn[j].className = "";
+                        div[j].style.display = "none";
+                    }
+                    this.className = "active";
+                    div[n].style.display = "block";//如果不用立即执行函数，此时的n永远为3
+                }
+            }(i))
+        }
+    </script>
+
+    <script type="text/javascript">
+        var div = document.createElement('div');//js里面创建一个div标签
+        document.body.appendChild(div);//页面body中插入div标签
+        div.style.width = "100px";
+        div.style.height = "100px";
+        div.style.backgroundColor = "red";
+        div.style.position = "absolute";
+        div.style.left = "0";
+        div.style.top = "0";
+        // var speed = 1;
+        // var timer = setInterval(function(){//定时器
+        //     speed += speed/30;//加速
+        //     div.style.left = parseInt(div.style.left) + speed + "px";
+        //     div.style.top  = parseInt(div.style.top) + speed + "px";
+        //     if(parseInt(div.style.left) > 500 && parseInt(div.style.top) > 500){
+        //         clearInterval(timer);//清除定时器
+        //     }
+        // },20)//50毫秒执行一次
+
+        document.onkeydown = function(e){
+            switch(e.which){
+                case 38:
+                    div.style.top = parseInt(div.style.top) - 5 + "px";
+                    break;
+                case 40:
+                    div.style.top = parseInt(div.style.top) + 5 + "px";
+                    break;
+                case 37:
+                    div.style.left = parseInt(div.style.left) - 5 + "px";
+                    break;
+                case 39:
+                    div.style.left = parseInt(div.style.left) + 5 + "px";
+                    break;
+            }
+        }
+    </script>
+
+
+    <div id="only"></div>
+    <div name="only"></div>
+    <!-- document.getElementsByTagName -->
+    <div>
+        <p></p>
+    </div>
+    <p></p>
+    <!-- document.querySelector()  document.querySelectorAll() -->
+    <div>
+        <span>
+            <strong class="demo">123</strong>
+        </span>
+    </div>
+    <!-- 实时 -->
+    <div></div>
+    <div class="demo"></div>
+    <div></div>
+    <!-- 遍历节点树 遍历元素节点树 -->
+    <div id="only" class="demo">
+        dasdas
+        <!-- qweqw -->
+        <strong>
+        </strong>
+        <span></span>
+        <em></em>
+    </div>
+
+
+
+    <script type="text/javascript">
+        //document代表整个文档
+
+        //一、“查”的方法
+        //1.document.getElementById()   ie8以下浏览器不区分id大小写，也可以返回name属性的元素。一般不用
+        var div = document.getElementById('only');
+
+        //2.document.getElementsByTagName() 标签名
+        var div = document.getElementsByTagName('div');//div 类数组
+        var p = document.getElementsByTagName('p')[0];//div中的p标签
+        document.getElementsByTagName('div')[0].style.backgroundColor = 'red';
+        document.getElementsByTagName('*');//代表选择所有元素
+
+        //3.document.getElementsByName()   老浏览器只有部分标签name可生效（表单、表单元素、img、iframe）
+
+        //4.document.getElementsByClassName() 类名 ie8和ie8以下的版本中没有，getElementsByTagName更常用
+
+        //5.document.querySelector()  css选择器  ie7和ie7以下的版本中没有；且不是实时的
+        var strong = document.querySelector("div > span strong.demo");//选择一个
+        //6.document.querySelectorAll()   css选择器  ie7和ie7以下的版本中没有；且不是实时的
+        var strong1 = document.querySelectorAll("div > span strong.demo");//选择一组
+        
+        //.querySelectorAll非实时的例子
+        var div = document.getElementsByTagName('div');
+        //var div = document.querySelectorAll('div');  //div中只会有3个div
+        var demo = document.getElementsByClassName('demo')[0];
+        var newDiv = document.createElement('div');
+        documen.body.appendChild(newDiv);
+        console.log(div);//虽然是在div后面，但是的div中依然会有4个div
+
+        var div = document.querySelectorAll('div');
+        div[0].innerHtml = 123;//只能通过数组选出来的元素进行修改
+
+
+        //遍历节点树
+        //1.parentNode 父节点
+        var strong = document.getElementsByTagName('strong')[0];
+        strong.parentNode;//<div>...</div>
+        strong.parentNode.parentNode;//<body>...</body>
+        strong.parentNode.parentNode.parentNode;//<html>...</html>
+        strong.parentNode.parentNode.parentNode.parentNode;//<document>...</document>
+        strong.parentNode.parentNode.parentNode.parentNode.parentNode;//null
+        //2.childNodes  子节点们
+        var div = document.getElementsByTagName('div')[0];
+        div.childNodes;//类数组 [text, comment, text, strong, text, span, text, em, text]
+        div.childNodes.length;//9  文本元素节点、注释节点、元素节点
+        //3.fisrtChild 第一个子节点
+        div.firstChild;//"dasdas"
+        //4.lastChild   最后一个子节点
+        div.lastChild;//#text  因为没有文本
+        //5.nextSibling  后一个兄弟节点
+        strong.nextSibling;//#text
+        //6.previousSibling  前一个兄弟节点
+        strong.nextSibling.previousSibling;//strong
+
+        //遍历元素节点树
+        //1.parentElement 返回当前元素的父元素节点（IE不兼容）
+        var div = document.getElementsByTagName('div')[0];
+        div.parentElement;//<body>...</body>
+        div.parentElement.parentElement;//<html>...</html>
+        div.parentElement.parentElement.parentElement;//null  document不是元素
+        //2.children  只返回当前元素的元素子节点
+        div.children;//[strong, span, em]
+        //3.node.childElemetCount === node.children.length  当前元素节点的子元素数量
+        div.childElementCount;//3
+        //4.firstElementChild 返回第一个元素节点（IE不兼容）
+        div.firstElementChild;//<strong></strong>
+        //5.lastElementChild 返回最后一个元素节点（IE不兼容）
+        div.lastElementChild;//em
+        //6.nextElementSibling 返回后一个兄弟元素
+        //7.previousElementSibling  返回前一个兄弟元素
+
+        //节点的四个属性
+        //1.nodeName 元素的标签名，以大写形式表示，只读
+        document.nodeName;//#document
+        div.firstChild.nodeName;//#text
+        div.childNodes[1].nodeName;//#comment 注释
+        div.childNodes[3].nodeName;//#strong 
+        //2.nodeValue Text节点或Comment节点的文本内容，可读写
+        div.childNodes[0].nodeValue;   //dasdas
+        div.childNodes[0].nodeValue = 234;
+        div.childNodes[0].nodeValue; //"234"
+        div.childNodes[0]; //"234"
+        //3.nodeType 该节点的类型，可读
+        document.nodeType;//9
+        //nodeType应用  返回某个元素下面的所有子元素节点
+        function retElementChild(node){
+            var arr = []
+                // temp = {
+                //     length : 0,
+                //     pus : Array.prototype.push,
+                //     splice : Array.prototype.splice
+                // },//优化
+                child = node.childNodes; 
+                len = child.length;
+            for(var i = 0;i < len;i++){
+                if(child[i] === 1){
+                    arr.push(child[i]);
+                    // temp.push(child[i]); //优化
+                }
+            }
+            return arr;
+            //return temp;  //优化
+        }
+        console.log(retElementChild(div));
+        //4.attributes Element节点的属性集合,可改属性值
+        div.attributes;//{0: id, 1: class, id: id, class: class, length: 2}
+        div.attributes[0].name;//id
+        div.attributes[0].value;//only
+
+        //节点的方法
+        //Node.hasChildNodes();//某个元素是否有子节点
+        div.hasChildNodes();//true
+        strong.hasChildNodes();//true  文本节点
+        //<strong></strong>则为false
+
+        //节点的类型
+        // 元素节点 —— 1
+        // 属性节点 —— 2
+        // 文本节点 —— 3
+        // 注释节点 —— 8
+        // document —— 9
+        // DocumentFragment —— 11
+
+
+        //  DOM结构树  继承
+        Node.Document.HTMLDocument
+        Node.CharacterData.text
+        Node.CharacterData.Comment
+        Node.Element.HTMLElement.HTMLHeadElement
+        Node.Element.HTMLElement.HTMLBodyElement
+        Node.Element.HTMLElement.HTMLTitleElement
+        Node.Element.HTMLElement.//...
+        Attr
+        // Document原型上写的属性，document可以直接用,但是document的构造函数是HTMLDocument
+        HTMLDocument.prototype = {
+            __proto__ : Document.prototype
+        }
+        document.prototype = {
+            __proto__ : HTMLDocument.prototype
+        }
+        Document.prototype.abc='1';
+        HTMLDocument.prototype.abc='2';
+        document.abc;//2
+
+        HTMLBodyELement.prototype.abc='demo';
+        var body =  document.getElementsByTagName('body')[0];
+        body.demo;//'demo'
+        var head =  document.getElementsByTagName('head')[0];
+        head.demo;//undefined
+
+        document.__proto__.__proto__.__proto__.__proto__;//EventTarget
+        document.__proto__.__proto__.__proto__.__proto__.__proto__;//Object
+        document.body.toString();//"[object HTMLBodyElement]"
+
+
+        //DOM基本操作
+        // 1.getElementByld,方法定义在Document.prototype上，即Element节点上不能使用。
+        // 2.getElementsByName方法定义在HTMLDocument.prototype上，即非html中的document不能使用（xml document,Element）
+        // 3.getElementsByTagName方法定义在Document.prototype和Element.prototype上
+        //<div><span></span></div>
+        var div = document.getElementsByTagName('div')[0]
+        var span = div.getElementsByTagName('span')[0];   
+        // 4.HTMLDocument.prototype定义了一些常用的属性，body、head分别指代HTML文档中的<body><head>标签。
+        document.body;//<body>...</body>
+        document.head;//<head>...</head>
+        // 5.Document.prototype上定义了documentElement属性，指代文档的根元素，在HTML文档中，他总是指代<html>元素
+        document.documentElement;//<html>...</html>
+        // 6.getElementsByClassName、querySelectorAll、querySelector在Document.prototype,Element.prototype类中均有定义
+        div.getElementsByClassName('');//
+
+
+        // <div>
+        //     <p></p>
+        //     <span>
+        //         <strong></strong>
+        //         <b></b>
+        //     </span>
+        // </div>
+        //作业
+        //1.遍历元素节点树（在原型链上编程）//寻找每一个父元素的子元素节点，按每一层输出
+        //2.封装函数，返回元素e的第n层祖先（父）元素节点
+        function retParent(elem,n){
+            while(elem && n){//ele为null，即没有父节点了  retParent（i,100)
+                elem = elem.parentElement;
+                n--;
+            }
+            return elem;
+        }
+        //3.封装函数，返回元素e的第n个兄弟元素节点，n为正，返回后面的兄弟元素节点，n为负，返回前面的，n为0，返回自己。
+        function retSibling(e,n){
+            // if(n > 0){
+            //     while(){}
+            // }else{
+            //     while(){}
+            // }
+            while(e && n){
+                if(n > 0){
+                    e = e.nextElementSibling;
+                    n--;
+                }else{
+                    e = e.previousElementSibling;
+                    n++;
+                }
+            }
+            return e;
+        }
+        //4.编辑函数，封装myChildren功能，解决以前部分浏览器的兼容性问题
+        ELement.prototype.myChildren = function (){
+            var child = this.childNodes,
+                len = child.Length,
+                arr = [];
+            for(var i=0;i<len;i++){
+                if(child[i].nodeType == 1){
+                    arr.push(child [i]);
+                }
+            }
+            return arr;
+        }
+        //5.自己封装hasChildren方法，不可用children属性
+        ELement.prototype.myChildren = function (){
+            var child = this.childNodes,
+                len = child.Length,
+                arr = [];
+            for(var i=0;i<len;i++){
+                if(child[i].nodeType == 1){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        //二、“增”的方法
+        //1. document.createElement(); 创建元素节点
+        var div = document.createElement('div');//创建了div标签，但是并没有放到页面中
+        //2. document.createTextNode(); 创建文本节点
+        var test = document.createTextNode('123');
+        //3. document.createComment(); 创建注释节点
+        var comment = document.createComment('注释');
+        //4.document.createDocumentFragment();  
+
+        //三、“插”的方法
+        //1. PARENTNODE.appendChild(); 页面中没有，即新增的元素插入到某个元素中。页面中已有的元素，将其剪切放到某个元素中
+        //<body><div></div></body>
+        var test = document.createTextNode('123');
+        div.appendChild(test);//<body><div>123</div></body>
+        var span = document.createElement('span');
+        div.appendChild(span);//<body><div>123<span></span></div></body>
+        span.appendChild(test);//<body><div><span>123</span></div></body>
+        //2. PARENINODE.insertBefore(a,b);
+        //<body><div><span></span></div></body>
+        var strong = document.createElement('strong');
+        div.insertBefore(strong,span);//在div下面span元素前插入strong <body><div><strong></strong><span></span></div></body>
+        
+        //四、“删”的方法 
+        //1. parent.removeChild();
+        //<div>123<span></span></div>
+        var remove = div.removeChild('span'); //<div>123</div>
+        console.log(remove);//<span></span>
+        //2. child.remove();
+        //<div>123<span></span></div>
+        var remove = span.remove();
+        console.log(remove);//
+
+        //五、“替换”的方法
+        //parent.replaceChild(new,origin);
+        //<div>123<span></span></div>
+        var strong = document.createElement('strong');
+        div.replaceChild(strong,span);//<div>123<strong></strong></div>
+
+
+        //Element节点的属性
+        //1. innerHtml 元素中插入HTML
+        //<div>234</div>
+        div.innerHtml = '123';//<div>123</div>
+        div.innerHtml += '456';//<div>123456</div>
+        div.innerHTML = "<span style = 'background-color : red'>123</span>";
+        //2. innerText  元素中插入文本，火狐不兼容
+        //Element节点的方法
+        //setAttribute给元素设置行间样式
+        div.setAttribute('class','demo');//<div class = 'demo'>123</div>
+        div.getAttribute('class');//demo
+        //应用 date-log
+        //<a href="#" date-log = 0></a>
+        a.onclick = function(){
+            return a.getAttribute('date-log');
+        }
+
+        //作业
+        // <div class="example">
+        //     <p class="slogan">123<p>
+        // </div>
+        var div = document.createElement('div');
+        var p = document.createElement('p');
+        var text = document.createTextNode('123');
+        div.appendChild(p);
+        p.appendChild(text);
+        div.setAttribute('class','example');
+        p.setAttribute('class','slogan');
+        //1.封装函数insertAfter();功能类似insertBefore();
+        //提示：可忽略老版本浏览器，直接在Element.prototype上编程
+        Element.prototype.insertAfter() = function(targetNode,afterNode){
+            var beforeNode = afterNode.nextElementSibling;
+            if(beforeNode == null){//当前元素是最后一个
+                this.appendChild(targetNode);
+            }else{
+                this.insertBefore(targetNode,beforeNode);
+            }
+        }
+        //2.将目标节点内部的节点顺序逆序。eg:<div><a></a><em></em></div>
+        //<div><em></em><a></a></div>
+        //将倒数第二个，用appendChild
+
+    </script>
+     
+</body>
+</html>
+
