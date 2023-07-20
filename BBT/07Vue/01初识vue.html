@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 1.组件化模式，提高代码复用率、易维护
+        // 2.声明式编码，无需直接操作DOM
+        //命令式编码
+        //准备htm1字符串
+        // let htmlstr = ''
+        // // 遍历数据拼接htm1字符串
+        // persons.forEach(p => {
+        //     htmlstr += `<li>${p.id}-${p.name}-${p.age}</li>`
+        // });
+        // //获取1ist元素
+        // let list = document.getElementById('list')
+        // //修改内容（亲自操作DoM)
+        // list.innerHTML = htmlstr
+        // //声明式编码
+        // < ul id = "list" >
+        //     <li v-for="p in persons">
+        //         {{ p.id }}-{{ p.name }}-{{ p.age }}
+        //     </li>
+        // </u1 >
+        //3.使用虚拟DOM和diff算法，尽量复用代码
+        Vue.config.productionTip = false;
+    </script>
+</body>
+
+</html>
