@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+    </head>
+    <body>
+        <!--1,Vue中常用的按键别名：
+          回车=>enter
+          删除=>delete (捕获“制除”和“退格”键)
+          退出=>esc
+          空格=>space
+          换行=>tab
+          上=>up
+          下=>down
+          左=>left
+          右=>right
+        2,Vue未提供别名的按键，可以使用按键原始的key值去绑定，但注意要转为kebab-case(短横线命名)
+        3,系统修饰键（用法特殊）：ctrl、alt、shift、meta
+           (1)配合keyup使用：按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发。
+           (2)配合keydown使用：正常触发事件.
+        4.也可以使用keyCode去指定具体的按键（不推荐）
+        5.Vue.config.keyCodes,自定义键名 = 键码，可以去定制按键别名-->
+        <div id="root">
+            <!-- keydown 按下时触发-->
+            <!--.enter 等同于if(e.keyCode !== 13) return-->
+            <input type="text" placeholder="按下回车提示输入" @keyup.enter="showInfo">
+            <!--未提供别名的按键，使用按键原始的key值绑定，转为kebab-case(短横线命名)-->
+            <input type="text" placeholder="按下capsLock提示输入" @keyup.caps-lock="showInfo">-->
+            <!--tab自带默认事件，切换到其他元素，建议使用keydown-->
+            <input type="text" placeholder="按下tab提示输入" @keydown.tab="showInfo">
+            <input type="text" placeholder="按下ctrl+y提示输入" @keydown.tab.y="showInfo">
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            Vue.config.keyCodes.huiche = 13;//@keyup.huiche="showInfo"
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                },
+                methods: {
+                    showInfo(e) {
+                        //if(e.keyCode !== 13) return
+                        //console.log(e.key,e.keyCode);//key特殊按键 tab、ctrl... keyCode按键编码
+                        console.log(e.target.value);//获取输入框输入的值
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
