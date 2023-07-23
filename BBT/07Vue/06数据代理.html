@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="vue.js"></script>
+    </head>
+    <body>
+        <!--回顾Object.defineProperty方法-->
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            let num = 15;
+            let person = {
+                name: '张三',
+                sex: '男'
+            }
+            Object.defineProperty(person, 'age', {//给对象添加属性，该方法添加属性不参与遍历
+                value: 18,
+            })
+            console.log(Object.keys(person));//遍历不到age
+            for (let key in person) {
+                console.log('@', person[key]);//遍历不到age
+            }
+            Object.defineProperty(person, 'address', {
+                value: '武汉',
+                enumerable: true,//控制属性是否可以枚举，默认false；此时可以遍历到
+                writable: true,//控制属性是否可以修改，默认false
+                //person.address = '上海'
+                configurable: true//控制属性是否可以被删除，默认false
+                //delete person.address
+            })
+
+            //如果在person外定义一个num，将其加到person对象中，需要对象中的num值会随着num改变
+            // let person = {
+            //     name : '张三',
+            //     sex : '男',
+            //     number : num//此时对象中的age不会随着改变
+            // }
+            Object.defineProperty(person, 'number', {
+                //当有人读取person的number属性时，get函数（getter）就会被调用，返回值就是number的值
+                get: function () {//简写get(){}
+                    console.log('有人读取age属性');//直接打印person不会显示number属性值，需要手动点击
+                    return num;
+                },
+                //当有人修改person的number属性时，set函数（setter）就会被调用，且会收到修改的值
+                set(value) {
+                    console.log('有人修改了age属性，且值是：', value);
+                    //如果修改person.number = 30;
+                    //会打印value，但是实际上，person的number值并没有修改,因为是实时取的num
+                }
+            })
+            console.log(person);
+        </script>
+
+        <!--数据代理：通过一个对象代理另一个对象中属性的操作（读/写）-->
+        <script type="text/javascript">
+            let obj = {
+                x: 100
+            }
+            let obj2 = {
+                y: 200
+            }
+            Object.defineProperty(obj2, 'x', {
+                get() {
+                    return obj.x;
+                },
+                set(value) {
+                    obj.x = value;
+                }
+            })
+        </script>
+        <!--vue数据代理：通过vm对象代理data对象中属性的操作（读/写）-->
+        <div id="root">
+            <h3>学校名称：{{name}}</h3><!--数据代理getter 通过vm._data.name读取，vm解析时将vm._data.name放到了vm.name-->
+            <h3>学校名称：{{_data.name}}</h3><!--等同-->
+            <h3>学校地址：{{address}}</h3>
+        </div>
+        <script type="text/javascript">
+            // let data = {
+            //     name: '尚硅谷',
+            //     address: '武汉'
+            // }
+            const vm = new Vue({//包裹的对象的名字叫options
+                el: '#root',
+                data: {
+                    name: '尚硅谷',
+                    address: '武汉'
+                }
+                //如何印证vm.name修改影响了页面中的data.name setter
+                //可以使用vm._data.name获取data中的name，vm._data = options.data = data
+                //如何印证vm._data为data，删除原有的data对象，在外部定义一个data对象，将其放到vue实例中
+                //data
+                //运行vm._data === data
+            })
+            console.log(vm);//vm中_data的值，实际上并不是{name: '尚硅谷',address: '武汉'}，不是数据代理，是做了数据劫持
+
+            //基本原理
+            // 通过Object.defineProperty()把data对象中所有属性添加到vm上。
+            // 为每一个添加到vm上的属性，都指定一个getter/setter。
+            // 在getter/setter内部去操作（读/写）data中对应的属性。
+        </script>
+    </body>
+</html>

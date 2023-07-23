@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="vue.js"></script>
+  </head>
+  <body>
+    <!--View-->
+    <div id="root">
+    <!--  MVVM-->
+    <!--  1.Model模型，data中的数据-->
+    <!--  2.View视图，模板（Vue的模板解析生成DOM 页面结构)-->
+    <!--  3.ViewModel视图模型，Vue实例对象-->
+    <!--  将JS对象中的数据通过Vue实例绑定到页面DOM中，同时页面DOM通过Vue实例对象监听JS对象中的数据-->
+      <h3>学校名称：{{name}}</h3>
+      <h3>学校地址：{{address}}</h3>
+    </div>
+  </body>
+  <script type = "text/javascript">
+    Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+    //ViewModel
+    const vm = new Vue({//一般用vm代表vue实例
+      el : "#root",
+      data : {
+        //Model
+        name : '武大',
+        address : '武汉'
+      }
+    })
+    console.log(vm);//vm中的所有属性及vue原型中的所有属性，插值表达式中都能直接用
+  </script>
+</html>
