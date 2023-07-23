@@ -9,28 +9,57 @@
 </head>
 
 <body>
+    <div>
+        <!--  Vue特点-->
+        <!-- 1.组件化模式，提高代码复用率、易维护-->
+        <!-- 2.声明式编码，无需直接操作DOM-->
+        <!--命令式编码-->
+        <!--准备htm1字符串-->
+        <!-- let htmlstr = ''-->
+        <!--  遍历数据拼接htm1字符串-->
+        <!-- persons.forEach(p => {-->
+        <!--     htmlstr += `<li>${p.id}-${p.name}-${p.age}</li>`-->
+        <!-- });-->
+        <!-- 获取1ist元素-->
+        <!-- let list = document.getElementById('list')-->
+        <!-- 修改内容（亲自操作DoM)-->
+        <!-- list.innerHTML = htmlstr-->
+        <!-- 声明式编码-->
+        <!-- < ul id = "list" >-->
+        <!--     <li v-for="p in persons">-->
+        <!--             {{ p.id }}-{{ p.name }}-{{ p.age }}-->
+        <!--         </li>-->
+        <!-- </u1 >-->
+        <!--3.使用虚拟DOM和diff算法，尽量复用代码-->
+    </div>
+    <!--准备好一个容器-->
+    <div id="root">
+        <!--{{}}为插值语法，其中必须写js表达式，且可以读取到data中的所有属性-->
+        <h1>Hello，{{nameX}}，{{address}}</h1><!--一个容器只能对应一个容器-->
+        <h1>Hello，{{nameX.toUpperCase()}}，{{address}},{{Date.now()}},{{age}}</h1><!--会报错 未定义age-->
+    </div>
+    <div id="root2">
+        <h1>Hello，{{nameX}}，{{address}}</h1>
+    </div>
+    <h1>{{name}}</h1><!--vue实例只绑定了#root选择器-->
     <script type="text/javascript">
-        // 1.组件化模式，提高代码复用率、易维护
-        // 2.声明式编码，无需直接操作DOM
-        //命令式编码
-        //准备htm1字符串
-        // let htmlstr = ''
-        // // 遍历数据拼接htm1字符串
-        // persons.forEach(p => {
-        //     htmlstr += `<li>${p.id}-${p.name}-${p.age}</li>`
-        // });
-        // //获取1ist元素
-        // let list = document.getElementById('list')
-        // //修改内容（亲自操作DoM)
-        // list.innerHTML = htmlstr
-        // //声明式编码
-        // < ul id = "list" >
-        //     <li v-for="p in persons">
-        //         {{ p.id }}-{{ p.name }}-{{ p.age }}
-        //     </li>
-        // </u1 >
-        //3.使用虚拟DOM和diff算法，尽量复用代码
-        Vue.config.productionTip = false;
+        Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+        //创建vue实例
+        const x = new Vue({//参数传对象  const x =可以去掉
+            // el : document.getElementById('root')
+            el : "#root",//element 绑定 root选择器，也可以用class选择器 .root
+            data : {//data存储数据，供el指定的容器使用
+                nameX:"尚硅谷",
+                address : '武汉'
+            }
+        });
+        new Vue({
+            el : "#root2",
+            data : {
+                nameX:"尚硅谷",
+                address : '上海'
+            }
+        });
     </script>
 </body>
 

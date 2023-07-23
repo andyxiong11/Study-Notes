@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        单向数据绑定：<input type="text" :value="msg">
+        双向数据绑定：<input type="text" v-model:value="msg">
+        <!--v-model:value可以简写为v-model,默认收集value值-->
+        双向数据绑定：<input type="text" v-model="msg">
+        <!--v-model只能应用在表单类（输入类）元素，-->
+        <h2 v-model:x="msg">双向数据绑定</h2>
+    </div>
+</body>
+    <script type = "text/javascript">
+        new Vue({
+            el : "#root",
+            data : {
+                msg : '尚硅谷'
+            }
+        })
+    </script>
+</html>
