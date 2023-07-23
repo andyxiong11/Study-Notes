@@ -1,0 +1,13 @@
+.*.swp
+/old
+/*.tap
+/dist
+/node_modules
+/v8.log
+/profile.txt
+/nyc_output
+/.nyc_output
+/coverage
+/test/fixtures
+/bench-working-dir
+/scripts/fixture
