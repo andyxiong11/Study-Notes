@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      姓：<input type="text" v-model="firstName"><br/><br/>
+      名：<input type="text" v-model="lastName"><br/><br/>
+      全名：<span>{{fullName()}}</span><!--每次输入都会重新调用-->
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip=false//阻止vue在启动时生成生产提示。
+      new Vue({
+        el: '#root',
+        data: {
+          firstName: '张',
+          lastName: '三'
+        },
+        methods : {
+          fullName(){
+            console.log('输入了新内容');
+            return this.firstName + '-' + this.lastName;
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      姓：<input type="text" v-model="firstName"><br/><br/>
+      名：<input type="text" v-model="lastName"><br/><br/>
+      全名：<span>{{fullName}}</span><br/><br/>
+      全名：<span>{{fullName}}</span><br/><br/>
+      全名：<span>{{fullName}}</span><br/><br/>
+      全名：<span>{{fullName}}</span>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip=false//阻止vue在启动时生成生产提示。
+      const vm = new Vue({
+        el: '#root',
+        data: {
+          firstName: '张',
+          lastName: '三'
+        },
+        computed: {//计算属性 vm._data中没有
+          //原理：有人读取fullName,调用get，返回值作为fullName的值
+          fullName: {//此时的fullName是属性不是方法,值从get方法取
+            //优点：初次读取fullName时或依赖的数据发生变化时调用get,重复调用会取get缓存；但是methods调多少次就执行多少次
+            get() {//调用get，此时this指向vm实例
+              console.log('get被调用');
+              return this.firstName + '-' + this.lastName;//只能使用已有的属性
+            },
+            //fullName需要被修改时，才需要写set
+            set(value){
+              console.log('set',value);
+              const arr = value.split('-');
+              this.firstName = arr[0];
+              this.lastName = arr[1];
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
