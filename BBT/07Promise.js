@@ -14,11 +14,11 @@
 const promise = new Promise(function (resolve, reject) {//Promise构造函数
     // ... some code
 
-    if (/* 异步操作成功 */) {
-        resolve(value);//resolve函数将Promise对象的状态从“未完成”变为“成功”，在异步操作成功时将异步操作的结果作为参数传递出去
-    } else {
-        reject(error);//reject函数将Promise对象的状态从“未完成”变为“失败”，在异步操作失败时将异步操作报出的错误作为参数传递出去
-    }
+    // if (/* 异步操作成功 */) {
+    //     resolve(value);//resolve函数将Promise对象的状态从“未完成”变为“成功”，在异步操作成功时将异步操作的结果作为参数传递出去
+    // } else {
+    //     reject(error);//reject函数将Promise对象的状态从“未完成”变为“失败”，在异步操作失败时将异步操作报出的错误作为参数传递出去
+    // }
 });
 promise.then(function (value) {//then方法指定两种状态的回调函数
     // success
