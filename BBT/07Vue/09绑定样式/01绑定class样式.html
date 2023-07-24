@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+        <style type="text/css">
+            #root>div{
+                margin-top: 10px;
+            }
+            .basic{
+                width: 400px;
+                height: 100px;
+                border: 1px solid black;
+            }
+            .happy{
+                border:4px solid red;
+                background-color:rgba(255,255,0,0.644);
+                background:linear-gradient(30deg,yellow,pink,orange,yellow);
+            }
+            .sad{
+                border:4px dashed rgb(2,197,2);
+                background-color:gray;
+            }
+            .normal{
+                background-color: skyblue;
+            }
+            .atguigu1{
+                background-color: yellowgreen;
+            }
+            .atguigu2{
+                font-size: 30px;
+                text-shadow: 2px 2px 10px red;
+            }
+            .atguigu3{
+                border-radius: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--绑定样式：
+        1,class样式
+        写法：class="xxx”Xx可以是字符串、对象、数组.
+        字符串写法适用于：类名不确定，要动态获取。
+        对象写法适用于：要绑定多个样式，个数不确定，名字也不确定。
+        数组写法适用于：要绑定多个样式，个数确定，名字也确定，但不确定用不用。
+        2,style样式
+        :style="{fontsize:xxx]"其中xox是动态值。
+        :style=:"[a,b]"其中a、b是样式对象。-->
+        <div id="root">
+            <!--basic基础样式加上另外一个样式-->
+            <div class="basic happy">basic happy</div>
+            <div class="basic sad">basic sad</div>
+            <div class="basic normal">basic normal</div>
+            <div class="basic atguigu1">basic atguigu1</div>
+            <div class="basic atguigu1 atguigu2">basic atguigu1 atguigu2</div>
+            <div class="basic atguigu1 atguigu2 atguigu3">basic atguigu1 atguigu2 atguigu3</div>
+
+            <!--点击div更换样式-->
+            <!--绑定class样式--字符串写法，适用于类名不确定-->
+            <div class="basic" :class="mood" @click="changeMood">字符串写法 点击切换</div>
+
+            <!--绑定class样式--数组写法，适用于绑定的样式个数和类名不确定-->
+            <div class="basic" :class="classObj">数组写法</div>
+            <!--也可以下面这么写-->
+            <div class="basic" :class="['atguigu1','atguigu2','atguigu3']">数组写法</div>
+
+            <!--绑定class样式--对象写法，适用于绑定的样式个数和类名确定，但需要动态决定用不用-->
+            <div class="basic" :class="classArr">对象写法</div>
+            <!--也可以下面这么写-->
+            <div class="basic" :class="{atguigu1: false,atguigu2: false}">对象写法</div>
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    name: '尚硅谷',
+                    mood: 'normal',
+                    classArr: ['atguigu1', 'atguigu2', 'atguigu3'],
+                    classObj: {
+                        atguigu1: false,
+                        atguigu2: false
+                    },
+                },
+                methods: {
+                    changeMood(){
+                        //this.mood = 'happy'
+
+                        //下面随机切换
+                        const arr = ['happy','sad','normal'];
+                        this.mood = arr[Math.floor(Math.random()*3)];//floor向下取整,0.1.. 0.2.. 0.3..
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

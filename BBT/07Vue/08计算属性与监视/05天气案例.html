@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <!--<h2>今天天气很{{isHot ? '炎热' : '寒冷'}}</h2>-->
+            <h2>今天天气很{{info}}，{{x}}</h2>
+            <button @click="changeWeather">切换天气</button>
+            <button @click="isHot = !isHot">切换天气</button><!--也可以-->
+            <button @click="isHot = !isHot;x++">切换天气++</button><!--也可以-->
+            <button @click="alert(1)">切换天气</button><!--报错，只能取vm和vue上的-->
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    isHot : true,
+                    x : 1
+                },
+                computed: {
+                    info(){
+                        return this.isHot ? '炎热' : '寒冷';
+                    }
+                },
+                methods: {
+                    changeWeather() {
+                        this.isHot = !this.isHot;
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
