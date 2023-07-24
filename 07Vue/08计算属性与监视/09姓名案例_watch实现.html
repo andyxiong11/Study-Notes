@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../vue.js"></script>
+  </head>
+  <body>
+    <!--computed watch之间的区别：
+    1.computed能完成的功能，watch都可以完成。
+    2,watch能完成的功能，computed.不一定能完成，例如：watch可以进行异步操作。
+    两个重要的小原则：
+    1,所被Vue管理的函数，最好写成普通函数，这样this的指向才是vm或组件实例对象。
+    2,所有不被Vue所管理的函数（定时器的回调函数、ajax的回调函数等），最好写成箭头函数，
+    这样this的指向才是vm或组件实例对象。-->
+    <div id="root">
+      姓：<input type="text" v-model="firstName"><br/><br/>
+      名：<input type="text" v-model="lastName"><br/><br/>
+      全名：<span>{{fullName}}</span><br/><br/>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip=false//阻止vue在启动时生成生产提示。
+      const vm = new Vue({
+        el: '#root',
+        data: {
+          firstName: '张',
+          lastName: '三',
+          fullName: '张-三'
+        },
+        //computed和watch可以同时使用
+        watch: {
+          firstName(newValue) {//newValue,oldValue
+            this.fullName = newValue + '-' + this.lastName;
+          },
+          lastName(newValue) {//newValue,oldValue
+            this.fullName = this.firstName + '-' + newValue;
+          }
+        },
+
+        //优先使用计算属性，当需要使用异步时，需要用watch
+        watch: {
+          firstName(newValue) {
+            setTimeout(() => {//setTimeout不归vue管理，可以使用箭头函数。如果不写箭头函数，则this指向window，否则指向vm
+              this.fullName = newValue + '-' + this.lastName;
+            },1000)//等待1s再变化全名
+          },
+        },
+        //computed不行,必须要有一个返回值
+        computed: {
+          fullName() {
+            console.log('get被调用');
+            setTimeout(() => {
+              return this.firstName + '-' + this.lastName;
+            },1000)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

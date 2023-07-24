@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+        <style type="text/css">
+            #root>div{
+                margin-top: 10px;
+            }
+            .basic{
+                width: 400px;
+                height: 100px;
+                border: 1px solid black;
+            }
+            .happy{
+                border:4px solid red;
+                background-color:rgba(255,255,0,0.644);
+                background:linear-gradient(30deg,yellow,pink,orange,yellow);
+            }
+            .sad{
+                border:4px dashed rgb(2,197,2);
+                background-color:gray;
+            }
+            .normal{
+                background-color: skyblue;
+            }
+            .atguigu1{
+                background-color: yellowgreen;
+            }
+            .atguigu2{
+                font-size: 30px;
+                text-shadow: 2px 2px 10px red;
+            }
+            .atguigu3{
+                border-radius: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--绑定样式：
+        1,class样式
+        写法：class="xxx”Xx可以是字符串、对象、数组.
+        字符串写法适用于：类名不确定，要动态获取。
+        对象写法适用于：要绑定多个样式，个数不确定，名字也不确定。
+        数组写法适用于：要绑定多个样式，个数确定，名字也确定，但不确定用不用。
+        2,style样式
+        :style="{fontsize:xxx]"其中xox是动态值。
+        :style=:"[a,b]"其中a、b是样式对象。-->
+        <div id="root">
+            <!--basic基础样式加上另外一个样式-->
+            <div class="basic happy">basic happy</div>
+            <div class="basic sad">basic sad</div>
+            <div class="basic normal">basic normal</div>
+            <div class="basic atguigu1">basic atguigu1</div>
+            <div class="basic atguigu1 atguigu2">basic atguigu1 atguigu2</div>
+            <div class="basic atguigu1 atguigu2 atguigu3">basic atguigu1 atguigu2 atguigu3</div>
+
+            <!--绑定style样式-->
+            <div class="basic" style="font-size: 40px"></div>
+            <!--font-size: 40px可以用对象键值对的写法{}，去掉-第二个单词首字母大写-->
+            <div class="basic" :style="{fontSize: fsize + 'px'}"></div>
+            <!--绑定style样式 对象写法-->
+            <div class="basic" :style="styleObj"></div>
+            <div class="basic" :style="[styleobj,styleobj2]"></div>
+            <!--绑定style样式 数组写法-->
+            <div class="basic" :style="styleArr"></div>
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    name: '尚硅谷',
+                    mood: 'normal',
+                    fsize: 40,
+                    styleObj: {
+                        fontSize: '40px',
+                        backgroundColor: 'orange'
+                    },
+                    styleobj: {
+                        fontsize: '40px',
+                        color: 'red',
+                    },
+                    styleobj2: {
+                        backgroundColor: 'orange'
+
+                    },
+                    styleArr: [
+                        {
+                            fontsize: '40px',
+                            color: 'red',
+                        },
+                        {
+                            backgroundColor: 'orange'
+                        }
+                    ]
+                }
+            })
+        </script>
+    </body>
+</html>
