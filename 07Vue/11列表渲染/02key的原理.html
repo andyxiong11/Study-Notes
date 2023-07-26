@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+    </head>
+    <body>
+        <!-- 面试题：react、vue中的key有什么作用？(key的内部原理)
+            1.虚拟DOM中key的作用：
+                key是虚拟DOM对象的标识，当状态中的数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】,
+                随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则下：
+            2.对比规则：
+                (1).旧虚拟DOM中找到了与新虚拟DOM相同的key:
+                    ①.若虚拟DOM中内容没变，直接使用之前的真实DOM！
+                    ②.若虚虚DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM
+                (2).旧虚拟DOM中未找到与新虚拟DOM相同的key
+                        创建新的真实DOM，随后渲染到到页面。
+            3.用index作为key可能会引发的问题：
+                1.若对数据进行：逆序添加、逆序删除等破坏顺序操作：
+                    会产生没有必要的真实DOM更新 => 界面效果没问题，但效率低
+                2.如果结构中还包含输入类的DOM：
+                    会产生错误DOM更新==>界面有问题。
+            4.开发中如何选择key?:
+                1.最好使用每条数据的唯一标识作为key,比id、手机号、身份证号、学号等唯一值。
+                2,如果不存在对数据的逆序添加、逆序则除等破坏顺序操作，仅用于渲染列表用于展示，
+                    使用index作为key是没有问题的. -->
+
+        <div id="root">
+            <!-- 遍历数组 -->
+            <h2>人员列表</h2>
+            <button @click.once="add">添加一个老刘</button><!--once 事件只触发一次-->
+            <ul>
+                <!-- key只在vue在虚拟DOM中用，页面不显示 -->
+                <li v-for = '(p,index) in persons' :key = 'index'>
+                    {{p.name}} - {{p.age}} - {{index}}
+                    <input type="text">
+                </li>
+
+                <!-- 在三个输入框分别输入张三-18、李四-19、王五-20后添加老刘，使用index时会混乱 -->
+                <!-- 因为虚拟DOM对比算法，key值相同的对比，不一样就更新，一样就复用 -->
+                <!-- 但是如果是在数组最后添加老刘则不影响，因为没有影响index的顺序 -->
+                <!-- 使用index也会影响效率，修改了DOM节点 -->
+                <!-- 初始虚拟DOM -->
+                <li key="0">张三-18<input type="text"></li>
+                <li key="1">李四-19<input type="text"></li>
+                <li key="2">王五-20<input type="text"></li>
+                <!-- 初始真实DOM -->
+                <li>张三-18<input type="text" value="张三-18"></li>
+                <li>李四-19<input type="text" value="李四-19"></li>
+                <li>王五-20<input type="text" value="王五-20"></li>
+                <!-- 新虚拟DOM -->
+                <li key="0">老刘-40<input type="text"></li>
+                <li key="1">张三-18<input type="text"></li>
+                <li key="2">李四-19<input type="text"></li>
+                <li key="3">王五-20<input type="text"></li>
+                <!-- 新真实DOM -->
+                <li>老刘-40<input type="text" value="张三-18"></li>
+                <li>张三-18<input type="text" value="李四-19"></li>
+                <li>李四-19<input type="text" value="王五-20"></li>
+                <li>王五-20<input type="text"></li>
+                <!-- 使用p.id则不影响 -->
+                <!-- 新虚拟DOM -->
+                <li key="004">老刘-40<input type="text"></li><!--在初始DOM中找不到key为004，新建-->
+                <li key="001">张三-18<input type="text"></li>
+                <li key="002">李四-19<input type="text"></li>
+                <li key="003">王五-20<input type="text"></li>
+                <!-- 新真实DOM -->
+                <li>老刘-40<input type="text"></li>
+                <li>张三-18<input type="text" value="张三-18"></li>
+                <li>李四-19<input type="text" value="李四-19"></li>
+                <li>王五-20<input type="text" value="王五-20"></li>
+                
+
+            </ul>
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    persons:[
+                        {id:'001',name:'张三',age:18},
+                        {id:'002',name:'李四',age:19},
+                        {id:'003',name:'王五',age:20}
+                    ]
+                },
+                methods:{
+                    add(){
+                        const p = {id:'004',name:'老刘',age:40};
+                        this.persons.unshift(p);//将p插到数组最前面
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

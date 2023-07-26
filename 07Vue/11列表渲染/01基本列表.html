@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+    </head>
+    <body>
+        <!-- v-fon指令
+            1.用于展示列表数据
+            2.语法：v-for="(item,index)in xxx"key="yyy"
+            3.可遍历：数组、对象、字符串（用的很少）、指定次数（用的很少） -->
+            
+        <div id="root">
+            <!-- 遍历数组 -->
+            <h2>人员列表</h2>
+            <ul>
+                <!-- key给每一个li绑定唯一标识 -->
+                <li v-for = 'p in persons' :key = 'p.id'>
+                    {{p.name}} - {{p.age}}
+                </li>
+                <!-- 另外一种写法 index代表每个p的索引 -->
+                <li v-for = '(p,index) in persons' :key = 'index'>
+                    {{p.name}} - {{p.age}} - {{index}}
+                </li>
+            </ul>
+            <!-- 遍历对象 -->
+            <h2>汽车列表</h2>
+            <ul>
+                <li v-for = '(value,key) in car' :key = 'key'>
+                    {{key}} - {{value}}<!--奥迪A8 - name;70万 - price;黑色 - color-->
+                </li>
+            </ul>
+            <!-- 遍历字符串 用的少 -->
+            <h2>字符串列表</h2>
+            <ul>
+                <li v-for = '(char,index) in str' :key = 'index'>
+                    {{char}} - {{index}}<!--h - 0;e - 1;l - 2;l - 3;o - 4-->
+                </li>
+            </ul>
+            <!-- 遍历指定次数 用的少 -->
+            <h2>遍历指定次数</h2>
+            <ul>
+                <li v-for = '(number,index) in 5' :key = 'index'>
+                    {{number}} - {{index}}<!--1 - 0;2 - 1;3 - 2;4 - 3;5 - 4-->
+                </li>
+            </ul>
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    persons:[
+                        {id:'001',name:'张三',age:18},
+                        {id:'002',name:'李四',age:19},
+                        {id:'003',name:'王五',age:20}
+                    ],
+                    car:{
+                        name:'奥迪A8',
+                        price:'70万',
+                        color:'黑色'
+                    },
+                    str: 'hello'
+                }
+            })
+        </script>
+    </body>
+</html>
