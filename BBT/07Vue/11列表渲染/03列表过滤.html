@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>人员列表</h2>
+            <input type="text" placeholder="请输入名字" v-model="keyWord">
+            <ul>
+                <li v-for = '(p,index) in filPersons' :key = 'index'>
+                    {{p.name}} - {{p.age}} - {{p.sex}}
+                </li>
+            </ul>
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            //用watch实现
+            // const vm = new Vue({
+            //     el: '#root',
+            //     data: {
+            //         keyWord:"",
+            //         persons:[
+            //             {id:'001',name:'马冬悔',age:19,sex:'女'},
+            //             {id:'002',name:'周冬雨',age:28,sex:'女'},
+            //             {id:'003',name:'周杰伦',age:21,sex:'男'},
+            //             {id:'004',name:'温兆伦',age:22,sex:'男'}
+            //         ],
+            //         filPersons:[]
+            //     },
+            //     watch:{
+            //         // keyWord(newValue){
+            //         //     console.log('keyWord被修改了');
+            //         //     //this.persons = this.persons.filter((p) => {//filter不修改原数组，但是赋值给this.persons就修改了
+            //         //     this.filPersons = this.persons.filter((p) => {//用一个新数组接收，可以实现，但是新数组为空
+            //         //         return p.name.indexOf(newValue) !== -1;//将person中name包含newValue的数据返回
+            //         //     })
+            //         // }
+            //         keyWord: {
+            //             //因为不输入时，输入框为空。name.indexOf('')==0，所以初始化时就调用handler过滤空串，让所有数据展示
+            //             immediate: true,
+            //             handler(newValue,oldValue){
+            //                 console.log('keyWord被修改了');
+            //                 this.filPersons = this.persons.filter((p) => {
+            //                     return p.name.indexOf(newValue) !== -1
+            //                 })
+            //             }
+            //         }
+            //     }
+            // })
+
+            //用computed实现
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    keyWord:"",
+                    persons:[
+                        {id:'001',name:'马冬悔',age:19,sex:'女'},
+                        {id:'002',name:'周冬雨',age:28,sex:'女'},
+                        {id:'003',name:'周杰伦',age:21,sex:'男'},
+                        {id:'004',name:'温兆伦',age:22,sex:'男'}
+                    ]
+                },
+                computed:{
+                    filPersons(){
+                        return this.filPersons = this.persons.filter((p) => {
+                            return p.name.indexOf(this.keyWord) !== -1
+                        })
+                    }
+                }
+            })
+
+        </script>
+    </body>
+</html>
