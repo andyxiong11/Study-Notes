@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        let data = {
+            name:'尚硅谷',
+            address:'北京'
+        }
+        //第一种可实现方法
+        let tmp = '尚硅谷'
+        setInterval(()=>{
+            if(data.name != tmp){
+                tmp = data.name
+                console,log('name被改了')
+            }
+        },100);
+        date.name = 'itguigu';
+
+        //第二种 不可行，一旦读取或修改，会反复调get和set
+        object.defineProperty(data,'name',{
+            get(){
+                return data.name
+            },
+            set(val){
+                data.name = val
+            }
+        })
+
+        //第三种vue中的部分写法,
+        //创建一个监视的实例对象，用于监视data中属性的变化
+        const obs = new observer(data);
+        console.log(obs)
+        //准备一个vm实例对象
+        let vm = {};
+        vm.data = data = obs
+        function observer(obj){
+            //汇总对象中所有的属性形成一个数组
+            const keys = object.keys(obj)
+            //遍历
+            keys.forEach((k)=>{
+                Object.defineProperty(this,k,{
+                    get(){
+                        return obj[k]
+                    },
+                    set(val){
+                        console.log("$(k)被改了，我要去解析模板，生成虚拟DoM.·.我要开始忙了~");
+                        obj[k] = val
+                    }
+                })
+            })
+        }
+    </script>
+</body>
+</html>
