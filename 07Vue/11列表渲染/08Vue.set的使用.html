@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h1>学校信息</h1>
+            <h2>学校名称：{{name}}</h2>
+            <h2>学校名称：{{address}}</h2>
+            <hr/>
+            <h1>学生信息</h1>
+            <button @v-click = "addSex">添加一个性别属性，默认是男</button>
+            <h2>学生姓名：{{student.nama}}</h2>
+            <h2>学生性别：{{student.sex}}</h2><!--如果没有sex属性，不会报错，在vue中undefined不会报错，但人工添加sex属性不可行-->
+            <!--this._data.student.sex = '男'；虽然确实添加到_data中了，但是没有getter和setter，页面不会刷新-->
+            <!-- 可以加上v-if = "student.sex" -->
+            <h2>学生年龄：真实{{student.age.rAge}}，对外{{student.age.sAge}}</h2>
+            <h2>朋友们</h2>
+            <ul>
+                <li v-for="(f,index) in student.friends" :key = "index">
+                    {{f.name}}--{{f.age}}
+                </li>
+            </ul>
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    name:"尚硅谷",
+                    address:"武汉",
+                    name:'尚硅谷',
+                    address:'北京',
+                    student:{
+                        name:'tom',
+                        age:{
+                            rAge:40,
+                            sAge:29,
+                        },
+                        friends:[
+                            {"name":"jerry","age":35},
+                            {"name":"tony","age":36}
+                        ]
+                    }
+                },
+                methods: {
+                    addSex(){
+                        //Vue.set(this.student,'sex','男');
+                        this.$set(this.student,'sex','男');
+                    }
+                }
+            })
+            console.log(vm._data);
+            //以下在控制台中写的
+            //Vue.set(vm._data.student,'sex','男');
+            //Vue.set(vm.student,'sex','男');//数据代理 vm._data.student === vm.student
+            //vm.$set(vm._data.student,'sex','男')
+
+            //不允许直接给data加属性
+            //vm.$set(vm.leader,'小王')
+        </script>
+    </body>
+</html>
