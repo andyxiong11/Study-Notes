@@ -33,9 +33,14 @@
                         // this.persons[0].name = '马老师';
                         // this.persons[0].age = '';
                         // this.persons[0].sex = '男';
+                    
                         //不生效，但是如果先点击按钮，再打开浏览器的vue开发者工具就改变了
                         this.persons[0] = {id:'001',name:'马老师',age:50,sex:'男'};
                         console.log(vm.persons);
+
+                        //以下文字为学习“监测数据改变的原理_数组”后增加的代码
+                        //该问题会在后续“监测数据改变的原理_数组”中解答,需要使用数组的方法修改。
+                        this.persons.split(0,1,{id:'001',name:'马老师',age:50,sex:'男'});
                     }
                 },
             })
