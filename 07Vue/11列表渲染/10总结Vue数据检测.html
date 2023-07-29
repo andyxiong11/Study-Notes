@@ -6,15 +6,40 @@
         <script type="text/javascript" src="../vue.js"></script>
     </head>
     <body>
+        <!-- 数据劫持  通过getter和setter操作读取数据-->
+        <!-- Vue监视数据的原理：
+            1.vue会监视data中所有层次的数据。
+            2.如何监测对象中的数据？
+                通过setter实现监视，且要在new Vuel时就传入要监测的数据。
+                (1),对象中后追加的属性，Vue默认不做响应式处理
+                (2),如给后添加的属性做的应式，请使用加下API：
+                    Vue.set(target,propertyName/index，value) 或
+                    vm.$Set(target.propertyName/index，value)
+            3。如何监测数组中的数据？
+                通过包裹数组更新元素的方法实现，本质就是做了两件事：
+                    (1).调用原生对应的方法对数组进行更新。
+                    (2).重新解析模板，进而更新页面。
+            4.在Vue修改数组中的某个元素一定要用如下方法：
+                1.使用这些API:push()、pop()、shift()、unshift()、splice()、sort()、reverse()
+                2.Vue.set()vm.$set()
+        特别注意：Vue.set()和vm.Sset()不能给vm或vm的根数据对象添加属性！！ -->
+
         <div id="root">
-            <h1>学校信息</h1>
-            <h2>学校名称：{{name}}</h2>
-            <h2>学校名称：{{address}}</h2>
-            <hr/>
             <h1>学生信息</h1>
-            <h2>学生姓名：{{student.nama}}</h2>
+
+            <button @click = "student.age++">年龄+1岁</button><br/>
+            <button @click = "addSex">添加性别属性，默认值：男</button><br/>
+            <button @click = "student.sex = '未知'">修改性别</button><br/>
+            <button @click = "addFriend">在列表首位添加一个朋友</button><br/>
+            <button @click = "updateFirstFriendName">修改第一个朋友的名字为：张三</button><br/>
+            <button @click = "addHobby">添加一个爱好</button><br/>
+            <button @click = "updateFirstHobby">修改第一个爱好为：开车</button><br/>
+            <button @click = "removeSing">过滤爱好唱</button><br/>
+
+
+            <h2>学生姓名：{{student.name}}</h2>
             <h2 v-if="student.sex">学生性别：{{student.sex}}</h2>
-            <h2>学生年龄：真实{{student.age.rAge}}，对外{{student.age.sAge}}</h2>
+            <h2>学生年龄：{{student.age}}</h2>
             <h2>爱好</h2>
             <ul>
                 <li v-for="(h,index) in student.hobby" :key = "index">
@@ -39,23 +64,36 @@
                     address:'北京',
                     student:{
                         name:'tom',
-                        age:{
-                            rAge:40,
-                            sAge:29,
-                        },
-                        hobby:['唱','跳','篮球'],//此时hobby中，并没有每一个数据对应的getter和setter。所以无法直接修改数组中的数据
-                        // vm._data.student.hobby[0] = "学习" //不行
-                        //需要使用数组的方法，但是并不是直接调用原生的数组方法
-                        //vm._data.student.hobby.push === Array.prototype.push false
-                        //vm._data.student.hobby.push("学习")
-                        //vm._data.student.hobby.shift()//删除'唱'
-                        //vm._data.student.hobby.split(0,1,'打球')
-                        //vm.student.hobby.split(0,1,'打球')//也可以
-                        //Vue.set(vm.student.hobby,1,'打球'); //也可以
+                        age: 18,
+                        hobby:['唱','跳','篮球'],
                         friends:[
                             {"name":"jerry","age":35},
                             {"name":"tony","age":36}
                         ]
+                    } 
+                },
+                methods: {
+                    addSex(){
+                        Vue.set(this.student,'sex','男');
+                    },
+                    addFriend(){
+                        this.student.friends.unshift({"name":"jack","age":70})
+                    },
+                    updateFirstFriendName(){
+                        //this.student.friends[0] = 123;//改数组不行
+                        this.student.friends[0].name = "张三";
+                    },
+                    addHobby(){
+                        this.student.hobby.push('学习');
+                    },
+                    updateFirstHobby(){
+                        //this.student.hobby.splice(0,1,'开车');
+                        Vue.set(this.student.hobby,0,'开车');//都可以
+                    },
+                    removeSing(){
+                        this.student.hobby = this.student.hobby.filter((h)=>{//filter不改变原数组
+                            return h != "唱"
+                        })
                     }
                 }
             })
