@@ -12,8 +12,8 @@
             <h2>学校名称：{{address}}</h2>
             <hr/>
             <h1>学生信息</h1>
-            <button @v-click = "addSex">添加一个性别属性，默认是男</button>
-            <h2>学生姓名：{{student.nama}}</h2>
+            <button @click = "addSex">添加一个性别属性，默认是男</button>
+            <h2>学生姓名：{{student.name}}</h2>
             <h2>学生性别：{{student.sex}}</h2><!--如果没有sex属性，不会报错，在vue中undefined不会报错，但人工添加sex属性不可行-->
             <!--this._data.student.sex = '男'；虽然确实添加到_data中了，但是没有getter和setter，页面不会刷新-->
             <!-- 可以加上v-if = "student.sex" -->
