@@ -6,13 +6,38 @@
         <script type="text/javascript" src="../vue.js"></script>
     </head>
     <body>
+        <!-- 自定义指令总结：
+        一、定义语法：
+            (1).局部指令：
+            new Vue({                                new Vue({
+                directives:{指令名：配置对象}   或         directives{指令名：回调函数}
+            })                                       })
+            (2).全局指令：
+            vue,directive(指令名，配置对象)     或    vue,directive(指令名，回调函数)
+        二、配置对象中常用的3个回调：
+            (1).bind:指令与元素成功绑定时调用。
+            (2).inserted:指令所在元素被插入页面时调用.
+            (3).update:指令所在模板结构被重新解析时调用。
+        三、备注：
+            1.指令定义时不加v-,但使用时要加v-:
+            2.指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名。 -->
+
+
         <!-- v-pre指令：
             需求1：定义一个v-big指令，v-text功能类似，但会把绑定的数值放大10倍。
-            需求2：定义一个v-fbind指令，v-bind功能类似，但可以让其所绑定的input元素默认获取焦点。-->
+            需求2：定义一个v-fbind（focus 焦点）指令，v-bind功能类似，但可以让其所绑定的input元素默认获取焦点。-->
         <div id="root">
             <h2>当前的n值是：<span v-text="n"></span></h2>
-            <h2>放大10倍后的n值是：<span v-big="n"></span></h2>
+            
+            <!-- <h2>放大10倍后的n值是：<span v-big="n"></span></h2> -->
+            <!-- 自定义指令名不能采用驼峰式写法，v-bigNumber，下方函数也需要修改 -->
+            <h2>放大10倍后的n值是：<span v-big-number="n"></span></h2>
+
             <button @click="n++">点击我n++</button>
+            <hr>
+            <!-- <input type="text" :value = "n" autofocus> -->
+            <!-- 上面是非自定义指令写法 -->
+            <input type="text" v-fbind:value = "n">
         </div>
         <script type="text/javascript">
             Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
@@ -31,10 +56,58 @@
                     //big函数何时会被调用
                     //1.指令与元素成功绑定时
                     //2.指令所在的模板被重新解析时（比如data中有一个name属性，发生改变时big也会调用）
-                    big(element,binding){
-                        element.innerText = binding.value * 10
-                    } 
+                    // big(element,binding){
+                    //     element.innerText = binding.value * 10;
+                    // },
+                    //如果自定义函数名较长，需要改为原始写法 
+                    'big-number' : function(element,binding){
+                        console.log('big',this);//自定义指令的this均指向window
+                        element.innerText = binding.value * 10;
+                    },
+
+
+                    //需求2不能用函数写，因为指令与元素成功绑定时就会调用
+                    // fbind(element,binding){
+                    //     element.value = binding.value;
+                    //     element.focus();//此时不会实现（详见demo.html，原生可以实现），因为绑定时就调用了fbind，此时页面还没有input元素
+                    // }
+                    fbind: {
+                        //指令与元素成功绑定时调用
+                        bind(){
+                            console.log('bind');
+                            console.log('bind',this);//自定义指令的this均指向window
+                            element.value = binding.value;
+                        },
+                        //指令所在元素被插入页面时
+                        inserted(){
+                            console.log('inserted');
+                            console.log('inserted',this);//自定义指令的this均指向window
+                            elment.focus();
+                        },
+                        //指令所在的模板被重新解析时
+                        update(){
+                            console.log('update');
+                            console.log('update',this);//自定义指令的this均指向window
+                            element.value = binding.value;//如果不写，n被点击按钮修改时，input的n不会更新
+                        }
+                    }
                 }
+            })
+
+            //以下为全局写法
+            Vue.directive('fbind', {
+                bind(){
+                    element.value = binding.value;
+                },
+                inserted(){
+                    elment.focus();
+                },
+                update(){
+                    element.value = binding.value;
+                }
+            })
+            Vue.directive('big-number',function(element,binding){
+                element.innerText = binding.value * 10;
             })
         </script>
     </body>
