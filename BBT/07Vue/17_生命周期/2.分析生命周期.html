@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+    </head>
+    <body>
+        <!-- 挂载流程 -->
+        <!-- 1.new Vue()
+        2.Init Events & Lifecycle： 初始化：生命周期、事件(once)，但数据代理(_data)还未开始。
+        3.beforeCreate：生命周期； 
+            此时：无法通过vm访问到data中的数据、methods中的方法。
+        4.Init injections reactivity： 初始化：数据监测、数据代理
+        5.created：生命周期； 此时：可以通过vm访问到data中的数据、methods中配置的方法
+        6.此阶段vue开始解析模板，生成虚拟DOM(内存中)，页面还不能显示解析好的内容。
+            1.判断是否有el配置项;没有则当vm.$mount(el)调用时继续运行
+            2.有，是否有template配置项；有则将template中的代码作为模板替换body中的<div id="root">
+            3.没有，编译“el”外部的html（<div id="root"></div>之外的）作为template
+        7.beforeMount：生命周期；  
+            此时：1.页面呈现的是未经Vue编译的DOM结构 
+                  2.所有对DOM的操作，最终都不奏效
+        8.Create vm.$el and replace "el" with It：将内存中的虚拟DOM转为真实DOM插入页面。
+        9.mounted：生命周期；  
+            此时：1.页面中中现的是经过Vue编译的DOM。
+                  2.对DOM的操作均有效（尽可的避免）。
+            至此初始化过程结束，一般在此进行：开启定时器、发送网络请求、订阅消息、绑定自定义事件、等初始化操作。 -->
+        
+        <!-- 更新流程 -->
+        <!-- Mounted：
+            1.when data changes：当data数据改变时
+            2.beforeUpdate：生命周期函数
+                此时：数据是新的，但页面是旧的，即：页面尚未和数据保持同步。
+            3.Virtual DOM re-render and patch：新旧DOM比较
+                根据新数据，生成新的虚拟DOM,随后与旧的虚拟DOM进行比较，最终完成页面更新，即：完成了Model→View的更新
+            4.updated：生命周期函数
+                此时：数据是新的，页面也是新的，即：页面和数据保持同步。 -->
+            
+        <!-- 销毁流程 -->
+        1.when vm.$destroy() is called：当vm.$destroy()执行时开始销毁流程
+        2.beforeDestroy：生命周期函数
+            此时：vm中所有的：data.methods、指令等等，都处于可用状态，马上要执行销毁过程，一般在此阶段：关闭定时器、取消订阅消息、解绑自定义事件等收尾操作
+        3.Teardown watchers,child components and event listeners
+        4.destroyed
+  
+        
+
+            
+            
+        
+        <div id="root">
+            <h2>当前的n值是：{{n}}</h2>
+            <button @click="add">点击我n++</button>
+            <!-- 下面代码仅供验证销毁流程使用 -->
+            <button @click = "bye">点击我销毁vm</button>
+            <h2 v-text="n"></h2><!--v-text该指令不再生效-->
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            const vm = new Vue({
+                //如果没有el，beforeCreate、created执行完就结束了
+                //否则，可以在控制台执行vm.$mount('#root')
+                el: '#root',
+
+                //如果div中不写代码，可以用template写
+                //但是只能有一个根节点，所以需要用div包裹
+                //而且body中div的id和x均不在页面了，完全被template中的代码替换
+                // template:`<div>
+                //             <h2>当前的n值是：{{n}}</h2>
+                //             <button @click="add">点击我n++</button>
+                //           </div>`,
+
+                //而且template不能作为根标签，让vue不渲染。但是可以作为子标签
+                // template:`<div>
+                //             <template v-if = "false">
+                //                 <h2>当前的n值是：{{n}}</h2>
+                //                 <button @click="add">点击我n++</button>
+                //             </template>
+                //            </div>`,
+                data: {
+                    n: 0
+                },
+                methods: {
+                    add(){
+                        console.log('add');//执行销毁流程后，官方事件不会被销毁,新版中也被销毁了
+                        this.n ++;
+                    },
+                    //下面代码仅供验证销毁流程使用
+                    bye(){
+                        console.log('bye');
+                        this.$destroy()
+                    }
+                },
+                watch:{//下面代码仅供验证销毁流程使用
+                    n(){
+                        console.log('n变了');//销毁后，不会输出
+                    }
+                },
+                beforeCreate() {
+                    console.log('beforeCreate');
+                    console.log(this);//没有_data、vm.n、methods
+                    //debugger;//让程序运行到此处暂停
+                },
+                created() {
+                    console.log('created');
+                    console.log(this);//有了add函数、vm.n、_data及getter和setter
+                },
+                beforeMount() {
+                    console.log('beforeMount');
+                    console.log(this);
+                    //debugger;//让程序运行到此处暂停
+                    //以下可以debugger在控制台中运行,但是最终不会生效
+                    //document.queryselector('h2').innerText ='哈哈'
+                },
+                mounted() {
+                    console.log('mounted');
+                    console.log(this);
+                    console.log(this.$el);//真实DOM
+                    //debugger;//让程序运行到此处暂停
+                    //以下最终会生效，但是尽量避免在此过程操作DOM
+                    //document.queryselector('h2').innerText ='哈哈'
+                },
+                beforeUpdate(){
+                    console.log('beforeUpdate');//点击按钮修改n时输出
+                    console.log(this.n);//此时n改变，但是页面上没有变化
+                    //debugger;//让程序运行到此处暂停
+                },
+                updated(){
+                    console.log('updated');
+                    console.log(this.n);//此时n改变，同时页面上变化
+                    //debugger;//让程序运行到此处暂停
+                },
+                beforeDestroy(){
+                    console.log('beforeDestroy');
+                    console.log(this.n);//可以正常读取
+                    this.add();//调用了，控制台输出add，但是页面n没有改变
+                },
+                destroyed(){
+                    console.log('destroyed');
+                }
+            })
+        </script>
+    </body>
+</html>
