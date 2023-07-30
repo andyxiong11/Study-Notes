@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .demo{
+            background-color: red;
+        }
+    </style>
+</head>
+    <body>
+        <button ids="btn">点我创建一个输入框</button>
+        <script type="text/javascript">
+            const btn = document.getElementById('btn')
+            btn.onclick = ()=>{
+                const input = document.createElement('input');
+                input.className = 'demo';//放到22行上会实现
+                input.value = 99;//放到22行上会实现
+                input.onclick = () => {alert(1)};//放到22行上会实现
+                document.body.appendchild(input);
+                input.focus();//如果放到22行上面则不会实现
+                input.parentElement.style.backgroundColor = 'skyblue';//如果放到22行上面则不会实现，拿不到父元素
+            }
+        </script>
+    </body>
+</html>
