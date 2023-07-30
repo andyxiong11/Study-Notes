@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+    </head>
+    <body>
+        <!-- 生命周期：
+            1.又名：生命周期回调函数、生命周明函数生命周期钩子。
+            2.是什么：Vue在关键时刻帮我们调用的一些特殊名称的函数。
+            3.生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的。
+            4.生命周期函数中的this指向是vm或组件实例对象。 -->
+
+        <div id="root">
+            <!-- <h2 style = "opacity : 1">欢迎学习</h2> -->
+            <!-- <h2 :style = "{opacity : opacity}"></h2> -->
+            <h2 :style = "{opacity}">欢迎学习</h2>
+            <h2 v-if="a">你好a</h2>
+
+            <!--如果按照下方这样写，定时器开启的同时，修改opacity，重新解析模板，又开启一个定时器，无限循环-->
+            <!-- {{change()}} -->
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            new Vue({
+                el: '#root',
+                data: {
+                    opacity: 1,
+                    a: false
+                },
+                methods: {
+                    //不能用下方函数写，22行调用有问题
+                    // change() {
+                    //     setInterval(() => {//因为change属于vue管理的函数，所以可以使用箭头函数
+                    //         this.opacity -= 0.01;
+                    //         if(this.opacity <= 0){//js计算不会每次等于0
+                    //             this.opacity = 1;
+                    //         }
+                    //     },16)
+                    // }
+                },
+
+                //需要使用mounted
+                //Vue完成模板的解析并把初始的真实DOM元素放入页面后（挂载完毕）调用mounted
+                mounted() {
+                    console.log('mounted',this);//this已经维护好，指向实例对象
+                    setInterval(() => {//因为change属于vue管理的函数，所以可以使用箭头函数
+                            this.opacity -= 0.01;
+                            if(this.opacity <= 0){//js计算不会每次等于0，所以用<=
+                                this.opacity = 1;
+                            }
+                    },16)
+                },
+            })
+
+            //通过外部的定时器实现，不推荐。想办法写在实例对象里面
+            // setInterval(() => {
+            //     vm.opacity -= 0.01;
+            //     if(vm.opacity <= 0){//js计算不会每次等于0
+            //         vm.opacity = 1;
+            //     }
+            // },16)
+        </script>
+    </body>
+</html>
