@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="../vue.js"></script>
+    </head>
+    <body>
+        <!-- v-pre指令：
+            1,跳过其所在节点的编译过程。
+            2,可利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译。 -->
+        <div id="root">
+            <h2 v-pre>Vue其实很简单</h2>
+            <h2>当前的n值：{{n}}</h2><!--如果加上v-pre则不从data中取n-->
+            <button @click="n++">n++</button>
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    n: 1,
+                },
+            })
+        </script>
+    </body>
+</html>
