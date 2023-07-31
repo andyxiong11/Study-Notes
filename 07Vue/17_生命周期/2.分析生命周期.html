@@ -37,17 +37,13 @@
                 此时：数据是新的，页面也是新的，即：页面和数据保持同步。 -->
             
         <!-- 销毁流程 -->
-        1.when vm.$destroy() is called：当vm.$destroy()执行时开始销毁流程
+        <!-- 1.when vm.$destroy() is called：当vm.$destroy()执行时开始销毁流程
         2.beforeDestroy：生命周期函数
             此时：vm中所有的：data.methods、指令等等，都处于可用状态，马上要执行销毁过程，一般在此阶段：关闭定时器、取消订阅消息、解绑自定义事件等收尾操作
         3.Teardown watchers,child components and event listeners
-        4.destroyed
+        4.destroyed -->
   
-        
 
-            
-            
-        
         <div id="root">
             <h2>当前的n值是：{{n}}</h2>
             <button @click="add">点击我n++</button>
@@ -128,12 +124,14 @@
                 updated(){
                     console.log('updated');
                     console.log(this.n);//此时n改变，同时页面上变化
+                    this.n = 99;//此时点击按钮，n改变，同时页面上变化,但是如果放在beforeDestroy就不会渲染到页面
                     //debugger;//让程序运行到此处暂停
                 },
                 beforeDestroy(){
                     console.log('beforeDestroy');
                     console.log(this.n);//可以正常读取
-                    this.add();//调用了，控制台输出add，但是页面n没有改变
+                    this.add();//调用了，控制台输出add，n被修改了，但是页面n没有改变，不会再进入beforeUpdate
+                    this.n = 99;///不会渲染到页面上
                 },
                 destroyed(){
                     console.log('destroyed');
