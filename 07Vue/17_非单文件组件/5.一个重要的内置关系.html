@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script src="../vue.js"></script>
+    </head>
+    <body>
+
+        <!-- 1,一个重要的内置关系：
+            VueComponent.prototype.__proto__===Vue.prototype
+        2.为什么要有这个关系：让组件实例对象(vc)可以访问到Vue原型上的属性、方法 -->
+
+        <div id="root">
+
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
+
+            Vue.prototype.x = 99;
+
+            //定义school组件
+            const school = Vue.extend({
+                name: 'school',
+                template: `
+                    <div>
+                        <h2>学校名称：{{name}}</h2>
+                        <h2>学校地址：{{address}}</h2>
+                        <button @click="showX">点我输出x</button>
+                    </div>
+                `,
+                data(){
+                    return {
+                        name: '尚硅谷',
+                        address: '武汉'
+                    }
+                },
+                methods:{
+                    showX(){
+                        console.log(this.x);//this指向vc（VueComponent的实例对象）,VueComponent的原型对象的隐式原型属性指向Vue的原型对象
+                    }
+                }
+            })
+            const vm = new Vue({
+                el: "#root",
+                data:{
+                    msg: '你好'
+                }
+            })
+            console.log(school.prototype.__proto__ === Vue.prototype);//school组件返回的就是构造函数VueComponent
+            console.log(vm);
+            // Vue:{
+            //     config:{},
+            //     component:function(){},
+            //     prototype:Vue的原型对象
+            // }
+            // vm = new Vue();
+            // vm:{
+            //     _data:   ,
+            //     __proto__: Vue的原型对象
+            // }
+            // Vue的原型对象:{
+            //     $mount: function(){},
+            //     $watch: function(){},
+            //     __proto__: Object的原型对象
+            // }
+            // Object的原型对象:{
+            //     toString: function(){},
+            //     __proto__: null
+            // }
+            console.dir(school);//VueComponent 
+            // VueComponent :{
+            //     prototype:VueComponent的原型对象
+            // }
+            // <school/>
+            // vc:{
+            //     _data:   ,
+            //     __proto__: VueComponent的原型对象
+            // }
+            // VueComponent的原型对象:{
+            //     __proto__: Vue的原型对象//重点
+            // }
+
+
+            // //原型回顾
+            // //定义一个构造函数
+            // function Demo(){
+            //     this.a =1
+            //     this.b =2
+            // }
+            // //创建一个Demo的实例对象
+            // const d = new Demo();
+            // console.log(Demo.prototype);//显示原型属性
+            // console.log(d.__proto__);//隐式原型属性
+            // console.log(Demo.prototype == d.__proto__);
+            // //程序员通过显示原型属性操作原型对象，追加一个×属性，值为99
+            // Demo.prototype.x = 99;
+            // console.log('@',d.__proto__.x);
+
+        </script>
+    </body>
+</html>
