@@ -1,3 +1,6 @@
+- public 静态网页
+- src/assets 静态资源：图片、视频
+- components 组件
 - .gitignore 配置不被git识别的文件
 - babel.config.js ES6转ES5，babel的配置
 - package.json 包的说明
