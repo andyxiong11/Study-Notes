@@ -9,7 +9,7 @@ module.exports = { //common.js的暴露
   pages: {
     index: {
       // page 的入口
-      entry: 'src/index/main.js',//不能注释掉默认配置
+      entry: 'src/main.js',//不能注释掉默认配置
       //可以改为 entry: 'src/peiqi.js',
     }
   },
