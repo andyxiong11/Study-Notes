@@ -13,7 +13,7 @@
         name: 'School',
         data(){
             return {
-                name: '尚硅谷',
+                name: '光谷',
                 address: '武汉'
             }
         },
@@ -30,7 +30,7 @@
         // name: 'School',
     //     data(){
     //         return {
-    //             name: '尚硅谷',
+    //             name: '光谷',
     //             address: '武汉'
     //         }
     //     },
@@ -44,7 +44,7 @@
         // name: 'School',
     //     data(){
     //         return {
-    //             name: '尚硅谷',
+    //             name: '光谷',
     //             address: '武汉'
     //         }
     //     },
