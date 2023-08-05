@@ -73,19 +73,19 @@
                     // }
                     fbind: {
                         //指令与元素成功绑定时调用
-                        bind(element,binding){
+                        bind(){
                             console.log('bind');
                             console.log('bind',this);//自定义指令的this均指向window
                             element.value = binding.value;
                         },
                         //指令所在元素被插入页面时
-                        inserted(element,binding){
+                        inserted(){
                             console.log('inserted');
                             console.log('inserted',this);//自定义指令的this均指向window
                             elment.focus();
                         },
                         //指令所在的模板被重新解析时
-                        update(element,binding){
+                        update(){
                             console.log('update');
                             console.log('update',this);//自定义指令的this均指向window
                             element.value = binding.value;//如果不写，n被点击按钮修改时，input的n不会更新
