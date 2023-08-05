@@ -34,7 +34,7 @@
     <script type="text/javascript">
         Vue.config.productionTip = false;
         //全局过滤器
-        Vue.filter('mySlice',function(){
+        Vue.filter('mySlice',function(value){
             return value.slice(0,4)
         })
         const vm = new Vue({
