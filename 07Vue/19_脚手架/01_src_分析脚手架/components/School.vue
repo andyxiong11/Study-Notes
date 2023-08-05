@@ -10,7 +10,7 @@
         name: 'MySchool',//需要使用大驼峰，语法检查报错
         data(){
             return {
-                name: '尚硅谷',
+                name: '光谷',
                 address: '武汉'
             }
         },
