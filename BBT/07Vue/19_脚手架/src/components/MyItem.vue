@@ -16,7 +16,7 @@
     //声明接收todo对象
     props: ['todo'],
     mounted() {
-      console.log(this.todo);
+      //console.log(this.todo);
     },
   }
 </script>
