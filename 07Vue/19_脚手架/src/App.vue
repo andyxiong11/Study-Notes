@@ -27,7 +27,8 @@
           </li>
         </ul> -->
         <!-- 因为需要将MyHeader新增的todoObj传给MyList，需要将MyList中的todos放到App组件上，就都可以访问了 -->
-        <MyList :todos="todos"/>
+        <!-- checkTodo函数 勾选功能用到，通过MyList传递给MyItem -->
+        <MyList :todos="todos" :checkTodo="checkTodo"/>
         <!-- 第二步 将footer结构拿走替换为组件 <MyFooter/> -->
         <!-- <div class="todo-footer">
           <label>
@@ -73,10 +74,19 @@ export default {
       }
   },
   methods: {
-    //将addTodo函数当作参数传给MyHeader，让MyHeader调用传参新增的todoObj
+    // 添加一个todo（将addTodo函数当作参数传给MyHeader，让MyHeader调用传参新增的todoObj）
     addTodo(todoObj){
       //console.log("我是App组件，接收到了数据");
       this.todos.unshift(todoObj);
+    },
+
+    //取消or取消勾选一个todo
+    checkTodo(id){//此时MyItem无法直接调用，需要通过MyList传递
+      this.todos.forEach((todo) => {
+        if(todo.id === id){
+          todo.done = !todo.done
+        }
+      })
     }
   },
 };
