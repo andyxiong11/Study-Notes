@@ -8,8 +8,8 @@
           <input type="text" placeholder="请输入你的任务名称，按回车键确认"/>
         </div> -->
         <MyHeader :addTodo="addTodo"/>
+
         <!-- 第二步 将list结构拿走替换为组件 <MyList/> -->
-        <!-- 第三步将MyList.vue中的li标签替换为<MyItem/> -->
         <!-- <ul class="todo-main">
           <li>
             <label>
@@ -26,9 +26,12 @@
             <button class="btn btn-danger" style="display: none">删除</button>
           </li>
         </ul> -->
+        <!-- 第三步将MyList.vue中的li标签替换为<MyItem/> -->
         <!-- 因为需要将MyHeader新增的todoObj传给MyList，需要将MyList中的todos放到App组件上，就都可以访问了 -->
         <!-- checkTodo函数 勾选功能用到，通过MyList传递给MyItem -->
-        <MyList :todos="todos" :checkTodo="checkTodo"/>
+        <!-- deleteTodo函数 删除功能用到，通过MyList传递给MyItem -->
+        <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"/>
+        
         <!-- 第二步 将footer结构拿走替换为组件 <MyFooter/> -->
         <!-- <div class="todo-footer">
           <label>
@@ -86,6 +89,14 @@ export default {
         if(todo.id === id){
           todo.done = !todo.done
         }
+      })
+    },
+
+    //删除一个todo
+    deleteTodo(id){
+      //将传过来的todo.id为id的todo过滤，重新赋值给todos
+      this.todos = this.todos.filter((todo) => {
+        return todo.id !== id;
       })
     }
   },

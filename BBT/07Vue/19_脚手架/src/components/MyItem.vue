@@ -11,7 +11,10 @@
       <!-- <span>xxxxx</span> -->
       <span>{{ todo.title }}</span>
     </label>
-    <button class="btn btn-danger" style="display: none">删除</button>
+
+    <!-- <button class="btn btn-danger" style="display: none">删除</button> -->
+    <!-- 在css中添加样式鼠标悬停显示按钮 delete是js关键词 ，不能用在@click-->
+    <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
   </li>
 </template>
 
@@ -19,7 +22,7 @@
   export default {
     name: "MyItem",
     //声明接收todo对象
-    props: ['todo','checkTodo'],
+    props: ['todo','checkTodo','deleteTodo'],
     // mounted() {
     //   //console.log(this.todo);
     // },
@@ -30,6 +33,15 @@
 
         //通知App组件将对应的todo对象的done值取反
         this.checkTodo(id);
+      },
+      //删除
+      handleDelete(id){
+        if(confirm('确定删除吗？')){
+          //console.log(id);
+
+          //通知App组件将对应的todo删除
+          this.deleteTodo(id);
+        }
       }
     },
   }
@@ -63,6 +75,13 @@
   }
   li:last-child {
     border-bottom:none;
+  }
+  li:hover {
+    background-color: #ddd;
+  }
+  /* 鼠标悬停，按钮显示 */
+  li:hover button {
+    display: block;
   }
 
 </style>
