@@ -1,8 +1,10 @@
 <template>
   <li>
     <label>
-      <input type="checkbox" />
-      <span>xxxxx</span>
+      <!-- 选项默认勾选 :checked="todo.done"  -->
+      <input type="checkbox" :checked="todo.done"/>
+      <!-- <span>xxxxx</span> -->
+      <span>{{ todo.title }}</span>
     </label>
     <button class="btn btn-danger" style="display: none">删除</button>
   </li>
@@ -10,7 +12,12 @@
 
 <script>
   export default {
-    name: "MyItem"
+    name: "MyItem",
+    //声明接收todo对象
+    props: ['todo'],
+    mounted() {
+      console.log(this.todo);
+    },
   }
 </script>
 
