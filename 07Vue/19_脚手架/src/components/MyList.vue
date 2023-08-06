@@ -15,9 +15,8 @@
       </label>
       <button class="btn btn-danger" style="display: none">删除</button>
     </li> -->
-    <MyItem/>
-    <MyItem/>
-</ul>
+    <MyItem v-for="todoObj in todos" :key="todoObj.id" :todo="todoObj"/><!--加上冒号，将todoObj识别为表达式-->
+  </ul>
 </template>
 
 <script>
@@ -26,6 +25,17 @@
     name: "MyList",
     components:{
       MyItem
+    },
+    data(){
+      return {
+        //用数组中对象的方式存储选项，id、名、是否勾选
+        todos: [
+          //id number类型有尽头，所以用字符串
+          {id: '001', title: "吃饭", done: true},
+          {id: '002', title: "睡觉", done: false},
+          {id: '003', title: "打豆豆", done: false},
+        ]
+      }
     }
   }
 </script>
