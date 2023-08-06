@@ -7,7 +7,7 @@
         <!-- <div class="todo-header">
           <input type="text" placeholder="请输入你的任务名称，按回车键确认"/>
         </div> -->
-        <MyHeader/>
+        <MyHeader :addTodo="addTodo"/>
         <!-- 第二步 将list结构拿走替换为组件 <MyList/> -->
         <!-- 第三步将MyList.vue中的li标签替换为<MyItem/> -->
         <!-- <ul class="todo-main">
@@ -26,7 +26,8 @@
             <button class="btn btn-danger" style="display: none">删除</button>
           </li>
         </ul> -->
-        <MyList/>
+        <!-- 因为需要将MyHeader新增的todoObj传给MyList，需要将MyList中的todos放到App组件上，就都可以访问了 -->
+        <MyList :todos="todos"/>
         <!-- 第二步 将footer结构拿走替换为组件 <MyFooter/> -->
         <!-- <div class="todo-footer">
           <label>
@@ -57,6 +58,26 @@ export default {
     //MyItem,
     MyList,
     MyFooter,
+  },
+  
+  //因为需要将MyHeader新增的todoObj传给MyList，需要将MyList中的todos放到App组件上，就都可以访问了
+  data(){
+      return {
+        //用数组中对象的方式存储选项，id、名、是否勾选
+        todos: [
+          //id number类型有尽头，所以用字符串
+          {id: '001', title: "吃饭", done: true},
+          {id: '002', title: "睡觉", done: false},
+          {id: '003', title: "打豆豆", done: false},
+        ]
+      }
+  },
+  methods: {
+    //将addTodo函数当作参数传给MyHeader，让MyHeader调用传参新增的todoObj
+    addTodo(todoObj){
+      //console.log("我是App组件，接收到了数据");
+      this.todos.unshift(todoObj);
+    }
   },
 };
 </script>

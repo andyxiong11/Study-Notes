@@ -26,17 +26,19 @@
     components:{
       MyItem
     },
-    data(){
-      return {
-        //用数组中对象的方式存储选项，id、名、是否勾选
-        todos: [
-          //id number类型有尽头，所以用字符串
-          {id: '001', title: "吃饭", done: true},
-          {id: '002', title: "睡觉", done: false},
-          {id: '003', title: "打豆豆", done: false},
-        ]
-      }
-    }
+    //因为需要将MyHeader新增的todoObj传给MyList，需要将MyList中的todos放到App组件上，就都可以访问了
+    // data(){
+    //   return {
+    //     //用数组中对象的方式存储选项，id、名、是否勾选
+    //     todos: [
+    //       //id number类型有尽头，所以用字符串
+    //       {id: '001', title: "吃饭", done: true},
+    //       {id: '002', title: "睡觉", done: false},
+    //       {id: '003', title: "打豆豆", done: false},
+    //     ]
+    //   }
+    // }
+    props: ["todos"]
   }
 </script>
 
