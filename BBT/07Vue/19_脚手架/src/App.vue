@@ -42,7 +42,7 @@
           </span>
           <button class="btn btn-danger">清除己完成任务</button>
         </div> -->
-        <MyFooter :todos="todos"/>
+        <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"/>
       </div>
     </div>
   </div>
@@ -97,6 +97,22 @@ export default {
       //将传过来的todo.id为id的todo过滤，重新赋值给todos
       this.todos = this.todos.filter((todo) => {
         return todo.id !== id;
+      })
+    },
+
+    //全选or全不选
+    checkAllTodo(done){
+      //遍历将每个todo的done修改为全部勾选框的checked
+      this.todos.forEach((todo) => {
+        todo.done = done
+      })
+    },
+
+    //清除已完成的todo
+    clearAllTodo(){
+      //将传过来的todo.done为true的todo过滤，重新赋值给todos
+      this.todos = this.todos.filter((todo) => {
+        return !todo.done
       })
     }
   },
