@@ -42,7 +42,7 @@
           </span>
           <button class="btn btn-danger">清除己完成任务</button>
         </div> -->
-        <MyFooter/>
+        <MyFooter :todos="todos"/>
       </div>
     </div>
   </div>
