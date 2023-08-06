@@ -16,11 +16,13 @@
       <button class="btn btn-danger" style="display: none">删除</button>
     </li> -->
     <!-- checkTodo函数 勾选功能用到，通过MyList传递给MyItem -->
+    <!-- deleteTodo函数 删除功能用到，通过MyList传递给MyItem -->
     <MyItem
       v-for="todoObj in todos"
       :key="todoObj.id"
       :todo="todoObj"
       :checkTodo="checkTodo"
+      :deleteTodo="deleteTodo"
     /><!--加上冒号，将todoObj识别为表达式-->
   </ul>
 </template>
@@ -44,7 +46,7 @@ export default {
   //     ]
   //   }
   // }
-  props: ["todos", "checkTodo"],
+  props: ["todos", "checkTodo","deleteTodo"],
 };
 </script>
 
