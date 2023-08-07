@@ -18,7 +18,7 @@
 
       add(){
         //校验数据不能为空
-        if(!this.title) return alert("输入不能为空");
+        if(!this.title.trim()) return alert("输入不能为空");
         const todoObj = {id: nanoid(), title: this.title, done: false};
 
         //通知App组件添加一个todo对象

@@ -33,7 +33,7 @@
 
       add(event){
         //校验数据不能为空
-        if(!this.title) return alert("输入不能为空");
+        if(!this.title.trim()) return alert("输入不能为空");
         //第一种方法获取输入的值
         //console.log(event.target.value); 
 
