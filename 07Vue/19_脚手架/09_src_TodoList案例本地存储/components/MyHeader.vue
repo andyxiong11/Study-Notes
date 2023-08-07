@@ -7,6 +7,7 @@
 
     <!-- 因为event.target.value是直接操作DOM，所以还是需要使用v-model="title" -->
     <input type="text" placeholder="请输入你的任务名称，按回车键确认" v-model="title" @keyup.enter="add"/>
+    TODO:上方输入框的暗文不显示，待排查
   </div>
 </template>
 
