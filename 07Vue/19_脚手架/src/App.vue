@@ -6,11 +6,16 @@
     
     <!-- <Student/> -->
     <!-- 通过父组件给子组件绑定一个自定义事件实现：子给父传递数据（第一种写法：@或v-on） -->
-    <Student v-on:atguigu="getStudentName"/><!--给student组件的实例对象vc绑定atguigu事件;-->
-    <Student @atguigu.once="getStudentName"/><!--.once 一次性-->
+    <!--给student组件的实例对象vc绑定atguigu事件-->
+    <!--<Student v-on:atguigu.once="getStudentName"/> .once 一次性-->
+    <!-- <Student @atguigu.once="getStudentName"/> -->
+
     <!-- 通过父组件给子组件绑定一个自定义事件实现：子给父传递数据（第二种写法：ref） -->
-    <Student ref="student"/>
+    <!-- <Student ref="student"/> -->
     <!-- 第二种方法的好处是可以加上定时器 -->
+
+    <!-- 以下代码仅用于测试解绑多个事件 -->
+    <Student @atguigu="getStudentName" @demo="m1"/>
   </div>
 </template>
 
@@ -34,11 +39,16 @@
       },
       getStudentName(name,...params){
         console.log("App收到了学生名",name,params);
+      },
+      m1(){
+        console.log("demo事件被触发了");
       }
     },
     mounted() {//App组件挂载完时调用
-      this.$refs.student.$on('atguigu',this.getStudentName)//绑定自定义事件
+      // this.$refs.student.$on('atguigu',this.getStudentName)//绑定自定义事件
+
       // this.$refs.student.$once('atguigu',this.getStudentName)//绑定自定义事件（一次性）
+
       //下面是加上定时器的写法
       // setTimeout(() => {
       //   this.$refs.student.$on('atguigu',this.getStudentName)
