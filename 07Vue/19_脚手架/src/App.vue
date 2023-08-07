@@ -1,47 +1,9 @@
-<!-- 第一步将写好的html页面中的body结构和样式放入App.vue -->
 <template>
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <!-- 第二步 将header结构拿走替换为组件 <MyHeader/> -->
-        <!-- <div class="todo-header">
-          <input type="text" placeholder="请输入你的任务名称，按回车键确认"/>
-        </div> -->
         <MyHeader :addTodo="addTodo"/>
-
-        <!-- 第二步 将list结构拿走替换为组件 <MyList/> -->
-        <!-- <ul class="todo-main">
-          <li>
-            <label>
-              <input type="checkbox" />
-              <span>xxxxx</span>
-            </label>
-            <button class="btn btn-danger" style="display: none">删除</button>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" />
-              <span>yyyy</span>
-            </label>
-            <button class="btn btn-danger" style="display: none">删除</button>
-          </li>
-        </ul> -->
-        <!-- 第三步将MyList.vue中的li标签替换为<MyItem/> -->
-        <!-- 因为需要将MyHeader新增的todoObj传给MyList，需要将MyList中的todos放到App组件上，就都可以访问了 -->
-        <!-- checkTodo函数 勾选功能用到，通过MyList传递给MyItem -->
-        <!-- deleteTodo函数 删除功能用到，通过MyList传递给MyItem -->
         <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"/>
-        
-        <!-- 第二步 将footer结构拿走替换为组件 <MyFooter/> -->
-        <!-- <div class="todo-footer">
-          <label>
-            <input type="checkbox" />
-          </label>
-          <span> 
-            <span>己完成0</span> / 全部2 
-          </span>
-          <button class="btn btn-danger">清除己完成任务</button>
-        </div> -->
         <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"/>
       </div>
     </div>
@@ -50,8 +12,6 @@
 
 <script>
 import MyHeader from "./components/MyHeader.vue";
-//MyList组件里面包含MyItem所以不用引入
-//import MyItem from './components/MyItem.vue'
 import MyList from "./components/MyList.vue";
 import MyFooter from "./components/MyFooter.vue";
 
@@ -59,34 +19,23 @@ export default {
   name: "App",
   components: {
     MyHeader,
-    //MyItem,
     MyList,
     MyFooter,
   },
   
-  //因为需要将MyHeader新增的todoObj传给MyList，需要将MyList中的todos放到App组件上，就都可以访问了
   data(){
       return {
-        //用数组中对象的方式存储选项，id、名、是否勾选
-        // todos: [
-        //   //id number类型有尽头，所以用字符串
-        //   {id: '001', title: "吃饭", done: true},
-        //   {id: '002', title: "睡觉", done: false},
-        //   {id: '003', title: "打豆豆", done: false},
-        // ]
-        //下面是从浏览器本地存储中取，加上|| []，防止初始化页面中没有数据MyFooter组件读取todos报错
         todos: JSON.parse(localStorage.getItem('todos')) || []
       }
   },
   methods: {
-    // 添加一个todo（将addTodo函数当作参数传给MyHeader，让MyHeader调用传参新增的todoObj）
+    // 添加一个todo
     addTodo(todoObj){
-      //console.log("我是App组件，接收到了数据");
       this.todos.unshift(todoObj);
     },
 
     //取消or取消勾选一个todo
-    checkTodo(id){//此时MyItem无法直接调用，需要通过MyList传递
+    checkTodo(id){
       this.todos.forEach((todo) => {
         if(todo.id === id){
           todo.done = !todo.done
@@ -96,7 +45,6 @@ export default {
 
     //删除一个todo
     deleteTodo(id){
-      //将传过来的todo.id为id的todo过滤，重新赋值给todos
       this.todos = this.todos.filter((todo) => {
         return todo.id !== id;
       })
@@ -104,7 +52,6 @@ export default {
 
     //全选or全不选
     checkAllTodo(done){
-      //遍历将每个todo的done修改为全部勾选框的checked
       this.todos.forEach((todo) => {
         todo.done = done
       })
@@ -112,7 +59,6 @@ export default {
 
     //清除已完成的todo
     clearAllTodo(){
-      //将传过来的todo.done为true的todo过滤，重新赋值给todos
       this.todos = this.todos.filter((todo) => {
         return !todo.done
       })
@@ -120,12 +66,6 @@ export default {
   },
 
   watch: {
-    // todos(value){
-    //   //localStorage.setItem('todos',value);
-    //   //上面存入的是[Object Object]
-    //   localStorage.setItem('todos',JSON.stringify(value));
-    // }
-    //上面为浅度监视，当勾选完成选项时，即todos中todo的done发生改变，刷新页面，依然会显示已完成的选项
     todos: {
       deep:true,
       handler(value){
