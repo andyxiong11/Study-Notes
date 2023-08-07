@@ -68,12 +68,14 @@ export default {
   data(){
       return {
         //用数组中对象的方式存储选项，id、名、是否勾选
-        todos: [
-          //id number类型有尽头，所以用字符串
-          {id: '001', title: "吃饭", done: true},
-          {id: '002', title: "睡觉", done: false},
-          {id: '003', title: "打豆豆", done: false},
-        ]
+        // todos: [
+        //   //id number类型有尽头，所以用字符串
+        //   {id: '001', title: "吃饭", done: true},
+        //   {id: '002', title: "睡觉", done: false},
+        //   {id: '003', title: "打豆豆", done: false},
+        // ]
+        //下面是从浏览器本地存储中取，加上|| []，防止初始化页面中没有数据MyFooter组件读取todos报错
+        todos: JSON.parse(localStorage.getItem('todos')) || []
       }
   },
   methods: {
@@ -116,6 +118,21 @@ export default {
       })
     }
   },
+
+  watch: {
+    // todos(value){
+    //   //localStorage.setItem('todos',value);
+    //   //上面存入的是[Object Object]
+    //   localStorage.setItem('todos',JSON.stringify(value));
+    // }
+    //上面为浅度监视，当勾选完成选项时，即todos中todo的done发生改变，刷新页面，依然会显示已完成的选项
+    todos: {
+      deep:true,
+      handler(value){
+        localStorage.setItem('todos',JSON.stringify(value));
+      }
+    }
+  }
 };
 </script>
 <style>
