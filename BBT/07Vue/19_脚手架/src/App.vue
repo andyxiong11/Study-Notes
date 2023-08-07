@@ -2,9 +2,11 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <MyHeader :addTodo="addTodo"/>
+        <!--:addTodo改为@addTodo-->
+        <MyHeader @addTodo="addTodo"/>
         <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"/>
-        <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"/>
+        <!--:checkAllTodo改为@checkAllTodo :clearAllTodo改为@clearAllTodo -->
+        <MyFooter :todos="todos" @checkAllTodo="checkAllTodo" @clearAllTodo="clearAllTodo"/>
       </div>
     </div>
   </div>
