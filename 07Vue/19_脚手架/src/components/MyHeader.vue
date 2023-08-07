@@ -16,19 +16,21 @@
 
     methods: {
 
-      add(){
-        //校验数据不能为空
-        if(!this.title.trim()) return alert("输入不能为空");
-        const todoObj = {id: nanoid(), title: this.title, done: false};
+    add(){
+      //校验数据不能为空
+      if(!this.title.trim()) return alert("输入不能为空");
+      const todoObj = {id: nanoid(), title: this.title, done: false};
 
-        //通知App组件添加一个todo对象
-        this.addTodo(todoObj);
-        
-        //清空输入框
-        this.title = "";
-      }
+      //通知App组件添加一个todo对象
+      //this.addTodo(todoObj);
+      //不用上面的方法
+      this.$emit('addTodo',todoObj)
+      
+      //清空输入框
+      this.title = "";
+    }
     },
-    props: ['addTodo']
+    //props: ['addTodo']
   }
 </script>
 
