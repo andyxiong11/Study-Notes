@@ -10,7 +10,7 @@
     name: "MyHeader",
     data() {
       return {
-        title: " "
+        title: ""
       }
     },
 

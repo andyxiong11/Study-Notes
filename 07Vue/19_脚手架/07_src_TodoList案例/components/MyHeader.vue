@@ -17,13 +17,13 @@
     //第二种方法借助v-model 获取输入的值，建议使用第一种
     // data() {
     //   return {
-    //     title: " "
+    //     title: ""
     //   }
     // },
     //因为event.target.value是直接操作DOM，所以还是需要使用v-model="title"
     data() {
       return {
-        title: " "
+        title: ""
       }
     },
 
