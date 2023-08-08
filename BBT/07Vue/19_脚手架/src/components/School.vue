@@ -14,6 +14,14 @@
         address: '武汉',
       }
     },
+    mounted() {
+      // console.log("School",this.x);
+
+      //this.x.$on('hello',(data) => {
+      this.$bus.$on('hello',(data) => {
+        console.log("我是scholl组件，收到了数据",data);
+      })
+    },
   }
 </script>
 
