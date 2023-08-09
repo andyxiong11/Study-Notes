@@ -2,10 +2,11 @@
   <li>
     <label>
       <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)"/>
-      <span>{{ todo.title }}</span>
+      <span v-show="!todo.isEdit">{{ todo.title }}</span>
+      <input v-show="todo.isEdit" type="text" :value="todo.title">
     </label>
-
     <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
+    <button class="btn btn-edit" @click="handleEdit(todo)">编辑</button>
   </li>
 </template>
 
@@ -29,6 +30,13 @@
           // this.$bus.$emit('deleteTodo',id)
           pubsub.publish('deleteTodo',id)
         }
+      },
+
+      //编辑
+      handleEdit(todo){
+        //todo.isEdit = true;
+        //上面写不是响应式的，强行加入一个isEdit属性
+        this.$set(todo,'isEdit',true)
       }
     },
   }
