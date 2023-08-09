@@ -12,15 +12,21 @@
 <script>
   export default {
     name: "MyItem",
-    props: ['todo','checkTodo','deleteTodo'],
+    // props: ['todo','checkTodo','deleteTodo'],
+    props: ['todo'],
     methods: {
+      //勾选or取消勾选
       handleCheck(id){
-        this.checkTodo(id);
+        //通知App组件将对应todo对象的done取反
+        //this.checkTodo(id);
+        this.$bus.$emit('checkTodo',id)
       },
       //删除
       handleDelete(id){
         if(confirm('确定删除吗？')){
-          this.deleteTodo(id);
+          //通知App组件将对应todo对象删除
+          //this.deleteTodo(id);
+          this.$bus.$emit('deleteTodo',id)
         }
       }
     },
