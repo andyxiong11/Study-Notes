@@ -10,6 +10,7 @@
 </template>
 
 <script>
+  import pubsub from 'pubsub-js'
   export default {
     name: "MyItem",
     props: ['todo'],
@@ -17,13 +18,16 @@
       //勾选or取消勾选
       handleCheck(id){
         //通知App组件将对应todo对象的done取反
+        // this.checkTodo(id)
         this.$bus.$emit('checkTodo',id)
       },
       //删除
       handleDelete(id){
         if(confirm('确定删除吗？')){
           //通知App组件将对应todo对象删除
-          this.$bus.$emit('deleteTodo',id)
+          // this.deleteTodo(id)
+          // this.$bus.$emit('deleteTodo',id)
+          pubsub.publish('deleteTodo',id)
         }
       }
     },
