@@ -109,6 +109,12 @@ export default {
     background-color: #da4f49;
     border: 1px solid #bd362f;
   }
+  .btn-edit {
+    color:#fff;
+    background-color: skyblue;
+    border: 1px solid rgb(100, 155, 176);
+    margin-right: 5px;
+  }
   .btn-danger:hover {
     color: #fff;
     background-color: #bd362f;
