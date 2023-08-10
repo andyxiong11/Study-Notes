@@ -3,10 +3,15 @@
     <label>
       <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)"/>
       <span v-show="!todo.isEdit">{{ todo.title }}</span>
-      <input v-show="todo.isEdit" type="text" :value="todo.title">
+      <!-- blur失焦时触发 -->
+      <input 
+        v-show="todo.isEdit" 
+        type="text" 
+        :value="todo.title"
+        @blur="handleBlur(todo,$event)">
     </label>
     <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
-    <button class="btn btn-edit" @click="handleEdit(todo)">编辑</button>
+    <button v-show="!todo.isEdit" class="btn btn-edit" @click="handleEdit(todo)">编辑</button>
   </li>
 </template>
 
@@ -34,9 +39,21 @@
 
       //编辑
       handleEdit(todo){
-        //todo.isEdit = true;
-        //上面写不是响应式的，强行加入一个isEdit属性
-        this.$set(todo,'isEdit',true)
+        if (todo.hasOwnProperty('isEdit')) {
+          todo.isEdit = true;
+        }else{
+          console.log("todo没有isEdit");
+          this.$set(todo,'isEdit',true)
+        }
+      },
+
+      //失去焦点回调（真正实现修改逻辑）
+      handleBlur(todo,event){
+        todo.isEdit = false;
+        //.trim去掉前后输入的空格
+        if(!event.target.value.trim()) return alert('输入不能为空')
+        //console.log('updateTodo',todo.id,event.target.value);
+        this.$bus.$emit('updateTodo',todo.id,event.target.value)
       }
     },
   }
