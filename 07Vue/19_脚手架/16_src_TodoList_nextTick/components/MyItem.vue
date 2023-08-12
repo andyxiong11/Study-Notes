@@ -8,7 +8,8 @@
         v-show="todo.isEdit" 
         type="text" 
         :value="todo.title"
-        @blur="handleBlur(todo,$event)">
+        @blur="handleBlur(todo,$event)"
+        ref="inputTitle">
     </label>
     <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
     <button v-show="!todo.isEdit" class="btn btn-edit" @click="handleEdit(todo)">编辑</button>
@@ -45,6 +46,11 @@
           console.log("todo没有isEdit");
           this.$set(todo,'isEdit',true)
         }
+
+        //$nextTick DOM更新后再执行聚焦，也可以用定时器
+        this.$nextTick(function() {
+          this.$refs.inputTitle.focus()
+        })
       },
 
       //失去焦点回调（真正实现修改逻辑）
