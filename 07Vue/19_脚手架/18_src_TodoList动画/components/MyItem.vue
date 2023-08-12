@@ -1,21 +1,24 @@
 <template>
-  <li>
-    <label>
-      <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)"/>
-      <!-- 如下代码也能实现功能，但是不太推荐，因为有点违反原则，因为修改了props -->
-      <!-- <input type="checkbox" v-model="todo.done"/> -->
-      <span v-show="!todo.isEdit">{{ todo.title }}</span>
-      <!-- blur失焦时触发 -->
-      <input 
-        v-show="todo.isEdit" 
-        type="text" 
-        :value="todo.title"
-        @blur="handleBlur(todo,$event)"
-        ref="inputTitle">
-    </label>
-    <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
-    <button v-show="!todo.isEdit" class="btn btn-edit" @click="handleEdit(todo)">编辑</button>
-  </li>
+  <!-- 该过渡动画也可以加在 MyList组件 -->
+  <transition name="todo" appear>
+    <li>
+      <label>
+        <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)"/>
+        <!-- 如下代码也能实现功能，但是不太推荐，因为有点违反原则，因为修改了props -->
+        <!-- <input type="checkbox" v-model="todo.done"/> -->
+        <span v-show="!todo.isEdit">{{ todo.title }}</span>
+        <!-- blur失焦时触发 -->
+        <input 
+          v-show="todo.isEdit" 
+          type="text" 
+          :value="todo.title"
+          @blur="handleBlur(todo,$event)"
+          ref="inputTitle">
+      </label>
+      <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
+      <button v-show="!todo.isEdit" class="btn btn-edit" @click="handleEdit(todo)">编辑</button>
+    </li>
+  </transition>
 </template>
 
 <script>
@@ -102,6 +105,26 @@
   /* 鼠标悬停，按钮显示 */
   li:hover button {
     display: block;
+  }
+
+  /* 进入 */
+  .todo-enter-active{
+    animation: atguigu 0.5s linear;
+  }
+
+  /* 离开动画 */
+  .todo-leave-active{
+    animation: atguigu 0.5s linear reverse;
+  }
+
+  /* 动画 */
+  @keyframes atguigu{
+    from{
+      transform: translateX(100%);
+    }
+    to{
+      transform: translateX(0px);
+    }
   }
 
 </style>
