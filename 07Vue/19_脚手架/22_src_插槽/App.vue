@@ -12,7 +12,7 @@
         <a slot="footer" href="https://www.atguigu.com">更多美食</a>
       </Category>
       <Category title="游戏">
-        <ul>
+        <ul slot="center">
           <li v-for="(g,index) in games" :key="index">{{ g }}</li>
         </ul>
         <!-- <div class="foot">

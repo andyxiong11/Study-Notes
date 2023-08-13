@@ -14,7 +14,8 @@
 <script>
   export default {
     name: "Category",
-    props: ["listData",'title']
+    //props: ["listData",'title']
+    props: ['title']
   };
 </script>
 <style scoped>
