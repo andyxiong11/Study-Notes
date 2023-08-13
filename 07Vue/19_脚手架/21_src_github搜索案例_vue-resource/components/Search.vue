@@ -25,7 +25,7 @@
         this.$bus.$emit('updateListData',{isFirst:false,isLoading:true,errMsg:'',users:[]})
 
         //github已经提前在后端处理了跨域
-        axios.get(`https://api.github.com/search/users?q=${this.keyWord}`).then(
+        this.$http.get(`https://api.github.com/search/users?q=${this.keyWord}`).then(
           response => {
             console.log('请求成功了',response.data);
             // this.$bus.$emit('getUsers',response.data.items)
