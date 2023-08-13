@@ -7,7 +7,8 @@
     <img  v-show="title === '美食' " src="https://s3.ax1x.com/2021/01/16/srJlq0.jpg" alt=""> -->
     
     <!-- 使用插槽的写法 -->
-    <slot>我是一些默认值，当使用者没有传递具体结构时，我会出现</slot>
+    <slot name="center">我是一些默认值，当使用者没有传递具体结构时，我会出现</slot>
+    <slot name="footer">我是一些默认值，当使用者没有传递具体结构时，我会出现</slot>
 </div>
 </template>
 <script>
