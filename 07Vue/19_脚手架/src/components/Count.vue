@@ -2,6 +2,9 @@
   <div>
     <!-- <h1>当前求和为：{{ sum }}</h1> -->
     <h1>当前求和为：{{ $store.state.sum }}</h1>
+    <h3>当前求和放大10倍为：{{ $store.state.sum*10 }}</h3>
+    <h3>当前求和放大10倍为：{{ dahe }}</h3>
+    <h3>当前求和放大10倍为：{{ $store.getters.bigSum }}</h3>
       <select v-model.number="n">
         <option :value="1">1</option>
         <option :value="2">2</option>
@@ -21,6 +24,11 @@
       return{
         n: 1, //用户选择的数字
         //sum: 0 //当前的和 放到..\store\index.js
+      }
+    },
+    computed:{
+      dahe(){
+        return this.$store.state.sum*10
       }
     },
     methods:{
@@ -46,7 +54,10 @@
         // },500)
         this.$store.dispatch('jianWait',this.n)
       }
-    }
+    },
+    mounted() {
+      console.log('this',this);
+    },
   }
 </script>
 
