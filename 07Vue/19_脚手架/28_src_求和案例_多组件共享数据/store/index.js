@@ -61,6 +61,11 @@ const mutations = {
   JIAN(state,value){
     console.log("mutations中的JIAN被调用了",state,value);
     state.sum -= value;
+  },
+
+  ADD_PERSON(state,value){
+    console.log("mutations中的ADD_PERSON被调用了",state,value);
+    state.personList.unshift(value)
   }
 }
 
@@ -68,7 +73,10 @@ const mutations = {
 const state ={
   sum: 0,
   school: '光谷',
-  subject: '前端'
+  subject: '前端',
+  personList:[
+    {id:'001',name:'张三'}
+  ]
 }
 
 //准备getters——用于将state中的数据进行加工
