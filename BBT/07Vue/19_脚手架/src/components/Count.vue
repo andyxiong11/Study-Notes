@@ -1,14 +1,5 @@
 <template>
   <div>
-    <!-- <h1>当前求和为：{{ sum }}</h1> -->
-
-    <!-- 下面是从vuex取 -->
-    <!-- <h1>当前求和为：{{ $store.state.sum }}</h1>
-    <h3>当前求和放大10倍为：{{ $store.state.sum*10 }}</h3>
-    <h3>当前求和放大10倍为：{{ dahe }}</h3>
-    <h3>当前求和放大10倍为：{{ $store.getters.bigSum }}</h3>
-    <h3>当前求和放大10倍为：{{ $store.getters.bigSum }}</h3> -->
-
     <!-- 下面是利用计算属性 -->
     <h1>当前求和为：{{ sum }}</h1>
     <h3>当前求和放大10倍为：{{ sum*10 }}</h3>
@@ -40,30 +31,32 @@
     },
     computed:{
       dahe(){
-        return this.$store.state.sum*10
+        return this.$store.state.countAbout.sum*10
       },
 
       //借助mapState生成计算属性，从state中读取数据。（数组写法，前提是函数名与数据名一致）
-      ...mapState(['sum','school','subject','personList']),
-
+      ...mapState('countAbout',['sum','school','subject','personList']),
+      ...mapState('personAbout',['personList']),
+      
       //借助mapGetters生成计算属性，从getters中读取数据。（数组写法，前提是函数名与数据名一致）
-      ...mapGetters(['bigSum']),
+      ...mapGetters('countAbout',['bigSum']),
 
     },
     methods:{
 
       //借助mapMutations生成对应的方法，方法中会调用commit去联系mutations(对象写法)
       //需要在点击事件传参n
-      ...mapMutations({increment:'JIA',decrement:'decrement'}),
+      ...mapMutations('countAbout',{increment:'JIA',decrement:'decrement'}),
 
       //借助mapActions生成对应的方法，方法中会调用commit去联系dispatch(对象写法)
       //需要在点击事件传参n
-      ...mapActions({incrementOdd:'jianOdd',incrementWait:'jianWait'}),
+      ...mapActions('countAbout',{incrementOdd:'jianOdd',incrementWait:'jianWait'}),
     },
     mounted() {
       // console.log('this',this);
       // const x = mapState({'sum':'sum','school':'school','subject':'subject'})
       // console.log(x);
+      // console.log(this.$store);
     },
   }
 </script>
