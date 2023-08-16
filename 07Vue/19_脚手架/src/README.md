@@ -1,0 +1,1 @@
+1. npm i vuex@3  vue3默认安装vuex4
