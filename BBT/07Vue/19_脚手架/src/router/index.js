@@ -10,12 +10,12 @@ import Home from '../components/Home.vue'
 export default new VueRouter({
   routers:[
     {
-      path:'/abput',
-      comment:About
+      path:'/about',
+      component:About
     },
     {
       path:'/home',
-      comment:Home
+      component:Home
     },
   ]
 })
