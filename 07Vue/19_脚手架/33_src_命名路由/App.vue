@@ -13,6 +13,9 @@
           <!-- Vue中借助router-link标签实现路由的切换 -->
           <!-- router-link本质也是a标签 -->
           <router-link class="list-group-item" active-class="active" to="/about">About</router-link>
+          <!-- 下面是另外一种写法name -->
+          <!-- <router-link class="list-group-item" active-class="active" :to="{name:'about'}">About</router-link> -->
+
           <router-link class="list-group-item" active-class="active" to="/home">Home</router-link>
         </div>
       </div>

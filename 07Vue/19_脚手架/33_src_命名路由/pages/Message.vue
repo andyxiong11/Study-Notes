@@ -8,7 +8,8 @@
       
         <!-- 跳转路由并携带query参数，to的字符串写法 -->
         <router-link :to="{
-          path:'/home/message/detail',
+          // path:'/home/message/detail',
+          name:'detail',
           query:{
             id:m.id,
             title:m.title
