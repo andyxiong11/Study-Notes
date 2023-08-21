@@ -13,22 +13,27 @@ import Detail from '../pages/Detail.vue'
 export default new VueRouter({
   routes:[
     {
+      name:'about',
       path:'/about',
       component:About
     },
     {
+      name:'home',
       path:'/home',
       component:Home,
       children:[
         {
+          name:'news',
           path:'news',//注意不要斜杠
           component:News
         },
         {
+          name:'message',
           path:'message',//注意不要斜杠
           component:Message,
           children:[
             {
+              name:'detail',
               path:'detail',//注意不要斜杠
               component:Detail
             },
