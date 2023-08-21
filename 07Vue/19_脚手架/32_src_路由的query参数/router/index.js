@@ -5,6 +5,7 @@ import About from '../pages/About.vue'
 import Home from '../pages/Home.vue'
 import News from '../pages/News.vue'
 import Message from '../pages/Message.vue'
+import Detail from '../pages/Detail.vue'
 
 //创建一个路由器
 // const router = new VueRouter({
@@ -25,7 +26,13 @@ export default new VueRouter({
         },
         {
           path:'message',//注意不要斜杠
-          component:Message
+          component:Message,
+          children:[
+            {
+              path:'detail',//注意不要斜杠
+              component:Detail
+            },
+          ]
         }
       ]
     },
