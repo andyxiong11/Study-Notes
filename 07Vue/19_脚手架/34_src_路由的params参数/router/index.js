@@ -34,7 +34,7 @@ export default new VueRouter({
           children:[
             {
               name:'detail',
-              path:'detail',//注意不要斜杠
+              path:'detail/:id/:title',//注意不要斜杠
               component:Detail
             },
           ]
