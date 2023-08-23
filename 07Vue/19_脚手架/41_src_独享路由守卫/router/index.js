@@ -29,7 +29,7 @@ const router =  new VueRouter({
           // 只有meta中可以加属性
           meta: {isAuth:true,title:'新闻'},
           beforeEnter: (to, from, next) => {
-            console.log("独享前置路由守卫",to,from);
+            console.log("独享路由守卫",to,from);
             if(to.meta.isAuth){
               if (localStorage.getItem('school') === 'guanggu') {
                 next()
