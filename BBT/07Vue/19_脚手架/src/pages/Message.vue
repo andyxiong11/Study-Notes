@@ -10,7 +10,7 @@
         <router-link :to="{
           // path:'/home/message/detail',
           name:'detail',
-          params:{
+          query:{
             id:m.id,
             title:m.title
           }
