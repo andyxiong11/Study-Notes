@@ -9,8 +9,10 @@
         <router-link class="list-group-item " active-class="active" to="/home/message">Message</router-link>
       </li>
     </ul>
-    <!-- 指定组件的呈现位置 -->
-    <router-view></router-view>
+    <keep-alive include="News">
+      <!-- 指定组件的呈现位置 -->
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
