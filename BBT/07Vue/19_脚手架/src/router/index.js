@@ -14,7 +14,7 @@ const router =  new VueRouter({
       name:'about',
       path:'/about',
       component:About,
-      meta:{title:'关于'},
+      meta:{isAuth:true,title:'关于'},
     },
     {
       name:'home',
@@ -28,18 +28,18 @@ const router =  new VueRouter({
           component:News,
           // 只有meta中可以加属性
           meta: {isAuth:true,title:'新闻'},
-          beforeEnter: (to, from, next) => {
-            console.log("独享前置路由守卫",to,from);
-            if(to.meta.isAuth){
-              if (localStorage.getItem('school') === 'guanggu') {
-                next()
-              }else{
-                alert('学校名不对，无权限查看')
-              }
-            }else{
-              next()
-            }
-          }
+          // beforeEnter: (to, from, next) => {
+          //   console.log("独享前置路由守卫",to,from);
+          //   if(to.meta.isAuth){
+          //     if (localStorage.getItem('school') === 'guanggu') {
+          //       next()
+          //     }else{
+          //       alert('学校名不对，无权限查看')
+          //     }
+          //   }else{
+          //     next()
+          //   }
+          // }
         },
         {
           name:'message',
