@@ -1,0 +1,1 @@
+1. npm i vue-router@3  vue3默认安装vue-router4
