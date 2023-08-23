@@ -27,7 +27,19 @@ const router =  new VueRouter({
           path:'news',//注意不要斜杠
           component:News,
           // 只有meta中可以加属性
-          meta: {isAuth:true,title:'新闻'}
+          meta: {isAuth:true,title:'新闻'},
+          beforeEnter: (to, from, next) => {
+            console.log("独享前置路由守卫",to,from);
+            if(to.meta.isAuth){
+              if (localStorage.getItem('school') === 'guanggu') {
+                next()
+              }else{
+                alert('学校名不对，无权限查看')
+              }
+            }else{
+              next()
+            }
+          }
         },
         {
           name:'message',
@@ -62,33 +74,26 @@ const router =  new VueRouter({
 })
 
 //全局前置路由守卫——初始化的时候被调用、每次路由切换之前被调用
-router.beforeEach((to,from,next)=>{
-  console.log("前置路由守卫",to,from);
-  // 下面的写法，如果鉴权不通过，页签名也会被修改，需要放到afterEach后置路由守卫
-  // document.title = to.meta.title || '光谷系统';
-
-  // next();
-
-  // if (to.path === '/home/news' || to.path === '/home/message') {
+// router.beforeEach((to,from,next)=>{
+//   console.log("前置路由守卫",to,from);
+//   // next();
   
-  // 下面是用name替代path
-  // if (to.name === 'news' || to.name === 'message') {
-  
-  // 只有需要校验的路由组件才做判断，鉴权
-  if(to.meta.isAuth){
-    if (localStorage.getItem('school') === 'guanggu') {
-      next()
-    }else{
-      alert('学校名不对，无权限查看')
-    }
-  }else{
-    next()
-  }
-})
+//   // 只有需要校验的路由组件才做判断，鉴权
+//   if(to.meta.isAuth){
+//     if (localStorage.getItem('school') === 'guanggu') {
+//       next()
+//     }else{
+//       alert('学校名不对，无权限查看')
+//     }
+//   }else{
+//     next()
+//   }
+// })
 
 //全局后置路由守卫——初始化的时候被调用、每次路由切换之后被调用
 router.afterEach((to,from)=>{
     console.log("后置路由守卫",to,from);
+    // 路由组件鉴权通过后更改页签
     document.title = to.meta.title || '光谷系统';
   }
 )
