@@ -4,7 +4,7 @@
 2. 运行
 - npm init
 - npm i express
-3. 新建server.js
+3. 新建serve.js
    ```javascript
     const express = require('express')
 
