@@ -12,7 +12,7 @@ const router =  new VueRouter({
   //#及其后的内容为Hash，如果url是http://localhost:8080/#/，则#及其后的内容不会传给服务器，详见19_src_配置代理服务器中的服务器，用http://localhost:8080/atguigu/students/#/dew打开不会报错
   //默认为hash，因为在服务器中运行找不到/about路径，详见README.MD文件运行服务器
   //但是生产不能有#，需要在后端服务器处理，详见README.MD文件
-  mode:history,
+  mode:"history",
 
   routes:[
     {
