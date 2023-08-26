@@ -30,19 +30,19 @@ export default {
     let hobby = reactive(['吃饭','学习','打豆豆'])// 20230806 不用reactive也可以做到数组响应式
     
     //可以将所有的数据放到一个对象里面let person = reactive({数据})，return{person}
-    // let person = recative({
-    //   name : ref('张三'),
-    //   age : ref(18),
-    //   job : reactive({
-    //     type: '前端工程师',
-    //     salary: '30k',
-    //     a:{
-    //       b:{
-    //         c: 666
-    //       }
-    //     }
-    //   }),
-    //   hobby : reactive(['吃饭','学习','打豆豆'])// 20230806 不用reactive也可以做到数组响应式
+    // let person = reactive({
+      // name : '张三',
+      // age : 18,
+      // job : {
+      //   type: '前端工程师',
+      //   salary: '30k',
+      //   a:{
+      //     b:{
+      //       c: 666
+      //     }
+      //   }
+      // },
+      // hobby : ['吃饭','学习','打豆豆']// 20230806 不用reactive也可以做到数组响应式
     // })
 
     //方法
