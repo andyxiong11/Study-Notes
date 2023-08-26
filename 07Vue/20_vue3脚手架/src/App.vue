@@ -18,7 +18,7 @@ import {ref,reactive} from 'vue'
 export default {
   name: 'App',
   setup() {
-    //数据
+    //数据 reactive里面可以再写两个对象表示两组数据
     let person = reactive({
       name : '张三',
       age : 18,
