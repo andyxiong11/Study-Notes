@@ -12,7 +12,6 @@
 import {ref} from 'vue'
 export default {
   name: 'App',
-  // 此处只是测试一下setup,暂时不考虑响应式的问题
   setup() {
     //数据
     let name = ref('张三')
