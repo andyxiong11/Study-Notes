@@ -29,7 +29,7 @@ export default {
       // console.log(name,age);
 
       job.value.type = 'UI设计师';
-      job.value.salary = '60k';  
+      job.value.salary = '60 k';  
       // console.log(job.value);
     }
 
