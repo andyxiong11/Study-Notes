@@ -6,37 +6,14 @@
 </template>
 
 <script>  
-  import {ref,reactive,onMounted,onBeforeUnmount} from 'vue'
+  import {ref} from 'vue'
+  import usePoint from "../hooks/usePoint.js";
   export default {
     name: 'Demo',
     setup() {
       //数据
       let sum = ref(0)
-      let point = reactive({
-        x:0,
-        y:0
-      })
-
-      function savePoint(event) {
-        point.x = event.pageX
-        point.y = event.pageY
-        console.log(event.pageX,event.pageY)
-      }
-
-      onMounted(()=>{
-        // window.addEventListener('click',(event)=>{
-        //   point.x = event.pageX,
-        //   point.y = event.pageY,
-        //   console.log(event.pageX,event.pageY);
-        // })
-        //此处不能使用箭头函数，否则删除监听事件时找不到事件
-        window.addEventListener('click',savePoint)
-      })
-
-      onBeforeUnmount(()=>{
-        // window.removeEventListener('click')
-        window.removeEventListener('click',savePoint)
-      })
+      let point  = usePoint()
 
       //返回一个对象（常用）
       return {
