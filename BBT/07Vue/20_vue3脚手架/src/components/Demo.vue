@@ -1,42 +1,50 @@
 <template>
   <h1>一个人的信息</h1>
-  <h2>姓名：{{person.name}}</h2>
-  <h2>年龄：{{person.age}}</h2>
-  <button @click="test">测试触发一下Demo组件的Hello事件</button>
+  姓：<input type="text" v-model="person.firstName"><br>
+  名：<input type="text" v-model="person.lastName"><br>
+  <span>全名:{{ person.fullName }}</span><br>
+  全名：<input type="text" v-model="person.fullName">
 </template>
 
-<script>  import {reactive} from 'vue'
+<script>  
+  import {reactive,computed} from 'vue'
   export default {
     name: 'Demo',
-    props:['msg','school'],
 
-    // emits:['hello'],//声明需要用到hello自定义事件，否则会有警告，不影响
+    // vue2
+    // computed:{
+    //   fullName(){
+    //     return this.person.firstName + '-' + this.person.lastName
+    //   }
+    // },
 
-    beforeCreate() {
-      console.log('---beforeCreate---');
-    },
-    
-    setup(props,context) {
-      console.log('---setup---',this);//setup执行比beforeCreate更早,this为undefined
-      console.log('---props---',props);// 组件之前传参
-      console.log('---context---',context);// 执行上下文
-      console.log('---context.attrs---',context.attrs);//储存props中未声明接受的参数，相当于vue2 $attrs
-      console.log('---context.emit---',context.emit);//触发自定义事件，相当于vue2 $emit
-      console.log('---context.slots---',context.slots);//插槽，相当于vue2 $slots
-      
-
+    setup() {
       let person = reactive({
-        name : '张三',
-        age : 18,
+        firstName : '张',
+        lastName : '三',
       })
 
-      function test() {
-        context.emit('hello',666)
-      }
+      //vue3计算属性——简写，没有考虑计算属性被修改的情况
+      // // let fullName = computed(()=>{
+      // person.fullName = computed(()=>{
+      //   return person.firstName + '-' + person.lastName
+      // })
+
+      //vue3计算属性——完整写法，考虑读和写
+      person.fullName = computed({
+        get(){
+          return person.firstName + '-' + person.lastName
+        },
+        set(value){
+          const nameArr = value.split('-')
+          person.firstName = nameArr[0]
+          person.lastName = nameArr[1]
+        }
+      })
 
       return {
         person,
-        test
+        // fullName
       }
     }
   }
