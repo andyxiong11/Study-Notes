@@ -64,6 +64,7 @@ export default {
       hobby[0] = '喝酒'
     }
 
+    //返回一个对象（常用）
     return {
       name,
       age,

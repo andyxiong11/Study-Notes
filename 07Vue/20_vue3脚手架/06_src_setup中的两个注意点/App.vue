@@ -14,9 +14,12 @@
     name: 'App',
     components: {Demo},
     setup() {
+      //方法
       function showHelloMsg(value) {
         alert(`你好啊，你触发了hello事件，我收到的参数是：${value}!`)
       }
+
+      //返回一个对象（常用）
       return {
         showHelloMsg
       }

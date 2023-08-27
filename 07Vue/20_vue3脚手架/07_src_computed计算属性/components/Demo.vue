@@ -19,6 +19,7 @@
     // },
 
     setup() {
+      //数据
       let person = reactive({
         firstName : '张',
         lastName : '三',
@@ -42,6 +43,7 @@
         }
       })
 
+      //返回一个对象（常用）
       return {
         person,
         // fullName

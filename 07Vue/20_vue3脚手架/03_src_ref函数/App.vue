@@ -32,6 +32,7 @@ export default {
       // console.log(job.value);
     }
 
+    //返回一个对象（常用）
     return {
       name,
       age,
