@@ -1,14 +1,15 @@
 <template>
-  <h2>姓名：{{person.name}}</h2>
-  <h2>年龄：{{person.age}}</h2>
-  <h2>薪资：{{ person.job.j1.salary }}K</h2>
-  <button @click="person.name+='~'">修改姓名</button>
-  <button @click="person.age++">增长年龄</button>
-  <button @click="person.job.j1.salary++">涨薪</button>
+  <h4>{{ person }}</h4>
+  <h2>姓名：{{name}}</h2>
+  <h2>年龄：{{age}}</h2>
+  <h2>薪资：{{ salary }}K</h2>
+  <button @click="name+='~'">修改姓名</button>
+  <button @click="age++">增长年龄</button>
+  <button @click="salary++">涨薪</button>
 </template>
 
 <script>  
-  import {reactive} from 'vue'
+  import {ref,reactive,toRef} from 'vue'
   export default {
     name: 'Demo',
 
@@ -24,9 +25,26 @@
         }
       })
 
+      //非响应式
+      // const name1 = person.name
+      // console.log(name1);
+
+      //响应式写法
+      // const name2 = toRef(person,'name')
+      // console.log(name2);
+
       //返回一个对象（常用）
       return {
-        person
+        person,
+        //响应式写法
+        name: toRef(person,'name'),
+        age: toRef(person,'age'),
+        salary: toRef(person.job.j1,'salary'),
+
+        //下面也可以修改展示在页面上的数据，但是person中的原数据没有修改
+        // name: ref(person,'name'),
+        // age: ref(person,'age'),
+        // salary: ref(person.job.j1,'salary'),
       }
     }
   }
