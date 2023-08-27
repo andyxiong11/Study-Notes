@@ -50,6 +50,7 @@ export default {
       delete person.name
     }
 
+    //返回一个对象（常用）
     return {
       person,
       changeInfo,

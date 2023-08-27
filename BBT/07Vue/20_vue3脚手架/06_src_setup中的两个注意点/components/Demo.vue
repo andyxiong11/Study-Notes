@@ -16,6 +16,7 @@
       console.log('---beforeCreate---');
     },
     
+    
     setup(props,context) {
       console.log('---setup---',this);//setup执行比beforeCreate更早,this为undefined
       console.log('---props---',props);// 组件之前传参
@@ -24,16 +25,18 @@
       console.log('---context.emit---',context.emit);//触发自定义事件，相当于vue2 $emit
       console.log('---context.slots---',context.slots);//插槽，相当于vue2 $slots
       
-
+      //数据
       let person = reactive({
         name : '张三',
         age : 18,
       })
 
+      //方法
       function test() {
         context.emit('hello',666)
       }
 
+      //返回一个对象（常用）
       return {
         person,
         test
