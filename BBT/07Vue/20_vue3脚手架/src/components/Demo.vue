@@ -17,12 +17,12 @@
   import {ref,reactive,watch} from 'vue'
   export default {
     name: 'Demo',
-    
+
     setup() {
       //数据
       let sum = ref(0)
       let msg = ref('你好啊')
-      let person = reactive({
+      let person = ref({
         name : '张三',
         age : 18,
         job:{
@@ -31,6 +31,23 @@
           }
         }
       })
+
+      // console.log(sum);
+      // console.log(msg);
+      // console.log(person);
+
+      watch(sum,(newValue,oldValue)=>{//不能用sum.value
+          console.log("sum值发生变化",newValue,oldValue);
+        })
+
+      //当使用ref定义对象数据时监视，如果直接监视person，因为属性变化但是person的地址没有变化所以检测不到
+      // watch(person.value,(newValue,oldValue)=>{
+      //     console.log("person值发生变化",newValue,oldValue);
+      // })
+      //另外一种写法
+      watch(person,(newValue,oldValue)=>{
+          console.log("person值发生变化",newValue,oldValue);
+      },{deep:true})
 
       //返回一个对象（常用）
       return {
