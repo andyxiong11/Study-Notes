@@ -25,8 +25,10 @@ import { ref,customRef  } from "vue";
             },
             set(newValue){//set:function(){}的简写
               console.log(`有人把myRef这个容器中的数据改为了：${newValue}了`);
-              value =  newValue
-              trigger()//通知vue重新解析模板（调用get）
+              setTimeout(() => {
+                value =  newValue
+                trigger()//通知vue重新解析模板（调用get）
+              }, 1000);
             }
           }
         })
