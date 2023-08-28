@@ -10,7 +10,8 @@ import { ref,customRef  } from "vue";
     setup() {
 
       //自定义一个ref
-      function myRef(value) {
+      function myRef(value,delay) {
+        let timer
         //console.log("---myRef---",value);
 
         // let x = customRef()
@@ -25,17 +26,18 @@ import { ref,customRef  } from "vue";
             },
             set(newValue){//set:function(){}的简写
               console.log(`有人把myRef这个容器中的数据改为了：${newValue}了`);
-              setTimeout(() => {
+              clearTimeout(timer)
+              timer = setTimeout(() => {
                 value =  newValue
                 trigger()//通知vue重新解析模板（调用get）
-              }, 1000);
+              }, delay);
             }
           }
         })
       }
 
       //let keyWord = ref('hello') //使用Vue提供的ref
-      let keyWord = myRef('hello') //使用自定义的ref
+      let keyWord = myRef('hello',500) //使用自定义的ref
       return {keyWord}
     }
   }
