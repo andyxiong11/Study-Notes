@@ -5,11 +5,17 @@
   </div>
 </template>
 
-<script>
+<script> 
+  import { inject } from "vue";
   import Son from './Son.vue'
   export default {
     name:'Child',
-    components:{ Son }
+    components:{ Son },
+    //子组件传数据建议用props
+    // setup(){
+    //   let x = inject('car')
+    //   console.log(x,'---child---')
+    // }
   }
 </script>
 
