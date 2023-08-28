@@ -11,7 +11,7 @@
 </template>
 
 <script>  
-  import {ref,reactive,toRefs} from 'vue'
+  import {ref,reactive,toRefs,readonly,shallowReadonly} from 'vue'
   export default {
     name: 'Demo',
 
@@ -27,6 +27,16 @@
           }
         }
       })
+
+      //将person变为只读
+      // person = readonly(person)
+      //将person第一层的数据变为只读
+      person = shallowReadonly(person)
+      //将sum变为只读
+      // sum = readonly(sum)
+      sum = shallowReadonly(sum)
+
+      //用法，当其他组件传入数据，先用readonly加工下避免篡改数据
 
       //返回一个对象（常用）
       return {
