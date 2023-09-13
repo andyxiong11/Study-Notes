@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <script type="text/javascript">
+    class Person {
+				constructor(name,age){
+					this.name = name
+					this.age = age
+				}
+				study(){
+          TODO//类中的方法默认开启局部的严格模式，所以直接调用为undefined
+          //study方法放在了哪里？——类的原型对象上，供实例使用
+					//通过Person实例调用study时，study中的this就是Person实例
+					console.log(this);
+				}
+			}
+
+			const p1 = new Person('tom',18)
+			p1.study()//Person实例对象
+
+      const x = p1.study()
+      x()//undefined
+  </script>
+</body>
+</html>
