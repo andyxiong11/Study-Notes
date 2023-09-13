@@ -51,8 +51,16 @@
         //此时需要在构造函数中将类的原型对象上的changeWeather的this指向改为Weather组件实例对象，并将新生成的函数挂在Weather组件实例对象上
         console.log(this);
         console.log(this.state.isHot);
+        
+        //读取原来的isHot值
         const isHot = this.state.isHot
-        this.state.isHot = !isHot
+
+        // 严重注意：状态不可直接更改，下面就是直接更改
+        //this.state.isHot = !isHot
+
+        // React原型上有一个setState属性，用于修改state
+        this.setState({isHot:!isHot})
+
       }
     }
     //2.渲染组件到页面
