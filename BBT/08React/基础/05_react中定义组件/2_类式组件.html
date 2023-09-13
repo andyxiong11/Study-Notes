@@ -25,11 +25,11 @@
         //render放在了MyComponent的原型对象上,供实例使用
         //reder中的this是MyComponent的实例对象 <=> MyComponent组件实例对象
         console.log('reder中的this',this);
-        <h2>我是用函数定义的组件(适用于【复杂组件】的定义)</h2>
+        return <h2>我是用函数定义的组件(适用于【复杂组件】的定义)</h2>
       }
     }
     //2.渲染组件到页面
-    React.reder(<MyComponent/>,document.getElementById('test'))
+    ReactDOM.render(<MyComponent/>,document.getElementById('test'))
     // 执行了ReactDOM.render(<MyComponent/>.......之后，发生了什么？
     //   1.React解析组件标签，找到了MyComponent组件。
     //   2.发现组件是使用类定义的，随后new出来该类的实例，并通过该实例调用到原型上的render方法。
