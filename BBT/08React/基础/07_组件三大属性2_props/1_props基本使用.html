@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <!-- 添加页签图标，防止报错 -->
+  <link rel="short icon" href="../favicon.ico"/>
+</head>
+<body>
+  <!-- 准备一个容器 -->
+  <div id="test1"></div>
+  <div id="test2"></div>
+
+  <!-- 引入react核心库 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- 引入react-dom 支持react操作DOM -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <!-- 引入babel 将jsx转为js -->
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+    //1.创建组件
+    class Person extends React.Component{
+      //state = {name:"tom",age:18,sex:"女"}
+      render(){
+        console.log(this);
+        const {name,age,sex} = this.props
+        return (
+          // <ul>
+          //   <li>姓名：{this.state.tom}</li>
+          //   <li>性别：女</li>
+          //   <li>年龄：18</li>
+          // </ul>
+          // 上面是用state，下面是用props
+          <ul>
+            <li>姓名：{name}</li>
+            <li>性别：{sex}</li>
+            <li>年龄：{age}</li>
+          </ul>
+        )
+      }
+    }
+    
+    //2.渲染组件到页面
+    ReactDOM.render(<Person name="tom" age="18" sex="男"/>,document.getElementById('test1'))
+    ReactDOM.render(<Person name="jerry" age="10" sex="女"/>,document.getElementById('test2'))
+  </script>
+</body>
+</html>
