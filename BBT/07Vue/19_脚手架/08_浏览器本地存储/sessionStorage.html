@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>sessionStorage</title>
+  </head>
+
+  <body>
+    <!-- 开发者工具 Application-Strong-Session Strong-searchHistoryData，修改value可以修改历史搜索记录 -->
+    <h2>sessionStorage</h2>
+    <button onclick="saveData()">点我保存一个数据</button>
+    <button onclick="readData()">点我读取一个数据</button>
+    <button onclick="deleteData()">点我删除一个数据</button>
+    <button onclick="deleteAllData()">点我清空数据</button>
+
+    <script type="text/javascript">
+      let p = {name: "张三", age: 19}
+      //console.log(p.toString());//[Object Object]
+      function saveData() {
+        //window上有一个sessionStorage方法，其中有一个setItem设置本地存储
+        sessionStorage.setItem("msg", "hello!"); //如果已经有key为msg的数值，会被替换
+        sessionStorage.setItem("msg2", 666); //自动将666转为Sting
+        //sessionStorage.setItem("person", p); //[Object Object] 详见console.log(p.toString());
+        sessionStorage.setItem("person", JSON.stringify(p));//json转字符串
+      }
+
+      function readData() {
+        console.log(sessionStorage.getItem("msg")); 
+        console.log(sessionStorage.getItem("msg2")); 
+
+        //console.log(sessionStorage.getItem("person"));//{"name":"张三","age":19}
+        const result = sessionStorage.getItem("person");
+        console.log(JSON.parse(result));//变成json格式
+      }
+
+      function deleteData() {
+        sessionStorage.removeItem("msg2");
+      }
+
+      function deleteAllData() {
+        sessionStorage.clear();
+      }
+    </script>
+  </body>
+</html>

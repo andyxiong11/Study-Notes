@@ -77,13 +77,13 @@
         </div>
         <script type="text/javascript">
             // let data = {
-            //     name: '尚硅谷',
+            //     name: '光谷',
             //     address: '武汉'
             // }
             const vm = new Vue({//包裹的对象的名字叫options
                 el: '#root',
                 data: {
-                    name: '尚硅谷',
+                    name: '光谷',
                     address: '武汉'
                 }
                 //如何印证vm.name修改影响了页面中的data.name setter
@@ -92,7 +92,7 @@
                 //data
                 //运行vm._data === data
             })
-            console.log(vm);//vm中_data的值，实际上并不是{name: '尚硅谷',address: '武汉'}，不是数据代理，是做了数据劫持
+            console.log(vm);//vm中_data的值，实际上并不是{name: '光谷',address: '武汉'}，不是数据代理，是做了数据劫持
 
             //基本原理
             // 通过Object.defineProperty()把data对象中所有属性添加到vm上。

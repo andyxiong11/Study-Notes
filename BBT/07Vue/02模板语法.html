@@ -21,7 +21,7 @@
       <h1>指令语法</h1>
     <!--  <a href="{{url}}"></a>-->
       <a v-bind:href="url">点我去{{school.name}}学习</a><!--加上v-bind，给标签属性动态的绑定值，把url当初表达式-->
-      <a :href="url.toUpperCase()">点我去尚硅谷学习</a><!--v-bind可简写为:-->
+      <a :href="url.toUpperCase()">点我去光谷学习</a><!--v-bind可简写为:-->
     </div>
     <script type="text/javascript">
       Vue.config.productionTip = false;//关闭浏览器控制台的vue生产提示
@@ -31,7 +31,7 @@
           name : 'jack',
           url : 'https://wwww.atguigu.com',
           school : {
-            name : '尚硅谷'
+            name : '光谷'
           }
         }
       })

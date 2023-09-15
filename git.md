@@ -1,5 +1,5 @@
 # 配置
-  
+
 - 配置使用者信息
   - 用户名：git   config  --global user.name  "[用户名]"     
   - 邮箱：git   config   --global user.email "[邮箱]"
@@ -61,113 +61,282 @@
 - 简写推送    git push [变量名] -u [分支名] => git push->git pull
   - **关联分支，只用于当前目录**
 
-> 以下内容转载自 https://juejin.cn/post/6844903598522908686
-# 1. 工作区上的操作命令
-## 1.1 新建仓库
+> 以下命令大全内容参考https://gitee.com/all-about-git
+# 命令大全
 
-将工作区中的项目文件使用git进行管理，即创建一个新的本地仓库：git init；
-从远程git仓库复制项目：git clone <url>，如：git clone git://github.com/wasd/example.git;克隆项目时如果想定义新的项目名，可以在clone命令后指定新的项目名：git clone git://github.com/wasd/example.git mygit；
+## 1、仓库
+```shell
+# 在当前目录新建一个Git代码库
+$ git init
 
-## 1.2 提交
+# 新建一个目录，将其初始化为Git代码库
+$ git init [project-name]
 
-提交工作区所有文件到暂存区：git add .
-提交工作区中指定文件到暂存区：git add <file1> <file2> ...;
-提交工作区中某个文件夹中所有文件到暂存区：git add [dir];
-
-## 1.3 撤销
-
-删除工作区文件，并且也从暂存区删除对应文件的记录：git rm <file1> <file2>;
-从暂存区中删除文件，但是工作区依然还有该文件:git rm --cached <file>;
-取消暂存区已经暂存的文件：git reset HEAD <file>...;
-撤销上一次对文件的操作：git checkout --<file>。要确定上一次对文件的修改不再需要，如果想保留上一次的修改以备以后继续工作，可以使用stashing和分支来处理；
-隐藏当前变更，以便能够切换分支：git stash；
-查看当前所有的储藏：git stash list；
-应用最新的储藏：git stash apply，如果想应用更早的储藏：git stash apply stash@{2}；重新应用被暂存的变更，需要加上--index参数：git stash apply --index;
-使用apply命令只是应用储藏，而内容仍然还在栈上，需要移除指定的储藏：git stash drop stash{0}；如果使用pop命令不仅可以重新应用储藏，还可以立刻从堆栈中清除：git stash pop;
-在某些情况下，你可能想应用储藏的修改，在进行了一些其他的修改后，又要取消之前所应用储藏的修改。Git没有提供类似于 stash unapply 的命令，但是可以通过取消该储藏的补丁达到同样的效果：git stash show -p stash@{0} | git apply -R；同样的，如果你沒有指定具体的某个储藏，Git 会选择最近的储藏：git stash show -p | git apply -R；
-
-## 1.4 更新文件
-
-重命名文件，并将已改名文件提交到暂存区：git mv [file-original] [file-renamed];
-
-## 1.5 查新信息
-
-查询当前工作区所有文件的状态：git status;
-比较工作区中当前文件和暂存区之间的差异，也就是修改之后还没有暂存的内容：git diff；指定文件在工作区和暂存区上差异比较：git diff <file-name>;
-
-# 2. 暂存区上的操作命令
-## 2.1 提交文件到版本库
-
-
-将暂存区中的文件提交到本地仓库中，即打上新版本：git commit -m "commit_info";
-将所有已经使用git管理过的文件暂存后一并提交，跳过add到暂存区的过程：git commit -a -m "commit_info";
-提交文件时，发现漏掉几个文件，或者注释写错了，可以撤销上一次提交：git commit --amend;
-
-## 2.2 查看信息
-
-比较暂存区与上一版本的差异：git diff --cached;
-指定文件在暂存区和本地仓库的不同：git diff <file-name> --cached;
-查看提交历史：git log；参数-p展开每次提交的内容差异，用-2显示最近的两次更新，如git log -p -2;
-
-## 2.3 打标签
-
-Git 使用的标签有两种类型：轻量级的（lightweight）和含附注的（annotated）。轻量级标签就像是个不会变化的分支，实际上它就是个指向特定提交对象的引用。而含附注标签，实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，电子邮件地址和日期，以及标签说明，标签本身也允许使用 GNU Privacy Guard (GPG) 来签署或验证。一般我们都建议使用含附注型的标签，以便保留相关信息；当然，如果只是临时性加注标签，或者不需要旁注额外信息，用轻量级标签也没问题。
-
-列出现在所有的标签：git tag;
-使用特定的搜索模式列出符合条件的标签，例如只对1.4.2系列的版本感兴趣：git tag -l "v1.4.2.*";
-创建一个含附注类型的标签，需要加-a参数，如git tag -a v1.4 -m "my version 1.4";
-使用git show命令查看相应标签的版本信息，并连同显示打标签时的提交对象：git show v1.4;
-如果有自己的私钥，可以使用GPG来签署标签，只需要在命令中使用-s参数：git tag -s v1.5 -m "my signed 1.5 tag";
-验证已签署的标签：git tag -v ，如git tag -v v1.5;
-创建一个轻量级标签的话，就直接使用git tag命令即可，连-a,-s以及-m选项都不需要，直接给出标签名字即可，如git tag v1.5;
-将标签推送到远程仓库中：git push origin ，如git push origin v1.5；
-将本地所有的标签全部推送到远程仓库中：git push origin --tags;
-
-## 2.3 分支管理
-
-创建分支：git branch <branch-name>，如git branch testing；
-从当前所处的分支切换到其他分支：git checkout <branch-name>，如git checkout testing；
-新建并切换到新建分支上：git checkout -b <branch-name>;
-删除分支：git branch -d <branch-name>；
-将当前分支与指定分支进行合并：git merge <branch-name>;
-显示本地仓库的所有分支：git branch;
-查看各个分支最后一个提交对象的信息：git branch -v;
-查看哪些分支已经合并到当前分支：git branch --merged;
-查看当前哪些分支还没有合并到当前分支：git branch --no-merged;
-把远程分支合并到当前分支：git merge <remote-name>/<branch-name>，如git merge origin/serverfix；如果是单线的历史分支不存在任何需要解决的分歧，只是简单的将HEAD指针前移，所以这种合并过程可以称为快进（Fast forward），而如果是历史分支是分叉的，会以当前分叉的两个分支作为两个祖先，创建新的提交对象；如果在合并分支时，遇到合并冲突需要人工解决后，再才能提交；
-在远程分支的基础上创建新的本地分支：git checkout -b <branch-name> <remote-name>/<branch-name>，如git checkout -b serverfix origin/serverfix;
-从远程分支checkout出来的本地分支，称之为跟踪分支。在跟踪分支上向远程分支上推送内容：git push。该命令会自动判断应该向远程仓库中的哪个分支推送数据；在跟踪分支上合并远程分支：git pull；
-将一个分支里提交的改变移到基底分支上重放一遍：git rebase <rebase-branch> <branch-name>，如git rebase master server，将特性分支server提交的改变在基底分支master上重演一遍；使用rebase操作最大的好处是像在单个分支上操作的，提交的修改历史也是一根线；如果想把基于一个特性分支上的另一个特性分支变基到其他分支上，可以使用--onto操作：git rebase --onto <rebase-branch> <feature branch> <sub-feature-branch>，如git rebase --onto master server client；使用rebase操作应该遵循的原则是：一旦分支中的提交对象发布到公共仓库，就千万不要对该分支进行rebase操作；
-
-# 3. 本地仓库上的操作
-
-查看本地仓库关联的远程仓库：git remote；在克隆完每个远程仓库后，远程仓库默认为origin;加上-v的参数后，会显示远程仓库的url地址；
-添加远程仓库，一般会取一个简短的别名：git remote add [remote-name] [url]，比如：git remote add example git://github.com/example/example.git;
-从远程仓库中抓取本地仓库中没有的更新：git fetch [remote-name]，如git fetch origin;使用fetch只是将远端数据拉到本地仓库，并不自动合并到当前工作分支，只能人工合并。如果设置了某个分支关联到远程仓库的某个分支的话，可以使用git pull来拉去远程分支的数据，然后将远端分支自动合并到本地仓库中的当前分支；
-将本地仓库某分支推送到远程仓库上：git push [remote-name] [branch-name]，如git push origin master；如果想将本地分支推送到远程仓库的不同名分支：git push <remote-name> <local-branch>:<remote-branch>，如git push origin serverfix:awesomebranch;如果想删除远程分支：git push [romote-name] :<remote-branch>，如git push origin :serverfix。这里省略了本地分支，也就相当于将空白内容推送给远程分支，就等于删掉了远程分支。
-查看远程仓库的详细信息：git remote show origin；
-修改某个远程仓库在本地的简称：git remote rename [old-name] [new-name]，如git remote rename origin org；
-移除远程仓库：git remote rm [remote-name]；
-
-# 4. 忽略文件.gitignore
-一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式。如下例：
+# 下载一个项目和它的整个代码历史
+$ git clone [url]
 ```
-# 此为注释 – 将被 Git 忽略
-# 忽略所有 .a 结尾的文件
-*.a
-# 但 lib.a 除外
-!lib.a
-# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO
-/TODO
-# 忽略 build/ 目录下的所有文件
-build/
-# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
-doc/*.txt
-# 忽略 doc/ 目录下所有扩展名为 txt 的文件
-doc/**/*.txt
+## 2、配置
+```shell
+# 显示当前的Git配置
+$ git config --list
+
+# 编辑Git配置文件
+$ git config -e [--global]
+
+# 设置提交代码时的用户信息
+$ git config [--global] user.name "[name]"
+$ git config [--global] user.email "[email address]"
+```
+## 3、增加/删除文件
+
+```shell
+# 添加指定文件到暂存区
+$ git add [file1] [file2] ...
+
+# 添加指定目录到暂存区，包括子目录
+$ git add [dir]
+
+# 添加当前目录的所有文件到暂存区
+$ git add .
+
+# 添加每个变化前，都会要求确认
+# 对于同一个文件的多处变化，可以实现分次提交
+$ git add -p
+
+# 删除工作区文件，并且将这次删除放入暂存区
+$ git rm [file1] [file2] ...
+
+# 停止追踪指定文件，但该文件会保留在工作区
+$ git rm --cached [file]
+
+# 改名文件，并且将这个改名放入暂存区
+$ git mv [file-original] [file-renamed]
+```
+## 4、代码提交
+```shell
+# 提交暂存区到仓库区
+$ git commit -m [message]
+
+# 提交暂存区的指定文件到仓库区
+$ git commit [file1] [file2] ... -m [message]
+
+# 提交工作区自上次commit之后的变化，直接到仓库区
+$ git commit -a
+
+# 提交时显示所有diff信息
+$ git commit -v
+
+# 使用一次新的commit，替代上一次提交
+# 如果代码没有任何新变化，则用来改写上一次commit的提交信息
+$ git commit --amend -m [message]
+
+# 重做上一次commit，并包括指定文件的新变化
+$ git commit --amend [file1] [file2] ...
+```
+## 5、分支
+```shell
+# 列出所有本地分支
+$ git branch
+
+# 列出所有远程分支
+$ git branch -r
+
+# 列出所有本地分支和远程分支
+$ git branch -a
+
+# 新建一个分支，但依然停留在当前分支
+$ git branch [branch-name]
+
+# 新建一个分支，并切换到该分支
+$ git checkout -b [branch]
+
+# 新建一个分支，指向指定commit
+$ git branch [branch] [commit]
+
+# 新建一个分支，与指定的远程分支建立追踪关系
+$ git branch --track [branch] [remote-branch]
+
+# 切换到指定分支，并更新工作区
+$ git checkout [branch-name]
+
+# 切换到上一个分支
+$ git checkout -
+
+# 建立追踪关系，在现有分支与指定的远程分支之间
+$ git branch --set-upstream [branch] [remote-branch]
+
+# 合并指定分支到当前分支
+$ git merge [branch]
+
+# 选择一个commit，合并进当前分支
+$ git cherry-pick [commit]
+
+# 删除分支
+$ git branch -d [branch-name]
+
+# 删除远程分支
+$ git push origin --delete [branch-name]
+$ git branch -dr [remote/branch]
+```
+## 6、标签
+```shell
+# 列出所有tag
+$ git tag
+
+# 新建一个tag在当前commit
+$ git tag [tag]
+
+# 新建一个tag在指定commit
+$ git tag [tag] [commit]
+
+# 删除本地tag
+$ git tag -d [tag]
+
+# 删除远程tag
+$ git push origin :refs/tags/[tagName]
+
+# 查看tag信息
+$ git show [tag]
+
+# 提交指定tag
+$ git push [remote] [tag]
+
+# 提交所有tag
+$ git push [remote] --tags
+
+# 新建一个分支，指向某个tag
+$ git checkout -b [branch] [tag]
+```
+## 7、查看信息
+```shell
+# 显示有变更的文件
+$ git status
+
+# 显示当前分支的版本历史
+$ git log
+
+# 显示commit历史，以及每次commit发生变更的文件
+$ git log --stat
+
+# 搜索提交历史，根据关键词
+$ git log -S [keyword]
+
+# 显示某个commit之后的所有变动，每个commit占据一行
+$ git log [tag] HEAD --pretty=format:%s
+
+# 显示某个commit之后的所有变动，其"提交说明"必须符合搜索条件
+$ git log [tag] HEAD --grep feature
+
+# 显示某个文件的版本历史，包括文件改名
+$ git log --follow [file]
+$ git whatchanged [file]
+
+# 显示指定文件相关的每一次diff
+$ git log -p [file]
+
+# 显示过去5次提交
+$ git log -5 --pretty --oneline
+
+# 显示所有提交过的用户，按提交次数排序
+$ git shortlog -sn
+
+# 显示指定文件是什么人在什么时间修改过
+$ git blame [file]
+
+# 显示暂存区和工作区的差异
+$ git diff
+
+# 显示暂存区和上一个commit的差异
+$ git diff --cached [file]
+
+# 显示工作区与当前分支最新commit之间的差异
+$ git diff HEAD
+
+# 显示两次提交之间的差异
+$ git diff [first-branch]...[second-branch]
+
+# 显示今天你写了多少行代码
+$ git diff --shortstat "@{0 day ago}"
+
+# 显示某次提交的元数据和内容变化
+$ git show [commit]
+
+# 显示某次提交发生变化的文件
+$ git show --name-only [commit]
+
+# 显示某次提交时，某个文件的内容
+$ git show [commit]:[filename]
+
+# 显示当前分支的最近几次提交
+$ git reflog
+```
+## 8、远程同步
+```shell
+# 下载远程仓库的所有变动
+$ git fetch [remote]
+
+# 显示所有远程仓库
+$ git remote -v
+
+# 显示某个远程仓库的信息
+$ git remote show [remote]
+
+# 增加一个新的远程仓库，并命名
+$ git remote add [shortname] [url]
+
+# 取回远程仓库的变化，并与本地分支合并
+$ git pull [remote] [branch]
+
+# 上传本地指定分支到远程仓库
+$ git push [remote] [branch]
+
+# 强行推送当前分支到远程仓库，即使有冲突
+$ git push [remote] --force
+
+# 推送所有分支到远程仓库
+$ git push [remote] --all
+```
+## 9、撤销
+```shell
+# 恢复暂存区的指定文件到工作区
+$ git checkout [file]
+
+# 恢复某个commit的指定文件到暂存区和工作区
+$ git checkout [commit] [file]
+
+# 恢复暂存区的所有文件到工作区
+$ git checkout .
+
+# 重置暂存区的指定文件，与上一次commit保持一致，但工作区不变
+$ git reset [file]
+
+# 重置暂存区与工作区，与上一次commit保持一致
+$ git reset --hard
+
+# 重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变
+$ git reset [commit]
+
+# 重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
+$ git reset --hard [commit]
+
+# 重置当前HEAD为指定commit，但保持暂存区和工作区不变
+$ git reset --keep [commit]
+
+# 新建一个commit，用来撤销指定commit
+# 后者的所有变化都将被前者抵消，并且应用到当前分支
+$ git revert [commit]
+
+# 暂时将未提交的变化移除，稍后再移入
+$ git stash
+$ git stash pop
+```
+## 10、其他
+```shell
+# 生成一个可供发布的压缩包
+$ git archive
 ```
 
-## 设置和取消代理
+# 设置和取消代理
 
 ```s
 git config --global http.proxy http://127.0.0.1:7890
