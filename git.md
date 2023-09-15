@@ -165,6 +165,12 @@ $ git checkout -
 # 建立追踪关系，在现有分支与指定的远程分支之间
 $ git branch --set-upstream [branch] [remote-branch]
 
+# 查看本地分支与远程分支的映射关系
+$ git branch -vv
+
+# 撤销本地当前分支与远程分支的映射关系
+$ git branch --unset-upstream
+
 # 合并指定分支到当前分支
 $ git merge [branch]
 
