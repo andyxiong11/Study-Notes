@@ -25,11 +25,17 @@
   <script type="text/babel">
     //1.创建组件
     class Person extends React.Component{
+      constructor(props){
+        // 构造器是否接收props,是否传递给super,取决于：是否希望在构造器中通过this访问props
+        // console.log(props);
+        super(props)
+        console.log('constructor',this.props);//如果不接受props，则值为undefined
+      }
       //对标签属性进行类型、必要性的限制
       static propTypes = {
         name : PropTypes.string.isRequired, //isRequired 必传
         sex : PropTypes.string,
-        speak : PropTypes.func //限制函数类型
+        age : PropTypes.number
       }
       //指定默认标签属性值
       static defaultProps = {
@@ -50,15 +56,7 @@
     }
     
     //2.渲染组件到页面
-    ReactDOM.render(<Person name="tom" age={18} speak={speak}/>,document.getElementById('test1'))
-    ReactDOM.render(<Person name="jerry" sex="女"/>,document.getElementById('test2'))
-    
-    const p = {name:"老刘",age:18,sex:"女"}
-    ReactDOM.render(<Person {...p}/>,document.getElementById('test3'))
-
-    function speak() {
-      console.log("说话");
-    }
+    ReactDOM.render(<Person name="jerry"/>,document.getElementById('test2'))
   </script>
 </body>
 </html>
