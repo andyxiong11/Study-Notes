@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <!-- 添加页签图标，防止报错 -->
+  <link rel="short icon" href="../favicon.ico"/>
+</head>
+<body>
+  <!-- 准备一个容器 -->
+  <div id="test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- 引入react-dom 支持react操作DOM -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <!-- 引入babel 将jsx转为js -->
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+    class Demo extends React.Component{
+      // 展示左侧的数据
+      showData = () => {
+        const {input1} = this
+        alert(this.input1.value)
+      }
+      // 展示右侧的数据
+      showData2 = () => {
+        const {input2} = this
+        alert(input2.value)
+      }
+      render(){
+        return(
+          <div>
+            <input ref={currentNode => this.input1 = currentNode} type="text" placeholder='点击按钮提示数据'/>&nbsp;
+            <button onClick={this.showData}>点我提示左侧的数据</button>&nbsp;
+            <input ref={(currentNode)=>{this.input2 = currentNode}} onBlur={this.showData2} type="text" placeholder='失去焦点提示数据'/>&nbsp;
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Demo/>,document.getElementById('test'))
+  </script>
+</body>
+</html>
