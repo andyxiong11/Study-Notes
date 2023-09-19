@@ -93,8 +93,63 @@
       }
     }
 
+    //下面的A B组件是方便验证图中的父组件render流程
+    class A extends React.Component{
+      //初始化状态
+      state = {carName:"奔驰"}
+
+      changeCar = () => {
+        this.setState({carName:"奥拓"})
+      }
+
+      render(){
+        return(
+          <div>
+            <div>我是A组件</div>
+            <button onClick={this.changeCar}>换车</button>
+            <B carName={this.state.carName} />
+          </div>
+        )
+      }
+    }
+
+    class B extends React.Component{
+      //组件挂载完毕的钩子
+      componentDidMount(){
+        console.log('B---componentDidMount');
+      }
+
+      // 组件将将要接收新的props钩子
+      componentWillReceiveProps(){
+        // 上面组件挂载完毕的钩子执行了，但是该钩子没执行，因为第一次接收数据不会执行该钩子
+        console.log('B---componentWillReceiveProps',props);
+      }
+
+      //控制组件更新的“阀门”
+      shouldComponentUpdate(){
+        console.log('Count---shouldComponentUpdate');
+        return true
+      }
+
+      //组件将要更新的钩子
+      componentWillUpdate(){
+        console.log('Count---componentWillUpdate');
+      }
+
+      //组件更新完毕的钩子
+      componentDidUpdate(){
+        console.log('Count---componentDidUpdate');
+      }
+
+      render(){
+        return(
+          <div>我是B组件，接收到的车是{this.props.carName}</div>
+        )
+      }
+    }
+
     //渲染组件
-    ReactDOM.render(<Count/>,document.getElementById('test'))
+    ReactDOM.render(<A/>,document.getElementById('test'))
   </script>
 </body>
 </html>
