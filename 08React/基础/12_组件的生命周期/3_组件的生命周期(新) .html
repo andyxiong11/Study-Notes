@@ -19,6 +19,24 @@
   <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
 
   <script type="text/babel">
+    /* 
+      1. 初始化阶段: 由ReactDOM.render()触发---初次渲染
+              1.	constructor()
+              2.	getDerivedStateFromProps 
+              3.	render()
+              4.	componentDidMount() =====> 常用
+                    一般在这个钩子中做一些初始化的事，例如：开启定时器、发送网络请求、订阅消息
+      2. 更新阶段: 由组件内部this.setSate()或父组件重新render触发
+              1.	getDerivedStateFromProps
+              2.	shouldComponentUpdate()
+              3.	render()
+              4.	getSnapshotBeforeUpdate
+              5.	componentDidUpdate()
+      3. 卸载组件: 由ReactDOM.unmountComponentAtNode()触发
+              1.	componentWillUnmount()  =====> 常用
+                    一般在这个钩子中做一些收尾的事，例如：关闭定时器、取消订阅消息
+    */
+
     //创建组件
     class Count extends React.Component{
       // 构造器
@@ -48,12 +66,22 @@
         this.forceUpdate()
       }
 
-      // 从props得到一个派生的状态
-      // 也可以同时接收props和state，做一些判断逻辑
+      // 若state的值在任何时候都取决于props，那么可以使用getDerivedStateFromProps
+      // 从props得到一个派生的状态,也可以同时接收props和state，做一些判断逻辑
       static getDerivedStateFromProps(props,state){ //不能作为实例的方法被调用，需要用static
         console.log('getDerivedStateFromProps',props,state);
         //return {count:108} //必须有返回值，如果返回值为状态对象，则该状态属性无法被改变了
-        return props //如果传的参数为状态对象中的属性，同理
+        // return props //如果传的参数为状态对象中的属性，同理state为props
+
+        // 为了演示getSnapshotBeforeUpdate,将返回改为null或者state，避免受props影响
+        return null
+      }
+
+      //在更新之前获取快照
+      getSnapshotBeforeUpdate(){
+        console.log('getSnapshotBeforeUpdate');
+        //return null
+        return "itguigu" //比如可以在组件刷新（页面更新）之前（componentDidUpdate），记录视口的高度或者表格的高度等等
       }
 
       //组件挂载完毕的钩子
@@ -73,8 +101,9 @@
       }
 
       //组件更新完毕的钩子
-      componentDidUpdate(){
-        console.log('Count---componentDidUpdate');
+      //preProps 之前的Props;preState 之前的state;snapshotValue getSnapshotBeforeUpdate的返回值
+      componentDidUpdate(preProps,preState,snapshotValue){
+        console.log('Count---componentDidUpdate',preProps,preState,snapshotValue);
       }
 
       render() {
