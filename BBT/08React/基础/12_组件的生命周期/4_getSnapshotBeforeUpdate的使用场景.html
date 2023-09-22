@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <!-- 添加页签图标，防止报错 -->
+  <link rel="short icon" href="../favicon.ico"/>
+  <style type="text/css">
+    .list{
+     width: 200px;
+     height: 150px;
+     background-color: skyblue; 
+     overflow: auto; /* 内容溢出时 */
+    }
+    .news{
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 准备一个容器 -->
+  <div id="test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type="text/javascript" src="../js/17.0.1/react.development.js"></script>
+  <!-- 引入react-dom 支持react操作DOM -->
+  <script type="text/javascript" src="../js/17.0.1/react-dom.development.js"></script>
+  <!-- 引入babel 将jsx转为js -->
+  <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+
+  <script type="text/babel">
+    //创建组件
+    class NewsList extends React.Component{
+
+      state = {newsArr:[]}
+
+      componentDidMount(){
+        setInterval(() => {
+          //获取原状态
+          const {newsArr} = this.state
+          //模拟一条新闻
+          const news  = '新闻' + (newsArr.length+1)
+          //更新状态
+          this.setState({newsArr:[news,...newsArr]})
+        }, 1000);
+      }
+
+      getSnapshotBeforeUpdate(){
+        // 在更新组件之前，记录list区域的高度
+        return this.refs.list.scrollHeight
+      }
+
+      componentDidUpdate(preprops,refState,height){
+        // list区域上移的距离 = 新增加news后list区域的高度 - 原有list区域的高度
+        // 每次新增news，list区域上移的距离 + 新增之前list区域上移的距离
+        this.refs.list.scrollTop += this.refs.list.scrollHeight - height
+      }
+
+      render(){
+        return(
+          <div className="list" ref="list">
+            {
+              this.state.newsArr.map((n,index) => {
+                return <div key={index} className="news">{n}</div>
+              })
+            }
+          </div>
+        )
+      }
+    }
+    //渲染组件
+    ReactDOM.render(<NewsList/>,document.getElementById('test'))
+  </script>
+</body>
+</html>
