@@ -3,7 +3,7 @@ import React from 'react'
 //引入ReactDOM
 import ReactDOM from 'react-dom'
 //引入App组件
-import App from './App.js'
+import App from './App'
 
 //渲染APP到页面
 ReactDOM.render(<App/>,document.getElementById('root'))
