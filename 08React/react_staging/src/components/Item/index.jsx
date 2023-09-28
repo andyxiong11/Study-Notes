@@ -11,7 +11,6 @@ export default class Item extends Component {
           {/* 使用defaultChecked 可以修改默认勾选 */}
           <input type="checkbox" defaultChecked={done}/>
           <span>{name}</span>
-          <span>{id}</span>
         </label>
         <button className="btn btn-danger" style={{display:'none'}}>删除</button>
       </li>

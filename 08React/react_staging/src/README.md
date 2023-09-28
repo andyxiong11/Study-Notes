@@ -1,0 +1,9 @@
+- 本地启动
+  - 安装脚手架 npm i -g create-react-app
+  - 安装nanoid npm i nanoid
+  - 创建项目 create-react-app TodoList
+  - 启动 npm star
+- 本地部署(以下为vue部署命令，react待定)
+  - npm run build
+  - npm install -g serve
+  - serve -s dist
