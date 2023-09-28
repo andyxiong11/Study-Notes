@@ -3,11 +3,12 @@ import './index.css'
 
 export default class Item extends Component {
 
-  state = {mouse:false}
+  state = {mouse:false} //鼠标移入移出状态
 
+  //鼠标移入移出的回调
   handleMouse = (flag) => {
     return ()=>{// 调用时传了参数，返回值必须是函数
-      this.setState = ({mouse:flag})
+      this.setState({mouse:flag})
     }
   }
   render() {
