@@ -11,8 +11,18 @@ export default class Item extends Component {
       this.setState({mouse:flag})
     }
   }
+
+  //勾选取消勾选的回调
+  handleCheck = (id)=>{
+    return (event)=>{
+      //console.log(id,event.target.checked);//checked 勾选状态
+
+      this.props.updateTodo(id,event.target.checked)
+    }
+  }
+
   render() {
-    const {name,done} = this.props
+    const {id,name,done} = this.props
     const {mouse} = this.state
     return (
       // onMouseEnter鼠标移入事件 onmouseleave鼠标移出事件
@@ -20,7 +30,8 @@ export default class Item extends Component {
         <label>
           {/* <input type="checkbox" checked={done}/> */}
           {/* 使用defaultChecked 可以修改默认勾选 */}
-          <input type="checkbox" defaultChecked={done}/>
+          {/* onChange 选择事件 */}
+          <input type="checkbox" defaultChecked={done} onChange={this.handleCheck(id)}/> 
           <span>{name}</span>
         </label>
         <button className="btn btn-danger" style={{display:mouse?'block':'none'}}>删除</button>
