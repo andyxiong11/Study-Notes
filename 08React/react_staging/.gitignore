@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/测试代理服务器/node_modules
 
 # testing
 /coverage
