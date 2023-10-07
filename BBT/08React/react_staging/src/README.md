@@ -1,1 +1,2 @@
 - 安装axios npm i axios
+- npm i -D http-proxy-middleware
