@@ -39,7 +39,8 @@ export default class Item extends Component {
           {/* <input type="checkbox" checked={done}/> */}
           {/* 使用defaultChecked 可以修改默认勾选 */}
           {/* onChange 选择事件 */}
-          <input type="checkbox" defaultChecked={done} onChange={this.handleCheck(id)}/> 
+          {/* 后续将defaultChecked改为checked，因为点击全选时无法修改勾选框 */}
+          <input type="checkbox" checked={done} onChange={this.handleCheck(id)}/> 
           <span>{name}</span>
         </label>
         {/* <button className="btn btn-danger" style={{display:mouse?'block':'none'}}>删除</button> */}
