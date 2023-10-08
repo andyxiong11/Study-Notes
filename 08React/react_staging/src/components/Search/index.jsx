@@ -33,8 +33,8 @@ export default class Search extends Component {
     )
     */
 
-    //发送网络请求--使用fetch发送
-    fetch(`/api1/search/users2?q=${keyWord}`).then(//本地服务器可以简写
+    //发送网络请求--使用fetch发送(未优化)
+    /* fetch(`/api1/search/users2?q=${keyWord}`).then(//本地服务器可以简写
       response => {
         console.log('联系服务器成功了',response);//只要服务器有返回，不管是200或404都算联系成功
         console.log('联系服务器成功了',response.json());//json方法返回Promise实例对象中存储成功的数据或失败的原因
@@ -53,6 +53,20 @@ export default class Search extends Component {
       // }
     ).catch(//使用catch统一处理两个.then的错误
       (error) => {console.log(error);}
+    ) */
+
+    //发送网络请求--使用fetch发送(优化)
+    fetch(`/api1/search/users2?q=${keyWord}`).then(
+      response => {
+        console.log('联系服务器成功了');
+        return response.json()
+      },
+    ).then(
+      response => {
+        console.log('获取数据成功了',response);
+      },
+    ).catch(
+      error => {console.log('请求出错',error);}
     )
   }
   render() {
