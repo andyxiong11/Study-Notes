@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 
 export default class Search extends Component {
-  search = ()=>{
+  search = async()=>{
     // 发布消息
     console.log('Search组件发布消息了');
 
@@ -56,7 +56,7 @@ export default class Search extends Component {
     ) */
 
     //发送网络请求--使用fetch发送(优化)
-    fetch(`/api1/search/users2?q=${keyWord}`).then(
+    /* fetch(`/api1/search/users2?q=${keyWord}`).then(
       response => {
         console.log('联系服务器成功了');
         return response.json()
@@ -67,7 +67,17 @@ export default class Search extends Component {
       },
     ).catch(
       error => {console.log('请求出错',error);}
-    )
+    ) */
+
+    //发送网络请求--使用fetch发送(再优化)
+    try{
+      const response = await fetch(`/api1/search/users2?q=${keyWord}`)
+      const data = await response.json()
+      PubSub.publish('atguanggu',{isLoading:false,users:data.items})
+    }catch(error){
+      console.log('请求出错',error)
+      PubSub.publish('atguanggu',{isLoading:false,err:error.message})
+    }
   }
   render() {
     return (
