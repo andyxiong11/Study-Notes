@@ -9,6 +9,10 @@ export default class Search extends Component {
     const {keyWordElement:{value:keyWord}} = this //简写
     //console.log(keyWordElement);//报错
     console.log(keyWord);
+
+    //发送请求前通知App更新状态
+		this.props.updateAppState({isFirst:false,isLoading:true})
+
     //发送网络请求 github后端有cors，所以不会产生跨域
     //axios.get(`https://api.github.com/search/users?q=${keyWord}`).then(
     //axios.get(`http://localhost:5000/search/users?q=${keyWord}`).then(//使用代理服务器，会产生跨域
@@ -16,9 +20,17 @@ export default class Search extends Component {
     axios.get(`/api1/search/users?q=${keyWord}`).then(//本地服务器可以简写
       response => {
         //console.log('成功了',response.data);
-        this.props.saveUsers(response.data.items)
+        // this.props.saveUsers(response.data.items)
+
+        //请求成功后通知App更新状态
+				this.props.updateAppState({isLoading:false,users:response.data.items})
       },
-      error => {console.log('失败了',error);}
+      error => {
+        //console.log('失败了',error);
+
+        //请求失败后通知App更新状态
+				this.props.updateAppState({isLoading:false,err:error.message})
+      }
     )
   }
   render() {
