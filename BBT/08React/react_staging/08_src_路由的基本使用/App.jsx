@@ -25,7 +25,7 @@ export default class App extends Component {
               {/* 操作历史记录路由有两种方式createBrowserHistory和createHashHistory，详见BBT\08React\react_staging\前端路由的基石_history.html */}
               {/* 为了实现路由间通信，需要将Link和Route包在一起，就直接将App组件放在BrowserRouter标签中 */}
               {/* <BrowserRouter> */}
-                <Link className="list-group-item active" to="/about">About</Link>
+                <Link className="list-group-item" to="/about">About</Link>
                 <Link className="list-group-item" to="/home">Home</Link>
               {/* </BrowserRouter> */}
             </div>
