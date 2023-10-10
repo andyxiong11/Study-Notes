@@ -2,14 +2,14 @@
 import React from 'react'
 //引入ReactDOM
 import ReactDOM from 'react-dom'
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 //引入App组件
 import App from './App'
 
 //渲染APP到页面
 ReactDOM.render(
   // 如果是使用HashRouter,会多出一个#，且#后面的内容不会发送给服务器
-  <BrowserRouter>
+  <HashRouter>
     <App/>
-  </BrowserRouter>
+  </HashRouter>
   ,document.getElementById('root'))
