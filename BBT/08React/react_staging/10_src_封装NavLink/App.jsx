@@ -4,6 +4,7 @@ import { Link,BrowserRouter,Route,NavLink } from "react-router-dom";
 import Home from './pages/Home'//路由组件
 import About from './pages/About'//路由组件
 import Header from "./components/Header"//一般组件
+import MyNavLink from './components/MyNavLink';
 
 export default class App extends Component {
 
@@ -18,8 +19,10 @@ export default class App extends Component {
         <div className="row">
           <div className="col-xs-2 col-xs-offset-2">
             <div className="list-group">
-              <NavLink activeClassName="atguanggu" className="list-group-item" to="/about">About</NavLink>
-              <NavLink activeClassName="atguanggu" className="list-group-item" to="/home">Home</NavLink>
+              {/* <MyNavLink to="/about" title="About"/>
+              <MyNavLink to="/home" title="Home"/> */}
+              <MyNavLink to="/about">About</MyNavLink>
+              <MyNavLink to="/home">Home</MyNavLink>
             </div>
           </div>
           <div className="col-xs-6">
