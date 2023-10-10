@@ -1,6 +1,6 @@
 //安装ES7+ React/Redux/React-Native 插件，使用rcc、rfc快速生成代码片段 
 import React, { Component } from 'react'
-import { Link,BrowserRouter,Route,NavLink,Switch } from "react-router-dom";
+import { Route,Switch } from "react-router-dom";
 import Home from './pages/Home'//路由组件
 import About from './pages/About'//路由组件
 import Header from "./components/Header"//一般组件
@@ -19,8 +19,8 @@ export default class App extends Component {
         <div className="row">
           <div className="col-xs-2 col-xs-offset-2">
             <div className="list-group">
-              <MyNavLink to="/about">About</MyNavLink>
-              <MyNavLink to="/home">Home</MyNavLink>
+              <MyNavLink to="/atguanggu/about">About</MyNavLink>
+              <MyNavLink to="/atguanggu/home">Home</MyNavLink>
             </div>
           </div>
           <div className="col-xs-6">
@@ -28,8 +28,8 @@ export default class App extends Component {
               <div className="panel-body">
                 {/* Switch组件会将已匹配到的路由组件就不再继续匹配，一个路由只对应展示一个组件 */}
                 <Switch>
-                  <Route path="/about" component={About}/>
-                  <Route path="/home" component={Home}/>
+                  <Route path="/atguanggu/about" component={About}/>
+                  <Route path="/atguanggu/home" component={Home}/>
                 </Switch>
               </div>
             </div>
