@@ -20,7 +20,6 @@ export default class App extends Component {
           <div className="col-xs-2 col-xs-offset-2">
             <div className="list-group">
               <MyNavLink to="/about">About</MyNavLink>
-              {/* 因为有模糊匹配，所以可以正常跳转  */}
               <MyNavLink to="/home">Home</MyNavLink>
             </div>
           </div>
@@ -31,7 +30,7 @@ export default class App extends Component {
                 <Switch>
                   {/* Route的属性 exact={true} 开启严格匹配 */}
                   <Route exact path="/about" component={About}/>
-                  <Route exact path="/home" component={Home}/>
+                  <Route path="/home" component={Home}/>
                   {/* 所有路由无法匹配时跳转 */}
                   <Redirect to="/about"/>
                 </Switch>
