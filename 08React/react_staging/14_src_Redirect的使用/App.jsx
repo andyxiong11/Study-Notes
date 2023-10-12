@@ -20,7 +20,6 @@ export default class App extends Component {
           <div className="col-xs-2 col-xs-offset-2">
             <div className="list-group">
               <MyNavLink to="/about">About</MyNavLink>
-              {/* 因为有模糊匹配，所以可以正常跳转  */}
               <MyNavLink to="/home">Home</MyNavLink>
             </div>
           </div>
