@@ -1,6 +1,6 @@
 //安装ES7+ React/Redux/React-Native 插件，使用rcc、rfc快速生成代码片段 
 import React, { Component } from 'react'
-import { Route,Switch } from "react-router-dom";
+import { Route,Switch,Redirect } from "react-router-dom";
 import Home from './pages/Home'//路由组件
 import About from './pages/About'//路由组件
 import Header from "./components/Header"//一般组件
@@ -21,7 +21,7 @@ export default class App extends Component {
             <div className="list-group">
               <MyNavLink to="/about">About</MyNavLink>
               {/* 因为有模糊匹配，所以可以正常跳转  */}
-              <MyNavLink to="/home/a/b">Home</MyNavLink>
+              <MyNavLink to="/home">Home</MyNavLink>
             </div>
           </div>
           <div className="col-xs-6">
@@ -31,7 +31,9 @@ export default class App extends Component {
                 <Switch>
                   {/* Route的属性 exact={true} 开启严格匹配 */}
                   <Route exact path="/about" component={About}/>
-                  <Route path="/home" component={Home}/>
+                  <Route exact path="/home" component={Home}/>
+                  {/* 所有路由无法匹配时跳转 */}
+                  <Redirect to="/about"/>
                 </Switch>
               </div>
             </div>
