@@ -19,8 +19,9 @@ export default class App extends Component {
         <div className="row">
           <div className="col-xs-2 col-xs-offset-2">
             <div className="list-group">
-              <MyNavLink to="/atguanggu/about">About</MyNavLink>
-              <MyNavLink to="/atguanggu/home">Home</MyNavLink>
+              <MyNavLink to="/about">About</MyNavLink>
+              {/* 因为有模糊匹配，所以可以正常跳转  */}
+              <MyNavLink to="/home/a/b">Home</MyNavLink>
             </div>
           </div>
           <div className="col-xs-6">
@@ -28,8 +29,9 @@ export default class App extends Component {
               <div className="panel-body">
                 {/* Switch组件会将已匹配到的路由组件就不再继续匹配，一个路由只对应展示一个组件 */}
                 <Switch>
-                  <Route path="/atguanggu/about" component={About}/>
-                  <Route path="/atguanggu/home" component={Home}/>
+                  {/* Route的属性 exact={true} 开启严格匹配 */}
+                  <Route exact path="/about" component={About}/>
+                  <Route path="/home" component={Home}/>
                 </Switch>
               </div>
             </div>
