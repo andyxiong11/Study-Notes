@@ -23,8 +23,8 @@ export default class Home extends Component {
           </ul>
           {/* 注册路由 */}
           <Switch>
-            <Route path="/home/news" Component={News}/>
-            <Route path="/home/message" Component={Message}/>
+            <Route path="/home/news" component={News}/>
+            <Route path="/home/message" component={Message}/>
             <Redirect to="/home/news"></Redirect>
           </Switch>
         </div>
