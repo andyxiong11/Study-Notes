@@ -15,10 +15,10 @@ export default class Home extends Component {
             <li>
               {/* 如果不加/home，因为路由匹配先匹配上一级app.js，匹配不到/news，直接重定向Redirect */}
               {/* 模糊匹配到了/home，接着挂载Home组件，匹配/home/news */}
-              <MyNavLink to="/home/news">News</MyNavLink>
+              <MyNavLink replace to="/home/news">News</MyNavLink>
             </li>
             <li>
-              <MyNavLink to="/home/message">Message</MyNavLink>
+              <MyNavLink replace to="/home/message">Message</MyNavLink>
             </li>
           </ul>
           {/* 注册路由 */}
