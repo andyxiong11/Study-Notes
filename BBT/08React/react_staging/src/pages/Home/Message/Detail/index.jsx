@@ -17,11 +17,11 @@ export default class Detail extends Component {
     // const {id,title} = qs.parse(search.slice(1))//.slice为了去除search前面的“？”；qs.parse将search分割为对象
 
     // 接收search参数
-    const {id,title} = this.props.location.state
+    const {id,title} = this.props.location.state || {} // || {} 避免在没有历史记录缓存的情况下直接访问“http://localhost:3000/home/message/detail?id=001&title=消息1” 报错
 
     const findResult = DetailData.find((detailObj)=>{
       return detailObj.id === id
-    })
+    }) || {}
     return (
       <ul>
         <li>
