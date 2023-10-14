@@ -26,7 +26,8 @@ export default class Message extends Component {
                   {/* <Link to={`/home/message/detail/?id=${msgObj.id}&title=${msgObj.title}`}>{msgObj.title}</Link> */}
 
                   {/* 向路由组件传递state参数 */}
-                  <Link to={{pathname:'/home/message/detail',state:{id:msgObj.id,title:msgObj.title}}}>{msgObj.title}</Link>
+                  {/* replace模式 每次都会替换浏览器历史记录栈顶的历史记录 无法返回上个页面；默认是push模式 */}
+                  <Link replace={true} to={{pathname:'/home/message/detail',state:{id:msgObj.id,title:msgObj.title}}}>{msgObj.title}</Link>
 
                 </li>
               )
