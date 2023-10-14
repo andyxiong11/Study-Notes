@@ -38,7 +38,7 @@ export default class Message extends Component {
   }
 
   forward = ()=>{
-    this.props.history.goForWard()
+    this.props.history.goForward()
   }
 
   go = ()=>{
