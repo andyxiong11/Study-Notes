@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 //引入store,用于获取redux中保存状态
 import store from '../../redux/store'
 
+//引入action，专门用于创建action对象
+import { createIncrementAction,createDecrementAction } from '../../redux/count_action'
+
 export default class Count extends Component {
   // state = {count:0}
 
@@ -20,16 +23,26 @@ export default class Count extends Component {
     const {value} = this.selectNumber
     /* const {count} = this.state
     this.setState({count:count+value*1}) //*1将字符串转为数字 */
+    // 上面是react写法
+    
+    // 下面是redux精简版写法
+    // store.dispatch({type:'increment',data:value*1}) //*1将字符串转为数字
 
-    store.dispatch({type:'increment',data:value*1}) //*1将字符串转为数字
+    // 下面是redux完整版写法
+    store.dispatch(createIncrementAction(value*1)) //*1将字符串转为数字
   }
   // 减法
   decrement = ()=>{
     const {value} = this.selectNumber
     /* const {count} = this.state
     this.setState({count:count-value*1}) */
+    // 上面是react写法
 
+    // 下面是redux精简版写法
     store.dispatch({type:'decrement',data:value*1}) //*1将字符串转为数字
+
+    // 下面是redux完整版写法
+    store.dispatch(createDecrementAction(value*1)) //*1将字符串转为数字
   }
   // 奇数再加
   incrementIfOdd = ()=>{
@@ -38,10 +51,17 @@ export default class Count extends Component {
     if(count % 2 !== 0){
       this.setState({count:count+value*1})
     } */
+    // 上面是react写法
 
+    // 下面是redux精简版写法
     const count = store.getState()
-    if(count % 2 !== 0){
+/*     if(count % 2 !== 0){
       store.dispatch({type:'increment',data:value*1}) //*1将字符串转为数字
+    }
+ */
+    // 下面是redux完整版写法
+    if(count % 2 !== 0){
+      store.dispatch(createIncrementAction(value*1)) //*1将字符串转为数字
     }
   }
   // 异步加
@@ -51,11 +71,19 @@ export default class Count extends Component {
     setTimeout(() => {
       this.setState({count:count+value*1})
     }, 500); */
+    // 上面是react写法
 
-    const count = store.getState()
-    setTimeout(() => {
+    // 下面是redux精简版写法
+/*     setTimeout(() => {
       store.dispatch({type:'increment',data:value*1}) //*1将字符串转为数字
     }, 500);
+ */
+
+    // 下面是redux完整版写法
+    setTimeout(() => {
+      store.dispatch(createIncrementAction(value*1)) //*1将字符串转为数字
+    }, 500);
+
   }
   render() {
     return (
