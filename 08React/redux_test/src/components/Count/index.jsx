@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import store from '../../redux/store'
 
 //引入action，专门用于创建action对象
-import { createIncrementAction,createDecrementAction } from '../../redux/count_action'
+import { createIncrementAction,createIncrementAsyncAction,createDecrementAction } from '../../redux/count_action'
 
 export default class Count extends Component {
   // state = {count:0}
@@ -80,9 +80,12 @@ export default class Count extends Component {
  */
 
     // 下面是redux完整版写法
-    setTimeout(() => {
+    /* setTimeout(() => {
       store.dispatch(createIncrementAction(value*1)) //*1将字符串转为数字
-    }, 500);
+    }, 500); */
+
+    //下面是异步redux
+    store.dispatch(createIncrementAsyncAction(value*1,500 )) //*1将字符串转为数字
 
   }
   render() {
