@@ -52,7 +52,6 @@ export default class Count extends Component {
       this.setState({count:count+value*1})
     }, 500); */
 
-    const count = store.getState()
     setTimeout(() => {
       store.dispatch({type:'increment',data:value*1}) //*1将字符串转为数字
     }, 500);
