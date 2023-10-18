@@ -3,7 +3,7 @@
   2.reduceri函数会接到两个参数，分别为：之前的状态(preState),动作对象(action)
 */
 
-import {INCREMENT,DECREMENT} from './constant' //使用常量定义，防止写错（写错会有补全）
+import {INCREMENT,DECREMENT} from '../constant' //使用常量定义，防止写错（写错会有补全）
 
 const initState = 0//形参默认值的写法，初始化时preState为undefined
 export default function countReducer(preState=initState,action){

@@ -12,8 +12,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
-
-/* //检测redux中状态的变化，只要变化，就调用render
-store.subscribe(()=>{
-  ReactDOM.render(<App/>,document.getElementById('root'))
-}) */ //react-redux会自动检测状态的变化，不需要store.subscribe
