@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 // 引入action
-import {createIncrementAction,createDecrementAction,createIncrementAsyncAction} from '../../redux/count_action'
+import {createIncrementAction,createDecrementAction,createIncrementAsyncAction} from '../../redux/actions/count'
 
 //引入connect用于连接UI组件与redux
 import {connect} from 'react-redux'
@@ -35,7 +35,8 @@ class Count extends Component {
     console.log('UI组件接收到的props是',this.props);
     return (
       <div>
-        <h1>当前求和为：{this.props.count}</h1>
+        <h2>我是count组件</h2>
+        <h4>当前求和为：{this.props.count}</h4>
 
         {/* ref 用于取当前元素，c代指当前DOM节点 */}
         <select ref={c => this.selectNumber = c}>
@@ -58,12 +59,6 @@ export default connect(
   state => ({count:state}),
 
   //映射操作状态的方法
-  //mapDispatchToProps的一般写法
-  /* dispatch => ({
-    jia: number => dispatch(createIncrementAction(number)),
-    jian: number => dispatch(createDecrementAction(number)),
-    jiaAsync: (number,time) => dispatch(createIncrementAsyncAction(number,time)),
-  }) */
   //mapDispatchToProps的简写
   {
     jia: createIncrementAction,//react-redux会自动调用dispatch
