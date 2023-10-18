@@ -1,0 +1,1 @@
+- 安装redux npm i redux

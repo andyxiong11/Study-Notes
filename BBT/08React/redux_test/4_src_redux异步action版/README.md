@@ -1,0 +1,2 @@
+- 安装redux npm i redux
+- 安装redux npm i redux-thunk 
