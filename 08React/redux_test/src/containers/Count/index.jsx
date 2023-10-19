@@ -35,7 +35,7 @@ class Count extends Component {
     console.log('UI组件接收到的props是',this.props);
     return (
       <div>
-        <h2>我是count组件</h2>
+        <h2>我是count组件,下方组件总人数为{this.props.renshu}</h2>
         <h4>当前求和为：{this.props.count}</h4>
 
         {/* ref 用于取当前元素，c代指当前DOM节点 */}
@@ -56,7 +56,7 @@ class Count extends Component {
 //使用connect()()创建并暴露一个Count的容器组件
 export default connect(
   //映射状态
-  state => ({count:state}),
+  state => ({count:state.he,renshu:state.rens.length}),
 
   //映射操作状态的方法
   //mapDispatchToProps的简写
