@@ -2,3 +2,4 @@
 - 安装redux npm i redux-thunk 
 - 安装react-redux npm i react-redux
 - 安装nanoid   npm i nanaoid
+- 安装reux开发者工具库 npm i redux-devtools-extens，chrome也需要安装对应插件
