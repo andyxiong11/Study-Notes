@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 
 // 引入action
-import {createIncrementAction,createDecrementAction,createIncrementAsyncAction} from '../../redux/actions/count'
+import {
+  increment,
+  decrement,
+  incrementAsync
+} from '../../redux/actions/count'
 
 //引入connect用于连接UI组件与redux
 import {connect} from 'react-redux'
@@ -12,24 +16,24 @@ class Count extends Component {
   // 加法
   increment = ()=>{
     const {value} = this.selectNumber
-    this.props.jia(value*1) //value*1 将字符转为数字
+    this.props.increment(value*1) //value*1 将字符转为数字
   }
   // 减法
   decrement = ()=>{
     const {value} = this.selectNumber
-    this.props.jian(value*1) //value*1 将字符转为数字
+    this.props.decrement(value*1) //value*1 将字符转为数字
   }
   // 奇数再加
   incrementIfOdd = ()=>{
     const {value} = this.selectNumber
     if(this.props.count % 2 !== 0){
-      this.props.jia(value*1) //value*1 将字符转为数字
+      this.props.increment(value*1) //value*1 将字符转为数字
     }
   }
   // 异步加
   incrementAsync = ()=>{
     const {value} = this.selectNumber
-    this.props.jiaAsync(value*1,500) //value*1 将字符转为数字
+    this.props.incrementAsync(value*1,500) //value*1 将字符转为数字
   }
   render() {
     console.log('UI组件接收到的props是',this.props);
@@ -56,13 +60,16 @@ class Count extends Component {
 //使用connect()()创建并暴露一个Count的容器组件
 export default connect(
   //映射状态
-  state => ({count:state.he,renshu:state.rens.length}),
+  state => ({
+    count:state.count,
+    personCount:state.persons.length
+  }),
 
   //映射操作状态的方法
   //mapDispatchToProps的简写
   {
-    jia: createIncrementAction,//react-redux会自动调用dispatch
-    jian: createDecrementAction,//react-redux会自动调用dispatch
-    jiaAsync: createIncrementAsyncAction,
+    increment,//react-redux会自动调用dispatch
+    decrement,//react-redux会自动调用dispatch
+    incrementAsync,
   }
 )(Count)
