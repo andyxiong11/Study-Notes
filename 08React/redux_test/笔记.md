@@ -65,3 +65,9 @@
 			(3).重点：Person的reducer和Count的Reducer要使用combineReducers进行合并，
 					合并后的总状态是一个对象！！！
 			(4).交给store的是总reducer，最后注意在组件中取出状态的时候，记得“取到位”。
+
+## 7.求和案例_react-redux开发者工具的使用
+			(1).yarn add redux-devtools-extension
+			(2).store中进行配置
+					import {composeWithDevTools} from 'redux-devtools-extension'
+					const store = createStore(allReducer,composeWithDevTools(applyMiddleware(thunk)))
