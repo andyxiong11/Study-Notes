@@ -6,7 +6,7 @@ import store from './redux/store'
 import {Provider} from 'react-redux'
 
 ReactDOM.render(
-  // Provider 会给App组件下面的所有组件传递store，无需在每个组件传递store
+  /* 此处需要用Provider包裹App，目的是让App所有的后代容器组件都能接收到store */
   <Provider store ={store}>
     <App/>
   </Provider>,
