@@ -1,8 +1,12 @@
 //安装ES7+ React/Redux/React-Native 插件，使用rcc、rfc快速生成代码片段 
-import React, { Component } from 'react'
+import React, { Component,lazy,Suspense } from 'react'
 import { NavLink,Route } from "react-router-dom";
-import Home from './Home'
-import About from './About'
+// import Home from './Home'
+// import About from './About'
+
+import Loading from './Loading/index'
+const Home = lazy(()=> import('./Home') )
+const About = lazy(()=> import('./About') )
 
 export default class Demo extends Component {
 
@@ -25,12 +29,13 @@ export default class Demo extends Component {
           <div className="col-xs-6">
             <div className="panel">
               <div className="panel-body">
-                {/* 注册路由 */}
-                {/* 为了实现路由间通信，需要将Link和Route包在一起，就直接将App组件放在BrowserRouter标签中 */}
-                {/* <BrowserRouter> */}
+                {/* <Suspense fallback={<h1>loading...</h1>}> */}
+                {/* 加载中也可以用组件写 */}
+                <Suspense fallback={<Loading/>}>
+                  {/* 注册路由 */}
                   <Route path="/about" component={About}/>
                   <Route path="/home" component={Home}/>
-                {/* </BrowserRouter> */}
+                </Suspense>
               </div>
             </div>
           </div>
