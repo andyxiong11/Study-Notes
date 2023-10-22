@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavLink,Routes,Route} from 'react-router-dom' //新版本Routes替代Switch
+import {NavLink,Routes,Route,Navigate} from 'react-router-dom' //新版本Routes替代Switch；Navigate替代Redirect
 import About from './pages/About'
 import Home from './pages/Home'
 
@@ -26,8 +26,10 @@ export default function App() {
               {/* 新版本Routes替代Switch */}
               <Routes>
                 {/* 新版本element替代component */}
-                <Route path="/about" element={<About/>}/>
+                {/* caswSensitive开启路径匹配区分大小写 */}
+                <Route path="/ABOUT" caswSensitive element={<About/>}/>
                 <Route path="/home" element={<Home/>}/>
+                <Route path="/" element={<Navigate to="/Home"/>}/>
               </Routes>
             </div>
           </div>
