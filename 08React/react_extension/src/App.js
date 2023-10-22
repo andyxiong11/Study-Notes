@@ -4,7 +4,8 @@ import React, { Component } from 'react'
 // import Demo from './components/3_hooks'
 // import Demo from './components/4_Fragment'
 // import Demo from './components/5_Context'
-import Demo from './components/6_optimize'
+// import Demo from './components/6_optimize'
+import Demo from './components/7_renderProps'
 
 export default class App extends Component {
   render() {
