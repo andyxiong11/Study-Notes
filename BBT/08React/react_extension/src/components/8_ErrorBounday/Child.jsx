@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 
 export default class Child extends Component {
   state = {
-    user:[
+    /* user:[
       {id:'001',name:'tom',age:18},
       {id:'002',name:'jack',age:19},
       {id:'003',name:'tom',age:20},
-    ]
+    ] */
+    user:"1"
   }
   render() {
     return (
