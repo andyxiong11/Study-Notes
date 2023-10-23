@@ -3,6 +3,7 @@ import About from '../pages/About'
 import Home from '../pages/Home'
 import Message from '../pages/Message'
 import News from '../pages/News'
+import Detail from '../pages/Detail'
 
 export default [
   {
@@ -19,7 +20,13 @@ export default [
       },
       {
         path:"message",
-        element:<Message/>
+        element:<Message/>,
+        children:[
+          {
+            path:"detail/:id/:title/:content",
+            element:<Detail/>
+          }
+        ]
       },
     ]
   },
