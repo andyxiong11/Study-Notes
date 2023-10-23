@@ -16,7 +16,11 @@ export default function Message() {
             return (
               // 路由链接
               <li key = {m.id}>
-                <Link to = {`detail?id=${m.id}&title=${m.title}&content=${m.content}`}>{m.title}</Link>
+                <Link to = "detail" state={{
+                  id:m.id,
+                  title:m.title,
+                  content:m.content
+                }}>{m.title}</Link>
               </li>
             )
           })
