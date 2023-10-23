@@ -1,9 +1,10 @@
 import React from 'react'
-import {NavLink,Routes,Route,Navigate} from 'react-router-dom' //新版本Routes替代Switch；Navigate替代Redirect
-import About from './pages/About'
-import Home from './pages/Home'
+import {NavLink,useRoutes} from 'react-router-dom' //新版本Routes替代Switch；Navigate替代Redirect
+import routes from './routes'
 
 export default function App() {
+  // 根据路由表生成对应的规则
+  const element = useRoutes(routes)
   return (
     <div>
       <div className="row">
@@ -23,14 +24,8 @@ export default function App() {
           <div className="panel">
             <div className="panel-body">
               {/* 注册路由 */}
-              {/* 新版本Routes替代Switch */}
-              <Routes>
-                {/* 新版本element替代component */}
-                {/* caswSensitive开启路径匹配区分大小写 */}
-                <Route path="/about" caswSensitive element={<About/>}/>
-                <Route path="/home" element={<Home/>}/>
-                <Route path="/" element={<Navigate to="/Home"/>}/>
-              </Routes>
+              {/* 路由表替代Routes */}
+              {element}
             </div>
           </div>
         </div>
