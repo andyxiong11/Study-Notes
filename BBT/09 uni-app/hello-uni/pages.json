@@ -30,6 +30,11 @@
 	},
 	"uniIdRouter": {},
 	"tabBar": {
+		"color": "#A0522D",//tab 上的文字默认颜色
+		"selectedColor":"#B3EE3A",//tab 上的文字选中时的颜色
+		"backgroundColor":"#FFFFFF",//tab 的背景色
+		"borderStyle": "white",//tabbar 上边框的颜色
+		"position": "top",//导航栏位置，仅微信小程序支持
 		"list": [
 			{
 				"text": "首页",//tab 上按钮文字
