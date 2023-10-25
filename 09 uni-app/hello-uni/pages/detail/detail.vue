@@ -31,6 +31,16 @@
 				 hover-stay-time 手指松开后点击样式保留时间-->
 			<view class="box" :hover-start-time="2000" hover-stay-time="2000" hover-class="box-active" hover-stop-propagation>我是一个大盒子</view>
 		</view>
+		<button>按钮</button>
+		<button size="mini">按钮</button>
+		<!-- type 按钮样式 -->
+		<button type="primary">按钮</button>
+		<!-- plain 按钮镂空 -->
+		<button type="primary" plain>按钮</button>
+		<!-- disabled 按钮禁用 -->
+		<button type="primary" disabled>按钮</button>
+		<!-- loading图标 -->
+		<button loading></button>
 	</view>
 </template>
 
