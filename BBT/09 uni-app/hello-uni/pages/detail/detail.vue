@@ -24,6 +24,13 @@
 			<!-- decode 是否解码（百度、钉钉小程序不支持）-->
 			<text decode>&amp;</text>
 		</view>
+		<!-- hover-class 指定按下去的样式 -->
+		<view class="box2" hover-class="box2-active">
+			<!-- hover-stop-propagation 阻止冒泡 
+				 hover-start-time 按住后多久出现点击样式
+				 hover-stay-time 手指松开后点击样式保留时间-->
+			<view class="box" :hover-start-time="2000" hover-stay-time="2000" hover-class="box-active" hover-stop-propagation>我是一个大盒子</view>
+		</view>
 	</view>
 </template>
 
@@ -31,4 +38,20 @@
 </script>
 
 <style>
+	.box{
+		width: 100px;
+		height: 100px;
+		background-color: green;
+	}
+	.box2{
+		width: 200px;
+		height: 200px;
+		background-color: blue;
+	}
+	.box-active{
+		background-color: red;
+	}
+	.box2-active{
+		background-color: pink;
+	}
 </style>
