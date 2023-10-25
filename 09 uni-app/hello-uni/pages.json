@@ -14,6 +14,9 @@
 		},
 		{
 			"path": "pages/index/index"
+		},
+		{
+			"path": "pages/contact/contact"
 		}
 	],
 	"globalStyle": {
@@ -25,5 +28,27 @@
 		"backgroundTextStyle":"light" ,//下拉loading的样式，仅支持dark/light
 		"onReachBottomDistance": 50//页面上拉触底事件触发时距页面底部的距离
 	},
-	"uniIdRouter": {}
+	"uniIdRouter": {},
+	"tabBar": {
+		"list": [
+			{
+				"text": "首页",//tab 上按钮文字
+				"pagePath": "pages/index/index",//页面路径
+				"iconPath": "static/tabs/home.png",//	图片路径
+				"selectedIconPath": "static/tabs/home-active.png"//选中时的图片路径
+			},
+			{
+				"text": "信息",//tab 上按钮文字
+				"pagePath": "pages/message/message",//页面路径
+				"iconPath": "static/tabs/message.png",//	图片路径
+				"selectedIconPath": "static/tabs/message-active.png"//选中时的图片路径
+			},
+			{
+				"text": "我们",//tab 上按钮文字
+				"pagePath": "pages/contact/contact",//页面路径
+				"iconPath": "static/tabs/contact.png",//	图片路径
+				"selectedIconPath": "static/tabs/contact-active.png"//选中时的图片路径
+			}
+		]
+	}//一级导航栏
 }
