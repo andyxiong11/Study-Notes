@@ -41,6 +41,13 @@
 		<button type="primary" disabled>按钮</button>
 		<!-- loading图标 -->
 		<button loading></button>
+		<!-- image默认宽度320px、高度240px -->
+		<image src="http://destiny001.gitee.io/image/cxk.gif"></image>
+		<!-- aspectFit 等比例缩放，直至长边完全显示 -->
+		<image src="http://destiny001.gitee.io/image/cxk.gif" mode="aspectFit"></image>
+		<!-- aspectFill 等比例缩放，直至短边完全显示 -->
+		<image src="http://destiny001.gitee.io/image/cxk.gif" mode="aspectFill"></image>
+	
 	</view>
 </template>
 
