@@ -17,6 +17,9 @@
 		},
 		{
 			"path": "pages/contact/contact"
+		},
+		{
+			"path": "pages/detail/detail"
 		}
 	],
 	"globalStyle": {
@@ -55,5 +58,16 @@
 				"selectedIconPath": "static/tabs/contact-active.png"//选中时的图片路径
 			}
 		]
-	}//一级导航栏
+	},//一级导航栏
+	"condition": {
+		"current": 0,//当前激活的模式，list节点的索引值
+		"list": [
+			{
+				"name": "详情页",
+				"path": "pages/detail/detail",
+				"query": "id=80"//启动参数，可在页面的 onLoad 函数里获得
+			}
+		]
+	}//启动模式配置(用于模拟直达页面的场景，常用于小程序)
+	//可在微信开发者工具普通编译选择“详情页”，左下角展示启动参数
 }
