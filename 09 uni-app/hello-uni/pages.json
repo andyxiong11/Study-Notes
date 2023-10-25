@@ -1,6 +1,18 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/message/message",//第一个对象为应用启动页
+			"style": {
+				"navigationBarTitleText": "信息页",//导航栏标题文字内容，会覆盖全局配置
+				"navigationBarBackgroundColor": "#007AFF",//导航栏背景颜色（同状态栏背景色），会覆盖全局配置
+				"h5": {
+					"pullToRefresh": {
+						"color": "#7D26CD"
+					}//下拉刷新
+				}//h5加载独有样式
+			}
+		},
+		{
 			"path": "pages/index/index"
 		}
 	],
