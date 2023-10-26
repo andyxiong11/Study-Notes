@@ -14,8 +14,21 @@
 				title: 'Hello'
 			}
 		},
-		onLoad() {
-
+		//监听页面加载，该钩子被调用时，响应式数据、计算属性、方法、侦听器、props、slots 已设置完成，其参数为上个页面传递的数据
+		onLoad(options) {
+			console.log('页面加载了',options);
+		},
+		//监听页面显示，页面每次出现在屏幕上都触发
+		onShow() {
+			console.log('页面显示了');
+		},
+		//监听页面初次渲染完成，此时组件已挂载完成
+		onReady() {
+			console.log('页面初次渲染完成');
+		},
+		//	监听页面隐藏
+		onHide() {
+			console.log('页面隐藏了');
 		},
 		methods: {
 
