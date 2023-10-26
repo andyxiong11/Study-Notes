@@ -1,6 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/list/list",
+			"style": {
+				"enablePullDownRefresh": true
+			}
+		},
+		{
 			"path": "pages/index/index"
 		},
 		{
@@ -33,7 +39,7 @@
 		"navigationBarTitleText": "绿帽子",//全局导航栏标题文字内容
 		"navigationBarBackgroundColor": "#7FFF00",//导航栏（状态栏）背景颜色
 		"backgroundColor": "#7CCD7C",//窗口的背景色（小程序下拉）
-		"enablePullDownRefresh": true,//全局开启下拉刷新（小程序）
+		//"enablePullDownRefresh": true,//全局开启下拉刷新（小程序）
 		"backgroundTextStyle":"light" ,//下拉loading的样式，仅支持dark/light
 		"onReachBottomDistance": 50//页面上拉触底事件触发时距页面底部的距离
 	},
