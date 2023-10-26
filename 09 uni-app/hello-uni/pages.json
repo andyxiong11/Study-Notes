@@ -1,6 +1,9 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/index/index"
+		},
+		{
 			"path": "pages/home/home"
 		},
 		{
@@ -17,9 +20,6 @@
 					}//下拉刷新
 				}//h5加载独有样式
 			}
-		},
-		{
-			"path": "pages/index/index"
 		},
 		{
 			"path": "pages/contact/contact"
@@ -43,7 +43,7 @@
 		"selectedColor":"#B3EE3A",//tab 上的文字选中时的颜色
 		"backgroundColor":"#FFFFFF",//tab 的背景色
 		"borderStyle": "white",//tabbar 上边框的颜色
-		"position": "top",//导航栏位置，仅微信小程序支持
+		"position": "bottom",//导航栏位置，仅微信小程序支持
 		"list": [
 			{
 				"text": "首页",//tab 上按钮文字
