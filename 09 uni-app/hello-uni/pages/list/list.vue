@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view>这是列表页</view>
-		<view v-for="item in list">
+		<view class="box-item" v-for="item in list">
 			{{item}}
 		</view>
 		<button @click="pullDown">下拉刷新</button>
@@ -13,7 +13,7 @@
 		data(){
 			return {
 				list:[
-					'前端','java','UI','测试'
+					'前端','java','UI','测试','前端','java','UI','测试'
 				]
 			}
 		},
@@ -25,6 +25,12 @@
 				uni.stopPullDownRefresh()//停止当前页面下拉刷新
 			},2000)
 		},
+		// 监听距离页面底部距离
+		onReachBottom(){
+			//需要在package文件配置onReachBottomDistance
+			console.log('页面触底了');
+			this.list = [...this.list,['前端','java','UI','测试']]
+		},
 		methods:{
 			pullDown(){
 				uni.startPullDownRefresh()//触发下拉刷新动画
@@ -34,4 +40,8 @@
 </script>
 
 <style>
+	.box-item{
+		height: 100px;
+		line-height: 100px;
+	}
 </style>
