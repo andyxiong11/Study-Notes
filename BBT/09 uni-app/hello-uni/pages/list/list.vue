@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<button @click="get">发送get请求</button>
 		<view>这是列表页</view>
 		<view class="box-item" v-for="item in list">
 			{{item}}
@@ -34,6 +35,14 @@
 		methods:{
 			pullDown(){
 				uni.startPullDownRefresh()//触发下拉刷新动画
+			},
+			get(){
+				uni.request({
+					url:'https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata',
+						success(res) {
+							console.log(res);
+						}
+				})
 			}
 		}
 	}
