@@ -4,14 +4,18 @@
 		<view class="text-area">
 			<text class="title">{{title}}</text>
 		</view>
+		<test v-if="flag"></test>
+		<button @click="checkTest">切换test组件显示隐藏</button>
 	</view>
 </template>
 
 <script>
+	import test from '../../components/test.vue'
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello',
+				flag:true
 			}
 		},
 		//监听页面加载，该钩子被调用时，响应式数据、计算属性、方法、侦听器、props、slots 已设置完成，其参数为上个页面传递的数据
@@ -31,7 +35,12 @@
 			console.log('页面隐藏了');
 		},
 		methods: {
-
+			checkTest(){
+				this.flag = !this.flag
+			}
+		},
+		components:{
+			test
 		}
 	}
 </script>
