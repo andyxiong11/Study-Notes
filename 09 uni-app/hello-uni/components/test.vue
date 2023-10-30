@@ -1,6 +1,8 @@
 <template>
 	<view id="myView"w>
 		test组件{{num}}
+		这是父组件传递的数据{{title}}
+		<button @click="sendNum">给父组件传值</button>
 	</view>
 </template>
 
@@ -11,6 +13,13 @@
 			return {
 				num:3
 			};
+		},
+		props:['title'],
+		methods:{
+			sendNum(){
+				console.log('给父组件传值');
+				this.$emit('myEven',this.num)
+			}
 		},
 		beforeCreate() {
 			console.log('实例开始初始化');
