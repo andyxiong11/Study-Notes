@@ -4,18 +4,24 @@
 		<view class="text-area">
 			<text class="title">{{title}}</text>
 		</view>
-		<test v-if="flag"></test>
+		<test v-if="flag"  :title="title" @myEven="getNum"></test>
 		<button @click="checkTest">切换test组件显示隐藏</button>
+		这是子组件传递过来的数据{{num}}
+		<test-a></test-a>
+		<test-b></test-b>
 	</view>
 </template>
 
 <script>
 	import test from '../../components/test.vue'
+	import testA from '../../components/a.vue'
+	import testB from '../../components/b.vue'
 	export default {
 		data() {
 			return {
 				title: 'Hello',
-				flag:true
+				flag:true,
+				num:0
 			}
 		},
 		//监听页面加载，该钩子被调用时，响应式数据、计算属性、方法、侦听器、props、slots 已设置完成，其参数为上个页面传递的数据
@@ -37,10 +43,16 @@
 		methods: {
 			checkTest(){
 				this.flag = !this.flag
+			},
+			getNum(num){
+				console.log(num);
+				this.num = num
 			}
 		},
 		components:{
-			test
+			test,
+			"test-a":testA,
+			"test-b":testB
 		}
 	}
 </script>
