@@ -3,7 +3,8 @@
 		{
 			"path": "pages/list/list",
 			"style": {
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 200//页面上拉触底事件触发时距离页面底部距离
 			}
 		},
 		{
