@@ -2,6 +2,12 @@
 	<view>
 		<button type="primary" @click="chooseImg">上传图片</button>
 		<image v-for="img in imgArr" :src="img" @click="previewImg(img)"></image>
+		<!-- #ifdef H5 -->
+		<view>只在H5页面展示</view>
+		<!-- #endif -->
+		<!-- #ifdef MP-WEIXIN -->
+		<view>只在微信小程序页面展示</view>
+		<!-- #endif -->
 	</view>
 </template>
 
@@ -30,10 +36,30 @@
 					loop:true,//循环预览
 					indicator:'number'//图片指示器 只适配App
 				})
+			},
+			onLoad(){
+				// #ifdef H5
+				console.log('H5中打印');
+				//#endif
+				// #ifdef MP-WEIXIN
+				console.log('微信小程序中打印');
+				//#endif
 			}
 		}
 	}
 </script>
 
 <style>
+	/* H5中的样式 */
+	/* 	#ifdef H5 */
+	view{
+		color: hotpink;
+	}
+	/* 	#endif */
+	/* 微信小程序中的样式 */
+	/* #ifdef MP-WEIXIN */
+	view{
+		color: #000fff;
+	}
+	/* #endif */
 </style>
