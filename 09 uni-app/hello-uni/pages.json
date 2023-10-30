@@ -1,6 +1,9 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/navigator/navigator"
+		},
+		{
 			"path": "pages/message/message",//第一个对象为应用启动页
 			"style": {
 				"navigationBarTitleText": "信息页",//导航栏标题文字内容，会覆盖全局配置

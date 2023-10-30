@@ -52,6 +52,11 @@
 </template>
 
 <script>
+	export default {
+		onLoad(options) {
+			console.log(options);//接收navigator传过来的参数
+		}
+	}
 </script>
 
 <style>
