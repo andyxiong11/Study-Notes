@@ -9,6 +9,13 @@
 		这是子组件传递过来的数据{{num}}
 		<test-a></test-a>
 		<test-b></test-b>
+		<uni-calendar 
+			:insert="true"
+			:lunar="true" 
+			:start-date="'2019-3-2'"
+			:end-date="'2030-5-20'"
+			@change="change"
+		 />
 	</view>
 </template>
 
@@ -47,6 +54,9 @@
 			getNum(num){
 				console.log(num);
 				this.num = num
+			},
+			change(e){
+				console.log('触发了change',e);
 			}
 		},
 		components:{
