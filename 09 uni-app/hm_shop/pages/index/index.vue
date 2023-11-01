@@ -15,9 +15,9 @@
 			this.getSwipers()
 		},
 		methods: {
-			// 获取轮播图的路径
-			getSwipers(){
-				console.log('获取轮播图的数据');
+			// 获取轮播图的数据
+			async getSwipers(){
+			/*	console.log('获取轮播图的数据');
 				uni.request({
 					url:'http://localhost:8082/api/getlunbo',
 					success:res => {
@@ -30,7 +30,13 @@
 						this.swipers = res.data.message
 					}
 				})
-			}
+			} */
+				const res = await this.$myRequest({
+					url:'/api/getlunbo',
+				})
+				console.log(res);
+				this.swipers = res.data.message
+			},
 		}
 	}
 </script>
