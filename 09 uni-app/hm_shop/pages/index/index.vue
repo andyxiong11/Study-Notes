@@ -33,8 +33,39 @@
 		</view>
 		<!-- 推荐商品 -->
 		<view class="hot_goods">
-			<view class="tit">
-				推荐商品
+			<view class="tit">推荐商品</view>
+			<view class="goods_list">
+				<view class="goods_item" v-for="item in goods" :key="item.id">
+					<image :src="item.img_url"></image>
+					<view class="price">
+						<text>￥{{item.sell_price}}</text>
+						<text>￥{{item.market_price}}</text>
+					</view>
+					<view class="name">
+						{{item.title}}
+					</view>
+				</view>
+				<!-- <view class="goods_item">
+					<image src="http://demo.dtcms.net/upload/201504/20/thumb_201504200046589514.jpg"></image>
+					<view class="price">
+						<text>￥2199</text>
+						<text>￥2499</text>
+					</view>
+					<view class="name">
+						华为(HUAWEI)荣耀6P1us16G双4G版
+					</view>
+				</view>
+				<view class="goods_item">
+					<image src="http://demo.dtcms.net/upload/201504/20/thumb_201504200046589514.jpg"></image>
+					<view class="price">
+						<text>￥2199</text>
+						<text>￥2499</text>
+					</view>
+					<view class="name">
+						华为(HUAWEI)荣耀6P1us16G双4G版
+					</view>
+				</view> -->
+				
 			</view>
 		</view>
 	</view>
@@ -44,11 +75,13 @@
 	export default {
 		data() {
 			return {
-				swipers:[]
+				swipers:[],//轮播图
+				goods:[],//热门商品
 			}
 		},
 		onLoad() {
-			this.getSwipers()
+			this.getSwipers(),//获取轮播图的数据
+			this.getHotGoods()//获取热门商品列表数据
 		},
 		methods: {
 			//TODO 小程序渲染轮播图失败
@@ -74,6 +107,14 @@
 				console.log(res);
 				this.swipers = res.data.message
 			},
+			// 获取热门商品列表数据
+			async getHotGoods(){
+				const res = await this.$myRequest({
+					url:'/api/getgoods?pageindex=1',
+				})
+				console.log(res);
+				this.goods = res.data.message
+			}
 		}
 	}
 </script>
@@ -126,5 +167,42 @@
 			background-color: #fff;
 		// 	margin: 7px 0; 等同于 padding: 10px 0;
 		}
+	}
+	.goods_list{
+		padding:0 15rpx;
+		display:flex;
+		flex-wrap:wrap;//换行
+		justify-content:space-between;//两端对齐
+		.goods_item{
+			background:#fff;
+			width:355rpx;
+			margin:10rpx 0;
+			padding: 15rpx;
+			box-sizing: border-box;//边框和内边距的值包含在 width 内
+			image{
+				width:80%;
+				height:150px;
+				display: block;//块级对象，方便margin: auto
+				margin: auto;
+				background-color: pink;//图片打不开，模拟图片
+			}
+		}
+	}
+	.price{
+		color:$shop-color;
+		font-size:36rpx;
+		max-width: 20rpx 0 10rpx 0;
+		text:nth-child(2){
+			color:#ccc;
+			font-size:28rpx;
+			margin-left:17rpx;
+			text-decoration:line-through;//文本的中间将显示一条线
+		}
+	}
+	.name{
+		font-size:28rpx;
+		line-height:50rpx;
+		padding-bottom:15rpx;
+		padding-top:10rp×;
 	}
 </style>
