@@ -31,6 +31,12 @@
 				<text>学习视频</text>
 			</view>
 		</view>
+		<!-- 推荐商品 -->
+		<view class="hot_goods">
+			<view class="tit">
+				推荐商品
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -91,7 +97,7 @@
 			view{
 				width: 120rpx;
 				height: 120rpx;
-				background-color: #b50e03;
+				background-color: $shop-color;
 				border-radius: 60rpx;
 				margin: 10px auto;
 				line-height: 120rpx;
@@ -104,6 +110,21 @@
 			text{
 				font-size: 30rpx;
 			}
+		}
+	}
+	.hot_goods{
+		background-color: #eee;
+		padding: 10px 0;
+		/* overflow: hidden;
+		margin-top: 10px; 等同于 padding: 10px 0;*/
+		.tit{
+			height: 50px;
+			line-height: 50px;
+			color: $shop-color;
+			text-align: center;
+			letter-spacing: 20px;//文字间距
+			background-color: #fff;
+		// 	margin: 7px 0; 等同于 padding: 10px 0;
 		}
 	}
 </style>
