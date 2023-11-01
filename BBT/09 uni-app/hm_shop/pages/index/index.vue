@@ -8,6 +8,29 @@
 				<image :src="item.img"></image>
 			</swiper-item>
 		</swiper>
+		<!-- 导航区 -->
+		<view class="nav">
+			<view class="nav_item">
+				<!-- class="iconfont icon-ziyuan" 图标引入 -->
+				<view class="iconfont icon-ziyuan"></view>
+				<text>黑马超市</text>
+			</view>
+			<view class="nav_item">
+				<!-- class="iconfont icon-ziyuan" 图标引入 -->
+				<view class="iconfont icon-guanyuwomen"></view>
+				<text>联系我们</text>
+			</view>
+			<view class="nav_item">
+				<!-- class="iconfont icon-ziyuan" 图标引入 -->
+				<view class="iconfont icon-tupian"></view>
+				<text>社区图片</text>
+			</view>
+			<view class="nav_item">
+				<!-- class="iconfont icon-ziyuan" 图标引入 -->
+				<view class="iconfont icon-shipin"></view>
+				<text>学习视频</text>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -57,6 +80,29 @@
 			image{
 				width: 100%;
 				height: 100%;
+			}
+		}
+	}
+	.nav{
+		display: flex;
+		.nav_item{
+			width: 25%;
+			text-align: center;
+			view{
+				width: 120rpx;
+				height: 120rpx;
+				background-color: #b50e03;
+				border-radius: 60rpx;
+				margin: 10px auto;
+				line-height: 120rpx;
+				color: #fff;
+				font-size: 50rpx;
+			}
+			.icon-tupian{
+				font-style: 45rpx;
+			}
+			text{
+				font-size: 30rpx;
 			}
 		}
 	}
