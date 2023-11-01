@@ -1,6 +1,13 @@
 <template>
-	<view>
-		首页
+	<view class="home">
+		<!-- swiper 视图容器 轮播图 -->
+		<!-- indicator-dots 是否显示指示点 -->
+		<!-- circular 衔接滑动 -->
+		<swiper indicator-dots="true" circular="true">
+			<swiper-item v-for="item in swipers" :key="item.id">
+				<image :src="item.img"></image>
+			</swiper-item>
+		</swiper>
 	</view>
 </template>
 
@@ -15,6 +22,7 @@
 			this.getSwipers()
 		},
 		methods: {
+			//TODO 小程序渲染轮播图失败
 			// 获取轮播图的数据
 			async getSwipers(){
 			/*	console.log('获取轮播图的数据');
@@ -41,6 +49,15 @@
 	}
 </script>
 
-<style>
-	
+<style lang="scss">
+	.home{
+		swiper{
+			width: 750rpx;//满屏
+			height: 380rpx;
+			image{
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
 </style>
