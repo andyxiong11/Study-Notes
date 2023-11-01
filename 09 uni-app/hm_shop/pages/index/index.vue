@@ -10,25 +10,9 @@
 		</swiper>
 		<!-- 导航区 -->
 		<view class="nav">
-			<view class="nav_item">
-				<!-- class="iconfont icon-ziyuan" 图标引入 -->
-				<view class="iconfont icon-ziyuan"></view>
-				<text>黑马超市</text>
-			</view>
-			<view class="nav_item">
-				<!-- class="iconfont icon-ziyuan" 图标引入 -->
-				<view class="iconfont icon-guanyuwomen"></view>
-				<text>联系我们</text>
-			</view>
-			<view class="nav_item">
-				<!-- class="iconfont icon-ziyuan" 图标引入 -->
-				<view class="iconfont icon-tupian"></view>
-				<text>社区图片</text>
-			</view>
-			<view class="nav_item">
-				<!-- class="iconfont icon-ziyuan" 图标引入 -->
-				<view class="iconfont icon-shipin"></view>
-				<text>学习视频</text>
+			<view class="nav_item" v-for="(item,index) in navs" :key="index" @click="navItemClick(item.path)">
+				<view :class="item.icon"></view>
+				<text>{{item.title}}</text>
 			</view>
 		</view>
 		<!-- 推荐商品 -->
@@ -45,27 +29,6 @@
 						{{item.title}}
 					</view>
 				</view>
-				<!-- <view class="goods_item">
-					<image src="http://demo.dtcms.net/upload/201504/20/thumb_201504200046589514.jpg"></image>
-					<view class="price">
-						<text>￥2199</text>
-						<text>￥2499</text>
-					</view>
-					<view class="name">
-						华为(HUAWEI)荣耀6P1us16G双4G版
-					</view>
-				</view>
-				<view class="goods_item">
-					<image src="http://demo.dtcms.net/upload/201504/20/thumb_201504200046589514.jpg"></image>
-					<view class="price">
-						<text>￥2199</text>
-						<text>￥2499</text>
-					</view>
-					<view class="name">
-						华为(HUAWEI)荣耀6P1us16G双4G版
-					</view>
-				</view> -->
-				
 			</view>
 		</view>
 	</view>
@@ -77,6 +40,28 @@
 			return {
 				swipers:[],//轮播图
 				goods:[],//热门商品
+				navs:[//导航区
+					{
+						icon:'iconfont icon-ziyuan',
+						title:'黑马超市',
+						path:'/pages/goods/goods'
+					},
+					{
+						icon:'iconfont icon-guanyuwomen',
+						title:'联系我们',
+						path:'/pages/contact/contact'
+					},
+					{
+						icon:'iconfont icon-tupian',
+						title:'社区图片',
+						path:'/pages/pics/pics'
+					},
+					{
+						icon:'iconfont icon-shipin',
+						title:'学习视频',
+						path:'/pages/videos/videos'
+					}
+				]
 			}
 		},
 		onLoad() {
@@ -114,6 +99,13 @@
 				})
 				console.log(res);
 				this.goods = res.data.message
+			},
+			//导航点击处理函数
+			navItemClick(url){
+				console.log(url);
+				uni.navigateTo({
+					url
+				})
 			}
 		}
 	}
