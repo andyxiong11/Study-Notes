@@ -1,4 +1,7 @@
 import App from './App'
+import {myRequest} from 'util/api.js'
+
+Vue.prototype.$myRequest = myRequest //挂载到原型上
 
 // #ifndef VUE3
 import Vue from 'vue'
