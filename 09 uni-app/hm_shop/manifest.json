@@ -68,5 +68,15 @@
     "uniStatistics" : {
         "enable" : false
     },
-    "vueVersion" : "2"
+    "vueVersion" : "2",
+    "h5" : {
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+					//腾讯地图申请地址 https://lbs.qq.com/dev/console/application/mine
+                    "key" : "NFHBZ-ZC3C-JJKGO-TLFGF"
+                }
+            }
+        }
+    }
 }
