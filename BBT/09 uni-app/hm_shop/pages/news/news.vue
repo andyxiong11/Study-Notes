@@ -1,6 +1,6 @@
 <template>
 	<view class="news">
-		<news-item :list=" newsList"/>
+		<news-item @itemClick="goDetail" :list=" newsList"/>
 	</view>
 </template>
 
@@ -16,6 +16,7 @@
 			"news-item":newsItem
 		},
 		methods: {
+			// 获取资讯数据
 			async getNews(){
 				const res = await this.$myRequest({
 					url:'/api/getnewslist'
@@ -25,6 +26,13 @@
 			},
 			onLoad(){
 				this.getNews()
+			},
+			// 跳转详情页，发布消息
+			goDetail(id){
+				console.log(id);
+				uni.navigateTo({
+					url:'/pages/news-detail/news-detail?id='+id
+				})
 			}
 		}
 	}
