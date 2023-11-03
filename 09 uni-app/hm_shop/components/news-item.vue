@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<view class="news_item" v-for="item in list" :key="item.id">
+		<view class="news_item" @click="navigator(item.id)" v-for="item in list" :key="item.id">
 			<image :src="item.img_url"></image>
 			<view class="right">
 				<view class="tit">
 					{{item.title}}
 				</view>
 				<view class="info">
-					<text>发布时间：{{item.add_time}}</text>
+					<text>发布时间：{{item.add_time | formatDate}}</text>
 					<text>浏览：{{item.click}}</text>
 				</view>
 			</view>
@@ -18,7 +18,25 @@
 <script>
 	export default {
 		name:"news-item",
-		props:['list']
+		props:['list'],
+		filters:{//过滤器
+			// TODO封装时间转换函数
+			formatDate(date){
+				console.log(date);
+				const nDate = new Date(date)
+				console.log(nDate);
+				const year = nDate.getFullYear()
+				const month = nDate.getMonth().toString().padStart(2,0)//padStart字符串补全，如果小于2位，加一个0
+				const day = nDate.getDate().toString().padStart(2,0)
+				return year+'-'+month+'-'+day
+			}
+		},
+		methods:{
+			// 跳转详情，订阅消息
+			navigator(id){
+				this.$emit('itemClick',id)
+			}
+		}
 	}
 </script>
 
