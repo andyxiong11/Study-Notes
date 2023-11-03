@@ -1,6 +1,6 @@
 <template>
 	<view class="goods_list">
-		<good-list :goods="goods"/>
+		<good-list @goodsItemClick="getGoodsDetail" :goods="goods"/>
 		<view class="isOver" v-if="flag">
 			-----我是有底线的-----
 		</view>
@@ -47,6 +47,12 @@
 				this.goods = [...this.goods,...res.data.message]
 				callBack && callBack()//有回调函数时才调用停止下拉刷新
 			},
+			//跳转商品详情页 发布消息
+			getGoodsDetail(id){
+				uni.navigateTo({
+					url:'/pages/goods-detail/goods-detail?id='+id
+				})
+			}
 		},
 		components:{"good-list":goodList}
 	}
