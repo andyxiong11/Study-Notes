@@ -31,7 +31,7 @@
 			}
 		},
 		onLoad(option) {
-			console.log(option);//有id
+			console.log(option);//上个页面传过来的id
 			this.id = option.id
 			this.getNewsDetail()
 		}
