@@ -19,7 +19,7 @@
 	export default {
 		name:"news-item",
 		props:['list'],
-		filters:{//过滤器
+		filter:{//过滤器
 			// TODO封装时间转换函数
 			formatDate(date){
 				console.log(date);

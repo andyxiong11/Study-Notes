@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	import newsItem from '../../components/news-item.vue'
+	import newsItem from '../../components/news-item/news-item.vue'
 	export default {
 		data() {
 			return {
