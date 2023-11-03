@@ -10,7 +10,7 @@
 		</scroll-view>
 		<scroll-view class="right" scroll-y >
 			<view class="item" v-for="item in secondData" :key="item.id">
-				<image :src="item.img_url"></image>
+				<image @click="previewImg(item.img_url)" :src="item.img_url"></image>
 				<text> {{item.title}}</text>
 			</view>
 			<text v-if="secondData.length === 0">暂无数据</text>
@@ -46,6 +46,15 @@
 				})
 				console.log(res)
 				this.secondData = res.data.message
+			},
+			previewImg(current){
+				const urls = this.secondData.map(item=>{
+					return item.img_url
+				})
+				uni.previewImage({
+					current,//当前显示图片的链接
+					urls,//需要预览的图片链接列表
+				})
 			}
 		},
 		onLoad() {
