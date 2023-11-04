@@ -77,6 +77,10 @@
                     "key" : "AXEBZ-YU3K3-NKE3X-R77UV-ZRWVQ-FEB6Z"
                 }
             }
+        },
+        "title" : "黑马商城",
+        "router" : {
+            "mode" : "hash"
         }
     }
 }
