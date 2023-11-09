@@ -1,0 +1,12 @@
+{
+  "name": "02-npm",
+  "version": "1.0.0",
+  "description": "- 全局安装 npm install gulp -g\r - gulp -v\r - 全局卸载 npm uninstall gulp -g\r - 当前目录初始化 npm init\r - 本地安装 npm install 包名 --save-dev，gulp -v无效",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {}
+}
