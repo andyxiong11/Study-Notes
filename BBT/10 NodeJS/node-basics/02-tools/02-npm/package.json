@@ -5,11 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"./node_modules/.bin/gulp -v"
+    "dev": "gulp -v"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "gulp": "^4.0.2"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "underscore": "^1.13.6"
   }
 }
