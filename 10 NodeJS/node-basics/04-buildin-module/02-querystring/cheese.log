@@ -1,0 +1,6 @@
+[2023-11-13T23:02:15.335] [DEBUG] default - [Object: null prototype] { id: '2', name: 'tongyia', from: '北京' }
+[2023-11-13T23:02:32.373] [DEBUG] default - id%3D2%26name%3Dtongyia%26from%3D%E5%8C%97%E4%BA%AC
+[2023-11-13T23:02:45.083] [DEBUG] default - id=2&name=tongyi&from=北京
+[2023-11-13T23:02:56.783] [DEBUG] default - id/2:name/tongyi:from/
+[2023-11-13T23:03:21.640] [DEBUG] default - [Object: null prototype] { id: '2', name: 'tongyi', from: '北京' }
+[2023-11-13T23:03:37.924] [DEBUG] default - id=2&name=tongyi&from=
