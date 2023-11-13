@@ -4,7 +4,8 @@
   "description": "- 全局安装 npm install gulp -g\r - gulp -v\r - 全局卸载 npm uninstall gulp -g\r - 当前目录初始化 npm init\r - 本地安装 npm install 包名 --save-dev，gulp -v无效",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp -v",
+    "dev": "cross-env NODE_ENV=development gulp -f gulp.config.js",
+    "prod": "cross-env NODE_ENV=production gulp -f gulp.config.js",
     "runjs": "node ./03-scripts/scripts1.js && node ./03-scripts/scripts2.js",
     "start": "node ./03-scripts/scripts.js",
     "test": "node ./03-scripts/test.js",
@@ -13,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "gulp": "^4.0.2"
   },
   "dependencies": {
