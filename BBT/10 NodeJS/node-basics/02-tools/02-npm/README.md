@@ -33,3 +33,5 @@
 - "dependencies": {"md5": "*"}  * 表示 如果 直接npm install或undate 将会 安装 md5  最新版本
 
 - 强制清理缓存，npm cache clean --force
+
+- 安装github的包 npm i git+https://gitee.com/lurongtao/felixlu-course-electron.git或者npm i git+ssh://

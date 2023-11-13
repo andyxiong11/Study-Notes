@@ -7,5 +7,5 @@ package.js文件中的scripts
 - 其中test和start脚本可以简写运行，npm start，npm test
 
 **脚本自定义变量**
-- 脚本自定义的变量只有通过脚本运行才可以访问，例如 npm start，node ./03-scripts/scripts.js无法访问
-- npm run build，该脚本只有mac os运行
+- 脚本自定义的变量只有通过脚本运行才可以访问，例如 npm start("start":"node ./03-scripts/scripts.js")可以访问，node ./03-scripts/scripts.js无法访问
+- npm run build，"echo $npm_packsge_config_env"该脚本只有mac os或者linux运行

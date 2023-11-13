@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "gulp -v",
-    "runjs":"node ./03-scripts/scripts1.js && node ./03-scripts/scripts2.js",
-    "start":"node ./03-scripts/scripts.js",
-    "test":"node ./03-scripts/test.js",
-    "build":"echo $npm_packsge_config_env"
+    "runjs": "node ./03-scripts/scripts1.js && node ./03-scripts/scripts2.js",
+    "start": "node ./03-scripts/scripts.js",
+    "test": "node ./03-scripts/test.js",
+    "build": "echo $npm_packsge_config_env"
   },
   "author": "",
   "license": "ISC",
@@ -17,10 +17,11 @@
   },
   "dependencies": {
     "axios": "^1.6.1",
+    "electron-quick-start": "git+https://gitee.com/lurongtao/felixlu-course-electron.git",
     "jquery": "^1.12.4",
     "underscore": "^1.13.6"
   },
   "config": {
-    "env":"production"
+    "env": "production"
   }
 }
