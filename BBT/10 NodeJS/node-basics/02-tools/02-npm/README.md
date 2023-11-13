@@ -35,3 +35,9 @@
 - 强制清理缓存，npm cache clean --force
 
 - 安装github的包 npm i git+https://gitee.com/lurongtao/felixlu-course-electron.git或者npm i git+ssh://
+
+**NRM**
+- 安装 nrm npm install -g nrm
+- 使用 nrm nrm ls 查看可选的源
+- 切换 nrm nrm use taobao
+- 测试速度 nrm test
