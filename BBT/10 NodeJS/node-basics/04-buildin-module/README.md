@@ -1,0 +1,2 @@
+- npm init -y
+- npm i log4js -D 记录日志
