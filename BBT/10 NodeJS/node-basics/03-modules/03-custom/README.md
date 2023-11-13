@@ -12,3 +12,6 @@
 ```
 - 切换后重新 npm adduser
 - 发布包 npm publish（切记删除index-test.js）
+
+**上面是03-modules文件夹在02-tools/02-npm/目录下时学习的笔记**
+---
