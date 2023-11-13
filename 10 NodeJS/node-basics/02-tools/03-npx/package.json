@@ -1,0 +1,14 @@
+{
+  "name": "03-npx",
+  "version": "1.0.0",
+  "description": "当前目录初始化 npm init -y",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx gulp -f ./gulp.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {}
+}
