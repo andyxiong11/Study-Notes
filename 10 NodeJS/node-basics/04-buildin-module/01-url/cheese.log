@@ -1,0 +1,17 @@
+[2023-11-13T22:40:53.932] [DEBUG] default - Url {
+  protocol: 'https:',
+  slashes: true,
+  auth: null,
+  host: 'www.baidu.com:443',
+  port: '443',
+  hostname: 'www.baidu.com',
+  hash: '#tag=3',
+  search: '?id=2',
+  query: 'id=2',
+  pathname: '/path/index.html',
+  path: '/path/index.html?id=2',
+  href: 'https://www.baidu.com:443/path/index.html?id=2#tag=3'
+}
+[2023-11-13T22:41:45.430] [DEBUG] default - https://www.baidu.com:443/path/index.html?id=2#tag=3
+[2023-11-13T22:43:54.443] [DEBUG] default - https://www.abc.com/
+[2023-11-13T22:44:28.892] [DEBUG] default - https://www.abc.com/b
