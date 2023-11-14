@@ -1,1 +1,11 @@
-// 该文件原本应该是写log4js配置,以便直接调用,由于视频文件缺失,内容未写
+var log4js = require("log4js")
+
+log4js.configure({
+  appenders: { cheese: { type: "file", filename: "cheese.log" } },
+  categories: { default: { appenders: ["cheese"], level: "error" } }
+})
+
+var logger = log4js.getLogger('cheese')
+logger.level = "debug"
+
+module.exports = logger
