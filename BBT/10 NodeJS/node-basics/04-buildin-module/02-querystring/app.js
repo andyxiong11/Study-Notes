@@ -12,7 +12,7 @@ const querystring = require('querystring')
 const query = 'id=2&name=tongyia&from=北京'
 const query2 = 'id:2/name:tongyi/from:北京'
 const queryEscape ='id%3D2%26name%3Dtongyi%26from%3D%E5%8C%97%E4%BA%AC'
-const queryobj = { id:'2',name:'tongyi',from:''}
+const queryobj = { id:'2',name:'tongyi',from:'北京'}
 
 //logger.debug(querystring.parse(query))//{ id: '2', name: 'tongyia', from: '北京' }
 
@@ -20,13 +20,14 @@ const queryobj = { id:'2',name:'tongyi',from:''}
 
 // logger.debug(querystring.unescape(queryEscape))//id=2&name=tongyi&from=北京
 
-// logger.debug(querystring.stringify(queryobj,':','/'))//id/2:name/tongyi:from/
+// logger.debug(querystring.stringify(queryobj,':','/'))//id/2:name/tongyi:from/%E5%8C%97%E4%BA%AC
 
 // logger.debug(querystring.parse(query2,'/',':'))//{ id: '2', name: 'tongyi', from: '北京' }
 
 const newQuery = querystring.stringify(queryobj,null,null,{
+  // 由于stringify不会转义汉字,.所以需要unescape
   encodeURIComponent(string){
     return querystring.unescape(string)
   }
 })
-logger.debug(newQuery)//id=2&name=tongyi&from=
+logger.debug(newQuery)//id=2&name=tongyi&from=北京
