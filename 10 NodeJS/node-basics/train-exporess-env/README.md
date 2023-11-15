@@ -4,3 +4,5 @@
 - express -e 安装express框架
 - npm i
 - npm start 启动，localhost:3000
+> 使用postman请求 localhost:3000/data
+- npm i log4j -D
