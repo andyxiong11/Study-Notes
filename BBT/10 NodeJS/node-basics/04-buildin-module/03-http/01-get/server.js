@@ -1,6 +1,8 @@
 // node server.js后,使用浏览器打开localhost:8080
 const logger = require('../../until/log')
+const queryString = require('querystring')
 const http = require('http')
+const https = require('https')
 
 const server = http.createServer((request,reponse)=>{
   const url = request.url
@@ -32,12 +34,40 @@ const server = http.createServer((request,reponse)=>{
   })
   reponse.write('{"x":100}')//返回json格式 */
 
-  reponse.writeHead(200,{
+  /* reponse.writeHead(200,{
     'content-type':"application/json;charset=utf-8"
   })
-  reponse.write(`{"url":"${url}}`)
+  reponse.write(`{"url":"${url}}`)//将url打印到页面上 */
 
-  reponse.end()//结束
+  // 配合postman发送请求localhost:8080/api/list
+  /* let data = ''
+  request.on('data',(chunk)=>{//监听data
+    data += chunk
+  })
+  request.on('end',()=>{
+    reponse.writeHead(200,{
+      'content-type':"application/json;charset=utf-8"
+    })
+    reponse.write(JSON.stringify(queryString.parse(data)))//data是url后面的路径，转为JS对象，再转为json字符串
+    reponse.end()//结束
+  }) */
+
+  // 配合postman发送请求localhost:8080/api/list
+  https.get('https://www.xiaomiyoupin.com/mtop/mf/cat/list',(result)=>{
+    let data = ''
+    result.on('data',(chunk)=>{
+      data += chunk
+    })
+    result.on('end',()=>{
+      reponse.writeHead(200,{
+        'content-type':"application/json;charset=utf-8"
+      })
+      reponse.write(data)//data是url后面的路径，转为JS对象，再转为json字符串
+      reponse.end()//结束
+    })
+  })
+
+  //reponse.end()//结束
 })
 
 server.listen(8080,()=>{
