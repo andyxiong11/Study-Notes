@@ -1,0 +1,13 @@
+[2023-11-15T21:55:09.994] [DEBUG] cheese - {}
+[2023-11-15T22:11:49.165] [DEBUG] cheese - [Object: null prototype] {
+  province: '上海',
+  city: '上海',
+  district: '宝山区',
+  address: '同济支路199号智慧七立方3号楼2-4层',
+  latitude: '43',
+  longitude: '160',
+  message: '求购一条小鱼',
+  contact: '13666666',
+  type: 'sell',
+  time: '1571217561'
+}
