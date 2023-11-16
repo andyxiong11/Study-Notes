@@ -11,7 +11,7 @@ const server = http.createServer((req,res)=>{
       //res.write('hello')
 
       //res.write('getData("hello")')
-      res.write(`${urlObj.query.cb}("hello")`)//利用前端传参调用方法
+      res.write(`${urlObj.query.cb}("hello")`)//利用前端传指定参数才能调用方法，解决跨域
       break
     default:
       res.write('page noe found')
