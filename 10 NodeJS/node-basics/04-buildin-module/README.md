@@ -1,3 +1,4 @@
 - npm init -y
 - npm i log4js -D 记录日志
 - npm i http-proxy-middleware 供BBT\10 NodeJS\node-basics\04-buildin-module\03-http\05-proxy使用
+- npm i cheerio -S 供BBT\10 NodeJS\node-basics\04-buildin-module\03-http\06-spider使用
