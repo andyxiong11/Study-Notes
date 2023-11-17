@@ -11,11 +11,22 @@ const server = http.createServer((req,res)=>{
   if(/\/ajax/.test(urlStr)){
     console.log(urlStr);
     const proxy = createProxyMiddleware('/ajax',{
-      target:'https://lady.vip.com',//代理的地址
+      target:'https://lady.vip.com',//反向代理的地址，将前端请求url“/ajax”前面的部分替换为'https://lady.vip.com'
       changeOrigin:true
     })
 
     proxy(req.res)
+  }else if(/\/api/.test(urlStr)){
+    console.log(urlStr);
+    const proxy2 = createProxyMiddleware('/api',{
+      target:'https://m.lagou.com',//反向代理的地址，将前端请求url“/api”前面的部分替换为'https://m.lagou.com'
+      changeOrigin:true,
+      pathRewrite:{
+        '^/api':''//转发时将url中的“/api”删掉
+      }
+    })
+
+    proxy2(req.res)
   }else{
     console.log('error');
   }
