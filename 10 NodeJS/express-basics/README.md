@@ -1,0 +1,3 @@
+- 安装yarn npm install --global yarn
+- yarn init -y
+- yarn add express -S 跟npm一样-S生产环境
