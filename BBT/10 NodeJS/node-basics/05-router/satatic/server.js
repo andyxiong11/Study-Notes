@@ -12,8 +12,11 @@ http.createServer(async(req,res)=>{
 
   // 因为readStaticFile是异步函数所以需要await
   let {data,mimeType} = await readStaticFile(filePathName,res)//获取文件内容
+  res.writeHead(200,{
+    'content-type':`${mimeType};charset=utf-8`
+  })
   console.log(data);
-  res.write(JSON.stringify(data))
+  res.write(data)
  
   // res.write('hello')
   res.end()
