@@ -3,7 +3,11 @@ const express = require('express')
 // 路由中间件
 const router = express.Router()
 
-// console.log(router);
+// 抽离controller
+const { list } = require('../controller/index')
+router.get('/',list)
+
+/* // console.log(router);
 router.get('/',(req,res,next)=>{
   res.send('hello')
 })
@@ -44,5 +48,9 @@ router.patch('/index',(req,res,next)=>{
 router.delete('/index',(req,res,next)=>{
   res.send('delete response')
 })
+
+router.all('/index',(req,res,next)=>{//所有类型请求都走该逻辑，不管get、post、put、delete
+  res.send('hello')
+}) */
 
 module.exports = router
