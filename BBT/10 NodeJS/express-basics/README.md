@@ -1,3 +1,4 @@
 - 安装yarn npm install --global yarn
 - yarn init -y
 - yarn add express -S 跟npm一样-S生产环境
+- 安装 art-template yarn add art-template express-art-template -S
