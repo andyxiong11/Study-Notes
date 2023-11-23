@@ -9,14 +9,24 @@ const list = (req,res,next)=>{
   res.send(data)  */
 
   // CSR 客户端渲染
-  let dataObj = {
+  /* let dataObj = {
     ret:true,
     data:[]
   }
   for(var i = 0;i < 100;i++){
     dataObj.data.push('line'+i)
   }
-  res.send(dataObj)
+  res.send(dataObj) */
+
+  // 模板引擎渲染
+  let dataArray=[]
+
+  for(var i = 0;i < 100;i++){
+    dataArray.push('line'+1)
+  }
+  res.render('list',{
+    data:JSON.stringify(dataArray)//此处需要字符串
+  })//模板名字（自动去server.js中配置的view目录查找list.art），模板数据
 
 }
 
