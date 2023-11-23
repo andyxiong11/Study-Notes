@@ -5,7 +5,7 @@ const router = express.Router()
 
 // 抽离controller
 const { list } = require('../controller/index')
-router.get('/',list)
+router.get('/api/list',list)
 
 /* // console.log(router);
 router.get('/',(req,res,next)=>{
