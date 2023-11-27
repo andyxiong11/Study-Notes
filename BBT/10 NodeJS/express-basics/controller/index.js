@@ -21,6 +21,8 @@ const list = (req,res,next)=>{
   // 模板引擎渲染
   let dataArray=[]
 
+  res.set('content-type','application/json;charset=utf-8')
+
   for(var i = 0;i < 100;i++){
     dataArray.push('line'+1)
   }
