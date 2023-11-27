@@ -21,11 +21,12 @@ const list = (req,res,next)=>{
   // 模板引擎渲染
   let dataArray=[]
 
+  for(var i = 0;i < 100;i++){
+    dataArray.push('line'+i)
+  }
+
   res.set('content-type','application/json;charset=utf-8')
 
-  for(var i = 0;i < 100;i++){
-    dataArray.push('line'+1)
-  }
   res.render('list',{
     data:JSON.stringify(dataArray)//此处需要字符串
   })//模板名字（自动去server.js中配置的view目录查找list.art），模板数据
