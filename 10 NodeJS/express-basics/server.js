@@ -15,7 +15,8 @@ app.use(express.static('./public'))
 // view engine setup art-template配置
 app.engine('art', require('express-art-template'));
 app.set('view options', {
-    debug: process.env.NODE_ENV !== 'production'
+    debug: process.env.NODE_ENV !== 'production',
+    escape:false //转化html5代码 响应的data
 });
 app.set('views', path.join(__dirname, 'view'));//view 模板路径
 app.set('view engine', 'art');
