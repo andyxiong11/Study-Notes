@@ -38,3 +38,14 @@
    - db.baoguo.find({release:{$lt:'2020-12-05'}}) //查询release小于'2020-12-05'的数据
    - db.baoguo.find({release:{$lte:'2020-12-05'}}) //查询release小于等于'2020-12-05'的数据
    - db.baoguo.find({release:{$gte:'2020-12-04',$lte:'2020-12-06'}}) //查询release大于等于'2020-12-04'且小于等于'2020-12-06'的数据
+   - db.baoguo.find({name:/1/}) // /1/正则表达式，相当于select from baoguo where name = %1%
+   - db.baoguo.find({name:/^1/}) // 查询name开头是1的
+   - db.baoguo.find({name:/1$/}) // 查询name结尾是1的
+   - db.baoguo.find({}, {_id: 0, publishNum: 0}) //不带条件查询，查询时去除_id和publishNum列
+   - db.baoguo.find({name:/1$/}, {_id: 0, publishNum: 0}) //查询name结尾是1的，查询时去除_id和publishNum列
+   - db.baoguo.find().sort({release: 1}) //按照release升序
+   - db.baoguo.find().sort({release: -1}) //按照release降序
+   - db.baoguo.find().sort({release: 1}).limit(3).skip(6) // 按照release升序，并从第七条开始取3条数据
+   - db.baoguo.find({$or:[{release: '2020-12-04'}, {release: '2020-12-05'}]}) //release等于'2020-12-04'或'2020-12-05'
+   - db.baoguo.findOne() //取第一条
+   - db.baoguo.find().count() //统计数据条数
