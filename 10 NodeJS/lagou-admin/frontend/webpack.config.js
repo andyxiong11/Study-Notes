@@ -6,6 +6,8 @@ module.exports = {
   // 配置环境
   mode:'development',
 
+  devtool:'source-map',
+
   // 配置入口
   entry:{
     app:'./src/app.js'
@@ -19,12 +21,16 @@ module.exports = {
 
   // 配置插件
   plugins:[
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname,'./public/index.html'),//需要打包的模板文件
+      filename: 'index.html',//打包后的文件名
+      inject: 'head'//将打包后的script标签的js放到head标签中
+    }),
     new CopyPlugin({
       patterns: [//此处官网文档没有更新写法，参考npm的copy-webpack-plugin文档
         {
-          from: './public/*.ico', 
-          to: './dist/'
+          from: './public/favicon.ico', 
+          to: path.join(__dirname,'./dist')
         }
       ]
     })
