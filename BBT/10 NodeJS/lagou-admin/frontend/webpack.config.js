@@ -21,8 +21,12 @@ module.exports = {
   plugins:[
     new HtmlWebpackPlugin(),
     new CopyPlugin({
-      from: './public/*/ico', 
-      to: './dist'
+      patterns: [//此处官网文档没有更新写法，参考npm的copy-webpack-plugin文档
+        {
+          from: './public/*.ico', 
+          to: './dist/'
+        }
+      ]
     })
   ],
 
