@@ -6,6 +6,7 @@
 6. yarn add copy-webpack-plugin@6.3.2 -D
 7. yarn add art-template@4.13.2 art-template-loader@1.4.3 -D
 8. yarn add clean-webpack-plugin@3 -D
+9. yarn add sme-router -S
 
 npx webpack 运行打包(已配置脚本 build，yarn build运行)
 npx webpack-dev-server 启动服务器(已配置脚本 dev，yarn dev运行)
