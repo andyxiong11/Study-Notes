@@ -5,6 +5,7 @@
 5. yarn add webpack-dev-server@3.11.0 -D，最新版需要再安装@webpack-cli/serve，暂无法解决
 6. yarn add copy-webpack-plugin@6.3.2 -D
 7. yarn add art-template@4.13.2 art-template-loader@1.4.3 -D
+8. yarn add clean-webpack-plugin@3 -D
 
 npx webpack 运行打包(已配置脚本 build，yarn build运行)
 npx webpack-dev-server 启动服务器(已配置脚本 dev，yarn dev运行)
