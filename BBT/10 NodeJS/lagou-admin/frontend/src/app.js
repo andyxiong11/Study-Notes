@@ -1,2 +1,9 @@
-const x =100
-console.log(x);
+import indexTpl from './views/index.art'
+
+// console.log(indexTpl);
+
+const html = indexTpl({})
+
+// console.log(html);
+
+$('#root').html(html)

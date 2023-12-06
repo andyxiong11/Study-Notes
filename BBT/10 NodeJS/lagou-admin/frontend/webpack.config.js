@@ -19,6 +19,17 @@ module.exports = {
     filename:'app.js'
   },
 
+  module:{
+    rules:[
+      {
+        test: /\.art$/,
+        use: {
+          loader:'art-template-loader'
+        }
+      }
+    ]
+  },
+
   // 配置插件
   plugins:[
     new HtmlWebpackPlugin({
