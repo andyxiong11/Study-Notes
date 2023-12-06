@@ -45,6 +45,10 @@ module.exports = {
         {
           from: './public/favicon.ico', 
           to: path.join(__dirname,'./dist')
+        },
+        {
+          from: './public/libs', 
+          to: path.join(__dirname,'./dist/libs')
         }
       ]
     }),
