@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "art-template": "4.13.2",
+    "art-template-loader": "1.4.3",
     "copy-webpack-plugin": "6.3.2",
     "html-webpack-plugin": "4",
     "webpack": "4.44.2",
