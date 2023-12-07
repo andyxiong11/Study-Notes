@@ -27,8 +27,12 @@ module.exports = {
       {
         test: /\.art$/,
         use: {
-          loader:'art-template-loader'
+          loader:'art-template-loader'//解析.art文件
         }
+      },
+      {
+        test: /\.css$/,
+        loaders:['style-loader','css-loader']//css-loader负责将css文件放到js中，style-loader将js文件解析到页面上
       }
     ]
   },

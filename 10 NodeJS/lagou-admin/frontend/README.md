@@ -4,9 +4,10 @@
 4. yarn add html-webpack-plugin@4.5.0 -D
 5. yarn add webpack-dev-server@3.11.0 -D，最新版需要再安装@webpack-cli/serve，暂无法解决
 6. yarn add copy-webpack-plugin@6.3.2 -D
-7. yarn add art-template@4.13.2 art-template-loader@1.4.3 -D
-8. yarn add clean-webpack-plugin@3 -D
-9. yarn add sme-router -S
+7. yarn add art-template@4.13.2 art-template-loader@1.4.3 -D webpack解析art模板
+8. yarn add clean-webpack-plugin@3 -D 每次构建，自动清除上一次的打包文件
+9. yarn add sme-router -S 路由
+10. yarn add css-loader@5 style-loader@2 -D webpack解析css文件 最新版有问题
 
 npx webpack 运行打包(已配置脚本 build，yarn build运行)
 npx webpack-dev-server 启动服务器(已配置脚本 dev，yarn dev运行)
