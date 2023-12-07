@@ -38,7 +38,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname,'./public/index.html'),//需要打包的模板文件
       filename: 'index.html',//打包后的文件名
-      inject: 'head'//将打包后的script标签的js放到head标签中
+      // inject: 'head'//将打包后的script标签的js放到head标签中（使用后app,js无法读取页面元素）
     }),
     new CopyPlugin({
       patterns: [//此处官网文档没有更新写法，参考npm的copy-webpack-plugin文档
