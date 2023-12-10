@@ -24,6 +24,9 @@ const signin = (router)=>{
 const index = (router)=>{
   return (req, res, next) => {
     res.render(htmlIndex)
+
+    // window resize 让页面高度撑满整个屏幕
+    $(window,'.wrapper').resize()
   }
 }
 
