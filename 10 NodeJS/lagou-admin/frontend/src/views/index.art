@@ -215,12 +215,12 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Page Header
-          <small>Optional description</small>
+          用户管理
+          <small>用户列表</small>
         </h1>
         <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-          <li class="active">Here</li>
+          <li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
+          <li class="active">用户管理</li>
         </ol>
       </section>
   
@@ -228,6 +228,37 @@
       <section class="content">
   
         <!-- Your Page Content Here -->
+        <div class="box">
+          <div class="box-header">
+            <button class="btn btn-primary">添加</button>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table class="table table-bordered">
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>用户名</th>
+                <th style="width: 100px">操作</th>
+              </tr>
+              <tr>
+                <td>1.</td>
+                <td>admin</td>
+                <td><button class="btn btn-danger">55%</button></td>
+              </tr>
+            </table>
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+              <li><a href="#">&laquo;</a></li>
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">&raquo;</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /.box -->
   
       </section>
       <!-- /.content -->
