@@ -11,11 +11,8 @@
         <th>用户名</th>
         <th style="width: 100px">操作</th>
       </tr>
-      <tr>
-        <td>1.</td>
-        <td>admin</td>
-        <td><button class="btn btn-danger">55%</button></td>
-      </tr>
+      <!-- users-list 方便请求数据库用户时渲染数据 -->
+      <tbody id="users-list"></tbody>
     </table>
   </div>
   <!-- /.box-body -->

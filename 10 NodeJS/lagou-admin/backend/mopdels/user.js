@@ -15,5 +15,11 @@ const signup = ({username,password}) => {
   return users.save()
 }
 
+
+const findList = () => {
+  return Users.find().sort({_id:-1})//查找数据库中的所有数据，并倒叙返回给前端
+}
+
 exports.signup = signup
 exports.findUser = findUser
+exports.findList = findList

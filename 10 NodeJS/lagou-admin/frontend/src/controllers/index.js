@@ -1,6 +1,7 @@
 import indexTpl from '../views/index.art'
 import signinTpl from '../views/signin.art'
 import usersTpl from '../views/users.art'
+import usersListTpl from '../views/users-list.art'
 
 const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
@@ -25,11 +26,26 @@ const _signup = ()=>{
     data,
     success(res){
       console.log(res);
+      _list//重新请求用户查询接口，刷新页面数据
     }
   })
 
   // 关闭注册弹窗
   $btnClose.click()
+}
+
+// 查询用户列表
+const _list = ()=>{
+  $.ajax({
+    url:'/api/users/list',//后端接口地址
+    type:'get',
+    success(result){
+      // console.log(result);
+      $('#users-list').html(usersListTpl({//使用usersListTpl模板将用户数据渲染到页面
+        data:result.data
+      }))
+    }
+  })
 }
 
 const signin = (router)=>{
@@ -53,6 +69,9 @@ const index = (router)=>{
     /* let users = usersTpl
     console.log(users); */
     $('#content').html(usersTpl())
+
+    // 渲染用户列表list
+    _list()
 
     // 点击保存，提交表单
     $('#users-save').on('click',_signup)

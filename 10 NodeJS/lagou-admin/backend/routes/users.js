@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const {signup} = require('../controllers/users.js')
+const {signup,list} = require('../controllers/users.js')
 
 /* GET users listing. */
 /* router.get('/', function(req, res, next) {
@@ -13,5 +13,7 @@ const {signup} = require('../controllers/users.js')
   res.send('respond with a resource');
 }); */
 router.post('/signup', signup);//抽离中间件
+
+router.get('/list',list)
 
 module.exports = router;
