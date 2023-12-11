@@ -41,4 +41,15 @@ const signup = async (req, res, next) => {
   }
 }
 
+// 用户列表接口请求的内容
+const list = async (req,res) => {
+  res.set('content-type','application/json;charset=utf-8')//修改响应数据类型为json
+  
+  const listResult = await usersModel.findList()//查回数据库中的数据
+  res.render('succ',{
+    data:JSON.stringify(listResult)
+  })
+}
+
 exports.signup = signup
+exports.list = list
