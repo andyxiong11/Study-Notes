@@ -64,5 +64,11 @@ module.exports = {
     contentBase: path.join(__dirname, './dist'),
     compress: true,//是否压缩
     port: 8080,
+    // 配置webpack代理解决前端请求跨域问题
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000'
+      }
+    }
   }
 }

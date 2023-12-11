@@ -1,22 +1,44 @@
 const usersModel = require('../mopdels/user')
+const {hash} = require('../utils/tools')
 
 // 注册用户接口请求的内容
-const signup = (req, res, next) => {
+const signup = async (req, res, next) => {
+  res.set('content-type','application/json;charset=utf-8')//修改响应数据类型为json
+
   const { username,password } = req.body//前端请求的数据
 
-  usersModel.signup({//将前端请求的数据存入数据库
-    username,
-    password
-  })
+  const bcryptPassword = await hash(password)//将password加密
 
-  // res.send('respond with a resource');
-  res.render('succ',{//使用succ模板渲染
-    // data: JSON.stringify({x:0})
-    data: JSON.stringify({
+  // 判断用户是否存在
+  let findResult = await usersModel.findUser(username)
+  console.log(findResult);//存在则为数据库中已有的数据，否则为null
+
+  if(findResult){
+    res.render('fail',{
+      data: JSON.stringify({
+        message: '用户名存在'
+      })
+    })//将fail模板渲染到页面上
+  }else{
+    // 用户不存在,将用户入库
+    let result = await usersModel.signup({//将前端请求的数据存入数据库
       username,
-      password
+      password:bcryptPassword//将password加密
+    })//等待入库后再render
+    console.log(result);//数据库中存入的数据
+  
+    // res.send('respond with a resource');
+    res.render('succ',{//使用succ模板渲染
+      // data: JSON.stringify({x:0})
+     /*  data: JSON.stringify({
+        username,
+        password//不能直接给前端返回明文密码
+      }) */
+      data: JSON.stringify({
+        message: '注册成功！'
+      })
     })
-  })
+  }
 }
 
 exports.signup = signup
