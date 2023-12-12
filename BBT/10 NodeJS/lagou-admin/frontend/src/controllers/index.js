@@ -27,7 +27,7 @@ const _signup = ()=>{
     data,
     success(res){
       console.log(res);
-      _list//重新请求用户查询接口，刷新页面数据
+      _list()//重新请求用户查询接口，刷新页面数据
     }
   })
 
