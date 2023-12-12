@@ -6,6 +6,8 @@ import usersListPagesTpl from '../views/uesers-pages.art'
 
 const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
+const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
+let dataList = [] //页面展示当前页的用户数据
 
 const _handleSubmit = (router) => {
   return (e)=>{
@@ -27,7 +29,9 @@ const _signup = ()=>{
     data,
     success(res){
       console.log(res);
-      _list()//重新请求用户查询接口，刷新页面数据
+      // _list(1)//重新请求用户查询接口，刷新页面数据
+      _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
+      _list()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
     }
   })
 
@@ -37,7 +41,7 @@ const _signup = ()=>{
 
 // 分页
 const _pagination = (data) => {
-  const pageSize = 10 //每页10条
+  // const pageSize = 5 //每页10条
   const total = data.length
   const pageCount = Math.ceil(total/pageSize)//页数
   const pageArray = new Array(pageCount)// 用页数生成一个数组
@@ -49,23 +53,58 @@ const _pagination = (data) => {
   })
 
   $('#users-page').html(htmlPage)//将分页功能渲染到页面上
+
+  $('#users-page-list li:nth-child(2)').addClass('active') //第一个渲染页面，第一页按钮高亮
+  $('#users-page-list li:not(:first-child,:last-child').on('click',function(){//给页数绑定点击事件
+    // :not 排除第一个和最后一个li，防止前一页和后一页按钮样式变化
+    $(this).addClass('active').siblings().removeClass('active')//给当前li添加active样式，其他的兄弟节点删除active样式
+    // console.log($(this).index())//当前的页数
+    _list($(this).index())//查询点击页数的用户列表渲染到页面
+  })
+}
+
+// 将页面渲染与用户数据获取分离
+const _loadData = () => {
+  $.ajax({
+    url:'/api/users/list',//后端接口地址
+    type:'get',
+    // TODOajax属性，修改为同步请求
+    // 等数据响应后再渲染
+    async: false,
+    success(result){
+      dataList = result.data
+
+      // 分页；因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
+      _pagination(result.data)
+    }
+  })
 }
 
 // 查询用户列表
-const _list = ()=>{
-  $.ajax({
+const _list = (pageNo)=>{
+  /* $.ajax({
     url:'/api/users/list',//后端接口地址
     type:'get',
     success(result){
       // console.log(result);
+      let start = (pageNo-1) * pageSize //当前页第一条数据序号；因为页数从1开始所以减1
       $('#users-list').html(usersListTpl({//使用usersListTpl模板将用户数据渲染到页面
-        data:result.data
+        // data:result.data
+        data:result.data.slice(start, start + pageSize)//当前页的数据，从第start条开始
       }))
 
-      // 分页
+      // 分页；此处逻辑有问题，点击非第一页时，调用_list刷新页面用户数据，然后会调用_pagination，将第一页按钮高亮
+      // 解决方案，将页面渲染与用户数据获取分离
       _pagination(result.data)
     }
-  })
+  }) */
+
+  // 将页面渲染与用户数据获取分离
+  let start = (pageNo-1) * pageSize //当前页第一条数据序号；因为页数从1开始所以减1
+  $('#users-list').html(usersListTpl({//使用usersListTpl模板将用户数据渲染到页面
+    // data:result.data
+    data:dataList.slice(start, start + pageSize)//当前页的数据，从第start条开始
+  }))
 }
 
 const signin = (router)=>{
@@ -91,7 +130,9 @@ const index = (router)=>{
     $('#content').html(usersTpl())
 
     // 渲染用户列表list
-    _list()
+    // _list(1)
+    _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
+    _list(1)//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
 
     // 点击保存，提交表单
     $('#users-save').on('click',_signup)
