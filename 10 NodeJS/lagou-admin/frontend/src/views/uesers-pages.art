@@ -7,9 +7,9 @@
 
   <li><a href="#">&laquo;</a></li>
   <!-- each 循环 -->
-  {{each data}}
+  {{each pageArray}}
     <!-- index默认是0 -->
     <li><a href="#">{{$index+1}}</a></li>
   {{/each}}
-  <li><a href="#">&laquo;</a></li>
+  <li><a href="#">&raquo;</a></li>
 </ul>
