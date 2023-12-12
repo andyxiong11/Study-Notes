@@ -48,7 +48,7 @@ const _pagination = (data) => {
     pageArray
   })
 
-  $('#users-pages').html(htmlPage)
+  $('#users-page').html(htmlPage)//将分页功能渲染到页面上
 }
 
 // 查询用户列表
