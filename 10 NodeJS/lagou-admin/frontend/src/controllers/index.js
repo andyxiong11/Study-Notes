@@ -27,11 +27,15 @@ const _signup = ()=>{
     url:'/api/users/signup',//后端接口地址
     type:'post',
     data,
-    success(res){
-      console.log(res);
+    // success: async (res)=>{
+    success(res){//因为提交表单中await不生效，所以将_list(1)放在_loadData中
+      // console.log(res);
       // _list(1)//重新请求用户查询接口，刷新页面数据
-      _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
-      _list()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
+
+      /* await _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离;因控制台提示_loadData同步请求会影响用户体验，所以做await
+      _list(1)//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离 */
+      
+      _loadData()//因为提交表单中await不生效，所以将_list(1)放在_loadData中
     }
   })
 
@@ -65,17 +69,20 @@ const _pagination = (data) => {
 
 // 将页面渲染与用户数据获取分离
 const _loadData = () => {
-  $.ajax({
+  // return $.ajax({//将ajax请求返回promise，做await
+  $.ajax({  //因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
     url:'/api/users/list',//后端接口地址
     type:'get',
     // TODOajax属性，修改为同步请求
     // 等数据响应后再渲染
-    async: false,
+    // async: false,//因控制台提示同步请求会影响用户体验，所以不使用同步。直接将ajax请求返回promise，做await
     success(result){
       dataList = result.data
 
       // 分页；因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
       _pagination(result.data)
+
+      _list(1)//因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
     }
   })
 }
@@ -118,6 +125,7 @@ const signin = (router)=>{
 }
 
 const index = (router)=>{
+  // return async (req, res, next) => {
   return (req, res, next) => {
     res.render(htmlIndex)
 
@@ -131,8 +139,11 @@ const index = (router)=>{
 
     // 渲染用户列表list
     // _list(1)
-    _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
-    _list(1)//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
+
+    /* await _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离;因控制台提示同步请求会影响用户体验，所以_loadData不使用同步请求，在index做await
+    _list(1)//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离 */
+
+    _loadData()//因为提交表单中await不生效，所以将_list(1)放在_loadData中
 
     // 点击保存，提交表单
     $('#users-save').on('click',_signup)
