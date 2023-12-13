@@ -67,7 +67,7 @@ const _pagination = (data) => {
   })
 }
 
-// 将页面渲染与用户数据获取分离
+// 将页面渲染与用户数据获取分离（从后端获取数据）
 const _loadData = () => {
   // return $.ajax({//将ajax请求返回promise，做await
   $.ajax({  //因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
@@ -87,7 +87,7 @@ const _loadData = () => {
   })
 }
 
-// 查询用户列表
+// 查询用户列表（将数据渲染到页面）
 const _list = (pageNo)=>{
   /* $.ajax({
     url:'/api/users/list',//后端接口地址
@@ -138,6 +138,18 @@ const index = (router)=>{
     /* let users = usersTpl
     console.log(users); */
     $('#content').html(usersTpl())
+    $('#users-list').on('click','.remove',function(){//TODO给#users-list下面的每一个.remove样式元素绑定事件
+      $.ajax({
+        url:'/api/users',
+        type:'delete',
+        data:{
+          id:$(this).data('id')//$(this).data('id')可以获取当前点击的id
+        },
+        success(){
+          _loadData()//重新获取用户数据渲染到页面
+        }
+      })
+    })
 
     // 渲染用户列表list
     // _list(1)
