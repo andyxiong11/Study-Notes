@@ -7,6 +7,7 @@ import usersListPagesTpl from '../views/uesers-pages.art'
 const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
 const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
+let curPage = 1 //当前页码
 let dataList = [] //页面展示当前页的用户数据
 
 const _handleSubmit = (router) => {
@@ -58,13 +59,17 @@ const _pagination = (data) => {
 
   $('#users-page').html(htmlPage)//将分页功能渲染到页面上
 
-  $('#users-page-list li:nth-child(2)').addClass('active') //第一个渲染页面，第一页按钮高亮
-  $('#users-page-list li:not(:first-child,:last-child').on('click',function(){//给页数绑定点击事件
+  //$('#users-page-list li:nth-child(2)').addClass('active') //第一此渲染页面，第一页按钮高亮；因为将给页码绑定点击事件（高亮样式）移至index首页绑定，首页每次渲染时给当前页添加样式，所以此处不需要再单独添加样式
+  /* $('#users-page-list li:not(:first-child,:last-child').on('click',function(){//给页数绑定点击事件
+    const index = $(this).index()
     // :not 排除第一个和最后一个li，防止前一页和后一页按钮样式变化
     $(this).addClass('active').siblings().removeClass('active')//给当前li添加active样式，其他的兄弟节点删除active样式
     // console.log($(this).index())//当前的页数
-    _list($(this).index())//查询点击页数的用户列表渲染到页面
-  })
+    _list(index)//查询点击页数的用户列表渲染到页面
+    curPage = index //获取当前页码
+  }) //将给页码绑定点击事件（高亮样式）移至index首页绑定*/
+
+  _setPageActive(curPage)//页码高亮
 }
 
 // 将页面渲染与用户数据获取分离（从后端获取数据）
@@ -82,7 +87,7 @@ const _loadData = () => {
       // 分页；因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
       _pagination(result.data)
 
-      _list(1)//因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
+      _list(curPage)//因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
     }
   })
 }
@@ -125,6 +130,15 @@ const signin = (router)=>{
   }
 }
 
+// 当前页码高亮
+const _setPageActive = (index)=>{
+  $('#users-page #users-page-list li:not(:first-child,:last-child)')
+    .eq(index-1)//只有index当前页高亮
+    .addClass('active')
+    .siblings()
+    .removeClass('active')
+}
+
 // 首页
 const index = (router)=>{
   // return async (req, res, next) => {
@@ -149,6 +163,13 @@ const index = (router)=>{
           _loadData()//重新获取用户数据渲染到页面
         }
       })
+    })
+    //将给页码绑定点击事件（高亮样式）移至index首页绑定
+    $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给页数绑定点击事件
+      const index = $(this).index()
+      _list(index)//查询点击页数的用户列表渲染到页面
+      curPage = index //获取当前页码
+      _setPageActive(index)//页码高亮
     })
 
     // 渲染用户列表list
