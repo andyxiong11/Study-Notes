@@ -24,7 +24,7 @@ const _signup = ()=>{
   const data = $('#users-form').serialize()
   console.log(data);
   $.ajax({
-    url:'/api/users/signup',//后端接口地址
+    url:'/api/users',//后端接口地址
     type:'post',
     data,
     // success: async (res)=>{
@@ -71,7 +71,7 @@ const _pagination = (data) => {
 const _loadData = () => {
   // return $.ajax({//将ajax请求返回promise，做await
   $.ajax({  //因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
-    url:'/api/users/list',//后端接口地址
+    url:'/api/users',//后端接口地址
     type:'get',
     // TODOajax属性，修改为同步请求
     // 等数据响应后再渲染
@@ -114,6 +114,7 @@ const _list = (pageNo)=>{
   }))
 }
 
+// 登录
 const signin = (router)=>{
   // TODO函数柯里化
   //一个函数需要接受传参时，再定义一个函数将其返回
@@ -124,6 +125,7 @@ const signin = (router)=>{
   }
 }
 
+// 首页
 const index = (router)=>{
   // return async (req, res, next) => {
   return (req, res, next) => {
