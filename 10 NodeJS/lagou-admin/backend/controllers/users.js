@@ -1,4 +1,6 @@
-const usersModel = require('../mopdels/user')
+// 接口文件
+
+const usersModel = require('../models/user')
 const {hash} = require('../utils/tools')
 
 // 注册用户接口请求的内容
@@ -42,7 +44,7 @@ const signup = async (req, res, next) => {
 }
 
 // 用户列表接口请求的内容
-const list = async (req,res) => {
+const list = async (req,res,next) => {
   res.set('content-type','application/json;charset=utf-8')//修改响应数据类型为json
   
   const listResult = await usersModel.findList()//查回数据库中的数据
@@ -51,5 +53,27 @@ const list = async (req,res) => {
   })
 }
 
+// 删除用户接口请求的内容
+const remove = async (req,res,next) => {
+  res.set('content-type','application/json;charset=utf-8')//修改响应数据类型为json
+
+  const {id} = req.body
+  let result = await usersModel.remove(id)
+  // console.log(result);
+  if(result){
+    res.render('succ',{
+      data:JSON.stringify({
+        message:"用户删除成功"
+      })
+    })
+  }
+  res.render('fail',{
+    data:JSON.stringify({
+      message:"用户删除失败"
+    })
+  })
+}
+
 exports.signup = signup
 exports.list = list
+exports.remove = remove
