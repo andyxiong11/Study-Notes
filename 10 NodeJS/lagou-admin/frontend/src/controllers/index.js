@@ -8,7 +8,7 @@ const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
 const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
 let curPage = 1 //当前页码
-let dataList = [] //页面展示当前页的用户数据
+let dataList = [] //后端用户总数
 
 const _handleSubmit = (router) => {
   return (e)=>{
@@ -152,7 +152,7 @@ const index = (router)=>{
     /* let users = usersTpl
     console.log(users); */
     $('#content').html(usersTpl())
-    $('#users-list').on('click','.remove',function(){//TODO给#users-list下面的每一个.remove样式元素绑定事件
+    $('#users-list').on('click','.remove',function(){//TODO给#users-list下面的每一个.remove样式元素绑定删除事件
       $.ajax({
         url:'/api/users',
         type:'delete',
@@ -161,15 +161,38 @@ const index = (router)=>{
         },
         success(){
           _loadData()//重新获取用户数据渲染到页面
+
+          // 解决：最后一页数据全部删除完，回到前一页
+          // 判断当前页是最后一页且当删除的是最后一条数据且当前页不是第一页；可能因为_loadData是异步，所以此时dataList是删除前的数据
+          const idLastPage = Math.ceil(dataList.length / pageSize) === curPage
+          const restOne = dataList.length % pageSize === 1
+          const notPageFirst = curPage > 0
+          if(idLastPage && restOne && notPageFirst){//Math.ceil 向最大取整
+            curPage--
+          }
         }
       })
     })
     //将给页码绑定点击事件（高亮样式）移至index首页绑定
-    $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给页数绑定点击事件
+    $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给页码绑定点击事件
       const index = $(this).index()
       _list(index)//查询点击页数的用户列表渲染到页面
       curPage = index //获取当前页码
       _setPageActive(index)//页码高亮
+    })
+    $('#users-page').on('click','#users-page-list li:first-child',function(){//给前进按钮绑定事件
+      if(curPage > 1){
+        curPage--
+        _list(curPage)//重新渲染页面数据
+        _setPageActive(curPage)//页码高亮
+      }
+    })
+    $('#users-page').on('click','#users-page-list li:last-child',function(){//给后退按钮绑定事件
+      if(curPage < Math.ceil(dataList.length / pageSize)){
+        curPage++
+        _list(curPage)//重新渲染页面数据
+        _setPageActive(curPage)//页码高亮
+      }
     })
 
     // 渲染用户列表list
