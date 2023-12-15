@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // var cors = require('cors') //此处不使用该方法解决前端请求跨域，避免老系统后端没有使用cors
+var cookieSession = require('cookie-session') //操作cookie
 
 // var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,6 +22,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use(cors())//解决前后端请求跨域问题，此处不使用该方法解决前端请求跨域，避免老系统后端没有使用cors
+
+// 设置cookie-session
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);

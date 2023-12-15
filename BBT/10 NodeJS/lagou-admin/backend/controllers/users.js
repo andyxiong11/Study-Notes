@@ -51,13 +51,17 @@ const signin = async (req,res,next) => {
   let result = await usersModel.findUser(username)
   // console.log(result);
   if(result){//用户名存在
-    const sessionId = randomstring.generate();//randomstring 随机生成字符串
+    /* const sessionId = randomstring.generate();//randomstring 随机生成字符串
     console.log(sessionId);
     res.set('Set-Cookie', `sessionId=${sessionId}; Path=/; HttpOnly`) //webpack的set方法给前端传输cookie
+    // 此处使用cookie-session */
 
     let {password:hash} = result//:hash别名
     let compareResult = await compare(password,hash)//比对密码
     if(compareResult){//密码存在
+      console.log(req.session);
+      req.session.username = username//cookie-session,将username存到cookie的username中
+      
       res.render('succ',{//succ.ejs模板
         data:JSON.stringify({
           username
