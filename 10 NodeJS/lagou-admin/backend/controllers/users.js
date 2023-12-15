@@ -2,7 +2,7 @@
 
 const usersModel = require('../models/user')
 const {hash,compare} = require('../utils/tools')
-const randomstring = require("randomstring");
+// const randomstring = require("randomstring");
 
 // 注册用户接口请求的内容
 const signup = async (req, res, next) => {
@@ -83,6 +83,33 @@ const signin = async (req,res,next) => {
   }
 }
 
+// 退出登录接口（清空cookie，仅供测试接口auth鉴权使用）
+const signout = async (req,res,next) => {
+  req.session = null //cookie-session的方法，清空cookie
+  res.render('succ',{//succ.ejs模板
+    data:JSON.stringify({
+      message:"成功退出登录"
+    })
+  })
+}
+
+// 是否登录接口
+const isAuth = async (req,res,next) => {
+  if(req.session.username){
+    res.render('succ',{//succ.ejs模板
+      data:JSON.stringify({
+        username:req.session.username
+      })
+    })
+  }else{
+    res.render('fail',{//fail.ejs模板
+      data:JSON.stringify({
+        message:"请登录"
+      })
+    })
+  }
+}
+
 // 用户列表接口请求的内容
 const list = async (req,res,next) => {
   res.set('content-type','application/json;charset=utf-8')//修改响应数据类型为json
@@ -119,3 +146,5 @@ exports.signup = signup
 exports.list = list
 exports.remove = remove
 exports.signin = signin
+exports.signout = signout
+exports.isAuth = isAuth
