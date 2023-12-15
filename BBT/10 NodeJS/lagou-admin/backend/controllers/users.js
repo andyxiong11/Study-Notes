@@ -43,6 +43,14 @@ const signup = async (req, res, next) => {
   }
 }
 
+// 用户登录接口请求的内容
+const signin = async (req,res,next) => {
+  const {username,password} = req.body
+
+  let result = await usersModel.findUser(username)
+  console.log(result);
+}
+
 // 用户列表接口请求的内容
 const list = async (req,res,next) => {
   res.set('content-type','application/json;charset=utf-8')//修改响应数据类型为json
@@ -78,3 +86,4 @@ const remove = async (req,res,next) => {
 exports.signup = signup
 exports.list = list
 exports.remove = remove
+exports.signin = signin
