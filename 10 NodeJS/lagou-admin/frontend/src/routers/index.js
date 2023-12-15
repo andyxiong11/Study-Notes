@@ -12,7 +12,7 @@ import {signin,index} from '../controllers'
 /* router.route('/', (req, res, next) => {
   res.render(htmlSignin)
 }) */
-router.route('/', signin(router))//传参router，方便登录页面调用路由方法跳转
+router.route('/signin', signin(router))//传参router，方便登录页面调用路由方法跳转
 
 router.route('/index',index(router))
 
