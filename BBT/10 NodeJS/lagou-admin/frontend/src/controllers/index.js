@@ -4,6 +4,8 @@ import usersTpl from '../views/users.art'
 import usersListTpl from '../views/users-list.art'
 import usersListPagesTpl from '../views/uesers-pages.art'
 
+import router from '../routers'
+
 const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
 const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
@@ -152,6 +154,8 @@ const index = (router)=>{
     /* let users = usersTpl
     console.log(users); */
     $('#content').html(usersTpl())
+
+    // 事件绑定
     $('#users-list').on('click','.remove',function(){//TODO给#users-list下面的每一个.remove样式元素绑定删除事件
       $.ajax({
         url:'/api/users',
@@ -174,7 +178,7 @@ const index = (router)=>{
       })
     })
     //将给页码绑定点击事件（高亮样式）移至index首页绑定
-    $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给页码绑定点击事件
+    $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
       const index = $(this).index()
       _list(index)//查询点击页数的用户列表渲染到页面
       curPage = index //获取当前页码
@@ -193,6 +197,10 @@ const index = (router)=>{
         _list(curPage)//重新渲染页面数据
         _setPageActive(curPage)//页码高亮
       }
+    })
+    $('#users-signout').on('click',(e) => {//给退出按钮绑定事件
+      e.preventDefault()//TODOpreventDefault方法去除a标签的跳转事件
+      router.go('/signin')
     })
 
     // 渲染用户列表list
