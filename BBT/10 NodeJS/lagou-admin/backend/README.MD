@@ -5,6 +5,7 @@
 5. yarn add mongoose 安装mongoose，便于node操作数据库
 6. yarn add bcrypt 对前端请求的用户名密码加密
 7. yarn add cors -S 安装cors，在app.js中使用，但是此处不使用该方法解决前端请求跨域，避免老系统后端没有使用cors
+8. yarn add randomstring -S 随机生成字符串
 
 yarn start 启动
 后端接口调试使用apipost localhost:3000/api/users/signup body类型为urlencoded
