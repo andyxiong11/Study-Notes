@@ -5,7 +5,8 @@
 5. yarn add mongoose 安装mongoose，便于node操作数据库
 6. yarn add bcrypt 对前端请求的用户名密码加密
 7. yarn add cors -S 安装cors，在app.js中使用，但是此处不使用该方法解决前端请求跨域，避免老系统后端没有使用cors
-8. yarn add randomstring -S 随机生成字符串
+8. yarn add randomstring -S 随机生成字符串，此处仅作演示。实际使用cookie-session插件操作cookie
+9. yarn add cookie-session -S 操作cookie
 
 yarn start 启动
 后端接口调试使用apipost localhost:3000/api/users/signup body类型为urlencoded
@@ -14,3 +15,5 @@ MongoDB操作命令：
 2. use lagou-adming
 3. db.getCollectionNames() 查看数据库的所有集合（发送请求后查看）
 4. db.kittens.find() 查看kittens集合下所有数据
+
+**使用cookie避免同源网页重复http请求**
