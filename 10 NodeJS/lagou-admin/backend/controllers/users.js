@@ -1,7 +1,8 @@
 // 接口文件
 
 const usersModel = require('../models/user')
-const {hash} = require('../utils/tools')
+const {hash,compare} = require('../utils/tools')
+const randomstring = require("randomstring");
 
 // 注册用户接口请求的内容
 const signup = async (req, res, next) => {
@@ -16,7 +17,7 @@ const signup = async (req, res, next) => {
   console.log(findResult);//存在则为数据库中已有的数据，否则为null
 
   if(findResult){
-    res.render('fail',{
+    res.render('fail',{//fail.ejs模板
       data: JSON.stringify({
         message: '用户名存在'
       })
@@ -48,7 +49,34 @@ const signin = async (req,res,next) => {
   const {username,password} = req.body
 
   let result = await usersModel.findUser(username)
-  console.log(result);
+  // console.log(result);
+  if(result){//用户名存在
+    const sessionId = randomstring.generate();//randomstring 随机生成字符串
+    console.log(sessionId);
+    res.set('Set-Cookie', `sessionId=${sessionId}; Path=/; HttpOnly`) //webpack的set方法给前端传输cookie
+
+    let {password:hash} = result//:hash别名
+    let compareResult = await compare(password,hash)//比对密码
+    if(compareResult){//密码存在
+      res.render('succ',{//succ.ejs模板
+        data:JSON.stringify({
+          username
+        })
+      })
+    }else{
+      res.render('fail',{//fail.ejs模板
+        data:JSON.stringify({
+          message:"用户名或密码错误"
+        })
+      })
+    }
+  }else{
+    res.render('fail',{//fail.ejs模板
+      data:JSON.stringify({
+        message:"用户名或密码错误"
+      })
+    })
+  }
 }
 
 // 用户列表接口请求的内容
@@ -56,7 +84,7 @@ const list = async (req,res,next) => {
   res.set('content-type','application/json;charset=utf-8')//修改响应数据类型为json
   
   const listResult = await usersModel.findList()//查回数据库中的数据
-  res.render('succ',{
+  res.render('succ',{//succ.ejs模板
     data:JSON.stringify(listResult)
   })
 }
@@ -69,13 +97,13 @@ const remove = async (req,res,next) => {
   let result = await usersModel.remove(id)
   // console.log(result);
   if(result){
-    res.render('succ',{
+    res.render('succ',{//succ.ejs模板
       data:JSON.stringify({
         message:"用户删除成功"
       })
     })
   }else{
-    res.render('fail',{
+    res.render('fail',{//fail.ejs模板
       data:JSON.stringify({
         message:"用户删除失败"
       })

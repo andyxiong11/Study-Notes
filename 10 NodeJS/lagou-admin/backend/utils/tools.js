@@ -21,3 +21,12 @@ exports.hash = (myPlaintextPassword) => {
     });
   })
 }
+
+// 将传入值与已有加密的值进行比较 bcrypt.compare
+exports.compare = (someOtherPlaintextPassword,hash) => {
+  return new Promise((resolve,reject) => {
+    bcrypt.compare(someOtherPlaintextPassword, hash, function(err, result) {
+      resolve(result)//result比对结果
+    });
+  })
+}
