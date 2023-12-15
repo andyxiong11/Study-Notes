@@ -16,4 +16,16 @@ import './assets/common.css'
 
 // 载入路由
 import router from  './routers'
-router.go('/index')
+
+// router.go('/index')
+$.ajax({
+  url:'/api/users/isAuth',
+  success(result){
+    console.log(result);
+    if(result.ret){//鉴权通过，是登录状态
+      router.go('/index')
+    }else{
+      router.go('/signin')
+    }
+  }
+})
