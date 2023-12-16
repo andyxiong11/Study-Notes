@@ -12,10 +12,24 @@ const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提
 let curPage = 1 //当前页码
 let dataList = [] //后端用户总数
 
+// 点击登录按钮
 const _handleSubmit = (router) => {
   return (e)=>{
     e.preventDefault();//阻止表单跳转
-    router.go('/index')
+    // router.go('/index')
+
+    const data = $('#signin').serialize()
+    $.ajax({
+      url:'/api/users/signin',
+      type:'post',
+      dataType:'json',
+      data,
+      success: function(res){
+        if(res.ret){//后端响应ret为真，数据存在
+          router.go('/index')
+        }
+      }
+    })
   }
 }
 
@@ -141,18 +155,17 @@ const _setPageActive = (index)=>{
     .removeClass('active')
 }
 
+
 // 首页
 const index = (router)=>{
-  // return async (req, res, next) => {
-  return (req, res, next) => {
+  // 将首页的操作封装在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
+  const loadIndex = (res)=> {
     res.render(htmlIndex)
 
     // window resize 让页面高度撑满整个屏幕
     $(window,'.wrapper').resize()
 
     // 填充用户列表
-    /* let users = usersTpl
-    console.log(users); */
     $('#content').html(usersTpl())
 
     // 事件绑定
@@ -200,19 +213,122 @@ const index = (router)=>{
     })
     $('#users-signout').on('click',(e) => {//给退出按钮绑定事件
       e.preventDefault()//TODOpreventDefault方法去除a标签的跳转事件
-      router.go('/signin')
+      // router.go('/signin')
+
+      $.ajax({
+        url:'/api/users/signout',
+        dataType:'json',
+        success(result){
+          if(result.ret){//后端响应ret为真，请求成功
+            // console.log(result);
+            location.reload()//刷新页面，走app.js重新鉴权进入登录页面
+          }
+        }
+      })
     })
 
     // 渲染用户列表list
-    // _list(1)
+    _loadData()
 
-    /* await _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离;因控制台提示同步请求会影响用户体验，所以_loadData不使用同步请求，在index做await
-    _list(1)//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离 */
+    $('#users-save').on('click',_signup)// 点击保存，提交表单
+  }
 
-    _loadData()//因为提交表单中await不生效，所以将_list(1)放在_loadData中
+  // return async (req, res, next) => {
+  return (req, res, next) => {
+    //解决直接输入首页url进入首页，因无法渲染数据控制台报错
+    $.ajax({
+      url:'/api/users/isAuth',
+      dataType:'json',
+      // async:false,//非异步请求
+      success(result){
+        // console.log(result);
+        if(result.ret){//鉴权通过，是登录状态
+          // router.go('/index')
+          loadIndex(res)//将首页的操作封装在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
+        }else{
+          router.go('/signin')
+        }
+      }
+    })
 
-    // 点击保存，提交表单
-    $('#users-save').on('click',_signup)
+    // 将首页的操作封装在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
+    // res.render(htmlIndex)
+
+    // // window resize 让页面高度撑满整个屏幕
+    // $(window,'.wrapper').resize()
+
+    // // 填充用户列表
+    // /* let users = usersTpl
+    // console.log(users); */
+    // $('#content').html(usersTpl())
+
+    // // 事件绑定
+    // $('#users-list').on('click','.remove',function(){//TODO给#users-list下面的每一个.remove样式元素绑定删除事件
+    //   $.ajax({
+    //     url:'/api/users',
+    //     type:'delete',
+    //     data:{
+    //       id:$(this).data('id')//$(this).data('id')可以获取当前点击的id
+    //     },
+    //     success(){
+    //       _loadData()//重新获取用户数据渲染到页面
+
+    //       // 解决：最后一页数据全部删除完，回到前一页
+    //       // 判断当前页是最后一页且当删除的是最后一条数据且当前页不是第一页；可能因为_loadData是异步，所以此时dataList是删除前的数据
+    //       const idLastPage = Math.ceil(dataList.length / pageSize) === curPage
+    //       const restOne = dataList.length % pageSize === 1
+    //       const notPageFirst = curPage > 0
+    //       if(idLastPage && restOne && notPageFirst){//Math.ceil 向最大取整
+    //         curPage--
+    //       }
+    //     }
+    //   })
+    // })
+    // //将给页码绑定点击事件（高亮样式）移至index首页绑定
+    // $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
+    //   const index = $(this).index()
+    //   _list(index)//查询点击页数的用户列表渲染到页面
+    //   curPage = index //获取当前页码
+    //   _setPageActive(index)//页码高亮
+    // })
+    // $('#users-page').on('click','#users-page-list li:first-child',function(){//给前进按钮绑定事件
+    //   if(curPage > 1){
+    //     curPage--
+    //     _list(curPage)//重新渲染页面数据
+    //     _setPageActive(curPage)//页码高亮
+    //   }
+    // })
+    // $('#users-page').on('click','#users-page-list li:last-child',function(){//给后退按钮绑定事件
+    //   if(curPage < Math.ceil(dataList.length / pageSize)){
+    //     curPage++
+    //     _list(curPage)//重新渲染页面数据
+    //     _setPageActive(curPage)//页码高亮
+    //   }
+    // })
+    // $('#users-signout').on('click',(e) => {//给退出按钮绑定事件
+    //   e.preventDefault()//TODOpreventDefault方法去除a标签的跳转事件
+    //   // router.go('/signin')
+
+    //   $.ajax({
+    //     url:'/api/users/signout',
+    //     success(result){
+    //       if(result.ret){//后端响应ret为真，请求成功
+    //         console.log(result);
+    //         location.reload()//刷新页面，走app.js重新鉴权进入登录页面
+    //       }
+    //     }
+    //   })
+    // })
+
+    // // 渲染用户列表list
+    // // _list(1)
+
+    // /* await _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离;因控制台提示同步请求会影响用户体验，所以_loadData不使用同步请求，在index做await
+    // _list(1)//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离 */
+
+    // _loadData()//因为提交表单中await不生效，所以将_list(1)放在_loadData中
+
+    // $('#users-save').on('click',_signup)// 点击保存，提交表单
   }
 }
 
