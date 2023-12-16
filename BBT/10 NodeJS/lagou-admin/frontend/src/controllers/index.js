@@ -13,6 +13,7 @@ let curPage = 1 //当前页码
 let dataList = [] //后端用户总数
 
 // 点击登录按钮
+/* 登录逻辑抽离放在signin.js
 const _handleSubmit = (router) => {
   return (e)=>{
     e.preventDefault();//阻止表单跳转
@@ -31,7 +32,7 @@ const _handleSubmit = (router) => {
       }
     })
   }
-}
+} */
 
 // 注册表单提交事件
 const _signup = ()=>{
@@ -136,6 +137,7 @@ const _list = (pageNo)=>{
 }
 
 // 登录
+/* 登录逻辑抽离放在signin.js
 const signin = (router)=>{
   // TODO函数柯里化
   //一个函数需要接受传参时，再定义一个函数将其返回
@@ -144,7 +146,7 @@ const signin = (router)=>{
     
     $('#signin').on('submit',_handleSubmit(router))//给表单绑定事件
   }
-}
+} */
 
 // 当前页码高亮
 const _setPageActive = (index)=>{
@@ -249,6 +251,9 @@ const index = (router)=>{
           router.go('/signin')
         }
       }
+      /* error: (e) => {
+        console.log(e);
+      } */
     })
 
     // 将首页的操作封装在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
@@ -332,6 +337,7 @@ const index = (router)=>{
   }
 }
 
-export {
+/* export {
   signin,index
-}
+} */
+export default index //登录逻辑抽离放在signin.js

@@ -7,21 +7,28 @@ const router = new SMERouter('root') //root为index.html的根节点
 /* const htmlIndex = indexTpl({})
 const htmlSignin = siginTpl({}) */
 
-import {signin,index} from '../controllers'
+// import {signin,index} from '../controllers'
+import index from '../controllers/index'
+import signin from '../controllers/signin'
 
-router.use((req)=>{//给sme-router路由守卫增加鉴权
+// sme-router路由守卫
+router.use((req)=>{
   // 第一次打开的页面鉴权，从app.js文件移入
   $.ajax({
     url:'/api/users/isAuth',
-    dataType:'json',
+    // TODO此处不能使用json 20231216长时间阻塞
+    // dataType:'json', 
     success(result){
-      console.log(result);
+      // console.log(result);
       if(result.ret){//鉴权通过，是登录状态
         router.go('/index')
       }else{
         router.go('/signin')
       }
     }
+    /* error: (e) => {
+      console.log(e);
+    } */
   })
 })
 router.route('/',()=>{})
