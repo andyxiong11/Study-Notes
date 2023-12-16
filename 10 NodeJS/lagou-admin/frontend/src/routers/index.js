@@ -9,6 +9,23 @@ const htmlSignin = siginTpl({}) */
 
 import {signin,index} from '../controllers'
 
+router.use((req)=>{//给sme-router路由守卫增加鉴权
+  // 第一次打开的页面鉴权，从app.js文件移入
+  $.ajax({
+    url:'/api/users/isAuth',
+    dataType:'json',
+    success(result){
+      console.log(result);
+      if(result.ret){//鉴权通过，是登录状态
+        router.go('/index')
+      }else{
+        router.go('/signin')
+      }
+    }
+  })
+})
+router.route('/',()=>{})
+
 /* router.route('/', (req, res, next) => {
   res.render(htmlSignin)
 }) */

@@ -18,8 +18,9 @@ import './assets/common.css'
 import router from  './routers'
 
 // router.go('/index')
-$.ajax({
+/* $.ajax({
   url:'/api/users/isAuth',
+  dataType:'json'
   success(result){
     console.log(result);
     if(result.ret){//鉴权通过，是登录状态
@@ -28,4 +29,6 @@ $.ajax({
       router.go('/signin')
     }
   }
-})
+}) //首次打开页面鉴权放到路由文件中*/
+
+router.go('/')//解决将首次打开页面鉴权放到路由文件中后，页面没有渲染的问题
