@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders:['style-loader','css-loader']//css-loader负责将css文件放到js中，style-loader将js文件解析到页面上
+        loaders:['style-loader','css-loader']//css-loader负责将css文件放到js中，style-loader将js文件解析到页面上。先后顺序不能错
       }
     ]
   },
