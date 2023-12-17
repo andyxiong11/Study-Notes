@@ -12,7 +12,7 @@ const _setPageActive = (index)=>{
 }
 
 // 分页
-const pagination = (data) => {
+const pagination = (data,pageSize,curPage) => {
   const total = data.length
   const pageCount = Math.ceil(total/pageSize)//页数
   const pageArray = new Array(pageCount)// 用页数生成一个数组
@@ -31,6 +31,7 @@ $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',
   const index = $(this).index()
   _list(index)//查询点击页数的用户列表渲染到页面
   curPage = index //获取当前页码
+  $.trigger('changeCurPage',curPage)
   _setPageActive(index)//页码高亮
 })
 $('#users-page').on('click','#users-page-list li:first-child',function(){//给前进按钮绑定事件
