@@ -6,11 +6,12 @@ import usersListPagesTpl from '../views/uesers-pages.art'
 
 import router from '../routers'
 import pagination from '../components/pagination.js'
+import page from '../databus/page'
 
 const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
-const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
-let curPage = 1 //当前页码
+/* const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
+let curPage = 1 //当前页码 写成公共响应式变量 databus/page.js*/
 let dataList = [] //后端用户总数
 
 // 点击登录按钮
@@ -120,10 +121,10 @@ const _list = (pageNo)=>{
   }) */
 
   // 将页面渲染与用户数据获取分离
-  let start = (pageNo-1) * pageSize //当前页第一条数据序号；因为页数从1开始所以减1
+  let start = (pageNo-1) * page.pageSize //当前页第一条数据序号；因为页数从1开始所以减1
   $('#users-list').html(usersListTpl({//使用usersListTpl模板将用户数据渲染到页面
     // data:result.data
-    data:dataList.slice(start, start + pageSize)//当前页的数据，从第start条开始
+    data:dataList.slice(start, start + page.pageSize)//当前页的数据，从第start条开始
   }))
 }
 
@@ -141,9 +142,9 @@ const _loadData = () => {
 
       // 分页；因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
       // _pagination(result.data)
-      pagination(result.data,pageSize,curPage)//分页相关功能已抽离至components/pagination.js
+      pagination(result.data,page.pageSize)//分页相关功能已抽离至components/pagination.js
 
-      _list(curPage)//因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
+      _list(page.curPage)//因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
     }
   })
 }
@@ -232,6 +233,7 @@ const _subscribe = () => {
   $('body').on('changeCurPage',(event,index)=>{//on必须给某个元素绑定事件，随机选择body
     // console.log(index);
     _list(index)//更新页面数据
+    // console.log(page.curPage);
   })
 }
 
