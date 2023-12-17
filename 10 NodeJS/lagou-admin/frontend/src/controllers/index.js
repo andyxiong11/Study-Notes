@@ -61,42 +61,43 @@ const _signup = ()=>{
   $btnClose.click()
 }
 
-// 当前页码高亮
-const _setPageActive = (index)=>{
-  $('#users-page #users-page-list li:not(:first-child,:last-child)')
-    .eq(index-1)//只有index当前页高亮
-    .addClass('active')
-    .siblings()
-    .removeClass('active')
-}
+// 将分页的两个方法抽离封装 components/pagination.js
+// // 当前页码高亮
+// const _setPageActive = (index)=>{
+//   $('#users-page #users-page-list li:not(:first-child,:last-child)')
+//     .eq(index-1)//只有index当前页高亮
+//     .addClass('active')
+//     .siblings()
+//     .removeClass('active')
+// }
 
-// 分页
-const _pagination = (data) => {
-  // const pageSize = 5 //每页10条
-  const total = data.length
-  const pageCount = Math.ceil(total/pageSize)//页数
-  const pageArray = new Array(pageCount)// 用页数生成一个数组
-  console.log(pageArray);
+// // 分页
+// const _pagination = (data) => {
+//   // const pageSize = 5 //每页10条
+//   const total = data.length
+//   const pageCount = Math.ceil(total/pageSize)//页数
+//   const pageArray = new Array(pageCount)// 用页数生成一个数组
+//   console.log(pageArray);
 
-  const htmlPage = usersListPagesTpl({
-    // pageCount
-    pageArray
-  })
+//   const htmlPage = usersListPagesTpl({
+//     // pageCount
+//     pageArray
+//   })
 
-  $('#users-page').html(htmlPage)//将分页功能渲染到页面上
+//   $('#users-page').html(htmlPage)//将分页功能渲染到页面上
 
-  //$('#users-page-list li:nth-child(2)').addClass('active') //第一此渲染页面，第一页按钮高亮；因为将给页码绑定点击事件（高亮样式）移至index首页绑定，首页每次渲染时给当前页添加样式，所以此处不需要再单独添加样式
-  /* $('#users-page-list li:not(:first-child,:last-child').on('click',function(){//给页数绑定点击事件
-    const index = $(this).index()
-    // :not 排除第一个和最后一个li，防止前一页和后一页按钮样式变化
-    $(this).addClass('active').siblings().removeClass('active')//给当前li添加active样式，其他的兄弟节点删除active样式
-    // console.log($(this).index())//当前的页数
-    _list(index)//查询点击页数的用户列表渲染到页面
-    curPage = index //获取当前页码
-  }) //将给页码绑定点击事件（高亮样式）移至index首页绑定*/
+//   //$('#users-page-list li:nth-child(2)').addClass('active') //第一此渲染页面，第一页按钮高亮；因为将给页码绑定点击事件（高亮样式）移至index首页绑定，首页每次渲染时给当前页添加样式，所以此处不需要再单独添加样式
+//   /* $('#users-page-list li:not(:first-child,:last-child').on('click',function(){//给页数绑定点击事件
+//     const index = $(this).index()
+//     // :not 排除第一个和最后一个li，防止前一页和后一页按钮样式变化
+//     $(this).addClass('active').siblings().removeClass('active')//给当前li添加active样式，其他的兄弟节点删除active样式
+//     // console.log($(this).index())//当前的页数
+//     _list(index)//查询点击页数的用户列表渲染到页面
+//     curPage = index //获取当前页码
+//   }) //将给页码绑定点击事件（高亮样式）移至index首页绑定*/
 
-  _setPageActive(curPage)//页码高亮
-}
+//   _setPageActive(curPage)//页码高亮
+// }
 
 // 查询用户列表（将数据渲染到页面）
 const _list = (pageNo)=>{
@@ -184,6 +185,7 @@ const _methods = ()=>{
     })
   })
   //将给页码绑定点击事件（高亮样式）移至index首页绑定
+  /* 分页相关事件绑定移至 components/pagination.js
   $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
     const index = $(this).index()
     _list(index)//查询点击页数的用户列表渲染到页面
@@ -203,7 +205,7 @@ const _methods = ()=>{
       _list(curPage)//重新渲染页面数据
       _setPageActive(curPage)//页码高亮
     }
-  })
+  }) */
   $('#users-signout').on('click',(e) => {//给退出按钮绑定事件
     e.preventDefault()//TODOpreventDefault方法去除a标签的跳转事件
     // router.go('/signin')
