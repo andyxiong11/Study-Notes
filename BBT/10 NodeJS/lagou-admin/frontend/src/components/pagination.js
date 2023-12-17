@@ -25,28 +25,32 @@ const pagination = (data,pageSize,curPage) => {
   $('#users-page').html(htmlPage)//将分页功能渲染到页面上
 
   _setPageActive(curPage)//页码高亮
+
+  _bindEvent() //修复分页功能绑定事件失败（如果不在此处绑定，那么在首页导入该文件时就绑定事件，此时页面渲染未结束）
 }
 
-$('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
-  const index = $(this).index()
-  _list(index)//查询点击页数的用户列表渲染到页面
-  curPage = index //获取当前页码
-  $.trigger('changeCurPage',curPage)
-  _setPageActive(index)//页码高亮
-})
-$('#users-page').on('click','#users-page-list li:first-child',function(){//给前进按钮绑定事件
-  if(curPage > 1){
-    curPage--
-    _list(curPage)//重新渲染页面数据
-    _setPageActive(curPage)//页码高亮
-  }
-})
-$('#users-page').on('click','#users-page-list li:last-child',function(){//给后退按钮绑定事件
-  if(curPage < Math.ceil(dataList.length / pageSize)){
-    curPage++
-    _list(curPage)//重新渲染页面数据
-    _setPageActive(curPage)//页码高亮
-  }
-})
+const _bindEvent = () => {
+  $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
+    const index = $(this).index()
+    _list(index)//查询点击页数的用户列表渲染到页面
+    curPage = index //获取当前页码
+    $('body').trigger('changeCurPage',curPage)//trigger 触发changeCurPage事件
+    _setPageActive(index)//页码高亮
+  })
+  $('#users-page').on('click','#users-page-list li:first-child',function(){//给前进按钮绑定事件
+    if(curPage > 1){
+      curPage--
+      _list(curPage)//重新渲染页面数据
+      _setPageActive(curPage)//页码高亮
+    }
+  })
+  $('#users-page').on('click','#users-page-list li:last-child',function(){//给后退按钮绑定事件
+    if(curPage < Math.ceil(dataList.length / pageSize)){
+      curPage++
+      _list(curPage)//重新渲染页面数据
+      _setPageActive(curPage)//页码高亮
+    }
+  })
+}
 
 export default pagination
