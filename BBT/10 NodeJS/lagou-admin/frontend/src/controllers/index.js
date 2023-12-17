@@ -55,6 +55,7 @@ const _signup = ()=>{
       /* await _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离;因控制台提示_loadData同步请求会影响用户体验，所以做await
       _list(1)//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离 */
       
+      page.setCurPage(1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码为1
       _loadData()//因为提交表单中await不生效，所以将_list(1)放在_loadData中
     }
   })
@@ -178,11 +179,12 @@ const _methods = ()=>{
 
         // 解决：最后一页数据全部删除完，回到前一页
         // 判断当前页是最后一页且当删除的是最后一条数据且当前页不是第一页；可能因为_loadData是异步，所以此时dataList是删除前的数据
-        const idLastPage = Math.ceil(dataList.length / pageSize) === curPage
-        const restOne = dataList.length % pageSize === 1
-        const notPageFirst = curPage > 0
+        const idLastPage = Math.ceil(dataList.length / page.pageSize) === page.curPage
+        const restOne = dataList.length % page.pageSize === 1
+        const notPageFirst = page.curPage > 0
         if(idLastPage && restOne && notPageFirst){//Math.ceil 向最大取整
-          curPage--
+          // curPage--
+          page.setCurPage(page.curPage-1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码
         }
       }
     })
