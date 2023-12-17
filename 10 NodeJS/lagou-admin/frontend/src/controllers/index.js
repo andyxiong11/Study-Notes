@@ -157,10 +157,73 @@ const _setPageActive = (index)=>{
     .removeClass('active')
 }
 
+// 页面事件绑定
+const _methods = ()=>{
+  // 事件绑定
+  $('#users-list').on('click','.remove',function(){//TODO给#users-list下面的每一个.remove样式元素绑定删除事件
+    $.ajax({
+      url:'/api/users',
+      type:'delete',
+      data:{
+        id:$(this).data('id')//$(this).data('id')可以获取当前点击的id
+      },
+      success(){
+        _loadData()//重新获取用户数据渲染到页面
+
+        // 解决：最后一页数据全部删除完，回到前一页
+        // 判断当前页是最后一页且当删除的是最后一条数据且当前页不是第一页；可能因为_loadData是异步，所以此时dataList是删除前的数据
+        const idLastPage = Math.ceil(dataList.length / pageSize) === curPage
+        const restOne = dataList.length % pageSize === 1
+        const notPageFirst = curPage > 0
+        if(idLastPage && restOne && notPageFirst){//Math.ceil 向最大取整
+          curPage--
+        }
+      }
+    })
+  })
+  //将给页码绑定点击事件（高亮样式）移至index首页绑定
+  $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
+    const index = $(this).index()
+    _list(index)//查询点击页数的用户列表渲染到页面
+    curPage = index //获取当前页码
+    _setPageActive(index)//页码高亮
+  })
+  $('#users-page').on('click','#users-page-list li:first-child',function(){//给前进按钮绑定事件
+    if(curPage > 1){
+      curPage--
+      _list(curPage)//重新渲染页面数据
+      _setPageActive(curPage)//页码高亮
+    }
+  })
+  $('#users-page').on('click','#users-page-list li:last-child',function(){//给后退按钮绑定事件
+    if(curPage < Math.ceil(dataList.length / pageSize)){
+      curPage++
+      _list(curPage)//重新渲染页面数据
+      _setPageActive(curPage)//页码高亮
+    }
+  })
+  $('#users-signout').on('click',(e) => {//给退出按钮绑定事件
+    e.preventDefault()//TODOpreventDefault方法去除a标签的跳转事件
+    // router.go('/signin')
+
+    $.ajax({
+      url:'/api/users/signout',
+      dataType:'json',
+      success(result){
+        if(result.ret){//后端响应ret为真，请求成功
+          // console.log(result);
+          location.reload()//刷新页面，走app.js重新鉴权进入登录页面
+        }
+      }
+    })
+  })
+
+  $('#users-save').on('click',_signup)// 点击保存，提交表单
+}
 
 // 首页
 const index = (router)=>{
-  // 将首页的操作封装在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
+  // 将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
   const loadIndex = (res)=> {
     res.render(htmlIndex)
 
@@ -170,6 +233,7 @@ const index = (router)=>{
     // 填充用户列表
     $('#content').html(usersTpl())
 
+    /* 将所有的事件绑定抽离封装 _methods
     // 事件绑定
     $('#users-list').on('click','.remove',function(){//TODO给#users-list下面的每一个.remove样式元素绑定删除事件
       $.ajax({
@@ -227,12 +291,14 @@ const index = (router)=>{
           }
         }
       })
-    })
+    }) */
+    _methods()
 
     // 渲染用户列表list
     _loadData()
 
-    $('#users-save').on('click',_signup)// 点击保存，提交表单
+    /* 将所有的事件绑定抽离封装 _methods
+    $('#users-save').on('click',_signup)// 点击保存，提交表单 */
   }
 
   // return async (req, res, next) => {
@@ -246,7 +312,7 @@ const index = (router)=>{
         // console.log(result);
         if(result.ret){//鉴权通过，是登录状态
           // router.go('/index')
-          loadIndex(res)//将首页的操作封装在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
+          loadIndex(res)//将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
         }else{
           router.go('/signin')
         }
@@ -256,7 +322,7 @@ const index = (router)=>{
       } */
     })
 
-    // 将首页的操作封装在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
+    // 将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
     // res.render(htmlIndex)
 
     // // window resize 让页面高度撑满整个屏幕
