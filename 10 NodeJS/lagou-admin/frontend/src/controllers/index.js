@@ -229,8 +229,9 @@ const _methods = ()=>{
 
 // 发布pageSize,curPage数据变化消息
 const _subscribe = () => {
-  $('body').on('changeCurPage',()=>{//on必须给某个元素绑定事件，随机选择body
-    console.log(0);
+  $('body').on('changeCurPage',(event,index)=>{//on必须给某个元素绑定事件，随机选择body
+    // console.log(index);
+    _list(index)//更新页面数据
   })
 }
 
