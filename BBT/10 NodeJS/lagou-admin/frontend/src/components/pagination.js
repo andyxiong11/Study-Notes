@@ -32,9 +32,9 @@ const pagination = (data,pageSize,curPage) => {
 const _bindEvent = () => {
   $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
     const index = $(this).index()
-    _list(index)//查询点击页数的用户列表渲染到页面
-    curPage = index //获取当前页码
-    $('body').trigger('changeCurPage',curPage)//trigger 触发changeCurPage事件
+    /* _list(index)//查询点击页数的用户列表渲染到页面；更新页面数据放在changeCurPage消息发布中调用
+    curPage = index //获取当前页码 */
+    $('body').trigger('changeCurPage',index)//trigger 触发changeCurPage事件
     _setPageActive(index)//页码高亮
   })
   $('#users-page').on('click','#users-page-list li:first-child',function(){//给前进按钮绑定事件
