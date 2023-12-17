@@ -5,6 +5,7 @@ import usersListTpl from '../views/users-list.art'
 import usersListPagesTpl from '../views/uesers-pages.art'
 
 import router from '../routers'
+import pagination from '../components/pagination.js'
 
 const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
@@ -139,7 +140,8 @@ const _loadData = () => {
       dataList = result.data
 
       // 分页；因在_list中调用分页会有问题,将页面渲染与用户数据获取分离
-      _pagination(result.data)
+      // _pagination(result.data)
+      pagination(result.data,pageSize,curPage)//分页相关功能已抽离至components/pagination.js
 
       _list(curPage)//因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
     }
@@ -225,6 +227,13 @@ const _methods = ()=>{
   $('#users-save').on('click',_signup)// 点击保存，提交表单
 }
 
+// 发布pageSize,curPage数据变化消息
+const _subscribe = () => {
+  $.on('changeCurPage',()=>{
+    console.log(0);
+  })
+}
+
 // 首页
 const index = (router)=>{
   // 将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
@@ -302,6 +311,9 @@ const index = (router)=>{
 
     /* 将所有的事件绑定抽离封装 _methods
     $('#users-save').on('click',_signup)// 点击保存，提交表单 */
+  
+    // 订阅消息
+    _subscribe()
   }
 
   // return async (req, res, next) => {
