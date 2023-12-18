@@ -1,0 +1,4 @@
+- 将“BBT\10 NodeJS\node-basics\05-router\satatic”复制到“BBT\10 NodeJS\node-basics\06-socket\webscoket” 模拟客户端
+- yarn init -y
+- yarn add ws -S
+- npx nodemon SocketServer.js 启动服务端
