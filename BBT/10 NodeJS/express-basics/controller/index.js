@@ -1,6 +1,7 @@
 var template = require('art-template');
 var path = require('path')
 var fs = require('fs')
+var jwt = require('jsonwebtoken');
 
 const listModel = require('../model/list')
 
@@ -57,4 +58,24 @@ const list = (req,res,next)=>{
   
 }
 
+// 用于学习jsonwebtoken
+const token = (req,res,next) => {
+  // res.send('ok')
+
+  // 对称加密 HS256
+  /* var tk = jwt.sign({ username: 'admin' }, 'i love you');//加密;i love you是密钥
+  // res.send(tk)//可以在jsonwebtoken官网验证加密后的数据，https://jwt.io/
+  var decoded = jwt.verify(tk, 'i love you');//验证;i love you是密钥
+  res.send(decoded) */ 
+
+  // 非对称加密 RS256
+  var privateKey = fs.readFileSync(path.join(__dirname,'../keys/rsa_private_key.pem')); //读取相对路径的私钥
+  const tk = jwt.sign({ username: 'admin' },privateKey,{ algorithm: 'RS256' } );
+  // res.send(tk)//可以在jsonwebtoken官网验证公私钥是否匹配，https://jwt.io/
+  var publicKey = fs.readFileSync(path.join(__dirname,'../keys/rsa_public_key.pem')); //读取相对路径的公钥
+  const result = jwt.verify(tk, publicKey);
+  res.send(result)
+}
+
 exports.list = list
+exports.token = token

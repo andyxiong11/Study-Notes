@@ -2,3 +2,4 @@
 - yarn init -y
 - yarn add express -S 跟npm一样-S生产环境
 - 安装 art-template yarn add art-template express-art-template -S
+- 安装 jsonwebtoken yarn add jsonwebtoken -S
