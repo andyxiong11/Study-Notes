@@ -1,0 +1,2 @@
+- 启动服务端 npx nodemon SocketServer.js
+- 启动客户端 npx nodemon ScoketClient.js，可以同时启动多个客户端
