@@ -4,8 +4,10 @@ const express = require('express')
 const router = express.Router()
 
 // 抽离controller
-const { list } = require('../controller/index')
+const { list,token } = require('../controller/index')
 router.get('/api/list',list)
+
+router.get('/api/token',token)
 
 /* // console.log(router);
 router.get('/',(req,res,next)=>{
