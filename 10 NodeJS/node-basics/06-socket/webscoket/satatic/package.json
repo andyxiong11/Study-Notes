@@ -1,0 +1,17 @@
+{
+  "name": "satatic",
+  "version": "1.0.0",
+  "description": "安装mime  npm i mime\r 获取文件类型",
+  "main": "readStaticFile.js",
+  "dependencies": {
+    "mime": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
