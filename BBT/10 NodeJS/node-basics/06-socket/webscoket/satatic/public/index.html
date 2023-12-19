@@ -3,12 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>public</title>
-  <link rel="stylesheet" href="./styles/reset.css">
-  <script src="./scripts/common.js"></script>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WebSocket</title>
+  <script src="./scripts/WsClient.js" charset="utf-8"></script>
 </head>
 <body>
-  public
-  <img src="./images/img1.png" alt="">
+  <h1>gp 交流区</h1>
+  <div id="content" name="name" style="overflow-y: scroll; width: 400px; height: 300px; border: solid 1px #000"></div>
+  <br />
+  <div>
+    <input type="text" id="msg" style="width: 200px;">
+  </div>
+  <button id="submit">提交</button>
+  <script>
+    document.querySelector('#submit')
+      .addEventListener('click', function () {
+        var msg2 = msg.value
+        ws.send(msg2) // 核心代码，将表单里的数据提交给server端
+        msg.value = ''
+      }, false)
+  </script>
 </body>
 </html>

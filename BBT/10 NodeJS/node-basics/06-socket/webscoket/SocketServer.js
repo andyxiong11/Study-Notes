@@ -1,9 +1,9 @@
 // https://www.npmjs.com/package/ws
 
 // 广播的例子
-import WebSocket, { WebSocketServer } from 'ws';
+const WebSocket = require('ws')
 
-const wss = new WebSocketServer({ port: 8124 });
+const wss = new WebSocket.Server({ port: 8124 });
 
 wss.on('connection', function connection(ws) {//connection 连接成功
   ws.on('open', function open() {//open 有客户端连接时执行
