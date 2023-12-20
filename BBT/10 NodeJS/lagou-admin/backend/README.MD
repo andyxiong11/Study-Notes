@@ -7,6 +7,7 @@
 7. yarn add cors -S 安装cors，在app.js中使用，但是此处不使用该方法解决前端请求跨域，避免老系统后端没有使用cors
 8. yarn add randomstring -S 随机生成字符串，此处仅作演示。实际使用cookie-session插件操作cookie
 9. yarn add cookie-session -S 操作cookie
+10. 安装 jsonwebtoken yarn add jsonwebtoken -S
 
 yarn start 启动
 后端接口调试使用apipost localhost:3000/api/users/signup body类型为urlencoded

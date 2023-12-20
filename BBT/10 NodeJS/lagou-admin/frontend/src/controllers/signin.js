@@ -14,7 +14,11 @@ const _handleSubmit = (router) => {
       type:'post',
       dataType:'json',
       data,
-      success: function(res){
+      success: function(res,textStatus,jqXHR){
+        // console.log(jqXHR);
+        const token = jqXHR.getResponseHeader('x-access-token')//取后端传的token
+        localStorage.setItem('lg-token',token)//存入浏览器
+
         if(res.ret){//后端响应ret为真，数据存在
           router.go('/index')
         }

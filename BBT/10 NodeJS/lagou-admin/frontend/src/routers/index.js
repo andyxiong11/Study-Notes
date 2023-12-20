@@ -18,6 +18,9 @@ router.use((req)=>{
     url:'/api/users/isAuth',
     // TODO此处不能使用json 20231216长时间阻塞
     // dataType:'json', 
+    Headers:{
+      'x-access-token':localStorage.getItem('lg-token') || ''
+    },
     success(result){
       // console.log(result);
       if(result.ret){//鉴权通过，是登录状态

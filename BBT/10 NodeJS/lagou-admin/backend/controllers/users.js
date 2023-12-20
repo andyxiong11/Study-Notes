@@ -1,7 +1,7 @@
 // 接口文件
 
 const usersModel = require('../models/user')
-const {hash,compare} = require('../utils/tools')
+const {hash,compare,sign,verify} = require('../utils/tools')
 // const randomstring = require("randomstring");
 
 // 注册用户接口请求的内容
@@ -59,8 +59,12 @@ const signin = async (req,res,next) => {
     let {password:hash} = result//:hash别名
     let compareResult = await compare(password,hash)//比对密码
     if(compareResult){//密码存在
-      console.log(req.session);
-      req.session.username = username//cookie-session,将username存到cookie的username中
+      /* // console.log(req.session);
+      req.session.username = username//cookie-session,将username存到cookie的username中 
+      不使用cookie-session，使用jsonwebtoken*/
+      const token = sign(username)
+      // console.log(token);
+      res.set('x-access-token',token)//TODO行业规范http请求头守护字段以X开头;将token放在请求头传给前端
       
       res.render('succ',{//succ.ejs模板
         data:JSON.stringify({
