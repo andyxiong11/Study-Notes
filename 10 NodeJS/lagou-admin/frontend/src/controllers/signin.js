@@ -16,7 +16,7 @@ const _handleSubmit = (router) => {
       data,
       success: function(res,textStatus,jqXHR){
         // console.log(jqXHR);
-        const token = jqXHR.getResponseHeader('x-access-token')//取后端传的token
+        const token = jqXHR.getResponseHeader('X-Access-Token')//取后端传的token
         localStorage.setItem('lg-token',token)//存入浏览器
 
         if(res.ret){//后端响应ret为真，数据存在

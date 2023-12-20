@@ -64,7 +64,7 @@ const signin = async (req,res,next) => {
       不使用cookie-session，使用jsonwebtoken*/
       const token = sign(username)
       // console.log(token);
-      res.set('x-access-token',token)//TODO行业规范http请求头守护字段以X开头;将token放在请求头传给前端
+      res.set('X-Access-Token',token)//TODO行业规范http请求头守护字段以X开头;将token放在请求头传给前端
       
       res.render('succ',{//succ.ejs模板
         data:JSON.stringify({
@@ -99,13 +99,29 @@ const signout = async (req,res,next) => {
 
 // 是否登录接口
 const isAuth = async (req,res,next) => {
-  if(req.session.username){
+  /* if(req.session.username){
     res.render('succ',{//succ.ejs模板
       data:JSON.stringify({
         username:req.session.username
       })
     })
   }else{
+    res.render('fail',{//fail.ejs模板
+      data:JSON.stringify({
+        message:"请登录"
+      })
+    })
+  } 不使用cookike-session，使用jsonwebtoken*/
+  let token = req.get('X-Access-Token')
+  try {
+    let result = verify(token)
+    // console.log(result);
+    res.render('succ',{//succ.ejs模板
+      data:JSON.stringify({
+        username:result.username
+      })
+    })
+  } catch (error) {
     res.render('fail',{//fail.ejs模板
       data:JSON.stringify({
         message:"请登录"
