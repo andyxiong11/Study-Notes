@@ -20,9 +20,10 @@ io.on('connection', (socket) => {//连接成功
 
   socket.on('receive', (data) => {//自定义receive事件
     console.log(data);//data 收到客户端的消息
+    socket.broadcast.emit('message',data)//broadcast 广播
   });
 });
 
-server.listen(3000, () => {
+server.listen(3000,'localhost', () => {
   console.log('server running at http://localhost:3000');
 });
