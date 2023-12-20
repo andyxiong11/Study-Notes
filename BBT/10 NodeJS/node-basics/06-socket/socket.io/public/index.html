@@ -16,17 +16,17 @@
   </div>
   <button id="submit">提交</button>
   <script>
-    var socket = io.connect('http://localhost:8124');
+    var socket = io.connect('http://localhost:3000');
     const content = document.getElementById('content')
     document.querySelector('#submit')
       .addEventListener('click', function () {
         var msg2 = msg.value
         socket.emit('receive', msg2) // 核心代码 利用receive事件，发送消息
         msg.value = ''
-        // content.innerHTML += msg2 + '<br/>'
+        content.innerHTML += msg2 + '<br/>' //将自己输入的消息打印在前端页面
       }, false)
 
-      socket.on('message', function(msg){//收到服务端发的消息
+      socket.on('message', function(msg){//利用message事件 收到服务端发的消息
         content.innerHTML += msg + '<br/>'
       })
   </script>
