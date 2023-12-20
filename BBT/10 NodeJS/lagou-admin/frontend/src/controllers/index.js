@@ -46,6 +46,9 @@ const _signup = ()=>{
   $.ajax({
     url:'/api/users',//后端接口地址
     type:'post',
+    headers:{
+      'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端，防止外部直接请求接口
+    },
     data,
     // success: async (res)=>{
     success(res){//因为提交表单中await不生效，所以将_list(1)放在_loadData中
@@ -138,6 +141,9 @@ const _loadData = () => {
     // TODOajax属性，修改为同步请求
     // 等数据响应后再渲染
     // async: false,//因控制台提示同步请求会影响用户体验，所以不使用同步。直接将ajax请求返回promise，做await
+    headers:{
+      'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端，防止外部直接请求接口
+    },
     success(result){
       dataList = result.data
 
@@ -171,6 +177,9 @@ const _methods = ()=>{
     $.ajax({
       url:'/api/users',
       type:'delete',
+      headers:{
+        'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端，防止外部直接请求接口
+      },
       data:{
         id:$(this).data('id')//$(this).data('id')可以获取当前点击的id
       },
@@ -215,7 +224,7 @@ const _methods = ()=>{
     e.preventDefault()//TODOpreventDefault方法去除a标签的跳转事件
     // router.go('/signin')
 
-    $.ajax({
+    /* $.ajax({
       url:'/api/users/signout',
       dataType:'json',
       success(result){
@@ -224,7 +233,9 @@ const _methods = ()=>{
           location.reload()//刷新页面，走app.js重新鉴权进入登录页面
         }
       }
-    })
+    }) 因为有token所以只需删除浏览器本地的token即可*/
+    localStorage.setItem('lg-token','')
+    location.reload()//刷新页面，走app.js重新鉴权进入登录页面
   })
 
   $('#users-save').on('click',_signup)// 点击保存，提交表单
@@ -328,6 +339,9 @@ const index = (router)=>{
       url:'/api/users/isAuth',
       dataType:'json',
       // async:false,//非异步请求
+      headers:{
+        'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端验证
+      },
       success(result){
         // console.log(result);
         if(result.ret){//鉴权通过，是登录状态
