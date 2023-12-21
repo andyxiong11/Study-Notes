@@ -1,12 +1,14 @@
-import indexTpl from '../views/index.art'
-import signinTpl from '../views/signin.art'
-import usersTpl from '../views/users.art'
-import usersListTpl from '../views/users-list.art'
-import usersListPagesTpl from '../views/uesers-pages.art'
+import indexTpl from '../../views/index.art'
+import signinTpl from '../../views/signin.art'
+import usersTpl from '../../views/users.art'
+import usersListTpl from '../../views/users-list.art'
+// import usersListPagesTpl from '../views/uesers-pages.art'
 
-import router from '../routers'
-import pagination from '../components/pagination.js'
-import page from '../databus/page'
+import router from '../../routers/index.js'
+import pagination from '../../components/pagination.js'
+import page from '../../databus/page.js'
+
+import {addUser} from './add-users.js'
 
 const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
@@ -36,36 +38,37 @@ const _handleSubmit = (router) => {
   }
 } */
 
-// 注册表单提交事件
-const _signup = ()=>{
-  const $btnClose = $('#users-close')
+// 注册操作放在src\controllers\users\add-users.js
+// // 注册表单提交事件
+// const _signup = ()=>{
+//   const $btnClose = $('#users-close')
 
-  // 提交表单
-  const data = $('#users-form').serialize()
-  console.log(data);
-  $.ajax({
-    url:'/api/users',//后端接口地址
-    type:'post',
-    headers:{
-      'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端，防止外部直接请求接口
-    },
-    data,
-    // success: async (res)=>{
-    success(res){//因为提交表单中await不生效，所以将_list(1)放在_loadData中
-      // console.log(res);
-      // _list(1)//重新请求用户查询接口，刷新页面数据
+//   // 提交表单
+//   const data = $('#users-form').serialize()
+//   console.log(data);
+//   $.ajax({
+//     url:'/api/users',//后端接口地址
+//     type:'post',
+//     headers:{
+//       'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端，防止外部直接请求接口
+//     },
+//     data,
+//     // success: async (res)=>{
+//     success(res){//因为提交表单中await不生效，所以将_list(1)放在_loadData中
+//       // console.log(res);
+//       // _list(1)//重新请求用户查询接口，刷新页面数据
 
-      /* await _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离;因控制台提示_loadData同步请求会影响用户体验，所以做await
-      _list(1)//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离 */
+//       /* await _loadData()//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离;因控制台提示_loadData同步请求会影响用户体验，所以做await
+//       _list(1)//因在_list中调用分页会有问题,将页面渲染与用户数据获取分离 */
       
-      page.setCurPage(1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码为1
-      _loadData()//因为提交表单中await不生效，所以将_list(1)放在_loadData中
-    }
-  })
+//       page.setCurPage(1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码为1
+//       _loadData()//因为提交表单中await不生效，所以将_list(1)放在_loadData中
+//     }
+//   })
 
-  // 关闭注册弹窗
-  $btnClose.click()
-}
+//   // 关闭注册弹窗
+//   $btnClose.click()
+// }
 
 // 将分页的两个方法抽离封装 components/pagination.js
 // // 当前页码高亮
@@ -238,7 +241,7 @@ const _methods = ()=>{
     location.reload()//刷新页面，走app.js重新鉴权进入登录页面
   })
 
-  $('#users-save').on('click',_signup)// 点击保存，提交表单
+  // $('#users-save').on('click',_signup)// 点击保存，提交表单；该事件移到add-users.js
 }
 
 // 发布pageSize,curPage数据变化消息
@@ -247,6 +250,9 @@ const _subscribe = () => {
     // console.log(index);
     _list(index)//更新页面数据
     // console.log(page.curPage);
+  }),
+  $('body').on('addUser',()=>{//on必须给某个元素绑定事件，随机选择body
+    _loadData()//向后端请求数据
   })
 }
 
@@ -261,6 +267,7 @@ const index = (router)=>{
 
     // 填充用户列表
     $('#content').html(usersTpl())
+    $('#add-user-btn').on('click',addUser)//在user模板渲染后，绑定添加用户事件
     // 渲染用户列表list
     _loadData()
 
