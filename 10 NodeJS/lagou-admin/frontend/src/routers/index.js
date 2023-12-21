@@ -8,7 +8,7 @@ const router = new SMERouter('root') //root为index.html的根节点
 const htmlSignin = siginTpl({}) */
 
 // import {signin,index} from '../controllers'
-import index from '../controllers/index'
+import index from '../controllers/users/index'
 import signin from '../controllers/signin'
 
 // sme-router路由守卫
