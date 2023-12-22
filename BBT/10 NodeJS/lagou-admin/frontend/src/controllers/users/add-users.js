@@ -8,6 +8,7 @@ export const addUser = ()=>{
   $('#users-list-box').after(html)//将添加用户模板加在用户模板后面
 
   const _save = () => {
+    console.log('0');
     // 提交表单
     const data = $('#users-form').serialize()
     console.log(data);
