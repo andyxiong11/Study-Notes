@@ -11,7 +11,7 @@ const htmlSignin = siginTpl({}) */
 import index from '../controllers/users/index'
 import signin from '../controllers/signin'
 
-import {routerGuard as rgModel} from '../models/router-guard'//as别名
+import {auth as authModel} from '../models/auth'//as别名
 
 // sme-router路由守卫
 router.use(async (req)=>{
@@ -36,7 +36,7 @@ router.use(async (req)=>{
   //     console.log(e);
   //   } */
   // })
-  let result = await rgModel()//ajax请求
+  let result = await authModel()//ajax请求
   // console.log(result);
   if(result.ret){//鉴权通过，是登录状态
     router.go('/index')

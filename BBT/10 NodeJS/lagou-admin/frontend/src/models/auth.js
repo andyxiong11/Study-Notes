@@ -1,5 +1,5 @@
 // 第一次打开的页面鉴权，从src\routers\index.js文件移入
-export const routerGuard = () => {
+export const auth = () => {
   return $.ajax({
     url:'/api/users/isAuth',
     // TODO此处不能使用json 20231216长时间阻塞

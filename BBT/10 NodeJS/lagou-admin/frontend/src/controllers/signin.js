@@ -27,7 +27,7 @@ const _handleSubmit = (router) => {
         }
       }
     }) */
-    let {res,jqXHR} = await signinModel(data) 
+    let {res,jqXHR} = await signinModel(data) //ajax请求
     const token = jqXHR.getResponseHeader('X-Access-Token')//取后端传的token
     localStorage.setItem('lg-token',token)//存入浏览器
     if(res.ret){//后端响应ret为真，数据存在

@@ -10,6 +10,9 @@ import page from '../../databus/page.js'
 
 import {addUser} from './add-users.js'
 
+import {usersList as usersListModel} from '../../models/users-list.js'//as别名
+import {auth as authModel} from '../../models/auth-index.js'
+
 const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
 /* const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
@@ -136,7 +139,8 @@ const _list = (pageNo)=>{
 }
 
 // 将页面渲染与用户数据获取分离（从后端获取数据）
-const _loadData = () => {
+const _loadData = async () => {
+  /* ajax请求移出到src\models\users-list.js
   // return $.ajax({//将ajax请求返回promise，做await
   $.ajax({  //因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
     url:'/api/users',//后端接口地址
@@ -156,7 +160,11 @@ const _loadData = () => {
 
       _list(page.curPage)//因为提交表单中await不生效，所以不做await，将_list(1)放在_loadData中
     }
-  })
+  }) */
+  let result = await usersListModel() //ajax请求
+  dataList = result.data
+  pagination(result.data,page.pageSize)//分页相关功能已抽离至components/pagination.js
+  _list(page.curPage)
 }
 
 // 登录
@@ -340,28 +348,36 @@ const index = (router)=>{
   }
 
   // return async (req, res, next) => {
-  return (req, res, next) => {
-    //解决直接输入首页url进入首页，因无法渲染数据控制台报错
-    $.ajax({
-      url:'/api/users/isAuth',
-      dataType:'json',
-      // async:false,//非异步请求
-      headers:{
-        'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端验证
-      },
-      success(result){
-        // console.log(result);
-        if(result.ret){//鉴权通过，是登录状态
-          // router.go('/index')
-          loadIndex(res)//将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
-        }else{
-          router.go('/signin')
-        }
-      }
-      /* error: (e) => {
-        console.log(e);
-      } */
-    })
+  return async (req, res, next) => {
+    // ajax请求抽离，使用从src\routers\index.js文件移出的auth.js
+    // //解决直接输入首页url进入首页，因无法渲染数据控制台报错
+    // $.ajax({
+    //   url:'/api/users/isAuth',
+    //   dataType:'json',
+    //   // async:false,//非异步请求
+    //   headers:{
+    //     'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端验证
+    //   },
+    //   success(result){
+    //     // console.log(result);
+    //     if(result.ret){//鉴权通过，是登录状态
+    //       // router.go('/index')
+    //       loadIndex(res)//将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
+    //     }else{
+    //       router.go('/signin')
+    //     }
+    //   }
+    //   /* error: (e) => {
+    //     console.log(e);
+    //   } */
+    // })
+    let result = await authModel()//ajax请求
+    if(result.ret){//鉴权通过，是登录状态
+      // router.go('/index')
+      loadIndex(res)//将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
+    }else{
+      router.go('/signin')
+    }
 
     // 将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
     // res.render(htmlIndex)
