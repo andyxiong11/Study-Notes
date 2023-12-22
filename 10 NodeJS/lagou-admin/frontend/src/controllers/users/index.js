@@ -12,6 +12,7 @@ import {addUser} from './add-users.js'
 
 import {usersList as usersListModel} from '../../models/users-list.js'//as别名
 import {auth as authModel} from '../../models/auth-index.js'
+import {usersRemove as usersRemoveModel} from '../../models/users-remove.js'
 
 const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
@@ -184,8 +185,9 @@ const signin = (router)=>{
 // 页面事件绑定
 const _methods = ()=>{
   // 事件绑定
-  $('#users-list').on('click','.remove',function(){//TODO给#users-list下面的每一个.remove样式元素绑定删除事件
-    $.ajax({
+  $('#users-list').on('click','.remove',async function(){//TODO给#users-list下面的每一个.remove样式元素绑定删除事件
+    /* ajax请求移出到src\models\uesers-remove.js
+      $.ajax({
       url:'/api/users',
       type:'delete',
       headers:{
@@ -207,7 +209,20 @@ const _methods = ()=>{
           page.setCurPage(page.curPage-1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码
         }
       }
-    })
+    }) */
+    let result = await usersRemoveModel($(this).data('id'))//$(this).data('id') 当前点击的id ajax请求
+    if(result.ret){//请求成功
+      _loadData()//重新获取用户数据渲染到页面
+      // 解决：最后一页数据全部删除完，回到前一页
+      // 判断当前页是最后一页且当删除的是最后一条数据且当前页不是第一页；可能因为_loadData是异步，所以此时dataList是删除前的数据
+      const idLastPage = Math.ceil(dataList.length / page.pageSize) === page.curPage
+      const restOne = dataList.length % page.pageSize === 1
+      const notPageFirst = page.curPage > 0
+      if(idLastPage && restOne && notPageFirst){//Math.ceil 向最大取整
+        // curPage--
+        page.setCurPage(page.curPage-1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码
+      }
+    }
   })
   //将给页码绑定点击事件（高亮样式）移至index首页绑定
   /* 分页相关事件绑定移至 components/pagination.js
