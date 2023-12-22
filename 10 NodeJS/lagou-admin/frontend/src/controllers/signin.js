@@ -1,15 +1,18 @@
 import signinTpl from '../views/signin.art'
 
+import {signin as signinModel} from '../models/signin'//as别名
+
 const htmlSignin = signinTpl({})
 
 // 点击登录按钮
 const _handleSubmit = (router) => {
-  return (e)=>{
+  return async (e)=>{
     e.preventDefault();//阻止表单跳转
     // router.go('/index')
 
     const data = $('#signin').serialize()
-    $.ajax({
+    /* ajax请求移出到src\models\signin.js
+      $.ajax({
       url:'/api/users/signin',
       type:'post',
       dataType:'json',
@@ -23,7 +26,13 @@ const _handleSubmit = (router) => {
           router.go('/index')
         }
       }
-    })
+    }) */
+    let {res,jqXHR} = await signinModel(data) 
+    const token = jqXHR.getResponseHeader('X-Access-Token')//取后端传的token
+    localStorage.setItem('lg-token',token)//存入浏览器
+    if(res.ret){//后端响应ret为真，数据存在
+      router.go('/index')
+    }
   }
 }
 
