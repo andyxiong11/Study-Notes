@@ -17,6 +17,8 @@ import './assets/common.css'
 // 载入路由
 import router from  './routers'
 
+const hash = location.hash.slice(1)
+
 // router.go('/index')
 /* $.ajax({
   url:'/api/users/isAuth',
@@ -31,4 +33,6 @@ import router from  './routers'
   }
 }) //首次打开页面鉴权放到路由文件中*/
 
-router.go('/')//解决将首次打开页面鉴权放到路由文件中后，页面没有渲染的问题
+// router.go('/')//解决将首次打开页面鉴权放到路由文件中后，页面没有渲染的问题
+
+router.go(hash) //解决页面刷新没有停留在当前页面
