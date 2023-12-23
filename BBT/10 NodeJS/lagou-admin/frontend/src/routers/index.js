@@ -1,8 +1,8 @@
-import SMERouter from 'sme-router'
+import GP21Router from 'gp21-router'
 /* import indexTpl from '../views/index.art'
 import siginTpl from '../views/signin.art' */
 
-const router = new SMERouter('root') //root为index.html的根节点
+const router = new GP21Router('root') //root为index.html的根节点
 
 /* const htmlIndex = indexTpl({})
 const htmlSignin = siginTpl({}) */
