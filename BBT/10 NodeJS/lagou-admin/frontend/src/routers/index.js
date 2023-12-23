@@ -38,7 +38,10 @@ router.use(async (req)=>{
   // })
   let result = await authModel()//ajax请求
   // console.log(result);
-  if(result.ret){//鉴权通过，是登录状态
+  // TODOajax返回的内容为字符串对象,需要转换
+  var obj = JSON.parse(result);
+  // console.log(obj); 
+  if(obj.ret){//鉴权通过，是登录状态
     router.go('/index')
   }else{
     router.go('/signin')
