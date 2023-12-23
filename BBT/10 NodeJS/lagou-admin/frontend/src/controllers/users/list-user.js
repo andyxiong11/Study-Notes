@@ -1,3 +1,4 @@
+// 该文件原本是首页的逻辑,首页逻辑已抽离,现为用户列表的逻辑
 import indexTpl from '../../views/index.art'
 import signinTpl from '../../views/signin.art'
 import usersTpl from '../../views/users.art'
@@ -282,14 +283,17 @@ const _subscribe = () => {
 // 首页
 const index = (router)=>{
   // 将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
-  const loadIndex = (res)=> {
+  const loadIndex = (res,next)=> {
+    /* 该文件改名为有index.js改名为list-user.js,首页逻辑抽离到src\controllers\index.js
     res.render(htmlIndex)
 
     // window resize 让页面高度撑满整个屏幕
-    $(window,'.wrapper').resize()
+    $(window,'.wrapper').resize() */
 
     // 填充用户列表
-    $('#content').html(usersTpl())
+    // $('#content').html(usersTpl())
+    next()//因为使用异步的gp21-router替换了sme-router,所以需要next
+    res.render(usersTpl())//首页逻辑已抽离.直接res.render
     $('#add-user-btn').on('click',addUser)//在user模板渲染后，绑定添加用户事件
     // 渲染用户列表list
     _loadData()
@@ -389,7 +393,7 @@ const index = (router)=>{
     let result = await authModel()//ajax请求
     if(result.ret){//鉴权通过，是登录状态
       // router.go('/index')
-      loadIndex(res)//将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
+      loadIndex(res,next)//将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
     }else{
       router.go('/signin')
     }

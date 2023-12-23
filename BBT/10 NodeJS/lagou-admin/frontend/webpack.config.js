@@ -27,7 +27,10 @@ module.exports = {
       {
         test: /\.art$/,
         use: {
-          loader:'art-template-loader'//解析.art文件
+          loader:'art-template-loader',//解析.art文件
+          options:{
+            escape:false//解决src\views\index.art的{{subRouter}} html解析失败
+          }
         }
       },
       {
