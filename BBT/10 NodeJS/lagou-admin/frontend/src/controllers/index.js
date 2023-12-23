@@ -19,8 +19,13 @@ const index = (router)=>{
       $('#sidebar-menu li:not(:first-child)').on('click',function() {
         const url = $(this).attr('to')//TODO.attr获取DOM元素上的跳转路由
         router.go(url)
-        $(this).addClass('active').siblings().removeClass('active')//给所有兄弟节点删除active高亮样式
+        // $(this).addClass('active').siblings().removeClass('active')//此处添加样式有误,改为使用路由hash判断
       })
+
+      let hash = location.hash.slice(1)//从第二个开始切=分割
+      // console.log(hash);
+      $('#sidebar-menu li:not(:first-child)').filter(`[to="${hash}"]`).addClass('active').siblings().removeClass('active')//给所有兄弟节点删除active高亮样式
+      // console.log($('#sidebar-menu li:not(:first-child)').filter(`[to="${hash}"]`));
     }else{
       router.go('/signin')
     }
