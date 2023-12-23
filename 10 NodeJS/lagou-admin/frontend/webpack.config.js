@@ -36,6 +36,17 @@ module.exports = {
       {
         test: /\.css$/,
         loaders:['style-loader','css-loader']//css-loader负责将css文件放到js中，style-loader将js文件解析到页面上。先后顺序不能错
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',//解析图片
+            options: {
+              limit: 8192//图片小于8k转base64,大于就将文件放入
+            }
+          }
+        ]
       }
     ]
   },
