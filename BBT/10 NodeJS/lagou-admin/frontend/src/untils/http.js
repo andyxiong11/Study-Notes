@@ -1,7 +1,7 @@
 const http = ({
   url,
   type='get',//缺省值
-  dataType={},
+  dataType='',
   data={}
 })  => {
   return new Promise((resolve)=>{
@@ -14,9 +14,9 @@ const http = ({
       headers:{
         'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端
       },
-      success: function(res,textStatus,jqXHR){
+      success: function(result,textStatus,jqXHR){
         resolve( {
-          res,
+          result,
           textStatus,
           jqXHR
         })
@@ -28,3 +28,4 @@ const http = ({
   })
 }
 
+export default http
