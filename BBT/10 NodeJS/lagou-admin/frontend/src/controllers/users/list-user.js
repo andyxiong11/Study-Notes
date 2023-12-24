@@ -20,6 +20,7 @@ const htmlSignin = signinTpl({})
 /* const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
 let curPage = 1 //当前页码 写成公共响应式变量 databus/page.js*/
 let dataList = [] //后端用户总数
+const pageSize = page.pageSize//总页数
 
 // 点击登录按钮
 /* 登录逻辑抽离放在signin.js
@@ -133,10 +134,10 @@ const _list = (pageNo)=>{
   }) */
 
   // 将页面渲染与用户数据获取分离
-  let start = (pageNo-1) * page.pageSize //当前页第一条数据序号；因为页数从1开始所以减1
+  let start = (pageNo-1) * pageSize //当前页第一条数据序号；因为页数从1开始所以减1
   $('#users-list').html(usersListTpl({//使用usersListTpl模板将用户数据渲染到页面
     // data:result.data
-    data:dataList.slice(start, start + page.pageSize)//当前页的数据，从第start条开始
+    data:dataList.slice(start, start + pageSize)//当前页的数据，从第start条开始
   }))
 }
 
@@ -165,7 +166,7 @@ const _loadData = async () => {
   }) */
   let result = await usersListModel() //ajax请求
   dataList = result.data
-  pagination(result.data,page.pageSize)//分页相关功能已抽离至components/pagination.js
+  pagination(result.data)//分页相关功能已抽离至components/pagination.js
   _list(page.curPage)
 }
 
@@ -216,8 +217,8 @@ const _methods = ()=>{
       _loadData()//重新获取用户数据渲染到页面
       // 解决：最后一页数据全部删除完，回到前一页
       // 判断当前页是最后一页且当删除的是最后一条数据且当前页不是第一页；可能因为_loadData是异步，所以此时dataList是删除前的数据
-      const idLastPage = Math.ceil(dataList.length / page.pageSize) === page.curPage
-      const restOne = dataList.length % page.pageSize === 1
+      const idLastPage = Math.ceil(dataList.length / pageSize) === page.curPage
+      const restOne = dataList.length % pageSize === 1
       const notPageFirst = page.curPage > 0
       if(idLastPage && restOne && notPageFirst){//Math.ceil 向最大取整
         // curPage--
