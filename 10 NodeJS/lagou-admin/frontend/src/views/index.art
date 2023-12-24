@@ -216,7 +216,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
+      <!-- <section class="content-header">
         <h1>
           用户管理
           <small>用户列表</small>
@@ -225,7 +225,7 @@
           <li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
           <li class="active">用户管理</li>
         </ol>
-      </section>
+      </section> 导航区域抽离 index-pageheader.art-->
   
       <!-- Main content -->
       <!-- id用于jquery取该标签，插入用户管理模块 -->
