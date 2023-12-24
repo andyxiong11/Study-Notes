@@ -1,0 +1,29 @@
+<!-- positions-list-box 方便将添加职位模板渲染在positions -->
+<div class="box" id="positions-list-box">
+  <div class="box-header">
+    <!-- data-toggle="modal" data-target="#pos-modal" 触发bootstrap模态框 -->
+    <button class="btn btn-primary" id="add-position-btn" data-toggle="modal" data-target="#pos-modal">添加</button>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <table class="table table-bordered">
+      <tr>
+        <th style="width: 15px">#</th>
+        <th style="width: 100px">公司logo</th>
+        <th>公司名称</th>
+        <th>职位名称</th>
+        <th style="width: 150px">城市</th>
+        <th style="width: 180px">职位薪资</th>
+        <th style="width: 180px">发布时间</th>
+        <th style="width: 180px">操作</th>
+      </tr>
+      <!-- users-list 方便请求数据库用户时渲染数据 -->
+      <tbody id="positions-list"></tbody>
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer clearfix" id="users-page">
+    
+  </div>
+</div>
+<!-- /.box -->
