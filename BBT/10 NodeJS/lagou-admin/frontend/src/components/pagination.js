@@ -31,7 +31,7 @@ const pagination = (data,pageSize) => {
 }
 
 const _bindEvent = (data,pageSize) => {
-  $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
+  $('#users-page').off('click').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
     const index = $(this).index()
     /* _list(index)//查询点击页数的用户列表渲染到页面；更新页面数据放在changeCurPage消息发布中调用
     curPage = index //获取当前页码 */
