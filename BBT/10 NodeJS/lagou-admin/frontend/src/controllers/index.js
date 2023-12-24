@@ -1,6 +1,8 @@
 // 首页
 import indexTpl from '../views/index.art'
 import {auth as authModel} from '../models/auth-index.js'
+import pageHeader from "../components/pageheader.js";
+
 import img from '../assets/user2-160x160.jpg'
 
 const index = (router)=>{
@@ -17,6 +19,9 @@ const index = (router)=>{
 
       // window resize 让页面高度撑满整个屏幕
       $(window,'.wrapper').resize()
+
+      // 加载页面导航
+      pageHeader()
 
       /* $('#sidebar-menu li:not(:first-child)').on('click',function() {
         const url = $(this).attr('to')//TODO.attr获取DOM元素上的跳转路由
