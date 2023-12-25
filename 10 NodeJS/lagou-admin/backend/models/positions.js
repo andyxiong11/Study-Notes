@@ -10,5 +10,5 @@ exports.add = (data) => {
 
 // 查询
 exports.list = () => {
-  return Positions.find({})
+  return Positions.find({}).sort({_id:-1})//查找数据库中的所有数据，并倒叙返回给前端职位
 }
