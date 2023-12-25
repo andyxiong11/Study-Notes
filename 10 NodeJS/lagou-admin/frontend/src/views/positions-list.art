@@ -5,13 +5,13 @@
     <!-- index默认是0 -->
     <!-- <td>{{$index+1}}.</td>
     <td>{{$value.username}}</td> -->
-    <td>1.</td>
+    <td>{{$index+1}}</td>
     <td><img src="http://placehold.it/50x50" width="50" height="50" alt=""></td>
-    <td>1asd</td>
-    <td>1asd</td>
-    <td>1asd</td>
-    <td>1asd</td>
-    <td>1asd</td>
+    <td>{{$value.companyName}}</td>
+    <td>{{$value.positionName}}</td>
+    <td>{{$value.city}}</td>
+    <td>{{$value.salary}}</td>
+    <td>{{$value.createTime}}</td>
     <!-- data-id便于获取删除的数据；remove用于绑定删除事件 -->
     <td>
       <button data-id="{{$value._id}}" class="btn btn-primary update">修改</button>

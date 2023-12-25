@@ -7,7 +7,7 @@ import pagination from '../../components/pagination.js'
 import page from '../../databus/page.js'
 
 import {auth as authModel} from '../../models/auth-index.js'
-import {positionsList} from '../../models/positions-list.js'
+import {positionsList,positionsAdd} from '../../models/positions.js'
 
 let dataList = [] //后端用户总数
 const pageSize = page.pageSize//每页数据数量
@@ -67,9 +67,10 @@ const listPositions = (router) => {
 
       // 职位添加
       $('#positions-list-box').after(positionAddTpl)//after渲染到positions-list-box样式元素之后
-      $('#positions-save').off('click').on('click',()=>{
+      $('#positions-save').off('click').on('click',async ()=>{
         const formbody = $('#position-form').serialize()//serialize获取表单提交的数据
         // console.log(formbody);
+        let result = await positionsAdd(formbody)
 
         $('#positions-close').click()//关闭
       })//在positions模板渲染后，绑定添加职位事件

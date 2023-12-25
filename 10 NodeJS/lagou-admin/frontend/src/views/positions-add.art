@@ -15,14 +15,14 @@
           <form role="form" id="position-form">
             <div class="box-body">
               <div class="form-group">
-                <label for="compony-logo">公司名称</label>
+                <label for="companyName">公司名称</label>
                 <!-- name 传给后端数据 -->
-                <input type="text" name="compony-logo" class="form-control" id="compony-logo" placeholder="请输入公司名称">
+                <input type="text" name="companyName" class="form-control" id="companyName" placeholder="请输入公司名称">
               </div>
               <div class="form-group">
-                <label for="position-name">职位名称</label>
+                <label for="positionName">职位名称</label>
                 <!-- name 传给后端数据 -->
-                <input type="text" name="position-name" class="form-control" id="position-name" placeholder="请输入职位名称">
+                <input type="text" name="positionName" class="form-control" id="positionName" placeholder="请输入职位名称">
               </div>
               <div class="form-group">
                 <label for="city">城市</label>
