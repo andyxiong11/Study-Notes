@@ -20,7 +20,7 @@ const htmlSignin = signinTpl({})
 /* const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
 let curPage = 1 //当前页码 写成公共响应式变量 databus/page.js*/
 let dataList = [] //后端用户总数
-const pageSize = page.pageSize//总页数
+const pageSize = page.pageSize//每页数据数量
 
 // 点击登录按钮
 /* 登录逻辑抽离放在signin.js

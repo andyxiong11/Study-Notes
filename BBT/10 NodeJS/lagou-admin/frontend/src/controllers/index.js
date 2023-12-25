@@ -2,6 +2,7 @@
 import indexTpl from '../views/index.art'
 import {auth as authModel} from '../models/auth-index.js'
 import pageHeader from "../components/pageheader.js";
+import page from '../databus/page.js'
 
 import img from '../assets/user2-160x160.jpg'
 
@@ -40,6 +41,15 @@ const index = (router)=>{
         .addClass('active')
         .siblings()
         .removeClass('active')
+        
+        // 切换（职位列表和用户列表）路由时reset重置分页页数，将分页功能公共数据分开
+        // console.log(hash);
+        // console.log(page.curRoute);
+        // 是否重置page
+        if(hash === page.curRoute){
+          page.reset()
+        }
+        page.setCurRoute(hash)// 因为切换分页时也会重新绑定事件，所以需要记录上一次的路由判断路由是否变化
 
     }else{
       router.go('/signin')
