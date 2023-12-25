@@ -9,6 +9,8 @@ import page from '../../databus/page.js'
 import {auth as authModel} from '../../models/auth-index.js'
 import {positionsList,positionsAdd} from '../../models/positions.js'
 
+import {addPosition} from '../positions/add-position.js'
+
 let dataList = [] //后端用户总数
 const pageSize = page.pageSize//每页数据数量
 
@@ -39,7 +41,7 @@ const _subscribe = () => {
     _list(index)//更新页面数据
     // console.log(page.curPage);
   }),
-  $('body').off('addUser').on('addUser',()=>{//on必须给某个元素绑定事件，随机选择body
+  $('body').off('addPositionUser').on('addPosition',()=>{//on必须给某个元素绑定事件，随机选择body
     _loadData()//向后端请求数据
   })
 }
@@ -65,6 +67,9 @@ const listPositions = (router) => {
       _loadData()// 渲染职位列表list
       _subscribe()// 订阅消息
 
+      addPosition()//职位添加
+
+      /* 职位添加抽离到add-position.js
       // 职位添加
       $('#positions-list-box').after(positionAddTpl)//after渲染到positions-list-box样式元素之后
       $('#positions-save').off('click').on('click',async ()=>{
@@ -73,7 +78,7 @@ const listPositions = (router) => {
         let result = await positionsAdd(formbody)
 
         $('#positions-close').click()//关闭
-      })//在positions模板渲染后，绑定添加职位事件
+      })//在positions模板渲染后，绑定添加职位事件 */
 
       
     }else{
