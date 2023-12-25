@@ -6,6 +6,7 @@ import positionListTpl from '../../views/positions-list.art'
 import pagination from '../../components/pagination.js'
 
 import {auth as authModel} from '../../models/auth-index.js'
+import {positionsList} from '../../models/positions-list.js'
 
 const listPositions = (router) => {
   return async (req,res,next) => {
@@ -14,13 +15,16 @@ const listPositions = (router) => {
       next()//因为使用异步的gp21-router替换了sme-router,所以需要next
       res.render(positiosTpl())
 
+      const list = await positionsList()//查询接口返回的数据
+      console.log(list);
+
       // 渲染list
       $('#positions-list').html(positionListTpl({
-        data:['a','a','a','a','a',]
+        data:list
       }))
 
       //分页
-      pagination(['a','b','c','d'])
+      pagination(list)
 
       // 职位添加
       $('#positions-list-box').after(positionAddTpl)//after渲染到positions-list-box样式元素之后
