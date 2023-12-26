@@ -248,23 +248,24 @@ const _methods = ()=>{
       _setPageActive(curPage)//页码高亮
     }
   }) */
-  $('#users-signout').on('click',(e) => {//给退出按钮绑定事件
-    e.preventDefault()//TODOpreventDefault方法去除a标签的跳转事件
-    // router.go('/signin')
+  // 退出登录事件移至controllers\index.js
+  // $('#users-signout').on('click',(e) => {//给退出按钮绑定事件
+  //   e.preventDefault()//TODOpreventDefault方法去除a标签的跳转事件
+  //   // router.go('/signin')
 
-    /* $.ajax({
-      url:'/api/users/signout',
-      dataType:'json',
-      success(result){
-        if(result.ret){//后端响应ret为真，请求成功
-          // console.log(result);
-          location.reload()//刷新页面，走app.js重新鉴权进入登录页面
-        }
-      }
-    }) 因为有token所以只需删除浏览器本地的token即可*/
-    localStorage.setItem('lg-token','')
-    location.reload()//刷新页面，走app.js重新鉴权进入登录页面
-  })
+  //   /* $.ajax({
+  //     url:'/api/users/signout',
+  //     dataType:'json',
+  //     success(result){
+  //       if(result.ret){//后端响应ret为真，请求成功
+  //         // console.log(result);
+  //         location.reload()//刷新页面，走app.js重新鉴权进入登录页面
+  //       }
+  //     }
+  //   }) 因为有token所以只需删除浏览器本地的token即可*/
+  //   localStorage.setItem('lg-token','')
+  //   location.reload()//刷新页面，走app.js重新鉴权进入登录页面
+  // })
 
   // $('#users-save').on('click',_signup)// 点击保存，提交表单；该事件移到add-users.js
 }

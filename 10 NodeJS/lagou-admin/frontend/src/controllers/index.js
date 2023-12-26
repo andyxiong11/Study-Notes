@@ -51,6 +51,12 @@ const index = (router)=>{
         }
         page.setCurRoute(hash)// 因为切换分页时也会重新绑定事件，所以需要记录上一次的路由判断路由是否变化
 
+      // 退出登录事件，从controllers\users\list-user.js移入
+      $('#users-signout').on('click',(e) => {//给退出按钮绑定事件
+        e.preventDefault()//preventDefault方法去除a标签的跳转事件
+        localStorage.setItem('lg-token','')
+        location.reload()//刷新页面，走app.js重新鉴权进入登录页面
+      })
     }else{
       router.go('/signin')
     }
