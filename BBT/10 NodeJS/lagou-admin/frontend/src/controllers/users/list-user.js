@@ -287,7 +287,7 @@ const _subscribe = () => {
 // 首页
 const index = (router)=>{
   // 将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
-  const loadIndex = (res,next)=> {
+  const loadIndex = async (res,next)=> {
     /* 该文件改名为有index.js改名为list-user.js,首页逻辑抽离到src\controllers\index.js
     res.render(htmlIndex)
 
@@ -300,7 +300,7 @@ const index = (router)=>{
     res.render(usersTpl())//首页逻辑已抽离.直接res.render
     $('#add-user-btn').on('click',addUser)//在user模板渲染后，绑定添加用户事件
     // 渲染用户列表list
-    _loadData()
+    await _loadData()//需要await，否则remove方法拿不到dataList
 
     /* 将所有的事件绑定抽离封装 _methods
     // 事件绑定
@@ -364,7 +364,7 @@ const index = (router)=>{
     // _methods() 因为页面事件绑定抽离只剩删除事件，且职位管理也需要用，所以封装controllers\common\index.js
     remove({
       $box:$('#users-list'),
-      length:dataList.length,
+      dataList,
       url:'/api/users',
       loadData:_loadData
     })
