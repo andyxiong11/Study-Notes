@@ -21,7 +21,12 @@ const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
 /* const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
 let curPage = 1 //当前页码 写成公共响应式变量 databus/page.js*/
-let dataList = [] //后端用户总数
+
+// let dataList = [] //后端用户总数 改成对象，解决删除逻辑封装后，删除最后一个用户，页面没有重新渲染数据
+let state = {
+  list:[]
+} //后端用户总数 改成对象
+
 const pageSize = page.pageSize//每页数据数量
 
 // 点击登录按钮
@@ -139,7 +144,7 @@ const _list = (pageNo)=>{
   let start = (pageNo-1) * pageSize //当前页第一条数据序号；因为页数从1开始所以减1
   $('#users-list').html(usersListTpl({//使用usersListTpl模板将用户数据渲染到页面
     // data:result.data
-    data:dataList.slice(start, start + pageSize)//当前页的数据，从第start条开始
+    data:state.list.slice(start, start + pageSize)//当前页的数据，从第start条开始
   }))
 }
 
@@ -167,7 +172,10 @@ const _loadData = async () => {
     }
   }) */
   let result = await usersListModel() //ajax请求
-  dataList = result.data
+
+  // dataList = result.data 改成对象，解决删除逻辑封装后，删除最后一个用户，页面没有重新渲染数据
+  state.list = result.data //改成对象
+
   pagination(result.data)//分页相关功能已抽离至components/pagination.js
   _list(page.curPage)
 }
@@ -364,7 +372,8 @@ const index = (router)=>{
     // _methods() 因为页面事件绑定抽离只剩删除事件，且职位管理也需要用，所以封装controllers\common\index.js
     remove({
       $box:$('#users-list'),
-      dataList,
+      // dataList, 改成state
+      state,//传递一个引用类型的state，在删除组件实施获取数据条数
       url:'/api/users',
       loadData:_loadData
     })
