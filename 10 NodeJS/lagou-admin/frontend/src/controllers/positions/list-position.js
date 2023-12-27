@@ -89,7 +89,7 @@ const listPositions = (router) => {
         $box:$('#positions-list'),
         // dataList, 改成state
         state,//传递一个引用类型的state，在删除组件实施获取数据条数
-        url:'/api/positions',
+        url:'/api/positions/remove',
         loadData:_loadData
       })
 
