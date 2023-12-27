@@ -47,3 +47,31 @@ exports.list = async (req,res,next) => {
   //   data:JSON.stringify(result)
   // })
 }
+
+// 删除职位接口请求内容
+exports.remove = async(req,res,next) => {
+  let result = await positionsModel.remove(req.body.id)
+  console.log(result);
+  try{
+    if(result.deletedCount > 0){
+      res.render('succ',{//succ.ejs模板
+        data: JSON.stringify({
+          message: '职位删除成功'
+        })
+      })
+    }else{
+      res.render('fail',{//succ.ejs模板
+        data: JSON.stringify({
+          message: '职位添加失败,ID错误'
+        })
+      })
+    }
+  }catch(err){
+    res.render('fail',{//succ.ejs模板
+      data: JSON.stringify({
+        message: '职位删除失败'
+      })
+    })
+    console.log(err);
+  }
+}
