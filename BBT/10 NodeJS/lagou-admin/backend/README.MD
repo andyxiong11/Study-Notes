@@ -9,6 +9,7 @@
 9. yarn add cookie-session -S 操作cookie
 10. 安装 jsonwebtoken yarn add jsonwebtoken -S
 11. 安装moment  yarn add moment -S 时间戳
+12. 安装multer yarn add multer -S 接收前端上传的图片
 
 yarn start 启动
 后端接口调试使用apipost localhost:3000/api/users/signup body类型为urlencoded
