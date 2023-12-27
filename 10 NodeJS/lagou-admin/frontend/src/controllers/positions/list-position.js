@@ -10,25 +10,29 @@ import {auth as authModel} from '../../models/auth-index.js'
 import {positionsList,positionsAdd} from '../../models/positions.js'
 
 import {addPosition} from '../positions/add-position.js'
+import {remove} from '../common/index.js'
 
-let dataList = [] //后端用户总数
+// let dataList = [] //后端用户总数 改成对象，解决删除逻辑封装后，删除最后一个用户，页面没有重新渲染数据
+let state = {
+  list:[]
+} //后端用户总数 改成对象
 const pageSize = page.pageSize//每页数据数量
 
 // 将数据渲染到页面
 const _list = (pageNo)=>{
   let start = (pageNo-1) * pageSize //当前页第一条数据序号；因为页数从1开始所以减1
   $('#positions-list').html(positionListTpl({//使用usersListTpl模板将用户数据渲染到页面
-    data:dataList.slice(start, start + pageSize)//当前页的数据，从第start条开始
+    data:state.list.slice(start, start + pageSize)//当前页的数据，从第start条开始
   }))
 }
 
 // 从后端获取数据
 const _loadData = async () => {
   const list = await positionsList() //ajax请求
-  dataList = list
+  state.list = list
 
   //分页
-  pagination(dataList)
+  pagination(list)
 
   //将数据渲染到页面
   _list(page.curPage)
@@ -79,6 +83,15 @@ const listPositions = (router) => {
 
         $('#positions-close').click()//关闭
       })//在positions模板渲染后，绑定添加职位事件 */
+
+      // 职位删除
+      remove({
+        $box:$('#positions-list'),
+        // dataList, 改成state
+        state,//传递一个引用类型的state，在删除组件实施获取数据条数
+        url:'/api/positions',
+        loadData:_loadData
+      })
 
       
     }else{
