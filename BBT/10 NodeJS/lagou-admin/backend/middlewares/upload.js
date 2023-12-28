@@ -71,6 +71,7 @@ const uploadMiddleware = (req,res,next) => {
         })
       })
     }else{
+      req.companyLogo = filename//文件名放在请求体传给下个中间件
       // 一切都好
       next()
     }
