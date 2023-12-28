@@ -3,6 +3,7 @@ const positionsModel = require('../models/positions')
 
 // 新增职位接口请求的内容
 exports.add = async (req,res,next) => {
+  // console.log(req.companyLogo);
   res.set('content-type','application/json;charset=utf-8')//修改响应数据类型为json
 
   /* console.log(req.body);
@@ -10,6 +11,7 @@ exports.add = async (req,res,next) => {
   res.send('ok') */
   let result = await positionsModel.add({
     ...req.body,
+    companyLogo:req.companyLogo,
     createTime:moment().format('YYYY年MM月DD日 HH:mm')
   })
 
