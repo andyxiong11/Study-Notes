@@ -22,14 +22,34 @@ const storage = multer.diskStorage({
   }
 })
 
-const limit = {
-  fileSize: 200000,//文件大小
+const limits = {
+  fileSize: 200000,//文件大小 200K
   files:1//文件数量
 }
 
 const upload = multer({ 
   storage,
-  limit
- })
+  limits
+ }).single('companyLogo')
 
-module.exports = upload
+//  错误处理机制
+const uploadMiddleware = (req,res,next) => {
+  upload(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      // 发生错误
+      console.log(err);
+      res.render('fail',{//succ.ejs模板
+        data: JSON.stringify({
+          message: '文件超出200k'
+        })
+      })
+    } else if (err) {
+      // 发生错误
+      console.log(err);
+    }
+    // 一切都好
+    next()
+  })
+}
+
+module.exports = uploadMiddleware
