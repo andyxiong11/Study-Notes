@@ -27,9 +27,28 @@ const limits = {
   files:1//文件数量
 }
 
+function fileFilter (req, file, cb) {
+  // 指示是否应接受该文件
+  const acceptType = [//允许上传的文件类型
+    'image/png',
+    'image/jpg',
+    'image/jpeg',
+    'image/gif'
+  ]
+
+  if(!acceptType.includes(file.mimetype)){
+    // 如果有问题，你可以总是这样发送一个错误:
+    cb(new Error('文件类型必须是.png,.jpg,.jpeg,.gif'))
+  }else{
+    // 接受这个文件，使用`true`，像这样:
+    cb(null, true)
+  }
+}
+
 const upload = multer({ 
-  storage,
-  limits
+  storage,//存储文件
+  limits,//上传文件大小数量
+  fileFilter//上传文件类型
  }).single('companyLogo')
 
 //  错误处理机制
@@ -45,10 +64,17 @@ const uploadMiddleware = (req,res,next) => {
       })
     } else if (err) {
       // 发生错误
-      console.log(err);
+      console.log(err.message);
+      res.render('fail',{//succ.ejs模板
+        data: JSON.stringify({
+          message: err.message
+        })
+      })
+    }else{
+      // 一切都好
+      next()
     }
-    // 一切都好
-    next()
+    
   })
 }
 
