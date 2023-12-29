@@ -82,10 +82,18 @@ exports.remove = async(req,res,next) => {
 exports.update = async (req,res,next) => {
   res.set('content-type','application/json;charset=utf-8')//修改响应数据类型为json
 
-  let result = await positionsModel.update({
+  /* let result = await positionsModel.update({
     ...req.body,
     companyLogo:req.companyLogo,//图片文件名
-  })
+  }) 改造防止不修改图片*/
+
+  const data = {
+    ...req.body
+  }
+  if(req.companyLogo){//防止修改时不修改图片导致middlewares\upload.js图片文件名为空
+    data['companyLogo'] = req.companyLogo
+  }
+  let result = await positionsModel.update(data)
 
   if(result){
     res.render('succ',{//succ.ejs模板
