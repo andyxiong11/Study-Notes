@@ -17,3 +17,8 @@ exports.list = () => {
 exports.remove = (id) => {
   return Positions.deleteOne({_id:id})
 }
+
+// 修改
+exports.update = (data) => {
+  return Positions.findByIdAndUpdate(data.id,data)
+}

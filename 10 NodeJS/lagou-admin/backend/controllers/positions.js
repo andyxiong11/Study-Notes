@@ -11,7 +11,7 @@ exports.add = async (req,res,next) => {
   res.send('ok') */
   let result = await positionsModel.add({
     ...req.body,
-    companyLogo:req.companyLogo,
+    companyLogo:req.companyLogo,//图片文件名
     createTime:moment().format('YYYY年MM月DD日 HH:mm')
   })
 
@@ -75,5 +75,29 @@ exports.remove = async(req,res,next) => {
       })
     })
     console.log(err);
+  }
+}
+
+// 修改职位接口请求内容
+exports.update = async (req,res,next) => {
+  res.set('content-type','application/json;charset=utf-8')//修改响应数据类型为json
+
+  let result = await positionsModel.update({
+    ...req.body,
+    companyLogo:req.companyLogo,//图片文件名
+  })
+
+  if(result){
+    res.render('succ',{//succ.ejs模板
+      data: JSON.stringify({
+        message: '职位编辑成功'
+      })
+    })
+  }else{
+    res.render('fail',{//succ.ejs模板
+      data: JSON.stringify({
+        message: '职位编辑失败'
+      })
+    })
   }
 }
