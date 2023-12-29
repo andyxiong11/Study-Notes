@@ -13,7 +13,7 @@
         <div class="box box-primary">
           <!-- form start -->
           <!-- 使用jquery.form插件，需要enctype="multipart/form-data" -->
-          <form role="form" enctype="multipart/form-data" id="position-form">
+          <form role="form" enctype="multipart/form-data" id="position-form-update">
             <div class="box-body">
               <div class="form-group">
                 <label for="companyLogo">公司Logo</label>
@@ -47,8 +47,8 @@
         <!-- /.box -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" id="positions-close">关闭</button>
-        <button type="button" class="btn btn-primary" id="positions-save">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="positions-close-update">关闭</button>
+        <button type="button" class="btn btn-primary" id="positions-save-update">保存</button>
       </div>
     </div>
   </div>
