@@ -6,7 +6,7 @@
     <!-- <td>{{$index+1}}.</td>
     <td>{{$value.username}}</td> -->
     <td>{{$index+1}}</td>
-    <td><img src="http://placehold.it/50x50" width="50" height="50" alt=""></td>
+    <td><img src="http://localhost:3000/uploads/{{$value.companyLogo}}" width="50" height="50" alt=""></td>
     <td>{{$value.companyName}}</td>
     <td>{{$value.positionName}}</td>
     <td>{{$value.city}}</td>
