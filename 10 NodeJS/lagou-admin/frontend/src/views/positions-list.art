@@ -14,7 +14,7 @@
     <td>{{$value.createTime}}</td>
     <!-- data-id便于获取删除的数据；remove用于绑定删除事件 -->
     <td>
-      <button data-id="{{$value._id}}" class="btn btn-primary update">修改</button>
+      <button data-id="{{$value._id}}" class="btn btn-primary update" data-toggle="modal" data-target="#pos-modal-update">编辑</button>
       <button data-id="{{$value._id}}" class="btn btn-danger remove">删除</button>
     </td>
   </tr>

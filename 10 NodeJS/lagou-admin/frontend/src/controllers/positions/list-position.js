@@ -10,6 +10,7 @@ import {auth as authModel} from '../../models/auth-index.js'
 import {positionsList,positionsAdd} from '../../models/positions.js'
 
 import {addPosition} from '../positions/add-position.js'
+import {updatePosition} from '../positions/update-position.js'
 import {remove} from '../common/index.js'
 
 // let dataList = [] //后端用户总数 改成对象，解决删除逻辑封装后，删除最后一个用户，页面没有重新渲染数据
@@ -92,6 +93,8 @@ const listPositions = (router) => {
         url:'/api/positions/remove',
         loadData:_loadData
       })
+
+      updatePosition()//职位修改
 
       
     }else{
