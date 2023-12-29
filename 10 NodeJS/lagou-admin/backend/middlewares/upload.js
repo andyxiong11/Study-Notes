@@ -73,14 +73,15 @@ const uploadMiddleware = (req,res,next) => {
       })
     }else{
       // 上传图片非空时，删除已有的图片
-      if(filename !== ''){
+      const {companyLogo_old} = req.body
+      if(filename !== '' && companyLogo_old){
         try {
-          fs.unlinkSync(path.join(__dirname,`../public/uploads/${req.body.companyLogo_old}`))//删除已有的图片
-          req.companyLogo = filename//文件名放在请求体传给下个中间件
+          fs.unlinkSync(path.join(__dirname,`../public/uploads/${companyLogo_old}`))//删除已有的图片
         } catch (error) {
           console.log(error);
         }
       }
+      req.companyLogo = filename//文件名放在请求体传给下个中间件
       // 一切都好
       next()
     }

@@ -1,6 +1,6 @@
-// 职位添加 从list-position抽离,add-users复制
+// 职位修改 从list-position抽离,add-users复制
 import page from '../../databus/page.js'
-import positionUpdateTpl from '../../views/positions-add.art'
+import positionUpdateTpl from '../../views/positions-update.art'
 
 import {positionsAdd} from '../../models/positions.js'
 
@@ -18,12 +18,12 @@ export const updatePosition = ()=>{
         $('body').trigger('addPosition')//trigger 触发addPosition事件
       } */
       // 关闭注册弹窗
-      $('#positions-close').click()//关闭
+      $('#positions-close-update').click()//关闭
     } catch (err) {
       console.log(err);
     }
   }
 
   // 点击保存，提交表单
-  $('#positions-save').off('click').on('click',_save)
+  $('#positions-save-update').off('click').on('click',_save)
 }
