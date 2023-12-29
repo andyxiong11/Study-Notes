@@ -10,15 +10,24 @@ export const addPosition = ()=>{
 
   const _save = async () => {
     // 提交表单
-    const data = $('#position-form').serialize()//serialize获取表单提交的数据
-    let result = await positionsAdd(data) //ajax请求
+    /* const data = $('#position-form').serialize()//serialize获取表单提交的数据
+    let result = await positionsAdd(data) //ajax请求 
     if(result.ret){//请求成功
       page.setCurPage(1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码为1
       $('body').trigger('addPosition')//trigger 触发addPosition事件
+    } 因需要使用jquery.form传输图片，改造下面*/
+    try {
+      let result = await positionsAdd()
+      if(result.ret){//请求成功
+        console.log(1);
+        page.setCurPage(1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码为1
+        $('body').trigger('addPosition')//trigger 触发addPosition事件
+      }
+      // 关闭注册弹窗
+      $('#positions-close').click()//关闭
+    } catch (err) {
+      console.log(err);
     }
-
-    // 关闭注册弹窗
-    $('#positions-close').click()//关闭
   }
 
   // 点击保存，提交表单
