@@ -2,6 +2,7 @@
 const path = require('path')
 const multer = require('multer')
 const mime = require ('mime')
+const fs = require('fs')
 
 let filename = ''//存储的文件名
 
@@ -71,11 +72,18 @@ const uploadMiddleware = (req,res,next) => {
         })
       })
     }else{
-      req.companyLogo = filename//文件名放在请求体传给下个中间件
+      // 上传图片非空时，删除已有的图片
+      if(filename !== ''){
+        try {
+          fs.unlinkSync(path.join(__dirname,`../public/uploads/${req.body.companyLogo_old}`))//删除已有的图片
+          req.companyLogo = filename//文件名放在请求体传给下个中间件
+        } catch (error) {
+          console.log(error);
+        }
+      }
       // 一切都好
       next()
     }
-    
   })
 }
 
