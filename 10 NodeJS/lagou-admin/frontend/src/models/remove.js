@@ -6,6 +6,7 @@ export const remove = async ({url,id}) => {//因为http返回promise，所以需
     let { result:res } = await http({//http返回对象解构；：别名
       url,
       type:'delete',
+      dataType:'json',
       data:{
         id
       }
