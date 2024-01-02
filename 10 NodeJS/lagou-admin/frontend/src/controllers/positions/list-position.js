@@ -94,9 +94,13 @@ const listPositions = (router) => {
         loadData:_loadData
       })
 
-      updatePosition()//职位修改
+      // 职位编辑
+      $('#positions-list')
+        .off('click')
+        .on('click','.positions-update',function(){
+          updatePosition($(this).data('id'))//职位修改
+        })
 
-      
     }else{
       router.go('/signin')
     }

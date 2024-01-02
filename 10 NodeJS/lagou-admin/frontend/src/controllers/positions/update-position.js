@@ -2,11 +2,27 @@
 import page from '../../databus/page.js'
 import positionUpdateTpl from '../../views/positions-update.art'
 
+import http from '../../untils/http.js'
+
 import {positionsAdd} from '../../models/positions.js'
 
 // 职位修改
-export const updatePosition = ()=>{
-  $('#positions-list-box').after(positionUpdateTpl)//after渲染到positions-list-box样式元素之后
+export const updatePosition = async (id)=>{
+  let { result } = await http({//http返回一个promise
+    url: '/api/positions/listone',
+    type: 'post',
+    dataType: 'json',
+    data: {
+      id
+    }
+  })
+  // console.log(result);
+
+  $('#positions-list-box').after(positionUpdateTpl({
+    data:{
+      ...result
+    }
+  }))//after渲染到positions-list-box样式元素之后
 
   const _save = async () => {
     // 提交表单
