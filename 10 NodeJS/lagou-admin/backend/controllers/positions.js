@@ -50,6 +50,20 @@ exports.list = async (req,res,next) => {
   // })
 }
 
+// 查询指定数据接口请求的内容
+exports.listone = async (req,res,next) => {
+  let result = await positionsModel.listone(req.body.id)
+  if(result){
+    res.json(result)
+  }else{
+    res.render('fail',{//succ.ejs模板
+      data: JSON.stringify({
+        message: '职位添加失败'
+      })
+    })
+  }
+}
+
 // 删除职位接口请求内容
 exports.remove = async(req,res,next) => {
   let result = await positionsModel.remove(req.body.id)

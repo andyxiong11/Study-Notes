@@ -13,6 +13,11 @@ exports.list = () => {
   return Positions.find({}).sort({_id:-1})//查找数据库中的所有数据，并倒叙返回给前端职位
 }
 
+// 查询指定数据
+exports.listone = (id) => {
+  return Positions.findOne({_id:id})//查找数据库中的所有数据，并倒叙返回给前端职位
+}
+
 // 删除
 exports.remove = (id) => {
   return Positions.deleteOne({_id:id})
