@@ -77,11 +77,15 @@ const uploadMiddleware = (req,res,next) => {
       if(filename !== '' && companyLogo_old){
         try {
           fs.unlinkSync(path.join(__dirname,`../public/uploads/${companyLogo_old}`))//删除已有的图片
+          req.companyLogo = filename//文件名放在请求体传给下个中间件
         } catch (error) {
           console.log(error);
         }
+      }else if(filename === '' && companyLogo_old){//不上传图片
+        req.companyLogo = companyLogo_old//文件名放在请求体传给下个中间件
+      }else{
+        req.companyLogo = filename//文件名放在请求体传给下个中间件
       }
-      req.companyLogo = filename//文件名放在请求体传给下个中间件
       // 一切都好
       next()
     }
