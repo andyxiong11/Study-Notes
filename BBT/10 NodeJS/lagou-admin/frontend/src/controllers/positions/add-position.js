@@ -19,6 +19,7 @@ export const addPosition = ()=>{
     try {
       let result = await positionsAdd()
       if(result.ret){//请求成功
+        console.log(process.socket);//测试socket.io通信
         page.setCurPage(1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码为1
         $('body').trigger('addPosition')//trigger 触发addPosition事件
       }
