@@ -27,4 +27,6 @@
     <!-- name 传给后端数据，value编辑时反显图片 -->
     <input type="text" value="{{data.salary}}" name="salary" class="form-control" id="salary" placeholder="请输入职位薪资">
   </div>
+  <input type="hidden" value="{{data._id}}" name="id"> 
+  <input type="hidden" value="{{data.companyLogo}}" name="companyLogo_old"> 
 </div>

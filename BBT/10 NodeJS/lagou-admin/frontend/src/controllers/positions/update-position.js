@@ -5,7 +5,7 @@ import positionUpdateForm from '../../views/positions-update-form.art'
 
 import http from '../../untils/http.js'
 
-import {positionsAdd} from '../../models/positions.js'
+import {positionsUpdate} from '../../models/positions.js'
 
 // 职位修改
 export const updatePosition = async (id)=>{
@@ -30,12 +30,12 @@ export const updatePosition = async (id)=>{
   const _save = async () => {
     // 提交表单
     try {
-      let result = await positionsAdd()
-      /* if(result.ret){//请求成功
+      let result = await positionsUpdate()
+      if(result.ret){//请求成功
         console.log(1);
         page.setCurPage(1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码为1
         $('body').trigger('addPosition')//trigger 触发addPosition事件
-      } */
+      }
       // 关闭注册弹窗
       $('#positions-close-update').click()//关闭
     } catch (err) {
