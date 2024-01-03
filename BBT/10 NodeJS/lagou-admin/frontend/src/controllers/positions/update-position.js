@@ -1,6 +1,7 @@
 // 职位修改 从list-position抽离,add-users复制
 import page from '../../databus/page.js'
 import positionUpdateTpl from '../../views/positions-update.art'
+import positionUpdateForm from '../../views/positions-update-form.art'
 
 import http from '../../untils/http.js'
 
@@ -8,7 +9,7 @@ import {positionsAdd} from '../../models/positions.js'
 
 // 职位修改
 export const updatePosition = async (id)=>{
-  let { result } = await http({//http返回一个promise
+  /* let { result } = await http({//http返回一个promise
     url: '/api/positions/listone',
     type: 'post',
     dataType: 'json',
@@ -22,7 +23,9 @@ export const updatePosition = async (id)=>{
     data:{
       ...result
     }
-  }))//after渲染到positions-list-box样式元素之后
+  }))//after渲染到positions-list-box样式元素之后 */
+  // 上面抽离到fillPositionUpdateTpl方法，因为弹窗没有渲染第一次点击编辑无法打开
+  $('#positions-list-box').after(positionUpdateTpl())//after渲染到positions-list-box样式元素之后 
 
   const _save = async () => {
     // 提交表单
@@ -42,4 +45,24 @@ export const updatePosition = async (id)=>{
 
   // 点击保存，提交表单
   $('#positions-save-update').off('click').on('click',_save)
+}
+
+// 渲染弹窗
+export const fillPositionUpdateTpl = async (id) => {
+  let { result } = await http({//http返回一个promise
+    url: '/api/positions/listone',
+    type: 'post',
+    dataType: 'json',
+    data: {
+      id
+    }
+  })
+  // console.log(result);
+
+  // 渲染弹窗中的表单，并加载数据
+  $('#position-form-update').html(positionUpdateForm({
+    data:{
+      ...result
+    }
+  }))
 }

@@ -10,7 +10,7 @@ import {auth as authModel} from '../../models/auth-index.js'
 import {positionsList,positionsAdd} from '../../models/positions.js'
 
 import {addPosition} from '../positions/add-position.js'
-import {updatePosition} from '../positions/update-position.js'
+import {updatePosition,fillPositionUpdateTpl} from '../positions/update-position.js'
 import {remove} from '../common/index.js'
 
 // let dataList = [] //后端用户总数 改成对象，解决删除逻辑封装后，删除最后一个用户，页面没有重新渲染数据
@@ -95,10 +95,17 @@ const listPositions = (router) => {
       })
 
       // 职位编辑
-      $('#positions-list')
+      /* $('#positions-list')
         .off('click')
         .on('click','.positions-update',function(){
           updatePosition($(this).data('id'))//职位修改
+        }) */
+      // 改造解决弹窗没有渲染,第一次点击编辑无法打开
+      updatePosition()
+      $('#positions-list')
+        .off('click')
+        .on('click','.positions-update',function(){
+          fillPositionUpdateTpl($(this).data('id'))//职位修改
         })
 
     }else{

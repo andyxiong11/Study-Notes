@@ -14,35 +14,7 @@
           <!-- form start -->
           <!-- 使用jquery.form插件，需要enctype="multipart/form-data" -->
           <form role="form" enctype="multipart/form-data" id="position-form-update">
-            <div class="box-body">
-              <div class="form-group">
-                <label for="companyLogo">公司Logo</label>
-                <!-- 编辑时反显图片 -->
-                <img src="http://localhost:3000/uploads/{{data.companyLogo}}" style="height: 50px;width: 50px;" alt="">
-                <!-- name 传给后端数据 -->
-                <input type="file" name="companyLogo" class="form-control" id="companyLogo" placeholder="请输入公司Logo">
-              </div>
-              <div class="form-group">
-                <label for="companyName">公司名称</label>
-                <!-- name 传给后端数据，value编辑时反显图片 -->
-                <input type="text" value="{{data.companyName}}" name="companyName" class="form-control" id="companyName" placeholder="请输入公司名称">
-              </div>
-              <div class="form-group">
-                <label for="positionName">职位名称</label>
-                <!-- name 传给后端数据，value编辑时反显图片 -->
-                <input type="text" value="{{data.positionName}}" name="positionName" class="form-control" id="positionName" placeholder="请输入职位名称">
-              </div>
-              <div class="form-group">
-                <label for="city">城市</label>
-                <!-- name 传给后端数据，value编辑时反显图片 -->
-                <input type="text" value="{{data.city}}" name="city" class="form-control" id="city" placeholder="请输入城市">
-              </div>
-              <div class="form-group">
-                <label for="salary">职位薪资</label>
-                <!-- name 传给后端数据，value编辑时反显图片 -->
-                <input type="text" value="{{data.salary}}" name="salary" class="form-control" id="salary" placeholder="请输入职位薪资">
-              </div>
-            </div>
+            <!-- 编辑弹窗表单抽离到positions-update-form.art，首次进入首页渲染弹窗时不渲染表单，点击编辑后渲染表单反显内容 -->
             <!-- /.box-body -->
           </form>
         </div>
