@@ -57,6 +57,13 @@ const index = (router)=>{
         localStorage.setItem('lg-token','')
         location.reload()//刷新页面，走app.js重新鉴权进入登录页面
       })
+
+      // 连接socket.io服务端
+      var socket = io.connect('http://localhost:3000');
+      console.log('success');
+      socket.on('message', function(msg){//利用message事件 收到服务端发的消息
+        console.log(msg);
+      })
     }else{
       router.go('/signin')
     }
