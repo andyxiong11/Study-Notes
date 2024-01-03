@@ -103,7 +103,7 @@ const listPositions = (router) => {
       // 改造解决弹窗没有渲染,第一次点击编辑无法打开
       updatePosition()
       $('#positions-list')
-        .off('click')
+        .off('click','.positions-update')//'.positions-update'防止将删除事件也解绑
         .on('click','.positions-update',function(){
           fillPositionUpdateTpl($(this).data('id'))//职位修改
         })
