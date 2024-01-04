@@ -10,6 +10,7 @@ var cookieSession = require('cookie-session') //操作cookie
 // var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var positionRouter = require('./routes/positions');
+var mobileRouter = require('./routes/mobile')
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use(cookieSession({
 // app.use('/users', usersRouter);
 app.use('/api/users', usersRouter);//后端接口
 app.use('/api/positions', positionRouter);//后端接口
+app.use('/mobile', mobileRouter);//后端接口
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
