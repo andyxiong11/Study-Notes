@@ -60,9 +60,12 @@ const index = (router)=>{
 
       // 连接socket.io服务端
       var socket = io.connect('http://localhost:3000');
-      console.log('success');
+      // console.log('success');
       socket.on('message', function(msg){//利用message事件 收到服务端发的消息
-        console.log(msg);
+        // console.log(msg);
+        let num = ~~$('#icon-email').text()//TODO~~将字符串转换为整数
+        // console.log(num);
+        $('#icon-email').text(++num)
       })
     }else{
       router.go('/signin')

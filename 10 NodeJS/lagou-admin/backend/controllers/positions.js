@@ -18,7 +18,7 @@ exports.add = async (req,res,next) => {
   // console.log(result);
 
   if(result){
-    console.log(process.socket);
+    // console.log(process.socket);
     process.socket.emit('message','ok')//发消息给前端
     
     res.render('succ',{//succ.ejs模板
