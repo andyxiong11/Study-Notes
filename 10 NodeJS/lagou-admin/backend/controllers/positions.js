@@ -19,6 +19,8 @@ exports.add = async (req,res,next) => {
 
   if(result){
     console.log(process.socket);
+    process.socket.emit('message','ok')//发消息给前端
+    
     res.render('succ',{//succ.ejs模板
       data: JSON.stringify({
         message: '职位添加成功'

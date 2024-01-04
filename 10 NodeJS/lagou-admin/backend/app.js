@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// var cors = require('cors') //此处不使用该方法解决前端请求跨域，避免老系统后端没有使用cors
+// var cors = require('cors') //此处不使用该方法解决前端请求跨域，避免老系统后端没有使用cors；改用webpack配置
+var cors = require('cors') //socket.io需要使用cors解决跨域
 var cookieSession = require('cookie-session') //操作cookie
 
 // var indexRouter = require('./routes/index');
@@ -22,7 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(cors())//解决前后端请求跨域问题，此处不使用该方法解决前端请求跨域，避免老系统后端没有使用cors
+// app.use(cors())//解决前后端请求跨域问题，此处不使用该方法解决前端请求跨域，避免老系统后端没有使用cors；改用webpack配置
+app.use(cors()) //socket.io需要使用cors解决跨域
 
 // 设置cookie-session
 app.use(cookieSession({
