@@ -82,7 +82,15 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'http://localhost:3000'
-      }
+      },
+      /* //解决前后端scoket通信跨域问题（通信时不直接访问3000，访问8080/socket，将/socket替换为空，以访问3000端口）
+      '/socket': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        pathRewrite:{
+          '^/socket':''
+        }
+      }, 解决无效，使用socket.io的cors解决*/
     }
   }
 }
