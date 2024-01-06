@@ -183,6 +183,21 @@ $ git branch -d [branch-name]
 # 删除远程分支
 $ git push origin --delete [branch-name]
 $ git branch -dr [remote/branch]
+
+# 本地分支重命名(还没有推送到远程)
+
+$ git branch -m oldName newName
+
+# 远程分支重命名 (已经推送远程-假设本地分支和远程对应分支名称相同)
+a. 重命名远程分支对应的本地分支
+git branch -m oldName newName
+b. 删除远程分支
+git push --delete origin oldName
+c. 上传新命名的本地分支
+git push origin newName
+d.把修改后的本地分支与远程分支关联
+git branch --set-upstream-to origin/newName
+
 ```
 ## 6、标签
 ```shell
@@ -340,6 +355,16 @@ $ git stash pop
 ```shell
 # 生成一个可供发布的压缩包
 $ git archive
+
+# 删除指定文件夹当前分支相关历史提交记录
+$ git filter-branch --force --index-filter 'git rm --cached -r --ignore-unmatch [文件夹名]' --prune-empty --tag-name-filter cat --
+
+# 删除指定文件当前分支相关历史提交记录
+$ git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch [文件名]' --prune-empty --tag-name-filter cat --
+
+# 删除指定文件夹所有分支标签相关历史提交记录
+$ git filter-branch --force --index-filter 'git rm --cached -r --ignore-unmatch [文件夹名]' --prune-empty --tag-name-filter cat -- --all
+
 ```
 
 # 设置和取消代理
