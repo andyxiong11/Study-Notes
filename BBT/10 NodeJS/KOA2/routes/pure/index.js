@@ -48,7 +48,7 @@ async function route( url ) {
 koa.use( async ( ctx ) => {
   let url = ctx.request.url
   let html = await route( url )
-  ctx.body = html
+  ctx.body = html //返回给前端
 })
 
 koa.listen(3000)

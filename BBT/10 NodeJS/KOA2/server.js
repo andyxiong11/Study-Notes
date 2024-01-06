@@ -7,7 +7,7 @@ koa.use(logger)
 
 koa.use((context,next) => {
   // console.log(context);
-  context.body = 'hello koa'
+  context.body = 'hello koa'//返回给前端
 });
 
 koa.listen(3333);
