@@ -1,6 +1,9 @@
+//演示KOA三方插件路由，server.js运行后，访问
 const Router = require('@koa/router');
 
 const router = new Router()
+
+const users = require('./users')
 
 router
   .get('/',async (ctx,next)=>{
@@ -15,5 +18,7 @@ router
     console.log('0');
     return 'hello'
   })
+  //嵌套路由
+  .use('/users',users.routes(),users.allowedMethods())
 
 module.exports = router
