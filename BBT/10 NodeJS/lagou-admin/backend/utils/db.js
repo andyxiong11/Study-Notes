@@ -14,9 +14,23 @@ var Kitten = mongoose.model('Kitten', kittySchema);//创建Kitten集合
 var felyne = new Kitten({ name: 'Felyne' });//新建一个name值为Felyne
 felyne.save()//保存 */
 
+// 创建users的model
 var usersSchema = mongoose.Schema({
   username: String,
   password: String
 });
-var Users = mongoose.model('users', usersSchema);//创建Kitten集合
+var Users = mongoose.model('users', usersSchema);//创建Users集合
+
+// 创建positions的model
+var positionsSchema = mongoose.Schema({
+  companyLogo:String,
+  companyName:String,
+  positionName:String,
+  city:String,
+  createTime:String,
+  salary:String
+});
+var Positions = mongoose.model('positions', positionsSchema);//创建Positions集合
+
 exports.Users = Users
+exports.Positions = Positions

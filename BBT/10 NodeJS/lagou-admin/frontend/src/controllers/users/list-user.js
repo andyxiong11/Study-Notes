@@ -1,10 +1,11 @@
+// 该文件原本是首页的逻辑,首页逻辑已抽离,现为用户列表的逻辑
 import indexTpl from '../../views/index.art'
 import signinTpl from '../../views/signin.art'
 import usersTpl from '../../views/users.art'
 import usersListTpl from '../../views/users-list.art'
 // import usersListPagesTpl from '../views/uesers-pages.art'
 
-import router from '../../routers/index.js'
+// import router from '../../routers/index.js'
 import pagination from '../../components/pagination.js'
 import page from '../../databus/page.js'
 
@@ -12,13 +13,21 @@ import {addUser} from './add-users.js'
 
 import {usersList as usersListModel} from '../../models/users-list.js'//as别名
 import {auth as authModel} from '../../models/auth-index.js'
-import {usersRemove as usersRemoveModel} from '../../models/users-remove.js'
+// import {usersRemove as usersRemoveModel} from '../../models/users-remove.js'
+
+import {remove} from '../common/index.js'
 
 const htmlIndex = indexTpl({})
 const htmlSignin = signinTpl({})
 /* const pageSize = 5 //每页10条；公共常量，从分页的逻辑模块中提取出来
 let curPage = 1 //当前页码 写成公共响应式变量 databus/page.js*/
-let dataList = [] //后端用户总数
+
+// let dataList = [] //后端用户总数 改成对象，解决删除逻辑封装后，删除最后一个用户，页面没有重新渲染数据
+let state = {
+  list:[]
+} //后端用户总数 改成对象
+
+const pageSize = page.pageSize//每页数据数量
 
 // 点击登录按钮
 /* 登录逻辑抽离放在signin.js
@@ -132,10 +141,10 @@ const _list = (pageNo)=>{
   }) */
 
   // 将页面渲染与用户数据获取分离
-  let start = (pageNo-1) * page.pageSize //当前页第一条数据序号；因为页数从1开始所以减1
+  let start = (pageNo-1) * pageSize //当前页第一条数据序号；因为页数从1开始所以减1
   $('#users-list').html(usersListTpl({//使用usersListTpl模板将用户数据渲染到页面
     // data:result.data
-    data:dataList.slice(start, start + page.pageSize)//当前页的数据，从第start条开始
+    data:state.list.slice(start, start + pageSize)//当前页的数据，从第start条开始
   }))
 }
 
@@ -163,8 +172,11 @@ const _loadData = async () => {
     }
   }) */
   let result = await usersListModel() //ajax请求
-  dataList = result.data
-  pagination(result.data,page.pageSize)//分页相关功能已抽离至components/pagination.js
+
+  // dataList = result.data 改成对象，解决删除逻辑封装后，删除最后一个用户，页面没有重新渲染数据
+  state.list = result.data //改成对象
+
+  pagination(result.data)//分页相关功能已抽离至components/pagination.js
   _list(page.curPage)
 }
 
@@ -181,91 +193,92 @@ const signin = (router)=>{
 } */
 
 
+// 因为页面事件绑定抽离只剩删除事件，且职位管理也需要用，所以封装controllers\common\index.js
+// // 页面事件绑定
+// const _methods = ()=>{
+//   // 事件绑定
+//   $('#users-list').on('click','.remove',async function(){//TODO给#users-list下面的每一个.remove样式元素绑定删除事件
+//     /* ajax请求移出到src\models\uesers-remove.js
+//       $.ajax({
+//       url:'/api/users',
+//       type:'delete',
+//       headers:{
+//         'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端，防止外部直接请求接口
+//       },
+//       data:{
+//         id:$(this).data('id')//$(this).data('id')可以获取当前点击的id
+//       },
+//       success(){
+//         _loadData()//重新获取用户数据渲染到页面
 
-// 页面事件绑定
-const _methods = ()=>{
-  // 事件绑定
-  $('#users-list').on('click','.remove',async function(){//TODO给#users-list下面的每一个.remove样式元素绑定删除事件
-    /* ajax请求移出到src\models\uesers-remove.js
-      $.ajax({
-      url:'/api/users',
-      type:'delete',
-      headers:{
-        'X-Access-Token':localStorage.getItem('lg-token') || ''//将token传给后端，防止外部直接请求接口
-      },
-      data:{
-        id:$(this).data('id')//$(this).data('id')可以获取当前点击的id
-      },
-      success(){
-        _loadData()//重新获取用户数据渲染到页面
+//         // 解决：最后一页数据全部删除完，回到前一页
+//         // 判断当前页是最后一页且当删除的是最后一条数据且当前页不是第一页；可能因为_loadData是异步，所以此时dataList是删除前的数据
+//         const idLastPage = Math.ceil(dataList.length / page.pageSize) === page.curPage
+//         const restOne = dataList.length % page.pageSize === 1
+//         const notPageFirst = page.curPage > 0
+//         if(idLastPage && restOne && notPageFirst){//Math.ceil 向最大取整
+//           // curPage--
+//           page.setCurPage(page.curPage-1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码
+//         }
+//       }
+//     }) */
+//     let result = await usersRemoveModel($(this).data('id'))//$(this).data('id') 当前点击的id ajax请求
+//     if(result.ret){//请求成功
+//       _loadData()//重新获取用户数据渲染到页面
+//       // 解决：最后一页数据全部删除完，回到前一页
+//       // 判断当前页是最后一页且当删除的是最后一条数据且当前页不是第一页；可能因为_loadData是异步，所以此时dataList是删除前的数据
+//       const idLastPage = Math.ceil(dataList.length / pageSize) === page.curPage
+//       const restOne = dataList.length % pageSize === 1
+//       const notPageFirst = page.curPage > 0
+//       if(idLastPage && restOne && notPageFirst){//Math.ceil 向最大取整
+//         // curPage--
+//         page.setCurPage(page.curPage-1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码
+//       }
+//     }
+//   })
+//   //将给页码绑定点击事件（高亮样式）移至index首页绑定
+//   /* 分页相关事件绑定移至 components/pagination.js
+//   $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
+//     const index = $(this).index()
+//     _list(index)//查询点击页数的用户列表渲染到页面
+//     curPage = index //获取当前页码
+//     _setPageActive(index)//页码高亮
+//   })
+//   $('#users-page').on('click','#users-page-list li:first-child',function(){//给前进按钮绑定事件
+//     if(curPage > 1){
+//       curPage--
+//       _list(curPage)//重新渲染页面数据
+//       _setPageActive(curPage)//页码高亮
+//     }
+//   })
+//   $('#users-page').on('click','#users-page-list li:last-child',function(){//给后退按钮绑定事件
+//     if(curPage < Math.ceil(dataList.length / pageSize)){
+//       curPage++
+//       _list(curPage)//重新渲染页面数据
+//       _setPageActive(curPage)//页码高亮
+//     }
+//   }) */
+//   // 退出登录事件移至controllers\index.js
+//   // $('#users-signout').on('click',(e) => {//给退出按钮绑定事件
+//   //   e.preventDefault()//TODOpreventDefault方法去除a标签的跳转事件
+//   //   // router.go('/signin')
 
-        // 解决：最后一页数据全部删除完，回到前一页
-        // 判断当前页是最后一页且当删除的是最后一条数据且当前页不是第一页；可能因为_loadData是异步，所以此时dataList是删除前的数据
-        const idLastPage = Math.ceil(dataList.length / page.pageSize) === page.curPage
-        const restOne = dataList.length % page.pageSize === 1
-        const notPageFirst = page.curPage > 0
-        if(idLastPage && restOne && notPageFirst){//Math.ceil 向最大取整
-          // curPage--
-          page.setCurPage(page.curPage-1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码
-        }
-      }
-    }) */
-    let result = await usersRemoveModel($(this).data('id'))//$(this).data('id') 当前点击的id ajax请求
-    if(result.ret){//请求成功
-      _loadData()//重新获取用户数据渲染到页面
-      // 解决：最后一页数据全部删除完，回到前一页
-      // 判断当前页是最后一页且当删除的是最后一条数据且当前页不是第一页；可能因为_loadData是异步，所以此时dataList是删除前的数据
-      const idLastPage = Math.ceil(dataList.length / page.pageSize) === page.curPage
-      const restOne = dataList.length % page.pageSize === 1
-      const notPageFirst = page.curPage > 0
-      if(idLastPage && restOne && notPageFirst){//Math.ceil 向最大取整
-        // curPage--
-        page.setCurPage(page.curPage-1)//因分页功能抽离，当前页码为公共变量，需要手动更新当前页码
-      }
-    }
-  })
-  //将给页码绑定点击事件（高亮样式）移至index首页绑定
-  /* 分页相关事件绑定移至 components/pagination.js
-  $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
-    const index = $(this).index()
-    _list(index)//查询点击页数的用户列表渲染到页面
-    curPage = index //获取当前页码
-    _setPageActive(index)//页码高亮
-  })
-  $('#users-page').on('click','#users-page-list li:first-child',function(){//给前进按钮绑定事件
-    if(curPage > 1){
-      curPage--
-      _list(curPage)//重新渲染页面数据
-      _setPageActive(curPage)//页码高亮
-    }
-  })
-  $('#users-page').on('click','#users-page-list li:last-child',function(){//给后退按钮绑定事件
-    if(curPage < Math.ceil(dataList.length / pageSize)){
-      curPage++
-      _list(curPage)//重新渲染页面数据
-      _setPageActive(curPage)//页码高亮
-    }
-  }) */
-  $('#users-signout').on('click',(e) => {//给退出按钮绑定事件
-    e.preventDefault()//TODOpreventDefault方法去除a标签的跳转事件
-    // router.go('/signin')
+//   //   /* $.ajax({
+//   //     url:'/api/users/signout',
+//   //     dataType:'json',
+//   //     success(result){
+//   //       if(result.ret){//后端响应ret为真，请求成功
+//   //         // console.log(result);
+//   //         location.reload()//刷新页面，走app.js重新鉴权进入登录页面
+//   //       }
+//   //     }
+//   //   }) 因为有token所以只需删除浏览器本地的token即可*/
+//   //   localStorage.setItem('lg-token','')
+//   //   location.reload()//刷新页面，走app.js重新鉴权进入登录页面
+//   // })
 
-    /* $.ajax({
-      url:'/api/users/signout',
-      dataType:'json',
-      success(result){
-        if(result.ret){//后端响应ret为真，请求成功
-          // console.log(result);
-          location.reload()//刷新页面，走app.js重新鉴权进入登录页面
-        }
-      }
-    }) 因为有token所以只需删除浏览器本地的token即可*/
-    localStorage.setItem('lg-token','')
-    location.reload()//刷新页面，走app.js重新鉴权进入登录页面
-  })
-
-  // $('#users-save').on('click',_signup)// 点击保存，提交表单；该事件移到add-users.js
-}
+//   // $('#users-save').on('click',_signup)// 点击保存，提交表单；该事件移到add-users.js
+// }
 
 // 发布pageSize,curPage数据变化消息
 const _subscribe = () => {
@@ -282,17 +295,20 @@ const _subscribe = () => {
 // 首页
 const index = (router)=>{
   // 将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
-  const loadIndex = (res)=> {
+  const loadIndex = async (res,next)=> {
+    /* 该文件改名为有index.js改名为list-user.js,首页逻辑抽离到src\controllers\index.js
     res.render(htmlIndex)
 
     // window resize 让页面高度撑满整个屏幕
-    $(window,'.wrapper').resize()
+    $(window,'.wrapper').resize() */
 
     // 填充用户列表
-    $('#content').html(usersTpl())
+    // $('#content').html(usersTpl())
+    next()//因为使用异步的gp21-router替换了sme-router,所以需要next
+    res.render(usersTpl())//首页逻辑已抽离.直接res.render
     $('#add-user-btn').on('click',addUser)//在user模板渲染后，绑定添加用户事件
     // 渲染用户列表list
-    _loadData()
+    await _loadData()//需要await，否则remove方法拿不到dataList
 
     /* 将所有的事件绑定抽离封装 _methods
     // 事件绑定
@@ -353,7 +369,14 @@ const index = (router)=>{
         }
       })
     }) */
-    _methods()
+    // _methods() 因为页面事件绑定抽离只剩删除事件，且职位管理也需要用，所以封装controllers\common\index.js
+    remove({
+      $box:$('#users-list'),
+      // dataList, 改成state
+      state,//传递一个引用类型的state，在删除组件实施获取数据条数
+      url:'/api/users',
+      loadData:_loadData
+    })
 
     /* 将所有的事件绑定抽离封装 _methods
     $('#users-save').on('click',_signup)// 点击保存，提交表单 */
@@ -389,7 +412,7 @@ const index = (router)=>{
     let result = await authModel()//ajax请求
     if(result.ret){//鉴权通过，是登录状态
       // router.go('/index')
-      loadIndex(res)//将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
+      loadIndex(res,next)//将首页的操作封装,在鉴权请求通过后执行，修复鉴权未通过执行首页后续操作控制台报错
     }else{
       router.go('/signin')
     }

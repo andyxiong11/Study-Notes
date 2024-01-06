@@ -27,12 +27,26 @@ module.exports = {
       {
         test: /\.art$/,
         use: {
-          loader:'art-template-loader'//解析.art文件
+          loader:'art-template-loader',//解析.art文件
+          options:{
+            escape:false//解决src\views\index.art的{{subRouter}} html解析失败
+          }
         }
       },
       {
         test: /\.css$/,
         loaders:['style-loader','css-loader']//css-loader负责将css文件放到js中，style-loader将js文件解析到页面上。先后顺序不能错
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',//解析图片
+            options: {
+              limit: 8192//图片小于8k转base64,大于就将文件放入
+            }
+          }
+        ]
       }
     ]
   },
@@ -68,7 +82,15 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'http://localhost:3000'
-      }
+      },
+      /* //解决前后端scoket通信跨域问题（通信时不直接访问3000，访问8080/socket，将/socket替换为空，以访问3000端口）
+      '/socket': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        pathRewrite:{
+          '^/socket':''
+        }
+      }, 解决无效，使用socket.io的cors解决*/
     }
   }
 }

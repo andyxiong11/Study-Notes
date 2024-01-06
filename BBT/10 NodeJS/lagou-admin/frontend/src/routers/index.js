@@ -1,14 +1,16 @@
-import SMERouter from 'sme-router'
+import GP21Router from 'gp21-router'
 /* import indexTpl from '../views/index.art'
 import siginTpl from '../views/signin.art' */
 
-const router = new SMERouter('root') //root为index.html的根节点
+const router = new GP21Router('root') //root为index.html的根节点
 
 /* const htmlIndex = indexTpl({})
 const htmlSignin = siginTpl({}) */
 
 // import {signin,index} from '../controllers'
-import index from '../controllers/users/index'
+import index from '../controllers/index'
+import listUsers from '../controllers/users/list-user'
+import listPositions from '../controllers/positions/list-position'
 import signin from '../controllers/signin'
 
 import {auth as authModel} from '../models/auth'//as别名
@@ -42,12 +44,13 @@ router.use(async (req)=>{
   var obj = JSON.parse(result);
   // console.log(obj); 
   if(obj.ret){//鉴权通过，是登录状态
-    router.go('/index')
+    // router.go('/index')
+    router.go(req.url)//因为加了用户管理和职位管理子路由,不能用/index
   }else{
     router.go('/signin')
   }
 })
-router.route('/',()=>{})
+// router.route('/',()=>{}) 重定向router.route('*'
 
 /* router.route('/', (req, res, next) => {
   res.render(htmlSignin)
@@ -60,5 +63,12 @@ router.route('/index',index(router))
   res.render(htmlSignin)
 }) */
 // router.route('/sigin',signin(router))
+
+router.route('/index/users',listUsers(router))
+router.route('/index/positions',listPositions(router))
+
+router.route('*', (req, res, next) => {//smerouter重定向
+  res.redirect('/index/users')//进不去就跳这个路由
+})
 
 export default router

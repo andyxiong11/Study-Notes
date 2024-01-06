@@ -3,6 +3,8 @@
 import usersListPagesTpl from '../views/uesers-pages.art'
 import page from '../databus/page'
 
+const pageSize = page.pageSize//总页数
+
 // 当前页码高亮
 const _setPageActive = (index)=>{
   $('#users-page #users-page-list li:not(:first-child,:last-child)')
@@ -13,7 +15,7 @@ const _setPageActive = (index)=>{
 }
 
 // 分页
-const pagination = (data,pageSize) => {
+const pagination = (data) => {
   const total = data.length
   const pageCount = Math.ceil(total/pageSize)//页数
   const pageArray = new Array(pageCount)// 用页数生成一个数组
@@ -27,11 +29,11 @@ const pagination = (data,pageSize) => {
 
   _setPageActive(page.curPage)//页码高亮
 
-  _bindEvent(data,pageSize) //修复分页功能绑定事件失败（如果不在此处绑定，那么在首页导入该文件时就绑定事件，此时页面渲染未结束）
+  _bindEvent(data) //修复分页功能绑定事件失败（如果不在此处绑定，那么在首页导入该文件时就绑定事件，此时页面渲染未结束）
 }
 
-const _bindEvent = (data,pageSize) => {
-  $('#users-page').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
+const _bindEvent = (data) => {
+  $('#users-page').off('click').on('click','#users-page-list li:not(:first-child,:last-child)',function(){//给分页页码绑定点击事件
     const index = $(this).index()
     /* _list(index)//查询点击页数的用户列表渲染到页面；更新页面数据放在changeCurPage消息发布中调用
     curPage = index //获取当前页码 */
