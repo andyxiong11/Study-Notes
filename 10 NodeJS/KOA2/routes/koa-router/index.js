@@ -20,5 +20,9 @@ router
   })
   //嵌套路由
   .use('/users',users.routes(),users.allowedMethods())
+  // 路由枚举
+  .get(['/id','/name'],async (ctx,next)=>{
+    ctx.body = ctx.url
+  })
 
 module.exports = router
