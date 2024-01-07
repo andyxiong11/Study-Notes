@@ -35,4 +35,13 @@ router.post('/sigin',async (ctx,next)=>{
   console.log(param.get('username'),param.get('password'));
 })
 
+router.get('/list',async (ctx,next)=>{
+  // 获取前端传输的内容
+  let query = ctx.request.query
+  let queryStr = ctx.request.querystring//转成字符串
+
+  // ctx.body = query //返回给前端
+  ctx.body = queryStr //返回给前端
+})
+
 module.exports = router
