@@ -1,11 +1,47 @@
 const Router = require('@koa/router')
 
 const router = new Router({
-  prefix:'/abc'//该路由前面需要加前缀才能访问
+  // prefix:'/abc'//该路由前面需要加前缀才能访问
 })
 
-router.get('/sigin',(ctx,next)=>{
-  ctx.body = 'sigin' //返回给前端
+function getData (ctx){
+  return new Promise((resolve,reject)=>{
+    let data = ''
+    ctx.req.on('data',(chunk)=>{//监听事件
+      data += chunk
+    })
+    ctx.req.on('end',()=>{//监听事件结束
+      resolve(data);
+    })
+  })
+}
+
+router.post('/sigin',async (ctx,next)=>{
+  /* let result = ''
+  let data = ''
+  ctx.req.on('data',(chunk)=>{//监听事件
+    data += chunk
+  })
+  ctx.req.on('end',()=>{//监听事件结束
+    console.log(data);
+    result = data
+  }) 异步，无法将result返回给前端*/
+  let result = await getData(ctx)
+
+  ctx.body = result //返回给前端
+
+  // 获取前端传输的内容
+  let param = new URLSearchParams(result)
+  console.log(param.get('username'),param.get('password'));
+})
+
+router.get('/list',async (ctx,next)=>{
+  // 获取前端传输的内容
+  let query = ctx.request.query
+  let queryStr = ctx.request.querystring//转成字符串
+
+  // ctx.body = query //返回给前端
+  ctx.body = queryStr //返回给前端
 })
 
 module.exports = router
