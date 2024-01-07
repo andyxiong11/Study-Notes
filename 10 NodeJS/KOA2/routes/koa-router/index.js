@@ -4,6 +4,7 @@ const Router = require('@koa/router');
 const router = new Router()
 
 const users = require('./users')
+const prodcuts = require('./products')
 
 router
   .get('/',async (ctx,next)=>{
@@ -26,6 +27,7 @@ router
   }) */
   //嵌套路由
   .use('/users',users.routes(),users.allowedMethods())
+  .use('/prodcuts',prodcuts.routes(),prodcuts.allowedMethods())
   // 路由枚举
   .get(['/id','/name'],async (ctx,next)=>{
     ctx.body = ctx.url
