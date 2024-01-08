@@ -1,4 +1,5 @@
 const Router = require('@koa/router')
+const {query} = require('../../untils/async-db')
 
 const router = new Router({
   // prefix:'/abc'//该路由前面需要加前缀才能访问
@@ -36,12 +37,24 @@ router.post('/sigin',async (ctx,next)=>{
 })
 
 router.get('/list',async (ctx,next)=>{
-  // 获取前端传输的内容
+  /* // 获取前端传输的内容
   let query = ctx.request.query
   let queryStr = ctx.request.querystring//转成字符串
 
   // ctx.body = query //返回给前端
-  ctx.body = queryStr //返回给前端
+  ctx.body = queryStr //返回给前端 */
+
+  //数据库操作
+  let result = await query('select * from users')
+  // let result = await query('select * from users where id=?',[2])//查询id为2的数据u
+  ctx.body = result//将前端请求的数据返回给前端
+})
+
+router.post('/siginup',async (ctx,next)=>{
+  //数据库操作
+  const {username,password} = ctx.request.body
+  let result = await query('insert into users(username,password) values(?,?)',[username,password])//新增前端传入的数据
+  ctx.body = result//将前端请求的数据返回给前端
 })
 
 module.exports = router
