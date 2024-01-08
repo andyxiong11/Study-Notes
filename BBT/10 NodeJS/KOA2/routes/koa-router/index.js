@@ -47,4 +47,19 @@ router
     ctx.redirect(router.url('position',{id:100},{query:{name:'qf'}}))//跳转/list/100?name=qf
   })
 
+  // 验证KOA异步中间件机制（洋葱模型）
+  .get('/abc',async (ctx,next)=>{
+    console.log('m1 start');
+    await next()
+    console.log('m1 end');
+  },async (ctx,next)=>{
+    console.log('m2 start');
+    await next()
+    console.log('m2 end');
+  },async (ctx,next)=>{
+    console.log('m3 start');
+    await next()
+    console.log('m3 end');
+  })
+
 module.exports = router
