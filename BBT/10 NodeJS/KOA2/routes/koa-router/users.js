@@ -44,6 +44,8 @@ router.get('/list',async (ctx,next)=>{
   // ctx.body = query //返回给前端
   ctx.body = queryStr //返回给前端 */
 
+  cts.session.username = 'abc'//将数据库session表中最新session的username值改为abc
+
   //数据库操作
   let result = await query('select * from users')
   // let result = await query('select * from users where id=?',[2])//查询id为2的数据u
@@ -54,6 +56,8 @@ router.post('/siginup',async (ctx,next)=>{
   //数据库操作
   const {username,password} = ctx.request.body
   let result = await query('insert into users(username,password) values(?,?)',[username,password])//新增前端传入的数据
+
+  ctx.session = ctx.request.body//将数据存到数据库session表中
   ctx.body = result//将前端请求的数据返回给前端
 })
 
