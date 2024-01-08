@@ -5,3 +5,4 @@
 5. yarn add koa-static 加载静态资源
 6. yarn add koa-views 加载模板引擎
 7. yarn add ejs 模板引擎
+8. yarn add mysql nodejs连接mysql
