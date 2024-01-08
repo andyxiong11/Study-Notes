@@ -24,20 +24,39 @@ const router = require('./routes/koa-router/')
 const static = require('koa-static')
 // 加载模板引擎
 const views = require('koa-views');
+// KOA2实现session
+const session = require('koa-session-minimal')
+const MysqlSession = require('koa-mysql-session')
 
 koa.use(static('./public',{
   index:'app.html'
 }))
 
-koa.use(bodyParser());//需要在路由使用之前使用
+koa.use(bodyParser());
+
 koa.use(views('./views',{
   map:{
     ejs: 'ejs', //ejs扩展名文件使用ejs模板引擎渲染
     html: 'ejs' //html扩展名文件使用ejs模板引擎渲染
   },
   extension: 'ejs'//默认扩展名，如果不配置，则需要在products.js文件渲染模板时加上文件扩展名
-}))//需要在路由使用之前使用
+}))
 
+// 配置存储session信息的mysql
+let store = new MysqlSession({
+  user: 'root',
+  password: '123456',
+  database: 'gp21',
+  host: 'localhost',
+})
+// 使用session中间件，会自动创建一个_mysql_session_store表存储session
+koa.use(session({
+  key: 'SESSION_ID',
+  store: store,
+  // cookie: cookie
+}))
+
+// 插件使用需要在路由使用之前
 koa.use(router.routes()).use(router.allowedMethods());
 
 koa.listen(3333)
