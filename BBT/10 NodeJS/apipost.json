@@ -1,0 +1,2273 @@
+{
+	"project": {
+		"name": "克里斯熊的私有项目",
+		"description": "",
+		"details": {
+			"variable": [],
+			"servers": [
+				{
+					"server_id": "default",
+					"name": "默认服务"
+				}
+			],
+			"markList": [
+				{
+					"key": "developing",
+					"name": "开发中",
+					"color": "#3A86FF",
+					"is_default": true
+				},
+				{
+					"key": "complated",
+					"name": "已完成",
+					"color": "#2BA58F",
+					"is_default": true
+				},
+				{
+					"key": "modifying",
+					"name": "需修改",
+					"color": "#EC4646",
+					"is_default": true
+				}
+			],
+			"script": {
+				"pre_script": "",
+				"test": ""
+			},
+			"request": {
+				"query": [
+					{
+						"is_checked": "1",
+						"type": "Text",
+						"key": "",
+						"value": "",
+						"description": ""
+					}
+				],
+				"header": [
+					{
+						"is_checked": "1",
+						"type": "Text",
+						"key": "",
+						"value": "",
+						"description": ""
+					}
+				],
+				"body": [
+					{
+						"is_checked": "1",
+						"type": "Text",
+						"key": "",
+						"value": "",
+						"description": ""
+					}
+				]
+			}
+		}
+	},
+	"apis": [
+		{
+			"target_type": "folder",
+			"name": "node.js",
+			"mark": "developing",
+			"sort": 1,
+			"tags": [],
+			"request": {
+				"description": ""
+			},
+			"children": [
+				{
+					"target_type": "api",
+					"name": "exporess服务器",
+					"mark": "complated",
+					"sort": 2,
+					"tags": [],
+					"method": "POST",
+					"mock": "{}",
+					"mock_url": "/data",
+					"request": {
+						"url": "localhost:3000/data",
+						"description": "",
+						"event": {
+							"pre_script": "",
+							"test": ""
+						},
+						"pre_tasks": [],
+						"post_tasks": [],
+						"body": {
+							"mode": "form-data",
+							"parameter": [
+								{
+									"description": "",
+									"field_type": "String",
+									"is_checked": 1,
+									"key": "name",
+									"value": "touyi",
+									"not_null": 1,
+									"type": "Text"
+								},
+								{
+									"description": "",
+									"field_type": "Integer",
+									"is_checked": 1,
+									"key": "age",
+									"value": "234",
+									"not_null": 1,
+									"type": "Text"
+								}
+							],
+							"raw": "",
+							"raw_para": [],
+							"raw_schema": {
+								"type": "object"
+							}
+						}
+					},
+					"response": {
+						"success": {
+							"raw": "",
+							"parameter": [],
+							"expect": {
+								"name": "成功",
+								"isDefault": 1,
+								"code": 200,
+								"contentType": "json",
+								"verifyType": "schema",
+								"mock": "",
+								"schema": []
+							}
+						},
+						"error": {
+							"raw": "",
+							"parameter": [],
+							"expect": {
+								"name": "失败",
+								"isDefault": -1,
+								"code": 404,
+								"contentType": "json",
+								"verifyType": "schema",
+								"mock": "",
+								"schema": []
+							}
+						}
+					},
+					"children": []
+				},
+				{
+					"target_type": "folder",
+					"name": "algou-admin",
+					"mark": "developing",
+					"sort": 3,
+					"tags": [],
+					"request": {
+						"description": "",
+						"header": [
+							{
+								"description": "",
+								"field_type": "String",
+								"is_checked": 1,
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8",
+								"not_null": 1,
+								"type": "Text"
+							}
+						]
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "remove删除",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "DELETE",
+							"mock": "{}",
+							"mock_url": "/api/users",
+							"request": {
+								"url": "http://localhost:3000/api/users",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "id",
+											"value": "657705841099176f6a5e2ec8",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": -1,
+											"key": "",
+											"value": "",
+											"not_null": 1,
+											"type": "Text",
+											"static": true
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "signin登录",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/api/users/signin",
+							"request": {
+								"url": "http://localhost:3000/api/users/signin",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [
+									{
+										"type": "pickVars",
+										"enabled": 1,
+										"data": {
+											"source": "responseJson",
+											"variables": []
+										},
+										"id": "82284732-497f-4d8a-850f-b384892a5791"
+									},
+									{
+										"type": "assert",
+										"enabled": 1,
+										"data": {
+											"type": "responseJson",
+											"expression": {
+												"path": "",
+												"compareType": "eq",
+												"compareValue": ""
+											}
+										},
+										"id": "16cc6887-ddde-42fc-9fbd-b3b37653b948"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "username",
+											"value": "admin2",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "password",
+											"value": "123",
+											"not_null": 1,
+											"type": "Text"
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "remove删除职位",
+							"mark": "complated",
+							"sort": 11,
+							"tags": [],
+							"method": "DELETE",
+							"mock": "{}",
+							"mock_url": "/api/positions/remove",
+							"request": {
+								"url": "http://localhost:3000/api/positions/remove",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "id",
+											"value": "657705841099176f6a5e2ec8",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": -1,
+											"key": "",
+											"value": "",
+											"not_null": 1,
+											"type": "Text",
+											"static": true
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "list查询用户列表",
+							"mark": "complated",
+							"sort": 5,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/api/users/list",
+							"request": {
+								"url": "http://localhost:3000/api/users/list",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": []
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "listone查询指定职位数据",
+							"mark": "complated",
+							"sort": 9,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/api/positions/listone",
+							"request": {
+								"url": "http://localhost:3000/api/positions/listone",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "id",
+											"value": "658ee6ea481f6667dc0f3819",
+											"not_null": 1,
+											"type": "Text"
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "退出登录（清空cookie）",
+							"mark": "complated",
+							"sort": 2,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/api/users/signout",
+							"request": {
+								"url": "http://localhost:3000/api/users/signout",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": []
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "isAuth是否登录",
+							"mark": "complated",
+							"sort": 3,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/api/users/isAuth",
+							"request": {
+								"url": "http://localhost:3000/api/users/isAuth",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": []
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "mobile翻页查询职位列表",
+							"mark": "complated",
+							"sort": 10,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/mobile/positions",
+							"request": {
+								"url": "http://localhost:3000/mobile/positions?start=0&pageSize=5",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"query": {
+									"parameter": [
+										{
+											"description": "从哪一条开始查",
+											"is_checked": 1,
+											"key": "start",
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "0"
+										},
+										{
+											"description": "查多少",
+											"is_checked": 1,
+											"key": "pageSize",
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "list查询职位列表",
+							"mark": "complated",
+							"sort": 8,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/api/positions/list",
+							"request": {
+								"url": "http://localhost:3000/api/positions/list",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": []
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "signup注册",
+							"mark": "complated",
+							"sort": 4,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/api/users/signup",
+							"request": {
+								"url": "http://localhost:3000/api/users/signup",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "username",
+											"value": "admin",
+											"not_null": 1,
+											"type": "Text",
+											"contentType": ""
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "password",
+											"value": "312312",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": -1,
+											"key": "",
+											"value": "",
+											"not_null": 1,
+											"type": "Text",
+											"static": true
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "add添加职位",
+							"mark": "complated",
+							"sort": 6,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/api/positions/add",
+							"request": {
+								"url": "http://localhost:3000/api/positions/add",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "公司名",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "companyName",
+											"value": "公司",
+											"not_null": 1,
+											"type": "Text",
+											"contentType": ""
+										},
+										{
+											"description": "职位名",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "positionName",
+											"value": "前端",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "城市",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "city",
+											"value": "武汉",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "salary",
+											"value": "10k",
+											"not_null": 1,
+											"type": "Text"
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "add添加职位并上传图片",
+							"mark": "complated",
+							"sort": 7,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/api/positions/add",
+							"request": {
+								"url": "http://localhost:3000/api/positions/add",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "form-data",
+									"parameter": [
+										{
+											"description": "公司名",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "companyName",
+											"value": "拼多多",
+											"not_null": 1,
+											"type": "Text",
+											"contentType": ""
+										},
+										{
+											"description": "职位名",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "positionName",
+											"value": "前端",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "城市",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "city",
+											"value": "武汉",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "salary",
+											"value": "10k",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "companyLogo",
+											"value": [
+												"E:\\Downloads\\Cgp9HWBj6bSAWyErAAEH_0bNiFc008.png"
+											],
+											"not_null": 1,
+											"type": "File",
+											"filename": "Cgp9HWBj6bSAWyErAAEH_0bNiFc008.png",
+											"fileBase64": []
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								},
+								"header": {
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "Content-Type",
+											"value": "multipart/form-data",
+											"not_null": 1,
+											"type": "Text"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "update修改职位",
+							"mark": "complated",
+							"sort": 12,
+							"tags": [],
+							"method": "PATCH",
+							"mock": "{}",
+							"mock_url": "/api/positions/update",
+							"request": {
+								"url": "http://localhost:3000/api/positions/update",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "form-data",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "id",
+											"value": "658ec81c048aa363e79c404e",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "公司名",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "companyName",
+											"value": "拼多多",
+											"not_null": 1,
+											"type": "Text",
+											"contentType": ""
+										},
+										{
+											"description": "职位名",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "positionName",
+											"value": "前端",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "城市",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "city",
+											"value": "武汉",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "薪资",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "salary",
+											"value": "15k",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "新图片",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "companyLogo",
+											"value": [
+												"E:\\Downloads\\Cgp9HWBj6bSAWyErAAEH_0bNiFc008.png"
+											],
+											"not_null": 1,
+											"type": "File",
+											"filename": "Cgp9HWBj6bSAWyErAAEH_0bNiFc008.png",
+											"fileBase64": []
+										},
+										{
+											"description": "已有的图片",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "companyLogo_old",
+											"value": "companyLogo-1703688893377.jpeg",
+											"not_null": 1,
+											"type": "Text",
+											"filename": ""
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								},
+								"header": {
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "Content-Type",
+											"value": "multipart/form-data",
+											"not_null": 1,
+											"type": "Text"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				},
+				{
+					"target_type": "folder",
+					"name": "basic",
+					"mark": "developing",
+					"sort": 1,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "token",
+							"mark": "developing",
+							"sort": 4,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/api/token",
+							"request": {
+								"url": "http://localhost:8080/api/token",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": []
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "proxy",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/ajax",
+							"request": {
+								"url": "http://localhost:8080/ajax",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": []
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "唯品会",
+							"mark": "modifying",
+							"sort": 3,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/ajax/getBrandRank.php",
+							"request": {
+								"url": "https://lady.vip.com/ajax/getBrandRank.php?part=setling&warehouse=VIP_BJ&areacode=101101&pagecode-a6brandInfoEx tA5Bfieldss5D=activeIndexTipsk2CdisplayEndt imek2CsalesNov2Cbra ndInagev2Cmobilelmageonek2Cag1o%2CsaLesNane%2Cbrandstoresnk2Cv endorsaleMessageN2C1sSpecialBanner%2ChiddenEndTimex2CiconInfok 2CLink&brand InfoExt\\5BstartIndex 5006brandInfoExts5Bnumk50=36 Sprevie05setl time frome&tine fromal =1606891993105",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"query": {
+									"parameter": [
+										{
+											"description": "",
+											"is_checked": 1,
+											"key": "part",
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "setling"
+										},
+										{
+											"description": "",
+											"is_checked": 1,
+											"key": "warehouse",
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "VIP_BJ"
+										},
+										{
+											"description": "",
+											"is_checked": 1,
+											"key": "areacode",
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "101101"
+										},
+										{
+											"description": "",
+											"is_checked": 1,
+											"key": "pagecode-a6brandInfoEx tA5Bfieldss5D",
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "activeIndexTipsk2CdisplayEndt imek2CsalesNov2Cbra ndInagev2Cmobilelmageonek2Cag1o,saLesNane,brandstoresnk2Cv endorsaleMessageN2C1sSpecialBanner,hiddenEndTimex2CiconInfok 2CLink"
+										},
+										{
+											"description": "",
+											"is_checked": 1,
+											"key": "brand InfoExt\\5BstartIndex 5006brandInfoExts5Bnumk50",
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "36 Sprevie05setl time frome"
+										},
+										{
+											"description": "",
+											"is_checked": 1,
+											"key": "tine fromal",
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "1606891993105"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				},
+				{
+					"target_type": "api",
+					"name": "新建接口",
+					"mark": "complated",
+					"sort": 1,
+					"tags": [],
+					"method": "POST",
+					"mock": "{}",
+					"mock_url": "/",
+					"request": {
+						"url": "localhost:8080",
+						"description": "",
+						"event": {
+							"pre_script": "",
+							"test": ""
+						},
+						"pre_tasks": [],
+						"post_tasks": [],
+						"body": {
+							"mode": "form-data",
+							"parameter": [
+								{
+									"description": "",
+									"field_type": "String",
+									"is_checked": -1,
+									"key": "username",
+									"value": "tongyi",
+									"not_null": 1,
+									"type": "Text"
+								},
+								{
+									"description": "",
+									"field_type": "Integer",
+									"is_checked": -1,
+									"key": "password",
+									"value": "123",
+									"not_null": 1,
+									"type": "Text"
+								}
+							],
+							"raw": "",
+							"raw_para": [],
+							"raw_schema": {
+								"type": "object"
+							}
+						}
+					},
+					"response": {
+						"success": {
+							"raw": "",
+							"parameter": [],
+							"expect": {
+								"name": "成功",
+								"isDefault": 1,
+								"code": 200,
+								"contentType": "json",
+								"verifyType": "schema",
+								"mock": "",
+								"schema": []
+							}
+						},
+						"error": {
+							"raw": "",
+							"parameter": [],
+							"expect": {
+								"name": "失败",
+								"isDefault": -1,
+								"code": 404,
+								"contentType": "json",
+								"verifyType": "schema",
+								"mock": "",
+								"schema": []
+							}
+						}
+					},
+					"children": []
+				},
+				{
+					"target_type": "folder",
+					"name": "express",
+					"mark": "developing",
+					"sort": 2,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "post",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/index",
+							"request": {
+								"url": "localhost:8080/index",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "username",
+											"value": "admin",
+											"not_null": 1,
+											"type": "Text"
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "password",
+											"value": "123",
+											"not_null": 1,
+											"type": "Text"
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "post-json",
+							"mark": "complated",
+							"sort": 2,
+							"tags": [],
+							"method": "DELETE",
+							"mock": "{}",
+							"mock_url": "/index",
+							"request": {
+								"url": "localhost:8080/index",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "json",
+									"parameter": [],
+									"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"123\"\r\n}",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				},
+				{
+					"target_type": "folder",
+					"name": "KOA",
+					"mark": "developing",
+					"sort": 4,
+					"tags": [],
+					"request": {
+						"description": ""
+					},
+					"children": [
+						{
+							"target_type": "api",
+							"name": "koa2获取req内容",
+							"mark": "complated",
+							"sort": 5,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/users/list",
+							"request": {
+								"url": "http://localhost:3333/users/list?id=100&name=admin",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"query": {
+									"parameter": [
+										{
+											"description": "",
+											"is_checked": 1,
+											"key": "id",
+											"type": "Text",
+											"not_null": 1,
+											"field_type": "String",
+											"value": "100"
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "name",
+											"value": "admin",
+											"not_null": 1,
+											"type": "Text"
+										}
+									]
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "koa2 koa-bodyparser中间件",
+							"mark": "complated",
+							"sort": 6,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/prodcuts/add",
+							"request": {
+								"url": "http://localhost:3333/prodcuts/add",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "name",
+											"value": "111",
+											"not_null": 1,
+											"type": "Text",
+											"contentType": ""
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "price",
+											"value": "100",
+											"not_null": 1,
+											"type": "Text"
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "KOA演示",
+							"mark": "complated",
+							"sort": 1,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/",
+							"request": {
+								"url": "http://localhost:3333",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": []
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "koa-views模板引擎",
+							"mark": "complated",
+							"sort": 7,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/prodcuts/add",
+							"request": {
+								"url": "http://localhost:3333/prodcuts/add",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "name",
+											"value": "111",
+											"not_null": 1,
+											"type": "Text",
+											"contentType": ""
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "price",
+											"value": "100",
+											"not_null": 1,
+											"type": "Text"
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "nodeja连接mysql查询",
+							"mark": "complated",
+							"sort": 8,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/users/list",
+							"request": {
+								"url": "http://localhost:3333/users/list",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": []
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "koa-router",
+							"mark": "complated",
+							"sort": 3,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/position_redirect",
+							"request": {
+								"url": "http://localhost:3333/position_redirect",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": []
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "nodeja连接mysql新增",
+							"mark": "complated",
+							"sort": 9,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/users/siginup",
+							"request": {
+								"url": "http://localhost:3333/users/siginup",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "username",
+											"value": "admin3",
+											"not_null": 1,
+											"type": "Text",
+											"contentType": ""
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "password",
+											"value": "123455",
+											"not_null": 1,
+											"type": "Text"
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "koa2获取req内容",
+							"mark": "complated",
+							"sort": 4,
+							"tags": [],
+							"method": "POST",
+							"mock": "{}",
+							"mock_url": "/users/sigin",
+							"request": {
+								"url": "http://localhost:3333/users/sigin",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": [],
+								"body": {
+									"mode": "urlencoded",
+									"parameter": [
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "username",
+											"value": "admin",
+											"not_null": 1,
+											"type": "Text",
+											"contentType": ""
+										},
+										{
+											"description": "",
+											"field_type": "String",
+											"is_checked": 1,
+											"key": "password",
+											"value": "123",
+											"not_null": 1,
+											"type": "Text"
+										}
+									],
+									"raw": "",
+									"raw_para": [],
+									"raw_schema": {
+										"type": "object"
+									}
+								}
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": []
+									}
+								}
+							},
+							"children": []
+						},
+						{
+							"target_type": "api",
+							"name": "KOA原生路由",
+							"mark": "complated",
+							"sort": 2,
+							"tags": [],
+							"method": "GET",
+							"mock": "{}",
+							"mock_url": "/",
+							"request": {
+								"url": "http://localhost:3000/",
+								"description": "",
+								"event": {
+									"pre_script": "",
+									"test": ""
+								},
+								"pre_tasks": [],
+								"post_tasks": []
+							},
+							"response": {
+								"success": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "成功",
+										"isDefault": 1,
+										"code": 200,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {}
+									}
+								},
+								"error": {
+									"raw": "",
+									"parameter": [],
+									"expect": {
+										"name": "失败",
+										"isDefault": -1,
+										"code": 404,
+										"contentType": "json",
+										"verifyType": "schema",
+										"mock": "",
+										"schema": {}
+									}
+								}
+							},
+							"children": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"envs": [
+		{
+			"env_id": "-1",
+			"list": {},
+			"name": "默认环境",
+			"pre_url": "",
+			"pre_urls": {
+				"default": ""
+			}
+		},
+		{
+			"env_id": "-2",
+			"list": {},
+			"name": "Mock环境",
+			"pre_url": "https://console-mock.apipost.cn/mock/6d952739-946c-49d0-8c8f-adbc5f95c892/",
+			"pre_urls": {
+				"default": "https://console-mock.apipost.cn/mock/6d952739-946c-49d0-8c8f-adbc5f95c892/"
+			}
+		}
+	],
+	"models": []
+}
