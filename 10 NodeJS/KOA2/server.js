@@ -22,12 +22,22 @@ const bodyParser = require('koa-bodyparser');
 const router = require('./routes/koa-router/')
 // 加载静态资源
 const static = require('koa-static')
+// 加载模板引擎
+const views = require('koa-views');
 
 koa.use(static('./public',{
   index:'app.html'
 }))
 
 koa.use(bodyParser());//需要在路由使用之前使用
+koa.use(views('./views',{
+  map:{
+    ejs: 'ejs', //ejs扩展名文件使用ejs模板引擎渲染
+    html: 'ejs' //html扩展名文件使用ejs模板引擎渲染
+  },
+  extension: 'ejs'//默认扩展名，如果不配置，则需要在products.js文件渲染模板时加上文件扩展名
+}))//需要在路由使用之前使用
+
 koa.use(router.routes()).use(router.allowedMethods());
 
 koa.listen(3333)
