@@ -114,6 +114,8 @@
 
 [github443连接被拒](问题解决记录/github443连接被拒.md)
 
+[git在同一电脑配置多个账户](问题解决记录/git在同一电脑配置多个账户.md)
+
 [Mysql8 grant远程授权报错](问题解决记录/Mysql8%20grant远程授权报错.md)
 
 [MySQL8.0连接navicat加密方法](问题解决记录/MySQL8.0连接navicat加密方法.md)
